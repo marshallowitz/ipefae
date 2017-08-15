@@ -1,0 +1,22 @@
+﻿@model List<TGV.IPEFAE.Web.App.Models.AnexoModel>
+
+@if (Model.Count > 0)
+{ 
+<div class="row">
+    @foreach (TGV.IPEFAE.Web.App.Models.AnexoModel anexo in Model)
+    {
+        <div class="col-md-4">
+            @Html.ActionLink(anexo.NomeArquivo, "Download", "Base", new { path = anexo.PathArquivo }, null)
+            <img class="remover-anexo" path="@anexo.PathArquivo" src="@Url.Content("~/Content/imagens/delete.png")" />
+        </div>
+    }
+</div>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-12">
+            Nenhum anexo foi encontrado.
+        </div>
+    </div>
+}

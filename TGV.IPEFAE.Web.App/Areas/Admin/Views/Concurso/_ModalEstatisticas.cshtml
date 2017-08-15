@@ -1,0 +1,55 @@
+﻿@using TGV.IPEFAE.Web.Resources.Admin.Concurso.Inscrito;
+@model TGV.IPEFAE.Web.App.Models.ConcursoModel.ConcursoInscritosEstatisticaModel
+
+<link href="@Url.Content("~/Content/Concurso.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+
+<div class="modal fade modal-estatisticas" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <fieldset>
+                <ul>
+                    <li>
+                        <span>@_ModalEstatisticas.LabelTotal @Model.TotalInscritos @_ModalEstatisticas.LabelTotalInscritos</span>
+                    </li>
+                    <li>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td colspan="2">@_ModalEstatisticas.TableTitlePorCargo</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach(KeyValuePair<string, int> porCargo in Model.InscritosPorCargo)
+                                {
+                                    <tr>
+                                        <td>@porCargo.Key</td>
+                                        <td>@Html.Raw(porCargo.Value > 0 ? String.Format("{0} {1}", porCargo.Value, Html.Raw(porCargo.Value > 1 ? _ModalEstatisticas.InscritosPlural : _ModalEstatisticas.InscritoSingular)) : _ModalEstatisticas.NenhumInscrito)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </li>
+                    <li>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <td colspan="2">@_ModalEstatisticas.TableTitlePorData</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (KeyValuePair<string, int> porData in Model.InscritosPorData)
+                                {
+                                    <tr>
+                                        <td>@porData.Key</td>
+                                        <td>@Html.Raw(porData.Value > 0 ? String.Format("{0} {1}", porData.Value, Html.Raw(porData.Value > 1 ? _ModalEstatisticas.InscritosPlural : _ModalEstatisticas.InscritoSingular)) : _ModalEstatisticas.NenhumInscrito)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </li>
+                </ul>
+            </fieldset>
+        </div>
+    </div>
+</div>
+

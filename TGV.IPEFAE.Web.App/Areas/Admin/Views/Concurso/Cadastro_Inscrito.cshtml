@@ -1,0 +1,41 @@
+﻿@model TGV.IPEFAE.Web.App.Models.ConcursoModel
+@using TGV.IPEFAE.Web.Resources.Admin.Concurso.Inscrito;
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+
+<link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/src/js/bootstrap-datetimepicker.js"></script>
+<script src="@Url.Content("~/Scripts/Views/Inscrito.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script>
+    var mensagemCarregando = encodeConversion('@Cadastro.MensagemCarregando', 'num', 'hex');
+    var telaRetornoSalvar = homePage + "Admin/Concurso/Index_Inscrito/@Model.Id";
+
+    $(function () {
+        var partesUrl = window.location.href.split('/');
+        var idInscrito = parseInt(partesUrl[partesUrl.length - 1]);
+        var idConcurso = '@Model.Id';
+
+        if (isNaN(idInscrito))
+            idInscrito = 0;
+
+        iniciarTelaCadastroInscrito(idConcurso, idInscrito);
+    });
+
+</script>
+
+<h2 class="titulo">@{
+    bool liberarCargo = true;
+
+    if (Model.Id == 0)
+    {
+        Html.Raw(Cadastro.TituloTelaAdicionar);
+    }
+    else
+    {
+        Html.Raw(Cadastro.TituloTelaEditar);
+        liberarCargo = false;
+    }
+} <a href="@Url.Content(String.Format("~/Admin/Concurso/Index_Inscrito/{0}", Model.Id))">@Index.LinkVoltar</a> </h2>
+<input type="hidden" id="hdnCargo" value="@Html.Raw(liberarCargo.ToString().ToLower())" />
+<input type="hidden" id="hdnVoltar" value="@Url.Content(String.Format("~/Admin/Concurso/Index_Inscrito/{0}", Model.Id))" />
+<div class="cadastro-inscrito"></div>

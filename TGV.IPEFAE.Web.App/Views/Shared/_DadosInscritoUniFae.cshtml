@@ -1,0 +1,511 @@
+﻿@using TGV.IPEFAE.Web.Resources.Shared;
+@model TGV.IPEFAE.Web.App.Models.ConcursoModel.InscritoModel
+
+<script>
+    var mensagemSalvando = encodeConversion('@_DadosInscrito.MensagemSalvando', 'num', 'hex');
+    var cargoObrigatorio = encodeConversion('@_DadosInscrito.CargoObrigatorio', 'num', 'hex');
+    var nomeObrigatorio = encodeConversion('@_DadosInscrito.NomeObrigatorio', 'num', 'hex');
+    var emailObrigatorio = encodeConversion('@_DadosInscrito.EmailObrigatorio', 'num', 'hex');
+    var emailFormatoInvalido = encodeConversion('@_DadosInscrito.EmailFormatoInvalido', 'num', 'hex');
+    var cpfObrigatorio = encodeConversion('@_DadosInscrito.CpfObrigatorio', 'num', 'hex');
+    var cpfInvalido = encodeConversion('@_DadosInscrito.CpfFormatoInvalido', 'num', 'hex');
+    var cpfJaExistente = encodeConversion('@_DadosInscrito.CpfJaExistente', 'num', 'hex');
+    var rgObrigatorio = encodeConversion('@_DadosInscrito.RgObrigatorio', 'num', 'hex');
+    var dataNascObrigatorio = encodeConversion('@_DadosInscrito.DataNascObrigatorio', 'num', 'hex');
+    var dataNascFormatoInvalido = encodeConversion('@_DadosInscrito.DataNascFormatoInvalido', 'num', 'hex');
+    var telefoneObrigatorio = encodeConversion('@_DadosInscrito.TelefoneObrigatorio', 'num', 'hex');
+    var enderecoObrigatorio = encodeConversion('@_DadosInscrito.EnderecoObrigatorio', 'num', 'hex');
+    var nroEnderecoObrigatorio = encodeConversion('@_DadosInscrito.NroEnderecoObrigatorio', 'num', 'hex');
+    var bairroObrigatorio = encodeConversion('@_DadosInscrito.BairroObrigatorio', 'num', 'hex');
+    var cepObrigatorio = encodeConversion('@_DadosInscrito.CepObrigatorio', 'num', 'hex');
+    var cidadeObrigatorio = encodeConversion('@_DadosInscrito.CidadeObrigatorio', 'num', 'hex');
+    var filhosMenoresObrigatorio = encodeConversion('@_DadosInscrito.FilhosMenoresObrigatorio', 'num', 'hex');
+    var qualDeficienciaObrigatorio = encodeConversion('@_DadosInscrito.QualDeficienciaObrigatorio', 'num', 'hex');
+    var tratamentoEspecialObrigatorio = encodeConversion('@_DadosInscrito.TratamentoEspecialObrigatorio', 'num', 'hex');
+    var qualTratamentoEspecialObrigatorio = encodeConversion('@_DadosInscrito.QualTratamentoEspecialObrigatorio', 'num', 'hex');
+    var cursoObrigatorio = encodeConversion('@_DadosInscritoUniFae.CursoObrigatorio', 'num', 'hex');
+    var curso2Obrigatorio = encodeConversion('@_DadosInscritoUniFae.Curso2Obrigatorio', 'num', 'hex');
+    var curso3Obrigatorio = encodeConversion('@_DadosInscritoUniFae.Curso3Obrigatorio', 'num', 'hex');
+    var estadoObrigatorio = encodeConversion('@_DadosInscritoUniFae.EstadoObrigatorio', 'num', 'hex');
+    var sexoObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoSexoObrigatorio', 'num', 'hex');
+    var rendaMensalObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoRendaMensalObrigatorio', 'num', 'hex');
+    var fEMObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoFreqEMObrigatorio', 'num', 'hex');
+    var cEFObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoConcluiuEFObrigatorio', 'num', 'hex');
+    var cEMObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoConcluiuEMObrigatorio', 'num', 'hex');
+    var atividadeRemuneradaObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoAtividadeRemuneradaObrigatorio', 'num', 'hex');
+    var escolaridadePaiObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoEscolaridadePaiObrigatorio', 'num', 'hex');
+    var escolaridadaMaeObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoEscolaridadeMaeObrigatorio', 'num', 'hex');
+    var motivoUniFaeObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoMotivoUniFaeObrigatorio', 'num', 'hex');
+    var motivoCursoObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoMotivoCursoObrigatorio', 'num', 'hex');
+    var ficouSabendoObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoFicouSabendoObrigatorio', 'num', 'hex');
+    var ficouSabendoOutrosObrigatorio = encodeConversion('@_DadosInscritoUniFae.ValidacaoFicouSabendoOutrosObrigatorio', 'num', 'hex');
+
+    $(function ()
+    {
+        $('select[name="curso"]').prepend("<option value='0' selected='selected'></option>");
+
+        carregarTelaDadosInscrito('@Model.IdConcurso', '@Model.IdCargo', '@Model.IdEstadoRG', '@Model.FlgEstadoCivil', '@Model.IdEstado', '@Model.IdCidade', eval('@Model.Ativo'.toLowerCase()), eval('@Model.Isento'.toLowerCase()), eval('@Model.PossuiDeficiencia'.toLowerCase()), '@Model.FlgDeficiencia'.toUpperCase(), eval('@Model.TratamentoEspecial'.toLowerCase()));
+
+        carregarTelaDadosInscritoVestibular('@Model.Id', '@Model.IdConcurso', '@Model.InscritoVestibular.IdOpcao2', '@Model.InscritoVestibular.IdOpcao3', '@Model.InscritoVestibular.LocalProva', '@Model.InscritoVestibular.RendaMensal', '@Model.InscritoVestibular.TipoEnsinoMedio', '@Model.InscritoVestibular.TipoConcluiuEnsinoFundamental', '@Model.InscritoVestibular.TipoConcluiuEnsinoMedio', '@Model.InscritoVestibular.ExerceAtividadeRemunerada', '@Model.InscritoVestibular.EscolaridadePai', '@Model.InscritoVestibular.EscolaridadeMae', '@Model.InscritoVestibular.MotivoOptouUniFae', '@Model.InscritoVestibular.MotivoOptouCurso', '@Model.InscritoVestibular.TomouConhecimentoUniFae', eval('@Model.InscritoVestibular.EhMasculino'.toLowerCase()));
+
+        if (eval($('#hdnCargo').val()))
+            $('#ddlCargo').attr('disabled', 'disabled');
+
+        if (parseInt($('#Id').val()) < 0)
+            $('#txtNroEndereco').val('');
+
+        $('#ddlTomouConhecimento').on('change', function () { changeComoFicouSabendo(); });
+        changeComoFicouSabendo();
+        $('#btnVoltar').on('click', function () { window.location.href = $('#hdnVoltar').val(); });
+
+        $('select[name^="curso"]').on('change', function () { atualizarCursos() });
+        $('select').css({ "max-width": "none" });
+
+        atualizarCursos();
+    });
+</script>
+
+@Html.HiddenFor(m => m.Id)
+@Html.HiddenFor(m => m.IdConcurso)
+@Html.HiddenFor(m => m.IdTipoLayoutConcurso)
+@Html.HiddenFor(m => m.Ativo)
+@Html.HiddenFor(m => m.Pagou)
+@Html.HiddenFor(m => m.DataInscricao)
+@Html.HiddenFor(m => m.DataPagamento)
+@Html.HiddenFor(m => m.ValorPago)
+@Html.HiddenFor(m => m.QuantidadeFilhosMenores, new { @id = "txtFilhosMenores" })
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 inscrito-cadastro">
+            <form id="inscritoForm" class="inscritoForm" method="POST">
+                <em style="position: absolute; left: 190px;">*</em>
+                <fieldset>
+                    <legend>@_DadosInscritoUniFae.LegendOpcaoCurso</legend>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelOpcao1</label>
+                                <select id="ddlCargo" name="curso" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelOpcao2</label>
+                                <select id="ddlCurso2" name="curso2" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelOpcao3</label>
+                                <select id="ddlCurso3" name="curso3" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelLocalProva</label><em>*</em>
+                                <select id="ddlLocalProva" name="localProva" class="form-control">
+                                    <option value="1" selected>São João da Boa Vista</option>
+                                    @*@if (Model.Id > 0)
+                                    {*@
+                                        <option value="2">Poços de Caldas</option>
+                                        <option value="3">Mococa</option>
+                                    @*}*@
+                                </select>
+                            </div>
+                        </div>
+                        @*<div class="col-md-6">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelDataProva</label><em>*</em>
+                                <select id="ddlDataProva" name="dataProva" class="form-control"></select>
+                            </div>
+                        </div>*@
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>@_DadosInscrito.LegendDadosPessoais</legend>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelNomeCompleto</label><em>*</em>
+                                <input type="text" class="form-control" name="nome" id="txtNomeCompleto" value="@Model.Nome" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelEmail</label><em>*</em>
+                                <input type="text" class="form-control" name="email" id="txtEmail" value="@Model.Email" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelCPF</label><em>*</em>
+                                <input type="text" class="form-control" name="cpf" id="txtCPF" value="@Model.CPFFormatado" />
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <div class="col-md-6" style="padding: 0;">
+                                    <label>@_DadosInscrito.LabelRG</label><em>*</em>
+                                    <input type="text" class="form-control" name="rg" id="txtRG" value="@Model.RG" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label>@_DadosInscrito.EstadoEmissor</label><em>*</em>
+                                    <select id="ddlEstadoRG" name="uf_rg" class="form-control"></select>
+                                </div>
+                            </div>
+                        </div>
+                        @if (Model.Id > 0)
+                        {
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>@_DadosInscrito.LabelAtivo</label><br />
+                                    <input type="radio" id="rdAtivoSim" name="ativo" value="S" checked /><label class="label-radio" for="rdAtivoSim">@_DadosInscrito.OptionSim</label>
+                                    <input type="radio" id="rdAtivoNao" name="ativo" value="N" /><label class="label-radio" for="rdAtivoNao">@_DadosInscrito.OptionNao</label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>@_DadosInscrito.LabelIsento</label><br />
+                                    <input type="radio" id="rdIsentoSim" name="isento" value="S" /><label class="label-radio" for="rdIsentoSim">@_DadosInscrito.OptionSim</label>
+                                    <input type="radio" id="rdIsentoNao" name="isento" value="N" checked /><label class="label-radio" for="rdIsentoNao">@_DadosInscrito.OptionNao</label>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelEstadoCivil</label><em>*</em>
+                                <select id="ddlEstadoCivil" name="estadocivil" class="form-control">
+                                    <option value="C">@_DadosInscrito.OptionCasado</option>
+                                    <option value="D">@_DadosInscrito.OptionDivorciado</option>
+                                    <option value="S" selected>@_DadosInscrito.OptionSolteiro</option>
+                                    <option value="V">@_DadosInscrito.OptionViuvo</option>
+                                    <option value="O">@_DadosInscrito.OptionOutros</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelDataNascimento</label><em>*</em>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="dataNasc" id="txtDataNascimento" value="@Model.DataNascimentoString" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelTelefone</label><em>*</em>
+                                <input type="text" class="form-control" name="telefone" id="txtTelefone" value="@Model.Telefone" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelCelular</label>
+                                <input type="text" class="form-control" name="celular" id="txtCelular" value="@Model.Celular" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelEndereco</label>@*<label style="font-size: 12px;"> @_DadosInscrito.LabelEnderecoSub</label>*@ <em>*</em>
+                                <input type="text" class="form-control" name="endereco" id="txtEndereco" value="@Model.Endereco" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelNumeroEndereco</label><em>*</em><br />
+                                <input type="text" class="form-control" name="nroEndereco" id="txtNroEndereco" style="width: 80px;" value="@Model.NumeroEnderecoString" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelComplemento</label>
+                                <input type="text" class="form-control" name="complemento" id="txtComplemento" value="@Model.Complemento" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelBairro</label><em>*</em>
+                                <input type="text" class="form-control" name="bairro" id="txtBairro" value="@Model.Bairro" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelCEP</label><em>*</em>
+                                <input type="text" class="form-control" name="cep" id="txtCEP" value="@Model.CEP" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelEstado</label><em>*</em>
+                                <select id="ddlEstado" name="estado" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelCidade</label><em>*</em>
+                                <select id="ddlCidade" name="cidade" class="form-control" disabled></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>@_DadosInscrito.LabelPossuiDeficiencia</label><em>*</em>
+                                <input type="radio" id="rdDefSim" name="deficiencia" value="S" /><label class="label-radio" for="rdDefSim">@_DadosInscrito.OptionSim</label>
+                                <input type="radio" id="rdDefNao" name="deficiencia" value="N" checked /><label class="label-radio" for="rdDefNao">@_DadosInscrito.OptionNao</label>
+                            </div>
+                        </div>
+                        <div class="row tem-deficiencia">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label>@_DadosInscrito.LabelPossuiDeficienciaQual</label><em>*</em><br />
+                                    <input type="radio" id="rdDefFisica" name="deficiencia_qual" value="F" /><label class="label-radio" for="rdDefFisica">@_DadosInscrito.OptionFisica</label>
+                                    <input type="radio" id="rdDefAuditiva" name="deficiencia_qual" value="A" /><label class="label-radio" for="rdDefAuditiva">@_DadosInscrito.OptionAuditiva</label>
+                                    <input type="radio" id="rdDefVisual" name="deficiencia_qual" value="V" /><label class="label-radio" for="rdDefVisual">@_DadosInscrito.OptionVisual</label>
+                                    <input type="radio" id="rdDefMental" name="deficiencia_qual" value="M" /><label class="label-radio" for="rdDefMental">@_DadosInscrito.OptionMental</label>
+                                    <input type="radio" id="rdDefMultipla" name="deficiencia_qual" value="O" /><label class="label-radio" for="rdDefMultipla">@_DadosInscrito.OptionMultipla</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>@_DadosInscrito.LabelTratamentoEspecial</label><em>*</em><br />
+                                    <input type="radio" id="rdTraSim" name="tratamento_especial" value="S" /><label class="label-radio" for="rdTraSim">@_DadosInscrito.OptionSim</label>
+                                    <input type="radio" id="rdTraNao" name="tratamento_especial" value="N" checked /><label class="label-radio" for="rdTraNao">@_DadosInscrito.OptionNao</label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 necessita-tratamento" style="display: none;">
+                                <div class="form-group">
+                                    <label>@_DadosInscrito.LabelTratamentoEspecialQual</label><em>*</em>
+                                    <input type="text" class="form-control" name="tratamento_especial_qual" id="txtTratamentoEspecialQual" value="@Model.TratamentoEspecialQual" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <br />
+                <fieldset>
+                    <legend>@_DadosInscritoUniFae.LegendOutrasInformacoes</legend>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelNomeIndicado</label>
+                                <input type="text" class="form-control" name="nomeIndicado" id="txtNomeIndicado" value="@Model.InscritoVestibular.NomeIndicadoPor" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelCursoIndicado</label>
+                                <input type="text" class="form-control" name="cursoIndicado" id="txtCursoIndicado" value="@Model.InscritoVestibular.CursoIndicadoPor" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelSemestreCursoIndicado</label>
+                                <input type="text" class="form-control" name="semestreCursoIndicado" id="txtSemestreCursoIndicado" value="@Model.InscritoVestibular.SemestreCursoIndicadoPor" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosEstagiario.LabelSexo</label><em>*</em>
+                                <select id="ddlSexo" name="sexo" class="form-control">
+                                    <option value="" selected></option>
+                                    <option value="F">@_DadosInscritoUniFae.OptionFeminino</option>
+                                    <option value="M">@_DadosInscritoUniFae.OptionMasculino</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelRendaMensal</label><em>*</em>
+                                <select id="ddlRendaMensal" name="rendaMensal" class="form-control">
+                                    <option value="" selected>@_DadosInscritoUniFae.OptionSelecione</option>
+                                    <option value="1">@_DadosInscritoUniFae.OptionRendaMensalAte300</option>
+                                    <option value="2">@_DadosInscritoUniFae.OptionRendaMensal300a1000</option>
+                                    <option value="3">@_DadosInscritoUniFae.OptionRendaMensal1001a2000</option>
+                                    <option value="4">@_DadosInscritoUniFae.OptionRendaMensal2001a3000</option>
+                                    <option value="5">@_DadosInscritoUniFae.OptionRendaMensalAcima3000</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelEnsinoMedioEm</label><em>*</em>
+                                <select id="ddlEnsinoMedioEm" name="ensinoMedioEm" class="form-control">
+                                    <option value="" selected>@_DadosInscritoUniFae.OptionSelecione</option>
+                                    <option value="1">@_DadosInscritoUniFae.OptionEnsinoMedioEstadual</option>
+                                    <option value="2">@_DadosInscritoUniFae.OptionEnsinoMedioMunicipal</option>
+                                    <option value="3">@_DadosInscritoUniFae.OptionEnsinoMedioParticular</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelConcluiuEnsinoFundamental</label><em>*</em>
+                                <select id="ddlConcluiuEnsinoFundamental" name="concluiuEnsinoFundamental" class="form-control">
+                                    <option value="" selected>@_DadosInscritoUniFae.OptionSelecione</option>
+                                    <option value="1">@_DadosInscritoUniFae.OptionConcluiuEnsinoNormal</option>
+                                    <option value="2">@_DadosInscritoUniFae.OptionConcluiuEnsinoSupletivo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelConcluiuEnsinoMedio</label><em>*</em>
+                                <select id="ddlConcluiuEnsinoMedio" name="concluiuEnsinoMedio" class="form-control">
+                                    <option value="" selected>@_DadosInscritoUniFae.OptionSelecione</option>
+                                    <option value="1">@_DadosInscritoUniFae.OptionConcluiuEnsinoNormal</option>
+                                    <option value="2">@_DadosInscritoUniFae.OptionConcluiuEnsinoSupletivo</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelAtividadeRemunerada</label><em>*</em>
+                                <select id="ddlAtividadeRemunerada" name="atividadeRemunerada" class="form-control">
+                                    <option value="" selected>@_DadosInscritoUniFae.OptionSelecione</option>
+                                    <option value="1">@_DadosInscritoUniFae.OptionSim</option>
+                                    <option value="2">@_DadosInscritoUniFae.OptionAtividadeRemuneradaNaoNunca</option>
+                                    <option value="3">@_DadosInscritoUniFae.OptionAtividadeRemuneradaNaoJaExerci</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelEscolaridadePai</label><em>*</em>
+                                <select id="ddlEscolaridadePai" name="escolaridadePai" class="form-control">
+                                    <option value="" selected>@_DadosInscritoUniFae.OptionSelecione</option>
+                                    <option value="1">@_DadosInscritoUniFae.OptionEscolaridadePaiNaoAlfabetizado</option>
+                                    <option value="2">@_DadosInscritoUniFae.OptionEscolaridadeFundamentalIncompleto</option>
+                                    <option value="3">@_DadosInscritoUniFae.OptionEscolaridadeFundamentalCompleto</option>
+                                    <option value="4">@_DadosInscritoUniFae.OptionEscolaridadeMedioIncompleto</option>
+                                    <option value="5">@_DadosInscritoUniFae.OptionEscolaridadeMedioCompleto</option>
+                                    <option value="6">@_DadosInscritoUniFae.OptionEscolaridadeSuperiorIncompleto</option>
+                                    <option value="7">@_DadosInscritoUniFae.OptionEscolaridadeSuperiorCompleto</option>
+                                    <option value="8">@_DadosInscritoUniFae.OptionEscolaridadePosGraduacao</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelEscolaridadeMae</label><em>*</em>
+                                <select id="ddlEscolaridadeMae" name="escolaridadeMae" class="form-control">
+                                    <option value="" selected>@_DadosInscritoUniFae.OptionSelecione</option>
+                                    <option value="1">@_DadosInscritoUniFae.OptionEscolaridadeMaeNaoAlfabetizada</option>
+                                    <option value="2">@_DadosInscritoUniFae.OptionEscolaridadeFundamentalIncompleto</option>
+                                    <option value="3">@_DadosInscritoUniFae.OptionEscolaridadeFundamentalCompleto</option>
+                                    <option value="4">@_DadosInscritoUniFae.OptionEscolaridadeMedioIncompleto</option>
+                                    <option value="5">@_DadosInscritoUniFae.OptionEscolaridadeMedioCompleto</option>
+                                    <option value="6">@_DadosInscritoUniFae.OptionEscolaridadeSuperiorIncompleto</option>
+                                    <option value="7">@_DadosInscritoUniFae.OptionEscolaridadeSuperiorCompleto</option>
+                                    <option value="8">@_DadosInscritoUniFae.OptionEscolaridadePosGraduacao</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelMotivoOptarUniFae</label><em>*</em>
+                                <select id="ddlMotivoOptarUniFae" name="motivoOptarUniFae" class="form-control">
+                                    <option value="" selected>@_DadosInscritoUniFae.OptionSelecione</option>
+                                    <option value="1">@_DadosInscritoUniFae.OptionMotivoOptarUniFaeConceito</option>
+                                    <option value="2">@_DadosInscritoUniFae.OptionMotivoOptarUniFaeValor</option>
+                                    <option value="3">@_DadosInscritoUniFae.OptionMotivoOptarUniFaeLocalizacao</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelMotivoOptarCurso</label><em>*</em>
+                                <select id="ddlMotivoOptarCurso" name="motivoOptarCurso" class="form-control">
+                                    <option value="" selected>@_DadosInscritoUniFae.OptionSelecione</option>
+                                    <option value="1">@_DadosInscritoUniFae.OptionMotivoOptarCursoVocacao</option>
+                                    <option value="2">@_DadosInscritoUniFae.OptionMotivoOptarCursoMercadoTrabalho</option>
+                                    <option value="3">@_DadosInscritoUniFae.OptionMotivoOptarCursoCrescimentoEmpresa</option>
+                                    <option value="4">@_DadosInscritoUniFae.OptionMotivoOptarCursoExigenciaEmpresa</option>
+                                    <option value="5">@_DadosInscritoUniFae.OptionMotivoOptarCursoCompetencia</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@_DadosInscritoUniFae.LabelTomouConhecimento</label><em>*</em>
+                                <select id="ddlTomouConhecimento" name="tomouConhecimento" class="form-control">
+                                    <option value="" selected>@_DadosInscritoUniFae.OptionSelecione</option>
+                                    <option value="1">@_DadosInscritoUniFae.OptionTomouConhecimentoAmigos</option>
+                                    <option value="2">@_DadosInscritoUniFae.OptionTomouConhecimentoAlunos</option>
+                                    <option value="3">@_DadosInscritoUniFae.OptionTomouConhecimentoExAlunos</option>
+                                    <option value="4">@_DadosInscritoUniFae.OptionTomouConhecimentoCartazes</option>
+                                    <option value="5">@_DadosInscritoUniFae.OptionTomouConhecimentoFlyer</option>
+                                    <option value="6">@_DadosInscritoUniFae.OptionTomouConhecimentoInternet</option>
+                                    <option value="7">@_DadosInscritoUniFae.OptionTomouConhecimentoOutdoor</option>
+                                    <option value="8">@_DadosInscritoUniFae.OptionTomouConhecimentoRadio</option>
+                                    <option value="9">@_DadosInscritoUniFae.OptionTomouConhecimentoTV</option>
+                                    <option value="10">@_DadosInscritoUniFae.OptionTomouConhecimentoOutros</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group tomou-conhecimento-quais">
+                                <label>@_DadosInscritoUniFae.LabelTomouConhecimentoOutros</label><em>*</em>
+                                <input type="text" class="form-control" name="tomouConhecimentoOutros" id="txtTomouConhecimentoOutros" value="@Model.InscritoVestibular.TomouConhecimentoUniFaeOutros" />
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+
+                <br />
+                <div class="row" style="margin-bottom: 50px;">
+                    <div class="col-md-12 text-center">
+                        <input type="button" name="btnVoltar" id="btnVoltar" class="btn btn-personal1 btn-lg" value="@_DadosInscrito.BotaoVoltar" />
+                        <input type="submit" name="BotaoAvancar" id="BotaoAvancar" class="btn btn-success btn-lg" value="@_DadosInscritoUniFae.BotaoAvancar" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

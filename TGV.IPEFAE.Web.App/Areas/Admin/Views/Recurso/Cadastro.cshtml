@@ -1,0 +1,113 @@
+﻿@model TGV.IPEFAE.Web.App.Models.RecursoModel
+@using TGV.IPEFAE.Web.Resources.Admin.Recurso;
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+
+<style>
+    body { overflow: hidden; }
+</style>
+<link href="@Url.Content("~/Content/Recurso.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<script src="@Url.Content("~/Scripts/Views/Recurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+<script>
+    var mensagemCarregandoAnexos = encodeConversion('@Cadastro.MensagemCarregandoAnexos', 'num', 'hex');
+    var mensagemRealizandoUpload = encodeConversion('@Cadastro.MensagemRealizandoUpload', 'num', 'hex');
+    var mensagemEnviando = encodeConversion('@Cadastro.MensagemEnviando', 'num', 'hex');
+    var respostaObrigatorio = encodeConversion('@Cadastro.RespostaObrigatorio', 'num', 'hex');
+    var comentarioObrigatorio = encodeConversion('@Cadastro.ComentarioObrigatorio', 'num', 'hex');
+
+    $(function () {
+        iniciarTelaCadastroRecurso('@Model.IdConcurso', '@Model.Id', '@Model.PathAnexosRequerente', '@Model.PathAnexosAtendente', eval('@Html.Raw(Model.Status == TGV.IPEFAE.Web.App.Models.RecursoModel.StatusRecurso.Novo)'.toLowerCase()));
+    });
+</script>
+
+<h2 class="titulo">@String.Format(Cadastro.TituloTela, Model.Protocolo, Model.StatusString) <a href="@Url.Content(String.Format("~/Admin/Recurso/Index/{0}", Model.IdConcurso))">@Index.LinkVoltar</a> </h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 recurso-cadastro">
+            <form id="recursoForm" class="recursoForm" method="POST">
+                <div class="row">
+                    <div class="col-md-4" style="padding-right: 0px;">
+                        <div class="form-group">
+                            <label>@Cadastro.LabelConcurso</label>
+                            <label>@Model.Concurso.Nome</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-right: 0px;">
+                        <div class="form-group">
+                            <label>@Cadastro.LabelDataAbertura</label>
+                            <label>@Model.DataAberturaString</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="padding-right: 0px;">
+                        <div class="form-group">
+                            <label>@Cadastro.LabelRequerente</label>
+                            <label>@Model.Inscrito.Nome (@Model.Inscrito.NroMatricula)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="padding-right: 0px;">
+                        <div class="form-group">
+                            <label>@Cadastro.LabelNomeCargo</label>
+                            <label>@Model.Inscrito.NomeCargo</label>
+                        </div>
+                    </div>
+                </div>
+
+                @{
+                    bool novo = Model.Status == TGV.IPEFAE.Web.App.Models.RecursoModel.StatusRecurso.Novo;
+                    bool deferido = Model.Status == TGV.IPEFAE.Web.App.Models.RecursoModel.StatusRecurso.Aprovado;
+                    bool indeferido = Model.Status == TGV.IPEFAE.Web.App.Models.RecursoModel.StatusRecurso.Recusado;
+                }
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>@Cadastro.LabelMensagem</label>
+                            <textarea class="form-control" readonly>@Model.Mensagem</textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label style="float: left; margin-right: 15px;">@Cadastro.LabelComentario</label>
+                            <div class="deferido">
+                                <input type="radio" id="rDeferido" @Html.Raw(novo ? "" : "disabled") @Html.Raw(deferido ? "checked" : "")  name="resposta" value="D" /><label for="rDeferido">Deferido</label><input type="radio" id="rIndeferido" @Html.Raw(novo ? "" : "disabled") @Html.Raw(indeferido ? "checked" : "") name="resposta" value="I" /><label for="rIndeferido">Indeferido</label>
+                            </div>
+                            <textarea id="txtComentario" name="txtComentario" class="form-control" @Html.Raw(novo ? "" : "readonly") autofocus>@Model.Comentario</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>@Cadastro.LabelAnexosRequerente</label>
+                            <div class="anexo-requerente"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label style="display: inline; margin-right: 10px;">@Cadastro.LabelAnexosAtendente</label><label style="font-size: 12px;">@Cadastro.LabelSomentePDF</label>
+                            <div class="anexo-atendente"></div>
+                            @if (novo)
+                            { 
+                                <br />
+                                <div class="upload-file">
+                                    <input type="file" name="UploadFile" id="txtUploadFile" class="form-control" accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" />
+                                    <div class="mensagem sucesso" style="display: none;">@Cadastro.LabelUploadSucesso</div>
+                                    <div class="mensagem erro" style="display: none;">@Cadastro.LabelUploadErro</div>
+                                </div> 
+                            }
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <input type="button" name="btnVoltar" id="btnVoltar" onclick="window.location.href = '@Url.Content(String.Format("~/Admin/Recurso/Index/{0}", Model.IdConcurso))';" class="btn btn-personal1 btn-lg" value="@Cadastro.BotaoVoltar" />
+                        <input type="submit" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="@Cadastro.BotaoEnviar" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

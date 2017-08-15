@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="LabelBairro" xml:space="preserve">
+    <value>Bairro</value>
+  </data>
+  <data name="LabelCarteiraTrabalho" xml:space="preserve">
+    <value>Carteira de Trabalho Nº</value>
+  </data>
+  <data name="LabelCarteiraTrabalhoSerie" xml:space="preserve">
+    <value>Série</value>
+  </data>
+  <data name="LabelCarteiraTrabalhoUF" xml:space="preserve">
+    <value>UF</value>
+  </data>
+  <data name="LabelCelular" xml:space="preserve">
+    <value>Telefone 02</value>
+  </data>
+  <data name="LabelCEP" xml:space="preserve">
+    <value>CEP</value>
+  </data>
+  <data name="LabelCidade" xml:space="preserve">
+    <value>Cidade</value>
+  </data>
+  <data name="LabelComplemento" xml:space="preserve">
+    <value>Complemento</value>
+  </data>
+  <data name="LabelCPF" xml:space="preserve">
+    <value>CPF</value>
+  </data>
+  <data name="LabelDataExpedicao" xml:space="preserve">
+    <value>Data Expedição</value>
+  </data>
+  <data name="LabelDataNascimento" xml:space="preserve">
+    <value>Data Nascimento</value>
+  </data>
+  <data name="LabelEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="LabelEndereco" xml:space="preserve">
+    <value>Endereço</value>
+  </data>
+  <data name="LabelEstado" xml:space="preserve">
+    <value>Estado</value>
+  </data>
+  <data name="LabelEstadoCivil" xml:space="preserve">
+    <value>Estado Civil</value>
+  </data>
+  <data name="LabelFilhos" xml:space="preserve">
+    <value>Qtdade Filhos</value>
+  </data>
+  <data name="LabelNomeCompleto" xml:space="preserve">
+    <value>Nome Completo</value>
+  </data>
+  <data name="LabelNumeroEndereco" xml:space="preserve">
+    <value>Número</value>
+  </data>
+  <data name="LabelRG" xml:space="preserve">
+    <value>RG</value>
+  </data>
+  <data name="LabelTelefone" xml:space="preserve">
+    <value>Telefone 01</value>
+  </data>
+  <data name="LegendaDadosPessoais" xml:space="preserve">
+    <value>Dados Pessoais</value>
+  </data>
+  <data name="OptionCasado" xml:space="preserve">
+    <value>Casado</value>
+  </data>
+  <data name="OptionDivorciado" xml:space="preserve">
+    <value>Divorciado</value>
+  </data>
+  <data name="OptionOutros" xml:space="preserve">
+    <value>Outros</value>
+  </data>
+  <data name="OptionSolteiro" xml:space="preserve">
+    <value>Solteiro</value>
+  </data>
+  <data name="OptionViuvo" xml:space="preserve">
+    <value>Viuvo</value>
+  </data>
+  <data name="TituloTela" xml:space="preserve">
+    <value>Cadastro de Estágio</value>
+  </data>
+  <data name="LabelPossuiDeficiencia" xml:space="preserve">
+    <value>Possui Deficiência?</value>
+  </data>
+  <data name="LabelPossuiDeficienciaQual" xml:space="preserve">
+    <value>Qual?</value>
+  </data>
+  <data name="LegendaDadosEscolares" xml:space="preserve">
+    <value>Dados Escolares</value>
+  </data>
+  <data name="LegendaObjetivosEstagio" xml:space="preserve">
+    <value>Objetivos no Estágio</value>
+  </data>
+  <data name="OptionAuditiva" xml:space="preserve">
+    <value>Auditiva</value>
+  </data>
+  <data name="OptionFisica" xml:space="preserve">
+    <value>Física</value>
+  </data>
+  <data name="OptionMental" xml:space="preserve">
+    <value>Mental</value>
+  </data>
+  <data name="OptionMultipla" xml:space="preserve">
+    <value>Múltipla</value>
+  </data>
+  <data name="OptionNao" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="OptionSim" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="OptionVisual" xml:space="preserve">
+    <value>Visual</value>
+  </data>
+  <data name="LabelMesAnoInicio" xml:space="preserve">
+    <value>Início (mês e ano)</value>
+  </data>
+  <data name="LabelMesAnoPrevisaoTermino" xml:space="preserve">
+    <value>Previsão Término (mês e ano)</value>
+  </data>
+  <data name="LabelNomeCurso" xml:space="preserve">
+    <value>Nome do Curso</value>
+  </data>
+  <data name="LabelNomeEscola" xml:space="preserve">
+    <value>Nome da Escola Completo</value>
+  </data>
+  <data name="LabelTipoEnsino" xml:space="preserve">
+    <value>Tipo Ensino</value>
+  </data>
+  <data name="OptionEJA" xml:space="preserve">
+    <value>EJA (Ensino de Jovens e Adultos)</value>
+  </data>
+  <data name="OptionEnsinoMedio" xml:space="preserve">
+    <value>Ensino Médio</value>
+  </data>
+  <data name="OptionEnsinoSuperior" xml:space="preserve">
+    <value>Ensino Superior</value>
+  </data>
+  <data name="OptionTecnico" xml:space="preserve">
+    <value>Técnico / Profissionalizante</value>
+  </data>
+  <data name="LabelEJA01" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="LabelEJA02" xml:space="preserve">
+    <value>Ano</value>
+  </data>
+  <data name="LabelEM01" xml:space="preserve">
+    <value>Ano</value>
+  </data>
+  <data name="LabelES01" xml:space="preserve">
+    <value>Semestre</value>
+  </data>
+  <data name="LabelES02" xml:space="preserve">
+    <value>Modalidade</value>
+  </data>
+  <data name="LabelET01" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="LabelPeriodo" xml:space="preserve">
+    <value>Período</value>
+  </data>
+  <data name="LabelPossuiExperienciaProfissional" xml:space="preserve">
+    <value>Possui Experiência Profissional?</value>
+  </data>
+  <data name="LegendaExperienciaProfissional" xml:space="preserve">
+    <value>Experiência Profissional</value>
+  </data>
+  <data name="OptionEJAEF" xml:space="preserve">
+    <value>Ensino Fundamental</value>
+  </data>
+  <data name="OptionEJAEM" xml:space="preserve">
+    <value>Ensino Médio</value>
+  </data>
+  <data name="OptionIntegral" xml:space="preserve">
+    <value>Integral</value>
+  </data>
+  <data name="OptionManha" xml:space="preserve">
+    <value>Manhã</value>
+  </data>
+  <data name="OptionModalidadeEAD" xml:space="preserve">
+    <value>EAD (à distância)</value>
+  </data>
+  <data name="OptionModalidadePresencial" xml:space="preserve">
+    <value>Presencial</value>
+  </data>
+  <data name="OptionNoite" xml:space="preserve">
+    <value>Noite</value>
+  </data>
+  <data name="OptionTarde" xml:space="preserve">
+    <value>Tarde</value>
+  </data>
+  <data name="OptionTipoModulo" xml:space="preserve">
+    <value>Módulo</value>
+  </data>
+  <data name="OptionTipoSemestre" xml:space="preserve">
+    <value>Semestre</value>
+  </data>
+  <data name="OptionTipoTermo" xml:space="preserve">
+    <value>Termo</value>
+  </data>
+  <data name="PlaceHolderObjetivosEstagio" xml:space="preserve">
+    <value>Descreva seus objetivos no estágio</value>
+  </data>
+  <data name="LabelSelecioneET01" xml:space="preserve">
+    <value>Selecione um tipo</value>
+  </data>
+  <data name="BotaoSalvar" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="BotaoVoltar" xml:space="preserve">
+    <value>Voltar</value>
+  </data>
+  <data name="LegendaCursosCapacitacoes" xml:space="preserve">
+    <value>Cursos e Capacitações</value>
+  </data>
+  <data name="LegendaOutrosConhecimentos" xml:space="preserve">
+    <value>Conhecimentos Práticos, Outros Conhecimentos e Informações Adicionais</value>
+  </data>
+  <data name="ValidacaoBairroObrigatorio" xml:space="preserve">
+    <value>O bairro é obrigatório</value>
+  </data>
+  <data name="ValidacaoCarteiraTrabalhoNumeroObrigatorio" xml:space="preserve">
+    <value>O número da carteira de trabalho é obrigatório</value>
+  </data>
+  <data name="ValidacaoCarteiraTrabalhoSerieObrigatorio" xml:space="preserve">
+    <value>A série da carteira de trabalho é obrigatória</value>
+  </data>
+  <data name="ValidacaoCarteiraTrabalhoUFObrigatorio" xml:space="preserve">
+    <value>O estado da carteira de trabalho é obrigatório</value>
+  </data>
+  <data name="ValidacaoCEPObrigatorio" xml:space="preserve">
+    <value>O CEP é obrigatório</value>
+  </data>
+  <data name="ValidacaoCidadeObrigatorio" xml:space="preserve">
+    <value>A cidade é obrigatória</value>
+  </data>
+  <data name="ValidacaoCPFObrigatorio" xml:space="preserve">
+    <value>O CPF é obrigatório</value>
+  </data>
+  <data name="ValidacaoDataExpedicaoObrigatoria" xml:space="preserve">
+    <value>A data de expedição é obrigatória</value>
+  </data>
+  <data name="ValidacaoDataNascFormatoInvalido" xml:space="preserve">
+    <value>O formato da data de nascimento está inválido</value>
+  </data>
+  <data name="ValidacaoDataNascObrigatorio" xml:space="preserve">
+    <value>A data de nascimento é obrigatória</value>
+  </data>
+  <data name="ValidacaoDeficienciaQualObrigatorio" xml:space="preserve">
+    <value>Qual a deficiência é obrigatória</value>
+  </data>
+  <data name="ValidacaoEmailObrigatorio" xml:space="preserve">
+    <value>O e-mail é obrigatório</value>
+  </data>
+  <data name="ValidacaoEnderecoObrigatorio" xml:space="preserve">
+    <value>O endereço é obrigatório</value>
+  </data>
+  <data name="ValidacaoEstadoObrigatorio" xml:space="preserve">
+    <value>O estado é obrigatório</value>
+  </data>
+  <data name="ValidacaoFormatoDataExpedicaoInvalido" xml:space="preserve">
+    <value>O formato da data de expedição está inválido</value>
+  </data>
+  <data name="ValidacaoFormatoEmailInvalido" xml:space="preserve">
+    <value>O formato do e-mail está inválido</value>
+  </data>
+  <data name="ValidacaoNomeObrigatorio" xml:space="preserve">
+    <value>O nome é obrigatório</value>
+  </data>
+  <data name="ValidacaoNroEnderecoObrigatorioObrigatorio" xml:space="preserve">
+    <value>O número do endereço é obrigatório</value>
+  </data>
+  <data name="ValidacaoQtdadeFilhosObrigatorio" xml:space="preserve">
+    <value>A quantidade de filhos é obrigatória</value>
+  </data>
+  <data name="ValidacaoRGObrigatorio" xml:space="preserve">
+    <value>O RG é obrigatório</value>
+  </data>
+  <data name="ValidacaoTelefoneObrigatorio" xml:space="preserve">
+    <value>O telefone 01 é obrigatório</value>
+  </data>
+  <data name="ValidacaoTipoEnsinoObrigatorio" xml:space="preserve">
+    <value>Tipo de ensino é obrigatório</value>
+  </data>
+  <data name="ValidacaoAtividadesDesenvolvidasObrigatorio" xml:space="preserve">
+    <value>As atividades desenvolvidas na empresa é obrigatório</value>
+  </data>
+  <data name="ValidacaoCargoObrigatorio" xml:space="preserve">
+    <value>O cargo exercido na empresa é obrigatório</value>
+  </data>
+  <data name="ValidacaoDataInicioDEFormatoInvalido" xml:space="preserve">
+    <value>Formato da data de início (mês/ano) está inválido</value>
+  </data>
+  <data name="ValidacaoDataInicioDEObrigatorio" xml:space="preserve">
+    <value>A data de início (mês/ano) é obrigatória</value>
+  </data>
+  <data name="ValidacaoDataTerminoDEFormatoInvalido" xml:space="preserve">
+    <value>Formato da data de término (mês/ano) está inválido</value>
+  </data>
+  <data name="ValidacaoDataTerminoDEObrigatorio" xml:space="preserve">
+    <value>A data de término (mês/ano) é obrigatória</value>
+  </data>
+  <data name="ValidacaoDe01Obrigatorio" xml:space="preserve">
+    <value>Este item é obrigatório</value>
+  </data>
+  <data name="ValidacaoDe02Obrigatorio" xml:space="preserve">
+    <value>Este item é obrigatório</value>
+  </data>
+  <data name="ValidacaoDuracaoObrigatorio" xml:space="preserve">
+    <value>A duração é obrigatória</value>
+  </data>
+  <data name="ValidacaoNomeCursoObrigatorio" xml:space="preserve">
+    <value>O nome do curso é obrigatório</value>
+  </data>
+  <data name="ValidacaoNomeEmpresaObrigatorio" xml:space="preserve">
+    <value>O nome da empresa é obrigatório</value>
+  </data>
+  <data name="ValidacaoNomeEscolaObrigatorio" xml:space="preserve">
+    <value>O nome da escola é obrigatório</value>
+  </data>
+  <data name="ValidacaoPeriodoObrigatorio" xml:space="preserve">
+    <value>O período é obrigatório</value>
+  </data>
+  <data name="PlaceHolderConfirmacaoSenha" xml:space="preserve">
+    <value>Confirme sua senha</value>
+  </data>
+  <data name="PlaceHolderSenha" xml:space="preserve">
+    <value>Digite sua senha aqui</value>
+  </data>
+  <data name="BotaoCancelar" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="BotaoConfirmar" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="LabelConfirmacaoSenha" xml:space="preserve">
+    <value>Confirme sua senha</value>
+  </data>
+  <data name="LabelDigiteSuaSenha" xml:space="preserve">
+    <value>Digite sua senha para realizar seu cadastro</value>
+  </data>
+  <data name="LabelDigiteSuaSenhaAlerta" xml:space="preserve">
+    <value>(ela não aparecerá em seu cv)</value>
+  </data>
+  <data name="MensagemBlockUISalvar" xml:space="preserve">
+    <value>Salvando curriculo...</value>
+  </data>
+  <data name="MensagemCurriculoSalvoSucesso" xml:space="preserve">
+    <value>Operação realizada com sucesso</value>
+  </data>
+  <data name="ValidacaoConfirmacaSenhaObrigatorio" xml:space="preserve">
+    <value>A confirmação da senha é obrigatória</value>
+  </data>
+  <data name="ValidacaoSenhaConfirmacaoDiferente" xml:space="preserve">
+    <value>A senha e sua confirmação devem ser iguais</value>
+  </data>
+  <data name="ValidacaoSenhaObrigatorio" xml:space="preserve">
+    <value>A senha é obrigatória</value>
+  </data>
+  <data name="LabelSexo" xml:space="preserve">
+    <value>Sexo</value>
+  </data>
+  <data name="OptionFeminino" xml:space="preserve">
+    <value>Feminino</value>
+  </data>
+  <data name="OptionMasculino" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
+  <data name="ValidacaoSexoObrigatorio" xml:space="preserve">
+    <value>O seu gênero é obrigatório</value>
+  </data>
+  <data name="BotaoPDFGerarPDF" xml:space="preserve">
+    <value>Gerar PDF</value>
+  </data>
+  <data name="BotaoPreviewVisualizar" xml:space="preserve">
+    <value>Visualizar</value>
+  </data>
+  <data name="LabelFoto" xml:space="preserve">
+    <value>Foto</value>
+  </data>
+  <data name="LabelInfoFoto" xml:space="preserve">
+    <value>Somente arquivos de imagem</value>
+  </data>
+  <data name="MensagemRealizandoUpload" xml:space="preserve">
+    <value>Carregando foto...</value>
+  </data>
+  <data name="LabelIdadeAnos" xml:space="preserve">
+    <value> anos</value>
+  </data>
+  <data name="MensagemValidandoEmail" xml:space="preserve">
+    <value>Validando e-mail ...</value>
+  </data>
+  <data name="MensagemEmailExistente" xml:space="preserve">
+    <value>Este e-mail já está cadastrado no sistema. Caso tenha esquecido sua senha, volte a tela anterior e solicite-a com este e-mail.</value>
+  </data>
+  <data name="BotaoPDFCurriculo" xml:space="preserve">
+    <value>do Currículo</value>
+  </data>
+  <data name="BotaoPreviewCurriculo" xml:space="preserve">
+    <value>Currículo</value>
+  </data>
+  <data name="ValidacaoDataTerminoMaiorDataInicio" xml:space="preserve">
+    <value>A Previsão de Término deve ser maior do que a Data de Início</value>
+  </data>
+  <data name="ValidacaoArquivoFormatoInvalido" xml:space="preserve">
+    <value>O arquivo da foto deve ser jpg, bmp ou png e ter no máximo 2MB</value>
+  </data>
+  <data name="ValidacaoArquivoObrigatorio" xml:space="preserve">
+    <value>A foto é obrigatória</value>
+  </data>
+</root>

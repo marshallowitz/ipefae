@@ -1,0 +1,23 @@
+﻿@using TGV.IPEFAE.Web.Resources.Admin.Concurso.Inscrito;
+@model List<TGV.IPEFAE.Web.App.Models.ConcursoModel.InscritoModel>
+
+@foreach (var ico in Model.Select((item, index) => new { Index = index, Value = item }))
+{
+    <li class="@Html.Raw(ico.Index % 2 == 0 ? "even" : "odd")">
+        <span class="text-center">@ico.Value.NroMatricula</span>
+        <span>@ico.Value.Nome</span>
+        <span class="text-center">@ico.Value.CPFFormatado</span>
+        <span>@ico.Value.CargosString</span>
+        <span>@ico.Value.DataInscricao.ToString("dd/MM/yyyy")</span>
+        <span class="text-center">@Html.Raw(ico.Value.Ativo ? Index.StatusAtivo : Index.StatusInativo)</span>
+        <span class="text-center">@Html.Raw(ico.Value.Isento ? Index.StatusIsento : Index.StatusNaoIsento)</span>
+        <span>@ico.Value.ValorPagoString</span>
+        <span class="acao inscritos">
+            <div class="group">
+                <div class="icons editar" title="@Index.TitleEditar" onclick="editarInscrito('@ico.Value.Id');"></div>
+                &nbsp;
+                <div class="icons boleto" title="@Index.TitleBoleto" onclick="boletoInscrito('@ico.Value.IdConcurso', '@ico.Value.Id');"></div>
+            </div>
+        </span>
+    </li>
+}

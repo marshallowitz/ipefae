@@ -1,0 +1,222 @@
+﻿@using TGV.IPEFAE.Web.Resources.Admin.Concurso;
+@model TGV.IPEFAE.Web.App.Models.ConcursoModel
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+
+<link href="@Url.Content("~/Content/Concurso.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<script src="@Url.Content("~/Scripts/jquery.maskMoney.min.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script src="@Url.Content("~/Scripts/Views/Concurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/src/js/bootstrap-datetimepicker.js"></script>
+<script>
+    var mensagemAdicionandoAnexo = encodeConversion('@Cadastro.MensagemAdicionandoAnexo', 'num', 'hex');
+    var mensagemAdicionandoCargo = encodeConversion('@Cadastro.MensagemAdicionandoCargo', 'num', 'hex');
+    var mensagemArquivoRemovidoSucesso = encodeConversion('@Cadastro.MensagemArquivoRemovidoSucesso', 'num', 'hex');
+    var mensagemCargoRemovidoSucesso = encodeConversion('@Cadastro.MensagemCargoRemovidoSucesso', 'num', 'hex');
+    var mensagemSalvando = encodeConversion('@Cadastro.MensagemSalvando', 'num', 'hex');
+    var identificacaoObrigatoria = encodeConversion('@Cadastro.IdentificacaoObrigatoria', 'num', 'hex');
+    var dataInicioObrigatorio = encodeConversion('@Cadastro.DataInicioObrigatorio', 'num', 'hex');
+    var dataInicioFormatoInvalido = encodeConversion('@Cadastro.DataInicioFormatoInvalido', 'num', 'hex');
+    var dataEncerramentoInscricoesObrigatorio = encodeConversion('@Cadastro.DataEncerramentoInscricoesObrigatorio', 'num', 'hex');
+    var dataEncerramentoInscricoesFormatoInvalido = encodeConversion('@Cadastro.DataEncerramentoInscricoesFormatoInvalido', 'num', 'hex');
+    var dataEncerramentoObrigatorio = encodeConversion('@Cadastro.DataEncerramentoObrigatorio', 'num', 'hex');
+    var dataEncerramentoFormatoInvalido = encodeConversion('@Cadastro.DataEncerramentoFormatoInvalido', 'num', 'hex');
+    var dataInicioComprovanteObrigatorio = encodeConversion('@Cadastro.ValidacaoDataInicioComprovanteObrigatorio', 'num', 'hex');
+    var dataInicioComprovanteFormatoInvalido = encodeConversion('@Cadastro.ValidacaoDataInicioComprovanteFormatoInvalido', 'num', 'hex');
+    var dataEncerramentoComprovanteObrigatorio = encodeConversion('@Cadastro.ValidacaoDataEncerramentoComprovanteObrigatorio', 'num', 'hex');
+    var dataEncerramentoComprovanteFormatoInvalido = encodeConversion('@Cadastro.ValidacaoDataEncerramentoComprovanteFormatoInvalido', 'num', 'hex');
+    var dataInicioIsentoObrigatorio = encodeConversion('@Cadastro.ValidacaoDataInicioIsentoObrigatorio', 'num', 'hex');
+    var dataInicioIsentoFormatoInvalido = encodeConversion('@Cadastro.ValidacaoDataInicioIsentoFormatoInvalido', 'num', 'hex');
+    var dataEncerramentoIsentoObrigatorio = encodeConversion('@Cadastro.ValidacaoDataEncerramentoIsentoObrigatorio', 'num', 'hex');
+    var dataEncerramentoIsentoFormatoInvalido = encodeConversion('@Cadastro.ValidacaoDataEncerramentoIsentoFormatoInvalido', 'num', 'hex');
+    var dataInicioClassificacaoObrigatorio = encodeConversion('@Cadastro.ValidacaoDataInicioClassificacaoObrigatorio', 'num', 'hex');
+    var dataInicioClassificacaoFormatoInvalido = encodeConversion('@Cadastro.ValidacaoDataInicioClassificacaoFormatoInvalido', 'num', 'hex');
+    var dataBoletoObrigatorio = encodeConversion('@Cadastro.ValidacaoDataBoletoObrigatorio', 'num', 'hex');
+    var dataBoletoFormatoInvalido = encodeConversion('@Cadastro.ValidacaoDataBoletoFormatoInvalido', 'num', 'hex');
+
+
+    $(function () { iniciarTelaCadastroConcurso('@Model.Id', '@Model.IdTipoLayoutConcurso', '@Model.Empresa.Id', eval('@Model.InscricoesOnline'.toLowerCase()), eval('@Model.Encerrado'.toLowerCase()), eval('@Model.Ativo'.toLowerCase())); });
+</script>
+
+<input type="hidden" id="hdnId" value="@Model.Id" />
+<h2 class="titulo">
+    @Cadastro.TituloTela
+    <a href="@Url.Content(String.Format("~/Admin/Concurso/Index/", Model.Id))">@Cadastro.LinkVoltar</a>
+    <div class="alertaRecurso"></div>
+</h2>
+
+<div class="container">
+    <div class="row principal">
+        <div class="col-sm-12 concurso-cadastro">
+            <form id="concursoForm" class="concursoForm" method="POST">
+                <fieldset>
+                    <legend>@Cadastro.LegendaDadosConcurso</legend>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelNome</label><em>*</em><br />
+                                <input type="text" class="form-control" name="nome" id="txtNome" value="@Model.Nome" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelTipoLayout</label><em>*</em>
+                                <select id="ddlTipoLayout" class="form-control">
+                                    <option value="1" selected>Concurso</option>
+                                    <option value="2">Vestibular UniFAE</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="text-align: center;">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelInscricoesOnline</label><em>*</em><br />
+                                <input type="radio" id="rdIOSim" name="inscOnline" value="S" checked /><label class="label-radio" for="rdIOSim">@Cadastro.OptionSim</label>
+                                <input type="radio" id="rdIONao" name="inscOnline" value="N" /><label class="label-radio" for="rdIONao">@Cadastro.OptionNao</label>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelAtivo</label><em>*</em><br />
+                                <input type="radio" id="rdAtivoSim" name="ativo" value="S" /><label class="label-radio" for="rdAtivoSim">@Cadastro.OptionSim</label>
+                                <input type="radio" id="rdAtivoNao" name="ativo" value="N" checked /><label class="label-radio" for="rdAtivoNao">@Cadastro.OptionNao</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelDataInicio</label><em>*</em>
+                                <div class='input-group date' id='datetimepickerInicio'>
+                                    <input type="text" class="form-control" name="dataInicio" id="txtDataInicio" value="@Model.DataString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelDataEncerramentoInscricoes</label><em>*</em>
+                                <div class='input-group date' id='datetimepickerEncerramentoInscricoes'>
+                                    <input type="text" class="form-control" name="dataEncerramentoInscricoes" id="txtDataEncerramentoInscricoes" value="@Model.DataEncerramentoInscricoesString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="text-align: center;">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelEncerrado</label><em>*</em><br />
+                                <input type="radio" id="rdEncSim" name="encerrado" value="S" /><label class="label-radio" for="rdEncSim">@Cadastro.OptionSim</label>
+                                <input type="radio" id="rdEncNao" name="encerrado" value="N" checked /><label class="label-radio" for="rdEncNao">@Cadastro.OptionNao</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-1">
+                            <div class="form-group" style="display:none;">
+                                <label>@Cadastro.LabelDataEncerramento</label><em>*</em>
+                                <div class='input-group date' id='datetimepickerEncerramento'>
+                                    <input type="text" class="form-control" name="dataEncerramento" id="txtDataEncerramento" value="@Model.DataEncerramentoString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelDataInicioComprovante</label><em>*</em>
+                                <div class='input-group date' id='datetimepickerInicioComprovante'>
+                                    <input type="text" class="form-control" name="dataInicioComprovante" id="txtDataInicioComprovante" value="@Model.DataInicioComprovanteString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelDataEncerramentoComprovante</label><em>*</em>
+                                <div class='input-group date' id='datetimepickerEncerramentoComprovante'>
+                                    <input type="text" class="form-control" name="dataEncerramentoComprovante" id="txtDataEncerramentoComprovante" value="@Model.DataEncerramentoComprovanteString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelDataInicioClassificacao</label><em>*</em>
+                                <div class='input-group date' id='datetimepickerInicioClassificacao'>
+                                    <input type="text" class="form-control" name="dataInicioClassificacao" id="txtDataInicioClassificacao" value="@Model.DataInicioClassificacaoString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelEmpresa</label><em>*</em>
+                                <select id="ddlEmpresa" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelDataInicioIsento</label><em>*</em>
+                                <div class='input-group date' id='datetimepickerInicioIsento'>
+                                    <input type="text" class="form-control" name="dataInicioIsento" id="txtDataInicioIsento" value="@Model.DataInicioIsentoString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelDataEncerramentoIsento</label><em>*</em>
+                                <div class='input-group date' id='datetimepickerEncerramentoIsento'>
+                                    <input type="text" class="form-control" name="dataEncerramentoIsento" id="txtDataEncerramentoIsento" value="@Model.DataEncerramentoIsentoString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@Cadastro.LabelDataBoleto</label><em>*</em>
+                                <div class='input-group date' id='datetimepickerBoleto'>
+                                    <input type="text" class="form-control" name="dataBoleto" id="txtDataBoleto" value="@Model.DataBoletoString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>@Cadastro.LegendaPublicacoes &nbsp; <div class="icons incluir incluirAnexo" tag="@Html.Raw((int)TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel.TipoEnum.Publicacoes)" style="display: inline-block;" title="@Cadastro.AltImageAdicionar"></div></legend>
+                    <div id="divPublicacoes"></div>
+                </fieldset>
+
+                <br />
+
+                <fieldset>
+                    <legend>@Cadastro.LegendaProvasGabaritos &nbsp; <div class="icons incluir incluirAnexo" tag="@Html.Raw((int)TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel.TipoEnum.Provas)" style="display: inline-block;" title="@Cadastro.AltImageAdicionar"></div></legend>
+                    <div id="divProvasGabaritos"></div>
+                </fieldset>
+
+                <br />
+
+                <fieldset>
+                    <legend>@Cadastro.LegendaCargos &nbsp; <div class="icons incluir incluirCargo" style="display: inline-block;" title="@Cadastro.AltImageAdicionar"></div></legend>
+                    <div id="divCargos"></div>
+                </fieldset>
+
+                <br />
+                <div class="row" style="margin-bottom: 50px;">
+                    <div class="col-md-12 text-center">
+                        <input type="button" name="btnVoltar" id="btnVoltar" class="btn btn-personal1 btn-lg" value="@Cadastro.BotaoVoltar" onclick="window.location.href = '@Url.Content("~/Admin/Concurso/Index")';" />
+                        <input type="submit" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="@Cadastro.BotaoSalvar" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<section id="modal-anexos"></section>
+<section id="modal-cargos"></section>

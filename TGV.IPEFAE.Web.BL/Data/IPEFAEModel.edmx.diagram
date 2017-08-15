@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e9f09338fcc0439084ec31d63542dde7" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_usu_usuario" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_per_permissao" Width="1.5" PointX="1" PointY="1.125" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_est_estado" Width="1.5" PointX="1.5" PointY="4.5" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_cci_concurso_cargo_inscrito" Width="1.5" PointX="5.25" PointY="16.125" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_cid_cidade" Width="1.5" PointX="3.75" PointY="4.25" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_cid_cidade_tb_est_estado" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_sre_status_recurso" Width="1.5" PointX="3" PointY="8.875" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_rec_recurso" Width="1.5" PointX="5.25" PointY="8" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_rec_recurso_tb_sre_status_recurso" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_rec_recurso_tb_usu_usuario" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_tlc_tipo_layout_concurso" Width="1.5" PointX="0.75" PointY="7.875" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_cco_cargo_concurso" Width="1.5" PointX="5.25" PointY="20.5" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_cci_concurso_cargo_inscrito_tb_cco_cargo_concurso" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_can_concurso_anexo" Width="1.5" PointX="5.25" PointY="24.25" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ued_usuario_estagio_dados_escolares" Width="1.5" PointX="6.75" PointY="30" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_ued_usuario_estagio_dados_escolares_tb_ued_usuario_estagio_dados_escolares" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_uee_usuario_estagio_experiencia" Width="1.5" PointX="13.25" PointY="20.125" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ueo_usuario_estagio_outros" Width="1.5" PointX="13.25" PointY="17" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ues_usuario_estagio" Width="1.5" PointX="9" PointY="15.875" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_ues_usuario_estagio_tb_cid_cidade" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_ues_usuario_estagio_tb_est_estado" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_ues_usuario_estagio_tb_ued_usuario_estagio_dados_escolares" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_uee_usuario_estagio_experiencia_tb_ues_usuario_estagio" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_ueo_usuario_estagio_outros_tb_ues_usuario_estagio" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ler_log_erro" Width="1.5" PointX="7.375" PointY="9.75" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_icv_inscrito_concurso_vestibular" Width="1.5" PointX="11" PointY="1.75" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_idt_inscrito_dados_prova" Width="1.5" PointX="11" PointY="25.875" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_icl_inscrito_classificacao" Width="1.5" PointX="11" PointY="30.25" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_con_concurso" Width="1.5" PointX="11.625" PointY="8.75" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_can_concurso_anexo_tb_con_concurso" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_cci_concurso_cargo_inscrito_tb_con_concurso" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_cco_cargo_concurso_tb_con_concurso" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_con_concurso_tb_tlc_tipo_layout_concurso" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_rec_recurso_tb_con_concurso" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Width="1.5" PointX="13.875" PointY="5" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_cci_concurso_cargo_inscrito_tb_ico_inscrito_concurso" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_cid_cidade" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_con_concurso" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_est_estado" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_icl_inscrito_classificacao_tb_ico_inscrito_concurso" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_icv_inscrito_concurso_vestibular_tb_ico_inscrito_concurso" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_idt_inscrito_dados_prova_tb_ico_inscrito_concurso" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_rec_recurso_tb_ico_inscrito_concurso" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_emp_empresa" Width="1.5" PointX="9.375" PointY="34.875" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_con_concurso_tb_emp_empresa" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ema_email" Width="1.5" PointX="5.375" PointY="0.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

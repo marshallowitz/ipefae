@@ -1,0 +1,19 @@
+﻿body                    { padding-top: 0px; }
+div.preview             { background-color: white; font-family: Verdana, sans-serif; margin-bottom: 40px; padding: 20px; }
+div.row                 { color: #414751; font-size: 12pt; line-height: 115%; margin-left: 0px !important; }
+
+div.cabecalho           { margin-bottom: 30px; }
+span.nome               { font-size: 22pt; line-height: 205%; white-space: nowrap; }
+span.dados              { font-size: 14px; }
+
+div.areas               { letter-spacing:.5pt; margin: 20px 0 0 0; }
+div.areas span.titulo   { color:#000; font-family: Calibri, sans-serif; font-size: 14pt; text-transform:uppercase; }
+div.areas span,
+div.areas ul li         { font-family: Verdana, sans-serif; font-size: 11pt; }
+div.areas ul            { list-style-type: disc; }
+
+label                   { font-size: 14px; font-weight: normal; }
+img.linha               { display: block; margin-bottom: 10px; }
+
+hr                      { border-top: 2px solid #000; margin-bottom: 8px; }
+hr.hrPrincipal          { display: none; }

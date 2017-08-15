@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CSVCanhoto" xml:space="preserve">
+    <value>Canhoto</value>
+  </data>
+  <data name="CSVDestro" xml:space="preserve">
+    <value>Destro</value>
+  </data>
+  <data name="CSVNenhumInscrito" xml:space="preserve">
+    <value>Não há nenhum inscrito neste concurso</value>
+  </data>
+  <data name="CSVOutrasSolicitacoesVazio" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="CSVSemDeficienciaVazio" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="HeaderBairro" xml:space="preserve">
+    <value>Bairro</value>
+  </data>
+  <data name="HeaderCargoDescricao" xml:space="preserve">
+    <value>Opção</value>
+  </data>
+  <data name="HeaderCelular" xml:space="preserve">
+    <value>Telefone 02</value>
+  </data>
+  <data name="HeaderCEP" xml:space="preserve">
+    <value>CEP</value>
+  </data>
+  <data name="HeaderCidade" xml:space="preserve">
+    <value>Cidade</value>
+  </data>
+  <data name="HeaderComplemento" xml:space="preserve">
+    <value>Complemento</value>
+  </data>
+  <data name="HeaderConcursoDescricao" xml:space="preserve">
+    <value>Concurso</value>
+  </data>
+  <data name="HeaderCPF" xml:space="preserve">
+    <value>CPF</value>
+  </data>
+  <data name="HeaderData" xml:space="preserve">
+    <value>Data da Inscrição</value>
+  </data>
+  <data name="HeaderDataBaixa" xml:space="preserve">
+    <value>Data Baixa</value>
+  </data>
+  <data name="HeaderDataNascimento" xml:space="preserve">
+    <value>Data Nascimento</value>
+  </data>
+  <data name="HeaderDeficiencia" xml:space="preserve">
+    <value>Deficiência</value>
+  </data>
+  <data name="HeaderDestro" xml:space="preserve">
+    <value>Destro</value>
+  </data>
+  <data name="HeaderEmail" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="HeaderEndereco" xml:space="preserve">
+    <value>Endereço</value>
+  </data>
+  <data name="HeaderNome" xml:space="preserve">
+    <value>Nome</value>
+  </data>
+  <data name="HeaderNumeroControle" xml:space="preserve">
+    <value>Inscrição</value>
+  </data>
+  <data name="HeaderOutras" xml:space="preserve">
+    <value>Outras</value>
+  </data>
+  <data name="HeaderRG" xml:space="preserve">
+    <value>RG</value>
+  </data>
+  <data name="HeaderTelefone" xml:space="preserve">
+    <value>Telefone 01</value>
+  </data>
+  <data name="HeaderUF" xml:space="preserve">
+    <value>UF</value>
+  </data>
+  <data name="HeaderValorInscricao" xml:space="preserve">
+    <value>Valor Inscrição</value>
+  </data>
+  <data name="HeaderValorPago" xml:space="preserve">
+    <value>Valor Pago</value>
+  </data>
+  <data name="HeaderEstadoCivil" xml:space="preserve">
+    <value>Estado Civil</value>
+  </data>
+  <data name="HeaderTratamentoEspecialQual" xml:space="preserve">
+    <value>Qual?</value>
+  </data>
+  <data name="CSVTratEspecialNao" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="CSVTratEspecialSim" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="CSVSemTratamento" xml:space="preserve">
+    <value>Nenhum</value>
+  </data>
+  <data name="HeaderNecessitaTratamento" xml:space="preserve">
+    <value>Necessita Tratamento Especial?</value>
+  </data>
+  <data name="CSVIsento" xml:space="preserve">
+    <value>Isento</value>
+  </data>
+  <data name="HeaderQtdadeFilhos" xml:space="preserve">
+    <value>Qtd. de filhos menores de 18</value>
+  </data>
+  <data name="HeaderCursoIndicadoPor" xml:space="preserve">
+    <value>Curso do Aluno</value>
+  </data>
+  <data name="HeaderEscolaridadeMae" xml:space="preserve">
+    <value>Escolaridade Mãe</value>
+  </data>
+  <data name="HeaderEscolaridadePai" xml:space="preserve">
+    <value>Escolaridade Pai</value>
+  </data>
+  <data name="HeaderExerceAtividadeRemunerada" xml:space="preserve">
+    <value>Exerce Atividade Remunerada</value>
+  </data>
+  <data name="HeaderLocalProva" xml:space="preserve">
+    <value>Local da Prova</value>
+  </data>
+  <data name="HeaderMotivoOptouCurso" xml:space="preserve">
+    <value>Motivo Optou pelo Curso</value>
+  </data>
+  <data name="HeaderMotivoOptouUniFae" xml:space="preserve">
+    <value>Motivo Optou UniFae</value>
+  </data>
+  <data name="HeaderNomeIndicadoPor" xml:space="preserve">
+    <value>Indicado pelo Aluno</value>
+  </data>
+  <data name="HeaderOpcao2" xml:space="preserve">
+    <value>2ª Opção</value>
+  </data>
+  <data name="HeaderOpcao3" xml:space="preserve">
+    <value>3ª Opção</value>
+  </data>
+  <data name="HeaderRendaMensal" xml:space="preserve">
+    <value>Renda Familiar Média</value>
+  </data>
+  <data name="HeaderSemestreCursoIndicadoPor" xml:space="preserve">
+    <value>Semestre do Aluno</value>
+  </data>
+  <data name="HeaderSexo" xml:space="preserve">
+    <value>Sexo</value>
+  </data>
+  <data name="HeaderTipoConcluiuEnsinoFundamental" xml:space="preserve">
+    <value>Tipo Ensino Fundamental</value>
+  </data>
+  <data name="HeaderTipoConcluiuEnsinoMedio" xml:space="preserve">
+    <value>Tipo Ensino Médio</value>
+  </data>
+  <data name="HeaderTipoEnsinoMedio" xml:space="preserve">
+    <value>Ensino Médio Em</value>
+  </data>
+  <data name="HeaderTomouConhecimentoUniFae" xml:space="preserve">
+    <value>Como Tomou Conhecimento UniFae</value>
+  </data>
+  <data name="HeaderTomouConhecimentoUniFaeOutros" xml:space="preserve">
+    <value>Quais</value>
+  </data>
+  <data name="HeaderHora" xml:space="preserve">
+    <value>Hora</value>
+  </data>
+  <data name="HeaderRGEstadoEmissor" xml:space="preserve">
+    <value>Estado Emissor</value>
+  </data>
+  <data name="HeaderClassificacao" xml:space="preserve">
+    <value>Classificação</value>
+  </data>
+  <data name="HeaderDataProva" xml:space="preserve">
+    <value>Data Prova</value>
+  </data>
+  <data name="HeaderHorarioProva" xml:space="preserve">
+    <value>Horario Prova</value>
+  </data>
+  <data name="HeaderLocalEscolaProva" xml:space="preserve">
+    <value>Local (Escola)</value>
+  </data>
+  <data name="HeaderPontosCE" xml:space="preserve">
+    <value>Pontos CE</value>
+  </data>
+  <data name="HeaderPontosCG" xml:space="preserve">
+    <value>Pontos CG</value>
+  </data>
+  <data name="HeaderPontosPP" xml:space="preserve">
+    <value>Pontos PP (Prova Pratica)</value>
+  </data>
+  <data name="HeaderPontosTIT" xml:space="preserve">
+    <value>Pontos TIT (Titulos)</value>
+  </data>
+  <data name="HeaderSalaProva" xml:space="preserve">
+    <value>Sala</value>
+  </data>
+  <data name="HeaderSituacao" xml:space="preserve">
+    <value>Situação</value>
+  </data>
+  <data name="HeaderTotalPontos" xml:space="preserve">
+    <value>Nota (Total dos pontos)</value>
+  </data>
+</root>

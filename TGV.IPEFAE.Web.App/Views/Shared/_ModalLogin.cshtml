@@ -1,0 +1,27 @@
+﻿@using TGV.IPEFAE.Web.Resources.Shared;
+
+<div class="modal fade modal-login" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row login">
+                <div class="col-xs-8 col-sm-8 col-md-12 modal-login-white">
+                    <form class="frmLogin" method="post">
+                        <div class="row linhaForm">
+                            <div class="col-md-8 col-sm-8 col-xs-12 form-group">
+                                <div class="col-md-12 col-sm-12 col-xs-12 linhas">
+                                    <input type="text" id="txtEmail" name="email" placeholder="@_ModalLogin.EmailPlaceHolder" class="form-control" data-bv-emailaddress="true" autofocus />
+                                </div>
+                                <div class="col-md-12 col-sm-12 col-xs-12 linhas">
+                                    <input type="password" id="txtSenha" name="senha" placeholder="@_ModalLogin.SenhaPlaceHolder" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-xs-12 confirmar">
+                                <input id="btnLogin" type="submit" class="btn btn-success" value="@_ModalLogin.BotaoConfirmarValue" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

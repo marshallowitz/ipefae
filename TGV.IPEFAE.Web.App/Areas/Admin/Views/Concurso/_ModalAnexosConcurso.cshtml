@@ -1,0 +1,129 @@
+﻿@using TGV.IPEFAE.Web.Resources.Admin.Concurso;
+@model TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel
+
+<script>
+    var mensagemRealizandoUpload = encodeConversion('@_ModalAnexosConcurso.MensagemRealizandoUpload', 'num', 'hex');
+    var arquivoAnexadoSucesso = encodeConversion('@_ModalAnexosConcurso.MensagemArquivoAnexadoSucesso', 'num', 'hex');
+    var nomeArquivoObrigatorio = encodeConversion('@_ModalAnexosConcurso.NomeArquivoObrigatorio', 'num', 'hex');
+    var dataPublicacaoObrigatorio = encodeConversion('@_ModalAnexosConcurso.DataPublicacaoObrigatorio', 'num', 'hex');
+    var dataPublicacaoFormatoInvalido = encodeConversion('@_ModalAnexosConcurso.DataPublicacaoFormatoInvalido', 'num', 'hex');
+    var dataInicioObrigatorio = encodeConversion('@_ModalAnexosConcurso.DataInicioObrigatorio', 'num', 'hex');
+    var dataInicioFormatoInvalido = encodeConversion('@_ModalAnexosConcurso.DataInicioFormatoInvalido', 'num', 'hex');
+    var dataTerminoObrigatorio = encodeConversion('@_ModalAnexosConcurso.DataTerminoObrigatorio', 'num', 'hex');
+    var dataTerminoFormatoInvalido = encodeConversion('@_ModalAnexosConcurso.DataTerminoFormatoInvalido', 'num', 'hex');
+    var arquivoObrigatorio = encodeConversion('@_ModalAnexosConcurso.ArquivoObrigatorio', 'num', 'hex');
+    var arquivoFormatoInvalido = encodeConversion('@_ModalAnexosConcurso.ArquivoFormatoInvalido', 'num', 'hex');
+
+    $(function () { iniciarTelaModalAnexos('@Model.IdConcurso', eval('@Model.TemRecurso'.toLowerCase())); });
+</script>
+
+<input type="hidden" id="hdnIdAnexo" value="@Model.Id" />
+<input type="hidden" id="hdnIdConcurso" value="@Model.IdConcurso" />
+<input type="hidden" id="hdnIdTipo" value="@Model.IdTipo" />
+
+<div class="modal fade modal-anexos" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="container">
+                <form id="anexoForm" class="anexoForm" method="POST">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>@_ModalAnexosConcurso.LabelTipo</label>
+                                @if (Model.IdTipo == 1)
+                                { 
+                                    <label class="labelResposta">@Model.TipoArquivo</label>
+                                }
+                                else
+                                {
+                                    <select class="form-control" id="ddlTipoArquivo">
+                                        <option value="2" @Html.Raw(Model.IdTipo != 3 ? "selected" : "")>Prova</option>
+                                        <option value="3" @Html.Raw(Model.IdTipo == 3 ? "selected" : "")>Gabarito</option>
+                                    </select>
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@_ModalAnexosConcurso.LabelNomeArquivo</label><em>*</em>
+                                <input type="text" class="form-control" name="nomeArquivo" id="txtNomeArquivo" value="@Model.NomeArquivo" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>@_ModalAnexosConcurso.LabelDataPublicacao</label><em>*</em>
+                                <div class='input-group date' id='datetimepickerPublicacao'>
+                                    <input type="text" class="form-control" name="dataPublicacao" id="txtDataPublicacao" value="@Model.DataPublicacaoString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label>@_ModalAnexosConcurso.LabelArquivo</label><em>*</em>
+                                @{
+                                    string displayLink = Model.Id == 0 ? "display: none;" : "";
+                                    string displayFile = Model.Id != 0 ? "display: none;" : "";
+                                    string truncate = Model.Id != 0 && Model.NomeOriginalArquivo.Length > 25 ? "truncate" : "";
+                                    string styleTruncate = Model.Id != 0 && Model.NomeOriginalArquivo.Length > 25 ? "left: 2px; top: 0px; " : "";
+                                }
+                                @if (Model.Id != 0)
+                                {
+                                    <div style="@displayLink" class="@truncate">
+                                        @Html.ActionLink(Model.NomeOriginalArquivo, "Download", "Base", new { path = Model.PathArquivo, area = "" }, null)
+                                        <img class="remover-anexo" style="display: inline; @styleTruncate" src="@Url.Content("~/Content/imagens/delete.png")" onclick="$(this).parent().hide(); $(this).parent().next().show();" />
+                                    </div>
+                                }
+                                <div class="upload-file" style="@displayFile">
+                                    <input type="file" name="UploadFile" id="txtUploadFile" class="form-control" accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" value="@Model.NomeOriginalArquivo" />
+                                    <div class="mensagem sucesso" style="display: none; position: absolute;">@_ModalAnexosConcurso.LabelUploadSucesso</div>
+                                    <div class="mensagem erro" style="display: none; position: absolute;">@_ModalAnexosConcurso.LabelUploadErro</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>@_ModalAnexosConcurso.LabelTemRecurso</label><em>*</em><br />
+                                <input type="radio" id="rdRecSim" name="temRecurso" value="S" /><label class="label-radio" for="rdRecSim">@_ModalAnexosConcurso.OptionSim</label>
+                                <input type="radio" id="rdRecNao" name="temRecurso" value="N" checked /><label class="label-radio" for="rdRecNao">@_ModalAnexosConcurso.OptionNao</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 data_recurso">
+                            <div class="form-group">
+                                <label>@_ModalAnexosConcurso.LabelDataInicioRecurso</label>
+                                <div class='input-group date' id='datetimepickerInicioRecurso'>
+                                    <input type="text" class="form-control" name="dataInicio" id="txtDataInicioRecurso" value="@Model.DataInicioRecursoString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 data_recurso">
+                            <div class="form-group">
+                                <label>@_ModalAnexosConcurso.LabelDataFimRecurso</label>
+                                <div class='input-group date' id='datetimepickerFimRecurso'>
+                                    <input type="text" class="form-control" name="dataTermino" id="txtDataFimRecurso" value="@Model.DataFimRecursoString" />
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group text-center">
+                                <input type="button" name="btnVoltar" id="btnVoltar" class="btn btn-personal1 btn-lg" value="@_ModalAnexosConcurso.BotaoCancelar" onclick="$('.modal-anexos').modal('hide');" />
+                                <input type="submit" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="@_ModalAnexosConcurso.BotaoAdicionar" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

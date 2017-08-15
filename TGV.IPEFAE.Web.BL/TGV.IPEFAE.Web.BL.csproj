@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4CA0DAA7-86C3-490A-9EEB-BC7240619D7E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TGV.IPEFAE.Web.BL</RootNamespace>
+    <AssemblyName>TGV.IPEFAE.Web.BL</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="TGV.Framework">
+      <HintPath>..\Dlls\TGV.Framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Business\BaseBusiness.cs" />
+    <Compile Include="Business\EmpresaBusiness.cs" />
+    <Compile Include="Business\IpeFaeBusiness.cs" />
+    <Compile Include="Business\EstadoBusiness.cs" />
+    <Compile Include="Business\CidadeBusiness.cs" />
+    <Compile Include="Business\RecursoBusiness.cs" />
+    <Compile Include="Business\InscritoConcursoBusiness.cs" />
+    <Compile Include="Business\EmailBusiness.cs" />
+    <Compile Include="Business\LogErroBusiness.cs" />
+    <Compile Include="Business\ConcursoBusiness.cs" />
+    <Compile Include="Business\UsuarioEstagioBusiness.cs" />
+    <Compile Include="Business\UsuarioBusiness.cs" />
+    <Compile Include="Data\BaseData.cs" />
+    <Compile Include="Data\EmailData.cs" />
+    <Compile Include="Data\EstadoData.cs" />
+    <Compile Include="Data\LogErroData.cs" />
+    <Compile Include="Data\RecursoData.cs" />
+    <Compile Include="Data\InscritoConcursoData.cs" />
+    <Compile Include="Data\IPEFAEEntitiesExtension.cs" />
+    <Compile Include="Data\IPEFAEModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IPEFAEModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\IPEFAEModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\IPEFAEModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IPEFAEModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\spr_tgv_gerar_lista_inscritos_Result.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_can_concurso_anexo.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_cci_concurso_cargo_inscrito.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_cco_cargo_concurso.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_cid_cidade.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_con_concurso.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_con_concurso_extension.cs" />
+    <Compile Include="Data\tb_ema_email.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_emp_empresa.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_est_estado.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_icl_inscrito_classificacao.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_ico_inscrito_concurso.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_ico_inscrito_concurso_extension.cs" />
+    <Compile Include="Data\tb_icv_inscrito_concurso_vestibular.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_idt_inscrito_dados_prova.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_ler_log_erro.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_per_permissao.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_rec_recurso.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_sre_status_recurso.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_tlc_tipo_layout_concurso.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_ued_usuario_estagio_dados_escolares.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_uee_usuario_estagio_experiencia.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_ueo_usuario_estagio_outros.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_ues_usuario_estagio.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tb_usu_usuario.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ConcursoData.cs" />
+    <Compile Include="Data\CidadeData.cs" />
+    <Compile Include="Data\EmpresaData.cs" />
+    <Compile Include="Data\UsuarioEstagioData.cs" />
+    <Compile Include="Data\UsuarioData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Data\IPEFAEModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>IPEFAEModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="Data\IPEFAEModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IPEFAEModel.edmx</DependentUpon>
+      <LastGenOutput>IPEFAEModel.Context.cs</LastGenOutput>
+    </None>
+    <None Include="Data\IPEFAEModel.edmx.diagram">
+      <DependentUpon>IPEFAEModel.edmx</DependentUpon>
+    </None>
+    <None Include="Data\IPEFAEModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IPEFAEModel.edmx</DependentUpon>
+      <LastGenOutput>IPEFAEModel.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

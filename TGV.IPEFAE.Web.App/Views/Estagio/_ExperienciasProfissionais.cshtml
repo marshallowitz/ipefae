@@ -1,0 +1,8 @@
+﻿@using TGV.IPEFAE.Web.Resources.Estagio
+@using TGV.IPEFAE.Web.App.Models
+@model List<UsuarioEstagioModel.ExperienciaProfissionalModel>
+
+@foreach (UsuarioEstagioModel.ExperienciaProfissionalModel ep in Model)
+{
+    @Html.Partial("_ExperienciaProfissional", ep)
+}

@@ -1,0 +1,92 @@
+﻿@using TGV.IPEFAE.Web.Resources.Admin.Concurso;
+@{ Layout = "~/Views/Shared/_LayoutList.cshtml"; }
+<link href="@Url.Content("~/Content/Concurso.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css"> 
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/f2c75b7247b/sorting/datetime-moment.js"></script>
+<script src="@Url.Content("~/Scripts/Views/Concurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script>
+    var urlDataTable = '@Url.Content(String.Format("~/Scripts/language/dataTables.{0}.txt", TGV.IPEFAE.Web.Resources.Shared.Listas.IdiomaDataTable))';
+    var mensagemCarregando = encodeConversion('@Index.MensagemCarregando', 'num', 'hex');
+    var mensagemDownloadCSV = encodeConversion('@Index.MensagemDownloadCSV', 'num', 'hex');
+    var mensagemDownloadTXT = encodeConversion('@Index.MensagemDownloadTXT', 'num', 'hex');
+    var mensagemProcessandoArquivoRemessa = encodeConversion('@Index.MensagemProcessandoArquivoRemessa', 'num', 'hex');
+    var mensagemProcessandoArquivoConcurso = encodeConversion('@Index.MensagemProcessandoArquivoConcurso', 'num', 'hex');
+    var naoEncontrado = encodeConversion('@Index.NenhumConcursoEncontrado', 'num', 'hex');
+
+    $(function () { iniciarTelaListaConcursos(); });
+</script>
+
+<iframe id="iframeCSV" style="display:none;"></iframe>
+<iframe id="iframeTXT" style="display:none;"></iframe>
+<h2 class="titulo">@Index.TituloTela <a href="@Url.Content("~/Admin/Concurso/Cadastro")">@Index.LinkAdicionarConcurso</a> </h2>
+<div class="adicionarEmpresa" title="@Index.TitleAdicionarEmpresa" onclick="abrirModalAdicionarEmpresa();"></div>
+<div class="updateConcurso" title="@Index.TitleUpdateConcurso" onclick="abrirModalUpdateConcurso();"></div>
+<div class="remessa" title="@Index.TitleRemessa" onclick="abrirModalRemessas();"></div>
+<div class="lista table-responsive"></div>
+
+
+<section id="modal-remessa">
+    <div class="modal fade modal-remessa" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="container">
+                    <div class="row" style="padding: 10px;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@Index.LabelUploadArquivoRemessa</label><em>*</em>
+                                <div class="upload-file">
+                                    <input type="file" name="UploadFile" id="txtUploadFile" class="form-control" />
+                                    <div style="left: 50%; position: absolute;">
+                                        <div class="mensagem sucesso" style="display: none;">@Index.LabelUploadSucesso</div>
+                                        <div class="mensagem erro" style="display: none;">@Index.LabelUploadErro</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-6">
+                            <div class="form-group text-center">
+                                <input type="button" name="btnFechar" id="btnFechar" class="btn btn-personal1 btn-lg" value="@Index.BotaoFechar" onclick="$('.modal-remessa').modal('hide');" />
+                                <input type="button" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="@Index.BotaoUpload" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="modal-concurso">
+    <div class="modal fade modal-concurso" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="container">
+                    <div class="row" style="padding: 10px;">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@Index.LabelUploadArquivoConcurso</label><em>*</em>
+                                <div class="upload-file">
+                                    <input type="file" name="UploadFile" id="txtUploadFileConcurso" class="form-control" />
+                                    <div style="left: 50%; position: absolute;">
+                                        <div class="mensagem sucesso" style="display: none;">@Index.LabelUploadSucesso</div>
+                                        <div class="mensagem erro" style="display: none;">@Index.LabelUploadErro</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col-md-6">
+                            <div class="form-group text-center">
+                                <input type="button" name="btnFechar" id="btnFecharConcurso" class="btn btn-personal1 btn-lg" value="@Index.BotaoFechar" onclick="$('.modal-concurso').modal('hide');" />
+                                <input type="button" name="btnSalvar" id="btnSalvarConcurso" class="btn btn-success btn-lg" value="@Index.BotaoUpload" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

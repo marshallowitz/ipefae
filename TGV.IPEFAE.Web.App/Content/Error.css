@@ -1,0 +1,53 @@
+﻿html, body                          { height: 100%; padding: 0; overflow: hidden; width: 100%; }
+.body-content                       { height: 100%; padding: 0; max-width: 100%; }
+
+/* SECTIONS */
+.error                              { display: table; height: 100%; left: 0; margin: 0 auto; position: absolute; width: 100%; }
+.error.generic                      { background-size: cover; background: url(imagens/error.png) no-repeat center top fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+.error.notfound                     { background-size: cover; background: url(imagens/notfound.jpg) no-repeat center top fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+.error.unauthorized                 { background-size: cover; background: url(imagens/acessonegado.jpg) no-repeat center top fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+.error.under-construction           { background-size: cover; background: url(imagens/site-em-construcao.png) no-repeat center top fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+
+.error .mensagem                    { margin-left: 35%; position: relative; text-align: center; width: 60%; }
+.error.generic .mensagem            { margin-top: 20%; }
+.error.notfound .mensagem           { margin-top: 20%; }
+.error.unauthorized .mensagem       { margin-top: 20%; }
+.error.under-construction .mensagem { margin: 0 auto; margin-top: 10%; }
+
+.error h2, h3                       { font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif; }
+.error h2                           { font-weight: 700; text-transform: uppercase; }
+.error h3                           { line-height: 1; }
+.error.under-construction h3        { font-size: 18px }
+
+.logomarca.logado                   { top: 3px; }
+
+@media only screen and (max-device-width: 799px) {
+    .error.generic .mensagem       { margin-top: 15%; }
+    .error.notfound .mensagem       { margin-top: 15%; }
+    .error.unauthorized .mensagem   { margin-top: 15%; }
+    .error h2                       { font-size: 25px; }
+    .error h3                       { font-size: 18px; line-height: 1; }
+}
+
+@media only screen and (max-device-width: 435px) {
+    .error.generic                  { background-size: cover; background: url(imagens/error_mobile.png) no-repeat center top fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+    .error.notfound                 { background-size: cover; background: url(imagens/notfound_mobile.jpg) no-repeat center top fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+    .error.unauthorized             { background-size: cover; background: url(imagens/acessonegado_mobile.jpg) no-repeat center top fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+    .error.generic .mensagem        { margin: 0 auto; margin-top: 25%; width: 80%; }
+    .error.notfound .mensagem       { margin: 0 auto; margin-top: 25%; width: 80%; }
+    .error.unauthorized .mensagem   { margin: 0 auto; margin-top: 25%; width: 80%; }
+    .error h2                       { font-size: 25px; }
+    .error h3                       { font-size: 18px; line-height: 1; }
+}
+
+@media only screen and (max-device-width: 768px) and (min-device-height: 1024px) {
+    .error.generic                  { background-size: cover; background: url(imagens/error_mobile.png) no-repeat center top fixed; background-position-y: 100%; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+    .error.notfound                 { background-size: cover; background: url(imagens/notfound_mobile.jpg) no-repeat center top fixed; background-position-y: 100%; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+    .error.unauthorized             { background-size: cover; background: url(imagens/acessonegado_mobile.jpg) no-repeat center top fixed; background-position-y: 100%; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+    .error.generic .mensagem        { margin: 0 auto; margin-top: 25%; width: 80%; }
+    .error.notfound .mensagem       { margin: 0 auto; margin-top: 25%; width: 80%; }
+    .error.unauthorized .mensagem   { margin: 0 auto; margin-top: 25%; width: 80%; }
+    .error h2                       { font-size: 25px; }
+    .error h3                       { font-size: 18px; line-height: 1; }
+}
+

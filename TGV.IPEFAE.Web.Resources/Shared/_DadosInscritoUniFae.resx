@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BotaoAvancar" xml:space="preserve">
+    <value>Salvar</value>
+  </data>
+  <data name="Curso2Obrigatorio" xml:space="preserve">
+    <value>A segunda opção é obrigatória</value>
+  </data>
+  <data name="Curso3Obrigatorio" xml:space="preserve">
+    <value>A terceira opção é obrigatória</value>
+  </data>
+  <data name="CursoObrigatorio" xml:space="preserve">
+    <value>O curso é obrigatório</value>
+  </data>
+  <data name="EstadoObrigatorio" xml:space="preserve">
+    <value>O estado é obrigatório</value>
+  </data>
+  <data name="LabelAtividadeRemunerada" xml:space="preserve">
+    <value>Exerce Atividade Remunerada</value>
+  </data>
+  <data name="LabelConcluiuEnsinoFundamental" xml:space="preserve">
+    <value>Concluiu Ensino Fundamental</value>
+  </data>
+  <data name="LabelConcluiuEnsinoMedio" xml:space="preserve">
+    <value>Concluiu Ensino Médio</value>
+  </data>
+  <data name="LabelCursoIndicado" xml:space="preserve">
+    <value>Curso</value>
+  </data>
+  <data name="LabelDataProva" xml:space="preserve">
+    <value>Data da Prova</value>
+  </data>
+  <data name="LabelEnsinoMedioEm" xml:space="preserve">
+    <value>Frequentou Ensino Médio em</value>
+  </data>
+  <data name="LabelEscolaridadeMae" xml:space="preserve">
+    <value>Escolaridade Mãe</value>
+  </data>
+  <data name="LabelEscolaridadePai" xml:space="preserve">
+    <value>Escolaridade Pai</value>
+  </data>
+  <data name="LabelLocalProva" xml:space="preserve">
+    <value>Local da Prova</value>
+  </data>
+  <data name="LabelMotivoOptarCurso" xml:space="preserve">
+    <value>Principal motivo para escolher o curso?</value>
+  </data>
+  <data name="LabelMotivoOptarUniFae" xml:space="preserve">
+    <value>Que motivo o levou a optar pela UNIFAE?</value>
+  </data>
+  <data name="LabelNomeIndicado" xml:space="preserve">
+    <value>Indicado pelo aluno (Nome completo)</value>
+  </data>
+  <data name="LabelOpcao1" xml:space="preserve">
+    <value>1ª Opção</value>
+  </data>
+  <data name="LabelOpcao2" xml:space="preserve">
+    <value>2ª Opção</value>
+  </data>
+  <data name="LabelOpcao3" xml:space="preserve">
+    <value>3ª Opção</value>
+  </data>
+  <data name="LabelRendaMensal" xml:space="preserve">
+    <value>Renda Mensal Familiar</value>
+  </data>
+  <data name="LabelRendaMensalSubtitulo" xml:space="preserve">
+    <value>(considere todos os membros que colaboram no orçamento familiar)</value>
+  </data>
+  <data name="LabelSemestreCursoIndicado" xml:space="preserve">
+    <value>Semestre</value>
+  </data>
+  <data name="LabelTomouConhecimento" xml:space="preserve">
+    <value>Como ficou sabendo do vestibular UNIFAE?</value>
+  </data>
+  <data name="LabelTomouConhecimentoOutros" xml:space="preserve">
+    <value>Quais?</value>
+  </data>
+  <data name="LegendOpcaoCurso" xml:space="preserve">
+    <value>Opção de Curso</value>
+  </data>
+  <data name="LegendOutrasInformacoes" xml:space="preserve">
+    <value>Outras Informações</value>
+  </data>
+  <data name="NaoInformado" xml:space="preserve">
+    <value>Não Informado</value>
+  </data>
+  <data name="OptionAtividadeRemuneradaNaoJaExerci" xml:space="preserve">
+    <value>Não, mas já exerci anteriormente</value>
+  </data>
+  <data name="OptionAtividadeRemuneradaNaoNunca" xml:space="preserve">
+    <value>Não, nunca exerci</value>
+  </data>
+  <data name="OptionConcluiuEnsinoNormal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="OptionConcluiuEnsinoSupletivo" xml:space="preserve">
+    <value>Supletivo</value>
+  </data>
+  <data name="OptionEnsinoMedioEstadual" xml:space="preserve">
+    <value>Escola Estadual</value>
+  </data>
+  <data name="OptionEnsinoMedioMunicipal" xml:space="preserve">
+    <value>Escola Municipal</value>
+  </data>
+  <data name="OptionEnsinoMedioParticular" xml:space="preserve">
+    <value>Escola Particular</value>
+  </data>
+  <data name="OptionEscolaridadeFundamentalCompleto" xml:space="preserve">
+    <value>Ensino Fundamental Completo</value>
+  </data>
+  <data name="OptionEscolaridadeFundamentalIncompleto" xml:space="preserve">
+    <value>Ensino Fundamental Incompleto</value>
+  </data>
+  <data name="OptionEscolaridadeMaeNaoAlfabetizada" xml:space="preserve">
+    <value>Não Alfabetizada</value>
+  </data>
+  <data name="OptionEscolaridadeMedioCompleto" xml:space="preserve">
+    <value>Ensino Médio Completo</value>
+  </data>
+  <data name="OptionEscolaridadeMedioIncompleto" xml:space="preserve">
+    <value>Ensino Médio Incompleto</value>
+  </data>
+  <data name="OptionEscolaridadePaiNaoAlfabetizado" xml:space="preserve">
+    <value>Não Alfabetizado</value>
+  </data>
+  <data name="OptionEscolaridadePosGraduacao" xml:space="preserve">
+    <value>Pós Graduação</value>
+  </data>
+  <data name="OptionEscolaridadeSuperiorCompleto" xml:space="preserve">
+    <value>Ensino Superior Completo</value>
+  </data>
+  <data name="OptionEscolaridadeSuperiorIncompleto" xml:space="preserve">
+    <value>Ensino Superior Incompleto</value>
+  </data>
+  <data name="OptionFeminino" xml:space="preserve">
+    <value>Feminino</value>
+  </data>
+  <data name="OptionMasculino" xml:space="preserve">
+    <value>Masculino</value>
+  </data>
+  <data name="OptionMotivoOptarCursoCompetencia" xml:space="preserve">
+    <value>Aquisição de competência profissional</value>
+  </data>
+  <data name="OptionMotivoOptarCursoCrescimentoEmpresa" xml:space="preserve">
+    <value>Acesso as melhores posições na empresa/instituição em que trabalha</value>
+  </data>
+  <data name="OptionMotivoOptarCursoExigenciaEmpresa" xml:space="preserve">
+    <value>Exigencia da empresa/instituição que atua</value>
+  </data>
+  <data name="OptionMotivoOptarCursoMercadoTrabalho" xml:space="preserve">
+    <value>Valorização pelo mercado de trabalho com boas perspectivas salariais</value>
+  </data>
+  <data name="OptionMotivoOptarCursoVocacao" xml:space="preserve">
+    <value>Acreditar ser sua vocação e/ou busca de realização pessoal</value>
+  </data>
+  <data name="OptionMotivoOptarUniFaeConceito" xml:space="preserve">
+    <value>Conceito da UNIFAE quanto instituição de ensino</value>
+  </data>
+  <data name="OptionMotivoOptarUniFaeLocalizacao" xml:space="preserve">
+    <value>A localização</value>
+  </data>
+  <data name="OptionMotivoOptarUniFaeValor" xml:space="preserve">
+    <value>Valor acessível das mensalidades</value>
+  </data>
+  <data name="OptionNao" xml:space="preserve">
+    <value>Não</value>
+  </data>
+  <data name="OptionRendaMensal1001a2000" xml:space="preserve">
+    <value>De R$ 1.950,01 até R$ 2.730,00</value>
+  </data>
+  <data name="OptionRendaMensal2001a3000" xml:space="preserve">
+    <value>De R$ 2.730,01 até R$ 3.900,00</value>
+  </data>
+  <data name="OptionRendaMensal300a1000" xml:space="preserve">
+    <value>De R$ 938,00 até R$ 1.950,00</value>
+  </data>
+  <data name="OptionRendaMensalAcima3000" xml:space="preserve">
+    <value>Acima de R$ 3.900,00</value>
+  </data>
+  <data name="OptionRendaMensalAte300" xml:space="preserve">
+    <value>Até R$ 937,00</value>
+  </data>
+  <data name="OptionSelecione" xml:space="preserve">
+    <value>Selecione</value>
+  </data>
+  <data name="OptionSim" xml:space="preserve">
+    <value>Sim</value>
+  </data>
+  <data name="OptionTomouConhecimentoAlunos" xml:space="preserve">
+    <value>Alunos</value>
+  </data>
+  <data name="OptionTomouConhecimentoAmigos" xml:space="preserve">
+    <value>Amigos</value>
+  </data>
+  <data name="OptionTomouConhecimentoCartazes" xml:space="preserve">
+    <value>Cartazes</value>
+  </data>
+  <data name="OptionTomouConhecimentoExAlunos" xml:space="preserve">
+    <value>Ex-alunos</value>
+  </data>
+  <data name="OptionTomouConhecimentoFlyer" xml:space="preserve">
+    <value>Flyer</value>
+  </data>
+  <data name="OptionTomouConhecimentoInternet" xml:space="preserve">
+    <value>Internet</value>
+  </data>
+  <data name="OptionTomouConhecimentoOutdoor" xml:space="preserve">
+    <value>Outdoor</value>
+  </data>
+  <data name="OptionTomouConhecimentoOutros" xml:space="preserve">
+    <value>Outros</value>
+  </data>
+  <data name="OptionTomouConhecimentoRadio" xml:space="preserve">
+    <value>Rádio</value>
+  </data>
+  <data name="OptionTomouConhecimentoTV" xml:space="preserve">
+    <value>TV</value>
+  </data>
+  <data name="TextoTermoResponsabilidade" xml:space="preserve">
+    <value>Declaro que tomei conhecimento, estou de acordo e atento as exigencias e normas contidas no Edital deste certame e estou ciente de que a falsidade ou inexatidão das afirmativas, declarações e documentações, bem como irregularidades no certame, permitirá a anulação a qualquer tempo da minha inscrição, prova ou matrícula, eliminando -me do certame e cancelando todos os atos decorrentes da inscrição.</value>
+  </data>
+  <data name="TextoTermoResponsabilidadeAssumoResponsabilidade" xml:space="preserve">
+    <value>Ao clicar em avançar, assumo responsabilidade pelas informações aqui contidas, como aceito as normas que regem este certame.</value>
+  </data>
+  <data name="TituloTermoResponsabilidade" xml:space="preserve">
+    <value>TERMO DE RESPONSABILIDADE</value>
+  </data>
+  <data name="TituloTermoResponsabilidadeAviso" xml:space="preserve">
+    <value>LEIA ATENTAMENTE AO TERMO DE RESPONSABILIDADE</value>
+  </data>
+  <data name="ValidacaoAtividadeRemuneradaObrigatorio" xml:space="preserve">
+    <value>Se exerce atividade remunerada é obrigatório</value>
+  </data>
+  <data name="ValidacaoConcluiuEFObrigatorio" xml:space="preserve">
+    <value>Concluiu o Ensino Fundamental é obrigatório</value>
+  </data>
+  <data name="ValidacaoConcluiuEMObrigatorio" xml:space="preserve">
+    <value>Concluiu o Ensino Médio é obrigatório</value>
+  </data>
+  <data name="ValidacaoEscolaridadeMaeObrigatorio" xml:space="preserve">
+    <value>A escolaridade da mãe é obrigatória</value>
+  </data>
+  <data name="ValidacaoEscolaridadePaiObrigatorio" xml:space="preserve">
+    <value>A escolaridade do pai é obrigatória</value>
+  </data>
+  <data name="ValidacaoFicouSabendoObrigatorio" xml:space="preserve">
+    <value>Como ficou sabendo da UniFae é obrigatório</value>
+  </data>
+  <data name="ValidacaoFicouSabendoOutrosObrigatorio" xml:space="preserve">
+    <value>Qual foi o outro meio é obrigatório</value>
+  </data>
+  <data name="ValidacaoFreqEMObrigatorio" xml:space="preserve">
+    <value>Frequentou Ensino Médio Em é obrigatório</value>
+  </data>
+  <data name="ValidacaoMotivoCursoObrigatorio" xml:space="preserve">
+    <value>O motivo de escolher o curso é obrigatório</value>
+  </data>
+  <data name="ValidacaoMotivoUniFaeObrigatorio" xml:space="preserve">
+    <value>O motivo de escolher a UniFae é obrigatório</value>
+  </data>
+  <data name="ValidacaoRendaMensalObrigatorio" xml:space="preserve">
+    <value>A renda familiar mensal é obrigatória</value>
+  </data>
+  <data name="ValidacaoSexoObrigatorio" xml:space="preserve">
+    <value>O seu gênero é obrigatório</value>
+  </data>
+</root>

@@ -1,0 +1,111 @@
+﻿@using TGV.IPEFAE.Web.Resources.Recurso;
+
+<script>
+    var labelNome = '@_RecursoIsencao.LabelNomeCompleto';
+    var labelCPF = '@_RecursoIsencao.LabelCPF';
+    var labelIdentSocial = '@_RecursoIsencao.LabelIdentificacaoSocial';
+    var labelDataNasc = '@_RecursoIsencao.LabelDataNascimento';
+    var labelSexo = '@_RecursoIsencao.LabelSexo';
+    var labelRG = '@_RecursoIsencao.LabelRG';
+    var labelDataExpedicaoRG = '@_RecursoIsencao.LabelDataExpedicaoRG';
+    var labelOrgaoExpedidorRG = '@_RecursoIsencao.LabelOrgaoExpedidorRG';
+    var labelNomeMae = '@_RecursoIsencao.LabelNomeMae';
+    
+    var optionFeminino = '@_RecursoIsencao.OptionFeminino';
+    var optionMasculino = '@_RecursoIsencao.OptionMasculino';
+</script>
+
+<div class="row">
+    <div class="col-md-12">
+        <fieldset class="recurso-isencao">
+            <legend>@_RecursoIsencao.LegendSolicitacaoIsencao</legend>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>@_RecursoIsencao.LabelNomeCompleto</label><em>*</em>
+                        <input type="text" class="form-control" name="nome" id="txtNomeCompleto" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>@_RecursoIsencao.LabelCPF</label><br />
+                        <span class="cpfRecurso" style="font-weight: bold;"></span>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>@_RecursoIsencao.LabelIdentificacaoSocial</label><em>*</em>
+                        <input type="text" class="form-control" name="identSocial" id="txtIdentSocial" placeholder="@_RecursoIsencao.LabelIdentificacaoSocial_Sub" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>@_RecursoIsencao.LabelDataNascimento</label><em>*</em>
+                        <input type="text" class="form-control" name="dataNasc" id="txtDataNascimento" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>@_RecursoIsencao.LabelSexo</label><em>*</em>
+                        <select id="ddlSexo" name="sexo" class="form-control">
+                            <option value="" selected></option>
+                            <option value="F">@_RecursoIsencao.OptionFeminino</option>
+                            <option value="M">@_RecursoIsencao.OptionMasculino</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>@_RecursoIsencao.LabelRG</label><em>*</em>
+                        <input type="text" class="form-control" name="rg" id="txtRG" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>@_RecursoIsencao.LabelDataExpedicaoRG</label><em>*</em>
+                        <input type="text" class="form-control" name="dataDataExpedicaoRG" id="txtDataExpedicaoRG" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>@_RecursoIsencao.LabelOrgaoExpedidorRG</label><em>*</em>
+                        <input type="text" class="form-control" name="orgaoExpedidorRG" id="txtOrgaoExpedidorRG" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>@_RecursoIsencao.LabelNomeMae</label><em>*</em>
+                        <input type="text" class="form-control" name="nomeMae" id="txtNomeMae" />
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row declaracao" style="margin-top: -20px;">
+                <div class="col-md-12" style="font-size: 14px; font-weight: bold; margin-bottom: 5px; text-align: center;">
+                    @_RecursoIsencao.LabelDeclaracaoTitulo
+                </div>
+            </div>
+            <div class="row declaracao primeira-linha" style="margin-top: -20px;">
+                <div class="col-md-12 declaracaoIsento" style="font-size: 12px; margin-bottom: 5px; text-align: justify;">
+                    <span>@_RecursoIsencao.LabelDeclaracaoP01</span>
+                </div>
+            </div>
+            <br />
+            <div class="row declaracao" style="margin-top: -20px;">
+                <div class="col-md-12 declaracaoIsento" style="font-size: 12px; margin-bottom: 5px; text-align: justify;">
+                    <span>@_RecursoIsencao.LabelDeclaracaoP02</span>
+                </div>
+            </div>
+            <br />
+        </fieldset>
+    </div>
+</div>

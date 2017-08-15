@@ -1,0 +1,12 @@
+Inscrição;ProvaData;ProvaHorario;ProvaLocal;ProvaSala;ProvaAndar;ProvaEndereco;ProvaNumero;ProvaBairro;ProvaCidade;ProvaCEP;ClassPosicao;ClassNota;ClassCG;ClassCE;ClassTit;ClassPP;ClassSituacao
+107;10/02/2015;11:23;UniFae;223;1;Av. Doutor Oscar Pirajá Martins;185;Jd Santo Andre;São João da Boa Vista;13874-000;1;8,9;9,1;7,2;9,25;8,73;Aprovado
+108;;;UniFae;223;1;Av. Doutor Oscar Pirajá Martins;186;Jd Santo Andre;São João da Boa Vista;13874-001;2;8,8;9;7,2;7;5;Aprovado
+110;12/02/2015;13:23;UniFae;;;Av. Doutor Oscar Pirajá Martins;187;Jd Santo Andre;São João da Boa Vista;13874-002;;;;;;;
+113;13/02/2015;14:23;UniFae;223;1;;;;;;4;6;7,22;4;1,05;1,18;Reprovado
+115;;;;;;;;;;;;;;;;;
+116;15/02/2015;16:23;UniFae;223;1;Av. Doutor Oscar Pirajá Martins;190;Jd Santo Andre;São João da Boa Vista;13874-005;;;;;;;
+117;16/02/2015;17:23;UniFae;223;1;Av. Doutor Oscar Pirajá Martins;191;Jd Santo Andre;São João da Boa Vista;13874-006;;;;;;;
+118;17/02/2015;18:23;UniFae;223;1;Av. Doutor Oscar Pirajá Martins;192;Jd Santo Andre;São João da Boa Vista;13874-007;;;;;;;
+119;18/02/2015;19:23;UniFae;223;1;Av. Doutor Oscar Pirajá Martins;193;Jd Santo Andre;São João da Boa Vista;13874-008;3;7;8,23;8;5;2;Reprovado
+193;10/02/2015;11:23;UniFae;223;1;Av. Doutor Oscar Pirajá Martins;185;Jd Santo Andre;São João da Boa Vista;13874-000;1;8,9;9,1;7,2;9,25;8,73;Aprovado
+179;dddd;sdddd;ddddd;ddd;ddd;dd;dd;dd;dd;dd;d;d;d;d;d;d;d

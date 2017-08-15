@@ -1,0 +1,15 @@
+﻿@using TGV.IPEFAE.Web.Resources.Error;
+@model System.Web.Mvc.HandleErrorInfo
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+
+<link href="@Url.Content("~/Content/Error.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<script>
+    $(function () { $('.ulDeslogado').hide(); setTimeout(function () { window.location.href = homePage }, 3000); $('.navbar-custom.logado').removeClass('logado'); });
+</script>
+<section id="Error" class="error notfound">
+    <div class="mensagem">
+        <h2>@NotFound.Titulo</h2>
+        <h3>@NotFound.AvisoPrincipal</h3>
+        <h3>@NotFound.AvisoSecundario</h3>
+    </div>
+</section>

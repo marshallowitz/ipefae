@@ -1,0 +1,16 @@
+﻿@using TGV.IPEFAE.Web.Resources.Admin.Usuario;
+@{ Layout = "~/Views/Shared/_LayoutList.cshtml"; }
+<script src="@Url.Content("~/Scripts/Views/Usuario.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script>
+    var urlDataTable = '@Url.Content(String.Format("~/Scripts/language/dataTables.{0}.txt", TGV.IPEFAE.Web.Resources.Shared.Listas.IdiomaDataTable))';
+    var mensagemCarregando = encodeConversion('@Index.MensagemCarregando', 'num', 'hex');
+    var mensagemDesativando = encodeConversion('@Index.MensagemDesativando', 'num', 'hex');
+    var operacaoMensagemSucesso = encodeConversion('@Index.OperacaoMensagemSucesso', 'num', 'hex');
+    var operacaoMensagemErro = encodeConversion('@Index.OperacaoMensagemErro', 'num', 'hex');
+    var naoEncontrado = encodeConversion('@Index.NenhumUsuarioEncontrado', 'num', 'hex');
+
+    $(function () { iniciarTelaListaUsuarios(); });
+</script>
+
+<h2 class="titulo">@Index.TituloTela <a href="@Url.Content("~/Admin/Usuario/Cadastro")">@Index.LinkAdicionarUsuario</a> </h2>
+<div class="lista table-responsive"></div>

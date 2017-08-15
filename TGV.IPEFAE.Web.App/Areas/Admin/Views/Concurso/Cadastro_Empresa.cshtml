@@ -1,0 +1,86 @@
+﻿@model TGV.IPEFAE.Web.App.Models.ConcursoModel.EmpresaModel
+@using TGV.IPEFAE.Web.Resources.Admin.Concurso.Empresa;
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+
+<h2 class="titulo">@Cadastro.TituloTela @Html.ActionLink(Cadastro.VoltarLista, "Index_Empresa", null, new { @style = "float: right;" })</h2>
+
+<script src="@Url.Content("~/Scripts/Views/Empresa.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script type="text/javascript">
+    var nomeObrigatorio = encodeConversion('@Cadastro.ValidacaoNomeObrigatorio', 'num', 'hex');
+    var razaoSocialObrigatorio = encodeConversion('@Cadastro.ValidacaoRazaoSocialObrigatorio', 'num', 'hex');
+    var cnpjObrigatorio = encodeConversion('@Cadastro.ValidacaoCNPJObrigatorio', 'num', 'hex');
+    var bancoObrigatorio = encodeConversion('@Cadastro.ValidacaoBancoObrigatorio', 'num', 'hex');
+    var agenciaObrigatorio = encodeConversion('@Cadastro.ValidacaoAgenciaObrigatorio', 'num', 'hex');
+    var contaObrigatorio = encodeConversion('@Cadastro.ValidacaoContaObrigatorio', 'num', 'hex');
+    var convenioObrigatorio = encodeConversion('@Cadastro.ValidacaoConvenioObrigatorio', 'num', 'hex');
+    var mensagemSalvando = encodeConversion('@Cadastro.MensagemSalvando', 'num', 'hex');
+
+    var bancoSelecionado = '@Model.NumeroBanco';
+
+   $(function () { iniciarTelaCadastroEmpresa(); });
+</script>
+
+@Html.HiddenFor(model => model.Id)
+
+<div class="cadastro-empresa col-sm-12">
+    <form id="userForm" class="userForm">
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>@Cadastro.LabelNome</label>
+                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", autofocus = "autofocus", maxlength = "100" })
+            </div>
+
+            <div class="col-md-4 form-group">
+                <label>@Cadastro.LabelRazaoSocial</label>
+                @Html.TextBoxFor(model => model.RazaoSocial, new { @class = "form-control", placeholder = Cadastro.PlaceHolderRazaoSocial, maxlength = "100" })
+            </div>
+
+            <div class="col-md-4 form-group">
+                <label>@Cadastro.LabelCNPJ</label>
+                <input type="text" id="txtCNPJ" class="form-control" name="cnpj" placeholder="@Cadastro.PlaceHolderCNPJ" maxlength="18" value="@Model.CNPJ" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>@Cadastro.LabelBanco</label>
+                <select id="ddlBanco" name="banco" class="form-control" style="max-width: inherit;">
+                    <option value="" selected></option>
+                    <option value="1">Banco do Brasil - 001</option>
+                    <option value="237">Bradesco - 237</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 form-group">
+                <label>@Cadastro.LabelAgencia</label><label style="font-size: 8px; margin-left: 5px; white-space: nowrap;">@Cadastro.LabelAgenciaComentario</label>
+                @Html.TextBoxFor(model => model.Agencia, new { @class = "form-control", maxlength = "4" })
+            </div>
+
+            <div class="col-md-4 form-group">
+                <label>@Cadastro.LabelConta</label><label style="font-size: 8px; margin-left: 5px; white-space: nowrap; ">@Cadastro.LabelContaComentario</label>
+                @Html.TextBoxFor(model => model.ContaCorrente, new { @class = "form-control", maxlength = "8" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 form-group">
+                <label>@Cadastro.LabelConvenio</label>
+                @Html.TextBoxFor(model => model.Convenio, new { @class = "form-control", maxlength = "6" })
+            </div>
+
+            <div class="col-md-4 form-group">
+                <label>@Cadastro.LabelConvenioCobranca</label>
+                @Html.TextBoxFor(model => model.ConvenioCobranca, new { @class = "form-control", maxlength = "7" })
+            </div>
+
+            <div id="colunaAtivo" class="col-md-4 form-group">
+                <label>@Cadastro.LabelSituacao</label><br />
+                @Html.CheckBoxFor(m => m.Ativo, new { @id = "chkAtivo", @class = "size-4" }) <label class="label-checkbox"> @Cadastro.LabelAtivo </label>
+            </div>
+        </div>
+
+        <div class="row" style="margin: 0 auto;">
+            <input type="submit" name="btnSalvar" id="btnSalvar" value="@Cadastro.BotaoSalvar" class="btn btn-lg btn-success btn-block" style="margin: 0 auto; width: 120px;" />
+        </div>
+    </form>
+</div>

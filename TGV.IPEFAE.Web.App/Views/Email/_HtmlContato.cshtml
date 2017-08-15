@@ -1,0 +1,55 @@
+﻿@using TGV.IPEFAE.Web.Resources.Email;
+@model TGV.IPEFAE.Web.App.Models.EmailModel
+
+<html dir="ltr">
+<head>
+    <title></title>
+</head>
+<body>
+    <table cellpadding="0" cellspacing="0" align="center" width="550" summary="">
+        <thead>
+            <tr>
+                <td align="center">
+                    <font face="arial"><img src="@Model.UrlLogo" alt="@EmailDefault.NomeSistema" width="414" height="161" /></font>
+                    <hr size="3" color="#C70303" />
+                </td>
+            </tr><!-- cabecalho:fim -->
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p><font color="Red" face="arial" size="+1"><b>@_HtmlContato.CorpoSaudacao @Model.Nome,</b></font></p>
+                    <p style="margin-top: 5px; margin-bottom: 5px"><font face="arial" size="2">@_HtmlContato.CorpoInfoEmail <b>@Model.Email</b>.</font></p>
+                    <p style="margin-top: 5px; margin-bottom: 5px"><font face="arial" size="2">@_HtmlContato.CorpoInfoTelefone <b>@Model.Telefone</b>.</font></p>
+                    <p style="margin-left: 10px;"><font face="arial" size="1">@Model.Mensagem</font></p><br />
+                </td>
+            </tr>
+            <tr>
+                <!-- rodape:inicio -->
+                <td>
+                    <font face="arial" size="2">@_HtmlContato.CorpoInfoResposta.</font><br />
+                    <font face="arial" size="-1">@EmailDefault.CorpoDespedida</font>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <font face="arial" size="-1">@EmailDefault.CorpoSlogan</font>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <hr size="2" color="#EFEFEF">
+                    <font face="arial" size="-1">@EmailDefault.CorpoDuvidas <a href="@Model.UrlSite" title="">@Model.UrlSite</a></font>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <hr size="2" color="#EFEFEF">
+                    <font face="arial" size="1">@EmailDefault.CorpoEmailAutomatico</font>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
+

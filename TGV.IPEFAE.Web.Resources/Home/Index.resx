@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ItemConcursos" xml:space="preserve">
+    <value>Concursos</value>
+  </data>
+  <data name="ItemEstagios" xml:space="preserve">
+    <value>Estágio</value>
+  </data>
+  <data name="ItemOutrosServicos" xml:space="preserve">
+    <value>Outros Serviços</value>
+  </data>
+  <data name="ItemProcessoSeletivo" xml:space="preserve">
+    <value>Processos Seletivos</value>
+  </data>
+  <data name="ItemVestibulares" xml:space="preserve">
+    <value>Vestibulares</value>
+  </data>
+  <data name="ItemVestibularUniFae" xml:space="preserve">
+    <value>Vestibular UniFAE 2018</value>
+  </data>
+  <data name="ServicesH2Servicos" xml:space="preserve">
+    <value>Serviços</value>
+  </data>
+  <data name="ServicesH3Principal" xml:space="preserve">
+    <value>O INSTITUTO DE PESQUISAS ECONÔMICAS – IPEFAE atende ao inciso XIII, do artigo 24, da Lei Federal nº 8666/93, depois alterada pela Lei 8.883/94, que dispõe sobre a contratação por dispensa de licitação:</value>
+  </data>
+  <data name="ServicesH3Terciario" xml:space="preserve">
+    <value>Constituído como pessoa jurídica, de natureza privada, sem fins lucrativos, tem por objetivo desenvolver projetos na área de educação, elaborando, disseminando e executando diversos programas e serviços.</value>
+  </data>
+  <data name="ServicesH4ConcursoPublico" xml:space="preserve">
+    <value>Concursos Públicos</value>
+  </data>
+  <data name="ServicesH4Consultoria" xml:space="preserve">
+    <value>Consultoria</value>
+  </data>
+  <data name="ServicesH4Estagio" xml:space="preserve">
+    <value>Estágio</value>
+  </data>
+  <data name="ServicesH4Palestras" xml:space="preserve">
+    <value>Palestras</value>
+  </data>
+  <data name="ServicesH4Secundario" xml:space="preserve">
+    <value>“...Instituição brasileira incumbida regimental ou  estatutariamente de pesquisa, do ensino ou do desenvolvimento institucional ou de instituição dedicada à recuperação social do preso, desde que a contratada detenha inquestionável reputação ético profissional e não tenha fins lucrativos”.</value>
+  </data>
+  <data name="ServicesH4SocioEducativo" xml:space="preserve">
+    <value>Projetos Sócio-Educativos</value>
+  </data>
+  <data name="ServicesH4Treinamentos" xml:space="preserve">
+    <value>Treinamentos</value>
+  </data>
+  <data name="ServicesPConcursoPublico" xml:space="preserve">
+    <value>A realização de Concursos Públicos, Processos Seletivos e certames em geral, requer um planejamento sintonizado com as necessidades de cada cliente e ações de execução centralizadas na performance de resultados, além de uma grande responsabilidade, envolvendo o desenvolvimento integrado de uma complexa logística. O IPEFAE mantém rígido controle e sigilo desde o primeiro contato do cliente, assessorando com segurança todas as etapas do trabalho.</value>
+  </data>
+  <data name="ServicesPConsultoria" xml:space="preserve">
+    <value>De forma simples e prática, o IPEFAE atua na busca de soluções que possam ser efetivamente traduzidas em inovação, desenvolvimento, qualidade e melhoria nos resultados, respeitando a identidade e a filosofia de cada organização. A expressiva capacitação, experiência, vivência profissional e formação multidisciplinar dos consultores, amparam o desenvolvimento e suporte técnico dos projetos.</value>
+  </data>
+  <data name="ServicesPEstagio" xml:space="preserve">
+    <value>O estágio é fundamental para que o futuro profissional inicie, na prática do dia a dia, a aplicação do conhecimento acadêmico adquirido. É o começo de uma preparação. É o primeiro passo para o sucesso. Atento a isto o IPEFAE atua com o Programa de Estágio, oportunizando a qualificação e o desenvolvimento de novos profissionais, inserindo-os no mercado de trabalho e concedendo diversas vantagens às empresas.</value>
+  </data>
+  <data name="ServicesPPalestras" xml:space="preserve">
+    <value>Através das palestras é possível lapidar e recriar talentos, ampliando o olhar crítico e motivando pessoas. As palestras permitem aos profissionais ampliarem sua performance e otimizarem seu rendimento.</value>
+  </data>
+  <data name="ServicesPSocioEducativo" xml:space="preserve">
+    <value>Ética, trabalho, inovação, criatividade e o bom uso dos recursos são lemas perseguidos pelo IPEFAE na prestação de serviços. Possuidor de equipe de profissionais habilitados nas áreas de artes, comunicação, dança, informática, gestão, música, matemática, nutrição, psicologia, entre muitos outros, agregou várias experiências de sucesso no setor educacional, com a intervenção direta de suporte na gestão e nos variados ambientes educativos.</value>
+  </data>
+  <data name="ServicesPTreinamentos" xml:space="preserve">
+    <value>O IPEFAE é especializado em treinamentos, palestras e eventos para organizações que buscam diferenciais para melhor enfrentar os desafios do mercado. Os instrutores e consultores aliam suas qualificações e experiências garantindo resultados superiores aos profissionais treinados.</value>
+  </data>
+</root>

@@ -1,0 +1,61 @@
+﻿@using TGV.IPEFAE.Web.Resources.Concurso;
+@model TGV.IPEFAE.Web.App.Models.ConcursoModel.InscritoModel
+<style>
+    .principal { border: solid 1px black; margin: 0 auto; margin-bottom: 30px; padding: 10px; width: 70%; }
+    .red { color: red; font-weight:normal; margin-left:10px; text-transform: uppercase; }
+</style>
+
+<div class="principal">
+    <div class="row">
+        <div class="col-md-12 nome-concurso">
+            @Model.NomeConcurso
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 titulo-tela">
+            @_ConfirmacaoInscricao.TituloTela
+        </div>
+    </div>
+    <div class="row corpo">
+        <div class="col-md-12">
+            <label class="bold">@_ConfirmacaoInscricao.LabelNumeroInscricao</label><label class="red">@Model.Id.ToString().PadLeft(10, '0')</label><br />
+            <label class="bold">@_ConfirmacaoInscricao.LabelOpcaoInscricao</label><label class="red">@Model.NomeCargo</label><br />
+            <label class="bold">@_ConfirmacaoInscricao.LabelNomeCandidato</label><label class="red">@Model.Nome</label><br />
+            <label class="bold">@_ConfirmacaoInscricao.LabelIdentidade</label><label class="red">@Model.RGComEstado</label><br />
+            <label class="bold">@_ConfirmacaoInscricao.LabelStatusPagamento</label><label class="red">@Model.StatusPagamento</label><br />
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 20px;">
+        <div class="col-md-12" style="font-size: 11px; text-align: center;">
+            @_ConfirmacaoInscricao.LabelInscricaoRecebidaSucesso<br />
+            @if (!String.IsNullOrEmpty(Model.DataVencimentoBoletoString) && Model.StatusPagamento.Equals("NÃO PAGO", StringComparison.InvariantCultureIgnoreCase))
+            {
+                <label>@String.Format(_ConfirmacaoInscricao.LabelInscricaoEfetivar, Model.DataVencimentoBoletoString)</label>
+                <br />
+                <label class="red text-uppercase">@_ConfirmacaoInscricao.LabelAtencaoConfirmacaoPagamento</label>
+            }
+            else
+            {
+                <label class="red text-uppercase">@_ConfirmacaoInscricao.LabelInscricaoEfetivada</label>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="font-size: 10px; text-align: center;">
+            @_ConfirmacaoInscricao.LabelDeclaracaoFinal
+        </div>
+    </div>
+</div>
+
+<div class="botoes-comprovante row" style="@Html.Raw(Model.StatusPagamento.Equals("NÃO PAGO", StringComparison.InvariantCultureIgnoreCase) ? "display: block !important;" : "display: none;")">
+    <div class="col-xs-6 col-md-4" style="text-align: center;">
+        <input type="button" name="btnIrPublicacoes" id="btnIrPublicacoes" style="@Html.Raw(Model.IsStatusPagamento ? "display: none;" : "")" class="btn btn-danger btn-sm" value="@_ConfirmacaoInscricao.BotaoIrPublicacoes" onclick="window.location.href = '@String.Format("{0}{1}", Url.Content("~/Concurso/"), Model.IdConcurso)'" />
+    </div>
+    <div class="hidden-xs col-md-4" style="text-align: center;">
+        @*<input type="button" name="btnImprimirComprovante" id="btnImprimirComprovante" class="btn btn-danger btn-lg" value="@_ConfirmacaoInscricao.BotaoImprimirComprovante" onclick="imprimirComprovanteInscricao('@Model.IdConcurso', '@Model.Id');" />*@
+    </div>
+    <div class="col-xs-6 col-md-4" style="@Html.Raw(!Model.InscricoesEncerradas ? "text-align: center; " : "text-align: center; display: none;")">
+        <div class="col-md-2 hidden-sm @Model.BancoCss" style="height: 29px; margin-left: 60px; margin-top: 1px;"></div>
+        <input type="button" name="btnImprimirBoleto" id="btnImprimirBoleto" style="margin-left: -18px; width: 145px;" class="btn btn-danger btn-sm col-md-4" value="@_ConfirmacaoInscricao.BotaoImprimirBoleto" onclick="imprimirBoletoInscrito('@Model.IdConcurso', '@Model.Id');" />
+    </div>
+</div>

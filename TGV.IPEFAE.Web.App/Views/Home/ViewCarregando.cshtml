@@ -1,0 +1,24 @@
+﻿@{ Layout = "~/Views/Shared/_LayoutDeslogado.cshtml"; }
+
+<script>
+    $(function () { $('.menu-principal').html(''); $('.logomarca').html(''); });
+
+    function executarWait(mensagem)
+    {
+        $(".titulo").html(mensagem);
+    }
+
+    function getTitulo()
+    {
+        var titulo = $('.titulo').html();
+        return titulo;
+    }
+</script>
+
+<h2 class="titulo"></h2>
+
+<p align="center">
+    <span style="display:inline-block;padding:12px;margin-right:20px;">
+        <img src="@Url.Content("~/Content/imagens/loading.png")" class="loading no-style" />
+    </span>
+</p>

@@ -1,0 +1,52 @@
+﻿@using TGV.IPEFAE.Web.Resources.Shared;
+@{ Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+<script>
+    $(function () { $('section.logomarca').removeClass('logado'); $('section#Menu').find('nav').removeClass('logado'); });
+</script>
+
+@section Logomarca {
+<section class="logomarca topo deslogado hidden-sm hidden-lg hidden-md">
+    <img alt="@_Layout.Titulo" class="logo" src="@Url.Content("~/Content/imagens/logo.png")" onclick="window.location.href='@Url.Content("~")';" />
+</section>
+<section class="logomarca rodape hidden-xs">
+    <img alt="@_Layout.Titulo" class="logo" src="@Url.Content("~/Content/imagens/logo.png")" onclick="window.location.href='@Url.Content("~")';" />
+</section>
+}
+
+@section Menu {
+<li><a href="#Header">@_Layout.MenuHome</a></li>
+<li class="menu-admin menu-com-sub">
+    <a href="javascript:void(0)">@_Layout.MenuAdmin</a>
+    <div class="drop decor3_2" style="width: 300px;">
+        <div class='left'>
+            <div>
+                @Html.ActionLink(_Layout.MenuAreasItemEstagios, "Index", "Estagio", new { area = "Admin" }, new { @class = "decor3_2A" })
+                @Html.ActionLink(_Layout.MenuAreasItemConcursos, "Index", "Concurso", new { area = "Admin" }, new { @class = "decor3_2A" })
+                @Html.ActionLink(_Layout.MenuAreasItemUsuario, "Index", "Usuario", new { area = "Admin" }, new { @class = "decor3_2A" })
+                @*@Html.ActionLink(_Layout.MenuAreasItemVestibulares, "Index", "Vestibulares", new object { }, new { @class = "decor3_2A" })*@
+            </div>
+        </div>
+        <div style='clear: both;'></div>
+    </div>
+</li>
+<li class="menu-com-sub">
+    <a href="javascript:void(0)">@_Layout.MenuAreas</a>
+    <div class="drop decor3_2" style="width: 300px;">
+        <div class='left'>
+            <div>
+                @Html.ActionLink(_Layout.MenuAreasItemEstagios, "Index", "Estagio", new object { }, new { @class = "decor3_2A" })
+                @Html.ActionLink(_Layout.MenuAreasItemConcursos, "Index", "Concurso", new object { }, new { @class = "decor3_2A" })
+                @*@Html.ActionLink(_Layout.MenuAreasItemCurriculo, "Cadastro", "Estagio", new object { }, new { @class = "decor3_2A" })*@
+                @*@Html.ActionLink(_Layout.MenuAreasItemVestibulares, "Index", "Vestibulares", new object { }, new { @class = "decor3_2A" })*@
+            </div>
+        </div>
+        <div style='clear: both;'></div>
+    </div>
+</li>
+<li><a href="#services">@_Layout.MenuServicos</a></li>
+<li><a href="#contato">@_Layout.MenuContato</a></li>
+<li class="entrar-menu">@Html.Partial("_LoginPartial")</li>
+}
+
+@RenderBody()

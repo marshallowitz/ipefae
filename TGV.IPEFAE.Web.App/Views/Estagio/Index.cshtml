@@ -1,0 +1,100 @@
+﻿@using TGV.IPEFAE.Web.Resources.Estagio
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+<link href="@Url.Content("~/Content/Estagio.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<script src="@Url.Content("~/Scripts/Views/Estagio.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+<script>
+    var emailObrigatorio = encodeConversion('@Index.ObrigatorioEmail', 'num', 'hex');
+    var formatoInvalidoEmail = encodeConversion('@Index.ObrigatorioFormatoEmail', 'num', 'hex');
+    var senhaObrigatoria = encodeConversion('@Index.ObrigatorioSenha', 'num', 'hex');
+    var cpfObrigatorio = encodeConversion('@Index.ObrigatorioCPF', 'num', 'hex');
+    var mensagemBlockUILogin = encodeConversion('@Index.MensagemBlockUILogin', 'num', 'hex');
+    var mensagemBlockUILogoff = encodeConversion('@Index.MensagemBlockUILogoff', 'num', 'hex');
+    var mensagemReenviandoSenha = encodeConversion('@Index.MensagemReenviandoSenha', 'num', 'hex');
+    var erroLogin = encodeConversion('@Index.ErroLogin', 'num', 'hex');
+    var mensagemEmailEnviadoSucesso = encodeConversion('@Index.MensagemEmailEnviadoSucesso', 'num', 'hex');
+
+    $(function () { iniciarTelaInicialEstagio(); });
+</script>
+
+<h2 class="titulo">@Index.TituloTela</h2>
+
+<div class="container">
+    <div class="row centro">
+        <form id="estLoginForm" class="estLoginForm">
+            <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12 subtitest">
+                    @Index.LabelJaTenhoCadastro
+                </div>
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-md-8 form-group">
+                            <label>@Index.LabelEmail</label>
+                            <input type="text" id="txtEmail" name="email" placeholder="@Index.PlaceHolderEmail" class="form-control" autofocus />
+                        </div>
+                        <div class="col-md-8 form-group">
+                            <label>@Index.LabelSenha</label>
+                            <input type="password" id="txtSenha" name="senha" style="max-width: inherit;" class="form-control" />
+                            <a href="myModal" role="button" style="font-size: 13px;" title="@Index.LabelEsqueciSenha" data-toggle="modal" data-target=".modal-reenviar-senha">@Index.LabelEsqueciSenha</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 form-group text-center">
+                    <input id="btnLogin" type="submit" class="btn btn-success" value="@Index.BotaoContinuar" />
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12 subtitest">
+                    @Index.LabelNaoTenhoCadastro
+                </div>
+                <div class="col-xs-12 direita">
+                    <ul>
+                        <li>@Index.Li1Linha</li>
+                        <li>@Index.Li2Linha</li>
+                        <li>@Index.Li3Linha</li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 form-group text-center">
+                    <input id="btnCadastro" type="button" class="btn btn-success" value="@Index.BotaoCriarCadastro" onclick="window.location.href='@Url.Content("~/Estagio/Cadastro")';" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal fade modal-reenviar-senha" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row">
+                <div class="col-md-12 modal-reenviar-senha-white">
+                    <form id="cpfForm" class="cpfForm" method="POST">
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label style="font-size: 12px;">@Index.LabelDigiteCPF</label>
+                                    <input type="text" class="form-control" name="cpf" id="txtCPF" />
+                                </div>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <div class="row" style="height: 20px;">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                                <div class="mensagem erro cpf-nao-encontrado" style="display: none; font-size: 12px; margin-top: 0px; ">@Index.LabelCPFNaoEncontrado</div>
+                            </div>
+                            <div class="col-md-3"></div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <input type="button" name="btnCancelar" id="btnCancelar" class="btn btn-personal1 btn-lg" value="@Index.BotaoCancelar" onclick="$('.modal-reenviar-senha').modal('hide');" />
+                                <input type="submit" name="btnEnviarEmail" id="btnEnviarEmail" class="btn btn-success btn-lg" value="@Index.BotaoEnviarEmail" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

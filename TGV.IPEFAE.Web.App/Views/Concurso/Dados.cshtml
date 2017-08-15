@@ -1,0 +1,54 @@
+﻿@using TGV.IPEFAE.Web.Resources.Concurso;
+@using TGV.IPEFAE.Web.App.Extensions;
+@model TGV.IPEFAE.Web.App.Models.ConcursoModel
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+
+<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="@Url.Content("~/Content/Tabs.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/Concurso.css")">
+<script src="@Url.Content("~/Scripts/Views/Tabs.js")"></script>
+<script src="@Url.Content("~/Scripts/Views/Concurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script src="@Url.Content("~/Scripts/Views/Recurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+<input type="hidden" id="hdnIdConcurso" value="@Model.Id" />
+<input type="hidden" id="hdnConcursoBancoCss" value="@Model.BancoCss" />
+<input type="hidden" id="hdnNomeConcurso" value="@Model.Nome" />
+<input type="hidden" id="hdnDataInscricao" value="@Model.DataString" />
+<input type="hidden" id="hdnDataFimInscricao" value="@Model.DataEncerramentoInscricoesString" />
+<input type="hidden" id="hdnDataInicioComprovante" value="@Model.DataInicioComprovanteString" />
+<input type="hidden" id="hdnDataFimComprovante" value="@Model.DataEncerramentoComprovanteString" />
+<input type="hidden" id="hdnDataInicioClassificacao" value="@Model.DataInicioClassificacaoString" />
+<input type="hidden" id="hdnDataInicioIsencao" value="@Model.DataInicioIsentoString" />
+<input type="hidden" id="hdnDataFimIsencao" value="@Model.DataEncerramentoIsentoString" />
+<input type="hidden" id="hdnDataBoleto" value="@Model.DataBoletoString" />
+
+<script>
+    var mensagemCarregando = encodeConversion('@Index.MensagemCarregando', 'num', 'hex');
+    var inscricoesOnline = eval(encodeConversion('@Model.InscricoesOnline', 'num', 'hex').toLowerCase());
+    tamanhoInicialAba = window.innerHeight;
+
+    $(function () { iniciarTelaDadosConcursosUsuario('@Model.Id', eval('@Model.ExibirAlertaRecurso'.toLowerCase())); });
+</script>
+@*<div class="back" title="@Dados.TitleBotaoVoltar" onclick="window.location.href='@Url.Content("~/Concurso/")';"></div>
+    <div class="line"></div>*@
+
+<div class="div-dados">
+    <span class="bold" style="display: table-cell; padding-right: 5px; text-transform: uppercase; ">@Dados.TituloConcursos </span><span style="display: table-cell; text-transform: uppercase;">@String.Format(Dados.TituloTela, Model.Nome, Model.QuantidadeCargos)</span>
+    <span class="bold" style="text-transform: uppercase;">@Dados.TituloCargos </span><span>@Model.Cargos.ToCargoString()</span><br />
+    <span class="bold" style="text-transform: uppercase;">@Dados.TituloInscricoes </span><span>@String.Format(Dados.DadosInscricoes, Model.Data.ToString("dd/MM/yyyy"), Model.Data.ToString("HH:mm"), Model.DataEncerramentoInscricoes.ToString("dd/MM/yyyy"), Model.DataEncerramentoInscricoes.ToString("HH:mm"))</span>
+</div>
+
+<div class="cd-tabs">
+    <nav>
+        <ul class="cd-tabs-navigation">
+            <li><a data-content="publicacoes" class="selected" href="#0">@String.Format(Dados.AbaPublicacoes, Model.Anexos.Count(a => a.IdTipo == (int)TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel.TipoEnum.Publicacoes))</a></li>
+            <li><a data-content="provas_gabaritos" href="#0">@String.Format(Dados.AbaProvasGabaritos, Model.Anexos.Count(a => a.IdTipo != (int)TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel.TipoEnum.Publicacoes))</a></li>
+            <li><a data-content="recursos" class="recursos disabled" href="#0">@Dados.AbaRecursos</a><span style="display: none;">@Dados.AbaRecursosFechado</span></li>
+        </ul>
+    </nav>
+    <ul class="cd-tabs-content" style="padding: 0;">
+        <li data-content="publicacoes" class="publicacoes selected"></li>
+        <li data-content="provas_gabaritos" class="provas_gabaritos"></li>
+        <li data-content="recursos" class="recursos">@Html.Partial("~/Views/Recurso/_Recurso.cshtml", Model)</li>
+    </ul>
+</div>

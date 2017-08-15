@@ -1,0 +1,46 @@
+﻿@using TGV.IPEFAE.Web.Resources.Admin.Concurso;
+@model List<TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel>
+
+@if (Model.Count > 0)
+{
+    <table style="width: 100%">
+        <thead style="font-weight: bold;">
+            <tr>
+                <td style="display:none;"></td> <!-- ID -->
+                <td style="width: 40%;">@_ListaAnexosConcurso.ColunaNomeArquivo</td>
+                <td style="width: 15%;">@_ListaAnexosConcurso.ColunaDataPublicacao</td>
+                <td style="width: 10%;">@_ListaAnexosConcurso.ColunaTemRecurso</td>
+                <td style="width: 15%;">@_ListaAnexosConcurso.ColunaInicioRecurso</td>
+                <td style="width: 15%;">@_ListaAnexosConcurso.ColunaFimRecurso</td>
+                <td style="min-width: 70px;"></td> <!-- Editar -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel anexo in Model)
+            {
+                <tr>
+                    <td style="display:none;">@anexo.Id</td>
+                    <td>@Html.ActionLink(anexo.NomeArquivo, "Download", "Base", new { path = anexo.PathArquivo, area = "" }, null)</td>
+                    <td>@anexo.DataPublicacaoString</td>
+                    <td><div class="icons @Html.Raw(anexo.Ativo ? "checked" : "unchecked")" style="cursor: default;"></div></td>
+                    <td>@anexo.DataInicioRecursoString</td>
+                    <td>@anexo.DataFimRecursoString</td>
+                    <td class="acao text-center">
+                        <div class="icons editar editarAnexo" style="float: left;" title="@_ListaAnexosConcurso.TitleEditar" tag="@anexo.IdTipo"></div>
+                        <div class="icons lixeira excluirAnexo" style="float: left;" title="@_ListaAnexosConcurso.TitleExcluir" tag="@anexo.IdTipo"></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <table class="table table-striped table-bordered table-hover" summary="@_ListaAnexosConcurso.NenhumArquivoEncontrado">
+        <thead>
+            <tr>
+                <th scope="col">@_ListaAnexosConcurso.NenhumArquivoEncontrado</th>
+            </tr>
+        </thead>
+    </table>
+}

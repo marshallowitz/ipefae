@@ -1,0 +1,87 @@
+﻿@using TGV.IPEFAE.Web.Resources.Concurso;
+@model TGV.IPEFAE.Web.App.Models.ConcursoModel.InscritoModel
+<style>
+    .principal { border: solid 1px black; margin: 0 auto; margin-bottom: 30px; padding: 10px; width: 70%; }
+    .red { color: red; font-weight:normal; margin-left:10px; text-transform: uppercase; }
+</style>
+
+<div class="principal">
+    <div class="row">
+        <div class="col-md-12" style="text-align: center">
+            @Model.NomeConcurso
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="font-size: 18px; text-align: center">
+            @_ClassificacaoResultado.TituloTela
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 40px; margin-left: 40px; margin-top: 40px;">
+        <fieldset>
+            <legend style="width: 90%;">@_ClassificacaoResultado.LegendDadosCandidato</legend>
+            <div class="col-md-12">
+                <label class="bold">@_ClassificacaoResultado.LabelNumeroInscricao</label><label class="red">@Model.Id.ToString().PadLeft(10, '0')</label><br />
+                <label class="bold">@_ClassificacaoResultado.LabelOpcaoInscricao</label><label class="red">@Model.NomeCargo</label><br />
+                <label class="bold">@_ClassificacaoResultado.LabelNomeCandidato</label><label class="red">@Model.Nome</label><br />
+                <label class="bold">@_ClassificacaoResultado.LabelIdentidade</label><label class="red">@Model.RGComEstado</label>
+            </div>
+        </fieldset>
+    </div>
+    @if (Model.Classificacao != null && !String.IsNullOrEmpty(Model.Classificacao.Situacao))
+    {
+        <div class="row" style="margin-bottom: 40px; margin-left: 40px; margin-top: 40px;">
+            <fieldset>
+                <legend style="width: 90%;">@_ClassificacaoResultado.LegendClassificacao</legend>
+                <div class="row" style="margin-left: 0px;">
+                    <div class="col-md-12">
+                        <label class="bold">@_ClassificacaoResultado.LabelClassificacao</label><label class="red">@Model.Classificacao.PosicaoString</label><br />
+                        <label class="bold">@_ClassificacaoResultado.LabelNota</label><label class="red">@Model.Classificacao.NotaString</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 0px;">
+                    <div class="col-md-2">
+                        <label class="bold">@_ClassificacaoResultado.LabelCG</label><label class="red">@Model.Classificacao.CGString</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="bold">@_ClassificacaoResultado.LabelCE</label><label class="red">@Model.Classificacao.CEString</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="bold">@_ClassificacaoResultado.LabelTIT</label><label class="red">@Model.Classificacao.TITString</label>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="bold">@_ClassificacaoResultado.LabelPP</label><label class="red">@Model.Classificacao.PPString</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 0px;">
+                    <div class="col-md-12">
+                        <label class="bold">@_ClassificacaoResultado.LabelSituacao</label><label class="red">@Model.Classificacao.Situacao</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 0px; margin-top: 20px;">
+                    <div class="col-md-12" style="font-size: 10px; text-align: left;">
+                        <label>@_ClassificacaoResultado.LabelEntendimento</label><br />
+                        <label>@_ClassificacaoResultado.LabelEntendimentoNota</label><br />
+                        <label>@_ClassificacaoResultado.LabelEntendimentoCG</label><br />
+                        <label>@_ClassificacaoResultado.LabelEntendimentoCE</label><br />
+                        <label>@_ClassificacaoResultado.LabelEntendimentoTIT</label><br />
+                        <label>@_ClassificacaoResultado.LabelEntendimentoPP</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12" style="text-align: center;">
+                <label class="red">@_ClassificacaoResultado.LabelSemClassificacao</label>
+            </div>
+        </div>
+    }
+    <br />
+    <div class="row">
+        <div class="col-md-12" style="font-size: 10px; text-align: center;">
+            <label>@_CartaoCandidato.LabelIPEFAE</label><br />
+        </div>
+    </div>
+</div>

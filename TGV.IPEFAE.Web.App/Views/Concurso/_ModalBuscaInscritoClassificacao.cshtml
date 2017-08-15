@@ -1,0 +1,58 @@
+﻿@using TGV.IPEFAE.Web.Resources.Concurso;
+@model TGV.IPEFAE.Web.App.Models.ConcursoModel
+
+<input type="hidden" id="hdnIdConcursoCPF" />
+<script>
+    var cpfObrigatorio = encodeConversion('@_ModalBuscaInscrito.CpfObrigatorio', 'num', 'hex');
+    var mensagemGerandoBoletoBancario = encodeConversion('@_ModalBuscaInscrito.MensagemGerandoBoletoBancario', 'num', 'hex');
+    var mensagemObtendoClassificacao = encodeConversion('@_ModalBuscaInscrito.MensagemObtendoClassificacao', 'num', 'hex');
+    var mensagemGerandoComprovante = encodeConversion('@_ModalBuscaInscrito.MensagemGerandoComprovanteInscricao', 'num', 'hex');
+    var mensagemGerandoStatusPagamento = encodeConversion('@_ModalBuscaInscrito.MensagemGerandoStatusPagamento', 'num', 'hex');
+    var mensagemSelecioneUmaMatricula = encodeConversion('@_ModalBuscaInscrito.MensagemSelecioneUmaMatricula', 'num', 'hex');
+    var labelGerarBoleto = encodeConversion('@_ModalBuscaInscrito.BotaoGerar', 'num', 'hex');
+    var labelGerarComprovante = encodeConversion('@_ModalBuscaInscrito.BotaoGerarComprovante', 'num', 'hex');
+    var labelObterClassificacao = encodeConversion('@_ModalBuscaInscrito.BotaoObterClassificacao', 'num', 'hex');
+    var labelGerarStatusPagamento = encodeConversion('@_ModalBuscaInscrito.BotaoGerarStatusPagamento', 'num', 'hex');
+</script>
+
+<div class="modal fade modal-classificacao" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="row">
+                <div class="col-md-12 modal-classificacao-white">
+                    <form id="cpfForm" class="cpfForm" method="POST">
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-md-3 primeira-coluna" style="display: none"></div>
+                            <div class="col-md-12 segunda-coluna">
+                                <div class="form-group">
+                                    <label style="font-size: 12px;">@_ModalBuscaInscrito.LabelDigiteCPFClassificacao</label>
+                                    <input type="text" class="form-control" name="cpf" id="txtCPF" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" style="height: 20px;">
+                            <div class="col-md-12">
+                                <div class="mensagem erro cpf-nao-encontrado" style="display: none; font-size: 12px; margin-top: 0px; ">@_ModalBuscaInscrito.LabelCPFNaoEncontrado</div>
+                            </div>
+                        </div>
+                        <div class="row linha-cargos" style="display: none; height: 100px; overflow-y: auto;">
+                            <div class="col-md-12">
+                                <div class="form-group cpf-classificacao"></div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row botoes">
+                            <div class="col-md-12 text-center">
+                                <input type="button" name="btnVoltar" id="btnVoltar" class="btn btn-personal1 btn-lg hidden-xs hidden-sm" value="@_ModalBuscaInscrito.BotaoCancelar" onclick="$.unblockUI(); $('.modal-classificacao').modal('hide');" />
+                                <a href="javascript:void(0)" class="hidden-md hidden-lg" name="btnVoltar" id="btnVoltar" onclick="$.unblockUI(); $('.modal-classificacao').modal('hide');" style="position: fixed; right: 0px; top: 0px;">@_ModalBuscaInscrito.BotaoCancelar</a>
+
+                                <input type="submit" name="btnGerar" id="btnGerar" class="btn btn-success btn-lg" value="@_ModalBuscaInscrito.BotaoObterClassificacao" />
+                                <input type="button" name="btnGerar2" id="btnGerar2" class="btn btn-success btn-lg" style="display: none" value="@_ModalBuscaInscrito.BotaoObterClassificacao" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

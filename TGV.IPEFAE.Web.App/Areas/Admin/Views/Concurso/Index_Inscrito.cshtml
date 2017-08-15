@@ -1,0 +1,91 @@
+﻿@model TGV.IPEFAE.Web.App.Models.ConcursoModel
+@using TGV.IPEFAE.Web.Resources.Admin.Concurso.Inscrito;
+@{ Layout = "~/Views/Shared/_LayoutList.cshtml"; }
+
+<link href="@Url.Content("~/Content/Estagio.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<script src="@Url.Content("~/Scripts/Views/Concurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script>
+    var mensagemCarregando = encodeConversion('@Index.MensagemCarregando', 'num', 'hex');
+    var mensagemGerandoBoleto = encodeConversion('@Index.MensagemGerandoBoleto', 'num', 'hex');
+
+    $(function () { iniciarTelaListaInscritos('@Model.Id'); });
+</script>
+<section id="modal-estatisticas"></section>
+
+<h2 class="titulo">
+    @Index.TituloTela <a href="@Url.Content("~/Admin/Concurso/Cadastro_Inscrito/0")">@Index.LinkAdicionarInscrito</a> &nbsp; <a href="@Url.Content("~/Admin/Concurso/")">@Index.LinkVoltar</a> 
+    <br />
+    <span>@Html.Raw(String.Format("#{0} - {1}", Model.Id, Model.Nome))</span>
+</h2>
+<div class="estatisticas" title="@Index.TitleEstatisticas" onclick="abrirModalEstatisticas();"></div>
+<input type="hidden" id="hdnPagina" value="1" />
+
+<div class="row filtros">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+                <label>@Index.LabelFiltroMatricula</label><br />
+                <input type="text" id="txtMatricula" class="form-control" />
+            </div>
+            <div class="col-md-5">
+                <label>@Index.LabelFiltroNome</label><br />
+                <input type="text" id="txtNome" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <label>@Index.LabelFiltroCPF</label><br />
+                <input type="text" id="txtCPF" class="form-control" />
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-2">
+                <label>@Index.LabelFiltroAtivo</label><br />
+                <select id="ddlAtivo" class="form-control">
+                    <option value="" selected>@Index.OptionTodos</option>
+                    <option value="true">@Index.OptionAtivo</option>
+                    <option value="false">@Index.OptionInativo</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label>@Index.LabelFiltroIsento</label><br />
+                <select id="ddlIsento" class="form-control">
+                    <option value="" selected>@Index.OptionTodos</option>
+                    <option value="true">@Index.OptionIsento</option>
+                    <option value="false">@Index.OptionPagante</option>
+                </select>
+            </div>
+            <div class="col-md-3" style="padding-top: 25px;">
+                <a name="btnPesquisar" id="btnPesquisar" class="btn btn-sm" style="background-color: rgb(221, 221, 221); color: rgb(97, 97, 97);">@Index.BotaoPesquisar</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="listagem">
+    <ul class="scrollTable" style="display: none;">
+        <div class="scrollTableHeader">
+            <li>
+                <span class="matricula order" style="width: 10%;">@Index.ColunaNroMatricula</span>
+                <span class="nome order selecionado" style="width: 16%;">@Index.ColunaNome</span>
+                <span style="width: 13%;">@Index.ColunaCPF</span>
+                <span style="width: 15%;">@Index.ColunaCargos</span>
+                <span style="width: 10%;">@Index.ColunaDataInscricao</span>
+                <span style="width: 8%;">@Index.ColunaStatus</span>
+                <span style="width: 8%;">@Index.ColunaIsento</span>
+                <span style="width: 12%;">@Index.ColunaValorPago</span>
+                <span style="width: 8%;"></span>
+            </li>
+        </div>
+        <div class="scrollTableBody"></div>
+        <div class="mais" onclick="maisInscritos('@Model.Id', false);">
+            @Index.CliqueVisualizar
+        </div>
+    </ul>
+    <table class="table table-striped table-bordered table-hover emptyTable" style="display: none;" summary="@Index.NenhumInscritoEncontrado">
+        <thead>
+            <tr>
+                <th scope="col">@Index.NenhumInscritoEncontrado</th>
+            </tr>
+        </thead>
+    </table>
+</div>

@@ -1,0 +1,41 @@
+﻿@using TGV.IPEFAE.Web.Resources.Concurso;
+@using TGV.IPEFAE.Web.App.Models;
+@model List<ConcursoModel.InscritoModel>
+
+<table style="width: 100%;">
+    <thead style="font-weight: bold; text-transform: uppercase;">
+        <tr style="display: none;">
+            <td colspan="4">
+                @_ListaCargosInscrito.Titulo
+            </td>
+        </tr>
+        <tr>
+            <td class="selecao"></td>
+            <td>@_ListaCargosInscrito.ColunaNome</td>
+            <td>@_ListaCargosInscrito.ColunaCargo</td>
+            <td>@_ListaCargosInscrito.ColunaNroInscricao</td>
+            <td class="statusPagamento">@_ListaCargosInscrito.ColunaStatusPagamento</td>
+            @*<td class="statusPagamento">@_ListaCargosInscrito.ColunaAcao</td>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var dado in Model)
+        {
+            <tr>
+                <td class="selecao"><input id="@dado.Id" type="radio" name="cargo-inscrito" value="@dado.Id" /></td>
+                <td><label style="font-weight: normal;" for="@dado.Id">@dado.Nome</label></td>
+                <td><label style="font-weight: normal;" for="@dado.Id">@Html.Raw(String.IsNullOrEmpty(dado.CargosString) ? dado.NomeCargo : dado.CargosString) </label></td>
+                <td><label style="font-weight: normal;" for="@dado.Id">@dado.NroMatricula </label></td>
+                <td class="statusPagamento"><label style="font-weight: normal;" for="@dado.Id">@dado.StatusPagamento </label></td>
+                @*<td onclick="@Html.Raw(String.Format("abrirJanelaPopUpWait('Obtendo Status Pagamento...'); obterStatusPagamento('{0}', {1}, {2});", dado.NomeConcurso, dado.IdConcurso, dado.Id))" style="cursor:pointer;"><label style="cursor:pointer; font-weight: normal; text-decoration: underline;" for="@dado.Id">@_ListaCargosInscrito.LabelAcao </label></td>*@
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4">
+                <input id="btnOkComCargo" type="button" class="btn btn-info" style="margin-top: 5px;" />
+            </td>
+        </tr>
+    </tfoot>
+</table>

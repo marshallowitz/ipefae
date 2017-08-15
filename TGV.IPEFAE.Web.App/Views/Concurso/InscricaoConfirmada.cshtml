@@ -1,0 +1,17 @@
+﻿@model TGV.IPEFAE.Web.App.Models.ConcursoModel.InscritoModel
+@using TGV.IPEFAE.Web.Resources.Concurso;
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+<script src="@Url.Content("~/Scripts/Views/Inscrito.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+<script>
+    var mensagemGerandoBoletoBancario = encodeConversion('@_ModalBuscaInscrito.MensagemGerandoBoletoBancario', 'num', 'hex');
+    var mensagemGerandoComprovanteInscricao = encodeConversion('@_ModalBuscaInscrito.MensagemGerandoComprovanteInscricao', 'num', 'hex');
+
+    $(function () { $('.botoes-comprovante').show(); });
+
+</script>
+
+<div class="comprovante-inscricao" style="margin-top: 40px;">
+    @*<h2 class="titulo" style="border: none; text-align: center;">@String.Format(Inscricao.TituloTelaConfirmada, Model.NomeConcurso)</h2>*@
+    @Html.Partial("_ConfirmacaoInscricao", Model)
+</div>

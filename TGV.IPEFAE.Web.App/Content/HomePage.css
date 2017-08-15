@@ -1,0 +1,124 @@
+﻿html, body      { height: 100%; padding: 0; width: 100%; }
+.body-content   { height: 100%; padding: 0; max-width: 100%; }
+.container      { width: 100%; }
+
+.row                            { margin-right: 0px; }
+
+h1, h2, h3, h4, h5, h6          { font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif; font-weight: 700; text-transform: uppercase; }
+h3.section-subheading           { color: white; font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 16px; font-style: italic; font-weight: 400; margin-bottom: 75px; text-transform: none; }
+
+.btn-circle                     { background: 0 0; border: 2px solid #C70303; border-radius: 35px; color: #C70303; font-size: 40px; height: 70px; margin-top: 15px; padding: 7px 16px; transition: background .3s ease-in-out;  width: 70px; -moz-transition: background .3s ease-in-out; -webkit-transition: background .3s ease-in-out; }
+.btn-circle:hover,
+.btn-circle:focus               { background: rgba(255,255,255,.1); color: #FA5858; outline: 0; }
+.btn-circle i.animated          { -moz-transition-duration: 1s; -moz-transition-property: -moz-transform; -webkit-transition-duration: 1s; -webkit-transition-property: -webkit-transform; }
+.btn-circle:hover i.animated    { -moz-animation-duration: 1.5s; -moz-animation-iteration-count: infinite; -moz-animation-name: pulse; -moz-animation-timing-function: linear; -webkit-animation-duration: 1.5s; -webkit-animation-name: pulse; -webkit-animation-iteration-count: infinite; -webkit-animation-timing-function: linear; }
+
+.btn-leia-mais                  { background: 0 0; border: 2px solid #777; border-radius: 5px; color: #777; font-size: 18px; height: 40px; margin-top: 15px; padding: 7px 16px; transition: background .3s ease-in-out;  width: 160px; -moz-transition: background .3s ease-in-out; -webkit-transition: background .3s ease-in-out; }
+.btn-leia-mais:hover,
+.btn-leia-mais:focus            { background: rgba(255,255,255,.1); color: #777; outline: 0; text-decoration: underline; }
+.btn-leia-mais i.animated       { -moz-transition-duration: 1s; -moz-transition-property: -moz-transform; -webkit-transition-duration: 1s; -webkit-transition-property: -webkit-transform; }
+.btn-leia-mais:hover i.animated { -moz-animation-duration: 1.5s; -moz-animation-iteration-count: infinite; -moz-animation-name: pulse; -moz-animation-timing-function: linear; -webkit-animation-duration: 1.5s; -webkit-animation-name: pulse; -webkit-animation-iteration-count: infinite; -webkit-animation-timing-function: linear; }
+
+.scrollHome                     { display: table; height: auto !important; height: 100%; margin: 20px auto 0; min-height: 100%; z-index: 11; }
+
+.contact-footer .endereco,      
+.contact-footer .telefone       { font-size: 12px; margin-bottom: 0px; margin-top: 0px; }
+.contact-footer .telefone       { margin-bottom: 70px; }
+
+/* SECTIONS */
+.header                             { background: url(imagens/Header.jpg) no-repeat center top fixed; background-size: cover; display: table; height: 100%; margin: 0 auto; position: relative; width: 100%; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+.intro                              { background-color: #777; color: #fff; display: table; padding: 50px 0; text-align: center; width: 100%; }
+.intro .intro-body                  { display: table-cell; vertical-align: middle; }
+.intro .intro-body .brand-heading   { font-size: 40px; }
+.intro .intro-body .intro-text      { font-size: 18px; }
+
+.box a.decor3_2A:hover,
+.box a.decor3_2A:visited,
+.decor3_2A                          { text-decoration: none !important; }
+
+.intro span.autor                   { font-style:italic; line-height: 1; text-decoration: none !important; }
+.intro .hsContent                   { bottom: 0px; left: 10px; max-width: 900px; position: absolute; top: 0px; }
+.intro h1                           { font-family: 'Russo One', sans-serif; opacity: 0.5; padding: 20px; top: 50px; width: 100%; }
+.intro p                            { box-shadow: 2px 2px 5px #888888; bottom:0px;  cursor: pointer; display:table; height: 150px; margin: 0 auto; padding: 20px; margin-top: 50px; text-align: justify; text-justify: inter-word; width: 80%; z-index: 10; }
+.intro p.concursos                  { background-color: rgba(102, 101, 254, 0.6); }
+.intro p.concursos:hover            { background-color: rgba(102, 101, 254, 0.9); }
+.intro p.processoSeletivo           { background-color: rgba(255, 102, 52, 0.6); }
+.intro p.processoSeletivo:hover     { background-color: rgba(255, 102, 52, 0.9); }
+.intro p.estagios                   { background-color: rgba(1, 153, 52, 0.6); }
+.intro p.estagios:hover             { background-color: rgba(1, 153, 52, 0.9); }
+.intro p.outrosServicos             { background-color: rgba(188, 128, 152, 0.6); }
+.intro p.outrosServicos:hover       { background-color: rgba(188, 128, 152, 0.9); }
+.intro p.vestibulares               { background-color: rgba(174, 217, 32, 0.6); }
+.intro p.vestibulares:hover         { background-color: rgba(174, 217, 32, 0.9); }
+
+
+.intro p span.title                 { color: #fff; display: table-cell; font-size: 2.6em; text-align: center; text-transform: uppercase; vertical-align: middle; width: 80%; }
+.rounded-corners                    { border-radius: 20px; -moz-border-radius: 20px; -webkit-border-radius: 20px; -khtml-border-radius: 20px; }
+
+section#services                    { padding: 100px 0; }
+section#services h2.section-heading { font-size: 40px; margin-bottom: 15px; margin-top: 0; }
+section#services h3.section-subheading  { color: rgb(97, 97, 97); float: right; font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px; font-style: normal; font-weight: 400; margin-bottom: 5px; margin-right: 5%; text-transform: none; }
+section#services h4.section-subheading  { color: rgb(97, 97, 97); float: right; font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 12px; font-style: italic; font-weight: normal; margin-bottom: 5px; margin-right: 5%; text-align: justify; text-transform: none; width: 60%; }
+.service-heading                    { margin: 15px 0; text-transform: none; }
+p.text-muted                        { font-family: "Droid Serif","Helvetica Neue",Helvetica,Arial,sans-serif; font-size: 13px; text-align: justify; }
+
+section#contato                                     { background: url(imagens/contact.jpg) no-repeat center top fixed; background-size: cover; display: table; height: 100%; margin: 0 auto; position: relative; width: 100%; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
+section#contato .section-heading                    { color: #fff; margin-top: 90px; }
+section#contato .section-subheading                 { margin: 0 auto; margin-bottom: 70px; width: 300px; }
+section#contato .form-group                         { margin-bottom: 25px; }
+section#contato .form-group input,
+section#contato .form-group textarea                { padding: 20px; }
+section#contato .form-group input.form-control      { height: auto; }
+section#contato .form-group textarea.form-control   { height: 150px;old }
+section#contato .form-control:focus                 { box-shadow: none; }
+section#contato::-webkit-input-placeholder          { color: #bbb; font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif; font-weight: 700; text-transform: uppercase; }
+section#contato:-moz-placeholder                    { color: #bbb; font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif; font-weight: 700; text-transform: uppercase; }
+section#contato::-moz-placeholder                   { color: #bbb; font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif; font-weight: 700; text-transform: uppercase; }
+section#contato:-ms-input-placeholder               { color: #bbb; font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif; font-weight: 700; text-transform: uppercase; }
+section#contato .text-danger                        { color: #e74c3c; }
+section#contato .btn-xl                             { font-size: 18px; font-weight: 700; padding: 20px 40px; text-transform: uppercase; }
+section#contato input[type=text],
+section#contato input[type=email],
+section#contato textarea                            { max-width: none; }
+
+@media (min-width: 481px) and (max-width:568px) {
+    .logo               { width: 30%; }
+    .navbar-left        { float: left; margin-left: 10px; }
+
+    .btn-circle         { font-size: 25px; height: 50px; width: 50px; }
+    .scrollHome         { margin-top: -7px; }
+
+    .intro p            { height: 100px; margin-top: 30px; width: 100%; }
+    .intro p span.title { font-size: 1.6em; }
+
+    .row                { margin-left: -8px; }
+
+    section#contato .contact-title                      { height: 120px; }
+    section#contato .form-group input,
+    section#contato .form-group textarea                { padding: 10px; }
+    section#contato .form-group textarea.form-control   { height: 100px; }
+    section#contato .section-heading                    { margin-top: 25px; }
+}
+
+@media(max-width:480px) {
+    .logo               { width: 30%; }
+    .navbar-left        { float: left; margin-left: 10px; }
+
+    .btn-circle         { font-size: 25px; height: 50px; width: 50px; }
+    .intro p            { height: 102px; margin-top: 30px; }
+    .rounded-corners    { border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px; -khtml-border-radius: 10px; }
+    .scrollHome         { margin-top: 5px; }
+    .container          { min-width: 334px; }
+
+    .sliderContent                                      { height: 40px; padding: 0px; }
+    .sliderContent .slider                              { height: 25px; margin-left: 10px; vertical-align: middle; width: 37px; }
+    .contactForm .sliderContent h2 span                 { font-size: 18px; vertical-align: middle; }
+    .contactForm .botao                                 { margin-top: 5px !important; }
+
+    section#contato .contact-title                      { height: 120px; }
+    section#contato .form-group input,
+    section#contato .form-group textarea                { padding: 10px; }
+    section#contato .form-group textarea.form-control   { height: 100px; }
+    section#contato .section-heading                    { margin-top: 25px; }
+    section#contato .btn-xl                             { padding: 10px; }
+}

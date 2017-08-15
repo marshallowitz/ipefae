@@ -1,0 +1,38 @@
+﻿@model int
+@{ Layout = null; }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ver Email</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        $(function () {
+            var homePage = '@System.Web.Configuration.WebConfigurationManager.AppSettings["URLAmbiente"]';
+            var id = parseInt('@Model');
+
+            if (isNaN(id))
+                id = 1;
+
+            var url = homePage + 'Base/VerEmailRetorno';
+            var data = { id: id };
+
+            $.ajax({
+                type: 'POST',
+                url: url,
+                data: data,
+                async: false,
+                success: function (retorno) {
+                    $('#corpoEmail').html('');
+                    $('#corpoEmail').html(retorno);
+                },
+                error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'verEmailRetorno()', ResponseText: xhr.responseText }); }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="corpoEmail"></div>
+</body>
+</html>

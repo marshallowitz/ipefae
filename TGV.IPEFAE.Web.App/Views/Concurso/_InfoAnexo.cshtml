@@ -1,0 +1,44 @@
+﻿@model TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel
+@using TGV.IPEFAE.Web.Resources.Concurso;
+@using TGV.IPEFAE.Web.App.Extensions;
+
+<tr class="concurso">
+    <td style="display:none;">@Model.Id</td>
+    <td style="display:none;">@Model.IdConcurso</td>
+    <td style="display:none;">@Model.IdTipo</td>
+    <td class="underline" style="padding-top: 5px;">
+        @if (Model.IdTipo != (int)TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel.TipoEnum.Publicacoes)
+        {
+            <a href="@Url.Content("~/Base/Download?path=" + Model.PathArquivo)" style="color: rgb(97, 97, 97);">
+                <div class="col-xs-3" style="margin-right: -20px; top: 5px">
+                    <div class="icons pdf_icon"></div>
+                </div>
+                <div class="col-xs-9" style=" font-size: 13px; font-weight: bold; padding: 0; text-transform: uppercase;">
+                    @Model.NomeArquivo
+                </div>
+                <div class="col-xs-3"></div>
+                <div class="col-xs-9 hidden-xs" style="font-size: 11px; padding: 0;">
+                    @String.Format(_InfoAnexo.LabelDataPublicacao, Model.DataPublicacao.Day.ToString().PadLeft(2, '0'), Model.DataPublicacao.GetMesInteiro(), Model.DataPublicacao.Year, Model.DataPublicacao.ToString("HH:mm"))
+                </div>
+                <div class="col-xs-9 hidden-sm hidden-md hidden-lg" style="font-size: 11px; padding: 0;">
+                    @String.Format(Model.DataPublicacao.ToString("dd/MM/yy HH:mm"))
+                </div>
+            </a>
+        }
+        else
+        {
+            <a href="@Url.Content("~/Base/Download?path=" + Model.PathArquivo)" style="color: rgb(97, 97, 97);">
+                <div class="row">
+                    <div class="pdf-icons col-xs-1">
+                        <div class="icons pdf_icon"></div>
+                    </div>
+                    <div class="col-xs-11" style="padding: 0; top: 2px; ">
+                        <span style="font-weight: bold; text-transform: uppercase;">@Model.NomeArquivo</span>
+                        <span class="hidden-xs" style="font-size: 11px;">@String.Format(_InfoAnexo.LabelDataPublicacao, Model.DataPublicacao.Day.ToString().PadLeft(2, '0'), Model.DataPublicacao.GetMesInteiro(), Model.DataPublicacao.Year, Model.DataPublicacao.ToString("HH:mm"))</span>
+                        <span class="hidden-sm hidden-md hidden-lg" style="font-size: 11px;">@String.Format(Model.DataPublicacao.ToString("dd/MM/yy HH:mm"))</span>
+                    </div>
+                </div>
+            </a>
+        }
+    </td>
+</tr>
