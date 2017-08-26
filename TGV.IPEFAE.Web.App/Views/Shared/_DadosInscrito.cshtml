@@ -243,7 +243,7 @@
                                 <input type="radio" id="rdDefNao" name="deficiencia" value="N" checked /><label class="label-radio" for="rdDefNao">@_DadosInscrito.OptionNao</label>
                             </div>
                         </div>
-                        <div class="row tem-deficiencia" style="border: solid 1px #ccc; border-radius: 4px; display: none; height: 90px; margin-left: 15px; margin-top: 30px; ">
+                        <div class="row tem-deficiencia">
                             <div class="col-md-5">
                                 <div class="form-group">
                                     <label>@_DadosInscrito.LabelPossuiDeficienciaQual</label><em>*</em><br />
@@ -254,14 +254,16 @@
                                     <input type="radio" id="rdDefMultipla" name="deficiencia_qual" value="O" /><label class="label-radio" for="rdDefMultipla">@_DadosInscrito.OptionMultipla</label>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        <div class="row col-md-12" style="height: 74px;">
+                            <div class="col-md-4" style="white-space: nowrap;">
                                 <div class="form-group">
-                                    <label>@_DadosInscrito.LabelTratamentoEspecial</label><em>*</em><br />
+                                    <label>@_DadosInscrito.LabelTratamentoEspecial</label><em style="margin-left: 8px;">*</em><br />
                                     <input type="radio" id="rdTraSim" name="tratamento_especial" value="S" /><label class="label-radio" for="rdTraSim">@_DadosInscrito.OptionSim</label>
                                     <input type="radio" id="rdTraNao" name="tratamento_especial" value="N" checked /><label class="label-radio" for="rdTraNao">@_DadosInscrito.OptionNao</label>
                                 </div>
                             </div>
-                            <div class="col-md-3 necessita-tratamento" style="display: none;">
+                            <div class="col-md-4 necessita-tratamento" style="margin-left: 10px; display: none;">
                                 <div class="form-group">
                                     <label>@_DadosInscrito.LabelTratamentoEspecialQual</label><em>*</em>
                                     <input type="text" class="form-control" name="tratamento_especial_qual" id="txtTratamentoEspecialQual" value="@Model.TratamentoEspecialQual" />

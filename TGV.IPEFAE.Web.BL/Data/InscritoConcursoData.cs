@@ -237,6 +237,7 @@ namespace TGV.IPEFAE.Web.BL.Data
                 toUpdate.ico_des_cpf = inscrito.ico_des_cpf;
                 toUpdate.ico_des_email = inscrito.ico_des_email;
                 toUpdate.ico_des_endereco = inscrito.ico_des_endereco;
+                toUpdate.ico_des_link_boleto = inscrito.ico_des_link_boleto;
                 toUpdate.ico_des_outras_solicitacoes = inscrito.ico_des_outras_solicitacoes;
                 toUpdate.ico_des_rg = inscrito.ico_des_rg;
                 toUpdate.ico_des_telefone = telefone;

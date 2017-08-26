@@ -72,6 +72,18 @@ namespace TGV.IPEFAE.Web.BL.Business
             return InscritoConcursoData.ObterVestibular(ico_idt_inscrito_concurso);
         }
 
+        public static tb_ico_inscrito_concurso SalvarLinkBoleto(int ico_idt_inscrito_concurso, string linkBoleto)
+        {
+            tb_ico_inscrito_concurso inscrito = Obter(ico_idt_inscrito_concurso);
+
+            if (inscrito == null)
+                return null;
+
+            inscrito.ico_des_link_boleto = linkBoleto;
+
+            return Salvar(inscrito);
+        }
+
         public static tb_ico_inscrito_concurso Salvar(tb_ico_inscrito_concurso inscrito)
         {
             return InscritoConcursoData.Salvar(inscrito);

@@ -268,6 +268,24 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cartão do Candidato.
+        /// </summary>
+        public static string TitleCartaoCandidato {
+            get {
+                return ResourceManager.GetString("TitleCartaoCandidato", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Classificação.
+        /// </summary>
+        public static string TitleClassificacao {
+            get {
+                return ResourceManager.GetString("TitleClassificacao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download CSV inscritos.
         /// </summary>
         public static string TitleCSV {

@@ -210,4 +210,10 @@
   <data name="MensagemDownloadTXT" xml:space="preserve">
     <value>Gerando arquivo de remessa. Aguarde até o arquivo ser baixado...</value>
   </data>
+  <data name="TitleCartaoCandidato" xml:space="preserve">
+    <value>Cartão do Candidato</value>
+  </data>
+  <data name="TitleClassificacao" xml:space="preserve">
+    <value>Classificação</value>
+  </data>
 </root>

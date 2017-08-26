@@ -45,7 +45,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public virtual ICollection<tb_cco_cargo_concurso> tb_cco_cargo_concurso { get; set; }
         public virtual tb_tlc_tipo_layout_concurso tb_tlc_tipo_layout_concurso { get; set; }
         public virtual ICollection<tb_rec_recurso> tb_rec_recurso { get; set; }
-        public virtual ICollection<tb_ico_inscrito_concurso> tb_ico_inscrito_concurso { get; set; }
         public virtual tb_emp_empresa tb_emp_empresa { get; set; }
+        public virtual ICollection<tb_ico_inscrito_concurso> tb_ico_inscrito_concurso { get; set; }
     }
 }

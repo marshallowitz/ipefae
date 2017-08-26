@@ -156,6 +156,7 @@
           <Property Name="ico_bit_possui_deficiencia" Type="bit" Nullable="false" />
           <Property Name="ico_bit_tratamento_especial" Type="bit" Nullable="false" />
           <Property Name="ico_bit_ativo" Type="bit" Nullable="false" />
+          <Property Name="ico_des_link_boleto" Type="varchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="tb_icv_inscrito_concurso_vestibular">
           <Key>
@@ -830,6 +831,15 @@
             <End Role="tb_con_concurso" EntitySet="tb_con_concurso" />
             <End Role="tb_rec_recurso" EntitySet="tb_rec_recurso" />
           </AssociationSet>
+          <FunctionImport Name="spr_tgv_gerar_lista_inscritos" ReturnType="Collection(TGV.IPEFAE.Web.Data.spr_tgv_gerar_lista_inscritos_Result)">
+          <Parameter Name="con_idt_concurso" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tb_emp_empresa" EntityType="TGV.IPEFAE.Web.Data.tb_emp_empresa" />
+          <AssociationSet Name="FK_tb_con_concurso_tb_emp_empresa" Association="TGV.IPEFAE.Web.Data.FK_tb_con_concurso_tb_emp_empresa">
+            <End Role="tb_emp_empresa" EntitySet="tb_emp_empresa" />
+            <End Role="tb_con_concurso" EntitySet="tb_con_concurso" />
+          </AssociationSet>
+          <EntitySet Name="tb_ema_email" EntityType="TGV.IPEFAE.Web.Data.tb_ema_email" />
           <EntitySet Name="tb_ico_inscrito_concurso" EntityType="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" />
           <AssociationSet Name="FK_tb_cci_concurso_cargo_inscrito_tb_ico_inscrito_concurso" Association="TGV.IPEFAE.Web.Data.FK_tb_cci_concurso_cargo_inscrito_tb_ico_inscrito_concurso">
             <End Role="tb_ico_inscrito_concurso" EntitySet="tb_ico_inscrito_concurso" />
@@ -863,15 +873,6 @@
             <End Role="tb_ico_inscrito_concurso" EntitySet="tb_ico_inscrito_concurso" />
             <End Role="tb_rec_recurso" EntitySet="tb_rec_recurso" />
           </AssociationSet>
-          <FunctionImport Name="spr_tgv_gerar_lista_inscritos" ReturnType="Collection(TGV.IPEFAE.Web.Data.spr_tgv_gerar_lista_inscritos_Result)">
-          <Parameter Name="con_idt_concurso" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <EntitySet Name="tb_emp_empresa" EntityType="TGV.IPEFAE.Web.Data.tb_emp_empresa" />
-          <AssociationSet Name="FK_tb_con_concurso_tb_emp_empresa" Association="TGV.IPEFAE.Web.Data.FK_tb_con_concurso_tb_emp_empresa">
-            <End Role="tb_emp_empresa" EntitySet="tb_emp_empresa" />
-            <End Role="tb_con_concurso" EntitySet="tb_con_concurso" />
-          </AssociationSet>
-          <EntitySet Name="tb_ema_email" EntityType="TGV.IPEFAE.Web.Data.tb_ema_email" />
           </EntityContainer>
         <EntityType Name="tb_usu_usuario">
           <Key>
@@ -1312,8 +1313,8 @@
           <NavigationProperty Name="tb_tlc_tipo_layout_concurso" Relationship="TGV.IPEFAE.Web.Data.FK_tb_con_concurso_tb_tlc_tipo_layout_concurso" FromRole="tb_con_concurso" ToRole="tb_tlc_tipo_layout_concurso" />
           <NavigationProperty Name="tb_rec_recurso" Relationship="TGV.IPEFAE.Web.Data.FK_tb_rec_recurso_tb_con_concurso" FromRole="tb_con_concurso" ToRole="tb_rec_recurso" />
           <Property Name="con_dat_boleto" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="tb_ico_inscrito_concurso" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_con_concurso" FromRole="tb_con_concurso" ToRole="tb_ico_inscrito_concurso" />
           <NavigationProperty Name="tb_emp_empresa" Relationship="TGV.IPEFAE.Web.Data.FK_tb_con_concurso_tb_emp_empresa" FromRole="tb_con_concurso" ToRole="tb_emp_empresa" />
+          <NavigationProperty Name="tb_ico_inscrito_concurso" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_con_concurso" FromRole="tb_con_concurso" ToRole="tb_ico_inscrito_concurso" />
         </EntityType>
         <Association Name="FK_tb_can_concurso_anexo_tb_con_concurso">
           <End Type="TGV.IPEFAE.Web.Data.tb_con_concurso" Role="tb_con_concurso" Multiplicity="1" />
@@ -1372,145 +1373,6 @@
             </Principal>
             <Dependent Role="tb_rec_recurso">
               <PropertyRef Name="con_idt_concurso" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="tb_ico_inscrito_concurso">
-          <Key>
-            <PropertyRef Name="ico_idt_inscrito_concurso" />
-          </Key>
-          <Property Name="ico_idt_inscrito_concurso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cid_idt_cidade" Type="Int32" Nullable="false" />
-          <Property Name="con_idt_concurso" Type="Int32" Nullable="false" />
-          <Property Name="est_idt_estado_rg" Type="Int32" Nullable="false" />
-          <Property Name="ico_nom_inscrito_concurso" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ico_dat_nascimento" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ico_dat_inscricao" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ico_dat_pagamento" Type="DateTime" Precision="3" />
-          <Property Name="ico_des_cpf" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Name="ico_des_rg" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ico_des_endereco" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="ico_des_nro_endereco" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="ico_des_complemento" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ico_des_bairro" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ico_des_cep" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="ico_des_telefone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Name="ico_des_celular" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
-          <Property Name="ico_des_email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ico_des_outras_solicitacoes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ico_des_tratamento_especial_qual" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ico_num_filhos_menores" Type="Int32" Nullable="false" />
-          <Property Name="ico_num_valor_pago" Type="Decimal" Precision="9" Scale="2" />
-          <Property Name="ico_flg_deficiencia" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="ico_flg_estado_civil" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="ico_bit_pago" Type="Boolean" Nullable="false" />
-          <Property Name="ico_bit_destro" Type="Boolean" Nullable="false" />
-          <Property Name="ico_bit_isento" Type="Boolean" Nullable="false" />
-          <Property Name="ico_bit_possui_deficiencia" Type="Boolean" Nullable="false" />
-          <Property Name="ico_bit_tratamento_especial" Type="Boolean" Nullable="false" />
-          <Property Name="ico_bit_ativo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="tb_cci_concurso_cargo_inscrito" Relationship="TGV.IPEFAE.Web.Data.FK_tb_cci_concurso_cargo_inscrito_tb_ico_inscrito_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_cci_concurso_cargo_inscrito" />
-          <NavigationProperty Name="tb_cid_cidade" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_cid_cidade" FromRole="tb_ico_inscrito_concurso" ToRole="tb_cid_cidade" />
-          <NavigationProperty Name="tb_con_concurso" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_con_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_con_concurso" />
-          <NavigationProperty Name="tb_est_estado" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_est_estado" FromRole="tb_ico_inscrito_concurso" ToRole="tb_est_estado" />
-          <NavigationProperty Name="tb_icl_inscrito_classificacao" Relationship="TGV.IPEFAE.Web.Data.FK_tb_icl_inscrito_classificacao_tb_ico_inscrito_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_icl_inscrito_classificacao" />
-          <NavigationProperty Name="tb_icv_inscrito_concurso_vestibular" Relationship="TGV.IPEFAE.Web.Data.FK_tb_icv_inscrito_concurso_vestibular_tb_ico_inscrito_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_icv_inscrito_concurso_vestibular" />
-          <NavigationProperty Name="tb_idt_inscrito_dados_prova" Relationship="TGV.IPEFAE.Web.Data.FK_tb_idt_inscrito_dados_prova_tb_ico_inscrito_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_idt_inscrito_dados_prova" />
-          <NavigationProperty Name="tb_rec_recurso" Relationship="TGV.IPEFAE.Web.Data.FK_tb_rec_recurso_tb_ico_inscrito_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_rec_recurso" />
-        </EntityType>
-        <Association Name="FK_tb_cci_concurso_cargo_inscrito_tb_ico_inscrito_concurso">
-          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="1" />
-          <End Type="TGV.IPEFAE.Web.Data.tb_cci_concurso_cargo_inscrito" Role="tb_cci_concurso_cargo_inscrito" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_ico_inscrito_concurso">
-              <PropertyRef Name="ico_idt_inscrito_concurso" />
-            </Principal>
-            <Dependent Role="tb_cci_concurso_cargo_inscrito">
-              <PropertyRef Name="ico_idt_inscrito_concurso" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tb_ico_inscrito_concurso_tb_cid_cidade">
-          <End Type="TGV.IPEFAE.Web.Data.tb_cid_cidade" Role="tb_cid_cidade" Multiplicity="1" />
-          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_cid_cidade">
-              <PropertyRef Name="cid_idt_cidade" />
-            </Principal>
-            <Dependent Role="tb_ico_inscrito_concurso">
-              <PropertyRef Name="cid_idt_cidade" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tb_ico_inscrito_concurso_tb_con_concurso">
-          <End Type="TGV.IPEFAE.Web.Data.tb_con_concurso" Role="tb_con_concurso" Multiplicity="1" />
-          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_con_concurso">
-              <PropertyRef Name="con_idt_concurso" />
-            </Principal>
-            <Dependent Role="tb_ico_inscrito_concurso">
-              <PropertyRef Name="con_idt_concurso" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tb_ico_inscrito_concurso_tb_est_estado">
-          <End Type="TGV.IPEFAE.Web.Data.tb_est_estado" Role="tb_est_estado" Multiplicity="1" />
-          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_est_estado">
-              <PropertyRef Name="est_idt_estado" />
-            </Principal>
-            <Dependent Role="tb_ico_inscrito_concurso">
-              <PropertyRef Name="est_idt_estado_rg" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tb_icl_inscrito_classificacao_tb_ico_inscrito_concurso">
-          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="1" />
-          <End Type="TGV.IPEFAE.Web.Data.tb_icl_inscrito_classificacao" Role="tb_icl_inscrito_classificacao" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tb_ico_inscrito_concurso">
-              <PropertyRef Name="ico_idt_inscrito_concurso" />
-            </Principal>
-            <Dependent Role="tb_icl_inscrito_classificacao">
-              <PropertyRef Name="ico_idt_inscrito_concurso" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tb_icv_inscrito_concurso_vestibular_tb_ico_inscrito_concurso">
-          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="1" />
-          <End Type="TGV.IPEFAE.Web.Data.tb_icv_inscrito_concurso_vestibular" Role="tb_icv_inscrito_concurso_vestibular" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tb_ico_inscrito_concurso">
-              <PropertyRef Name="ico_idt_inscrito_concurso" />
-            </Principal>
-            <Dependent Role="tb_icv_inscrito_concurso_vestibular">
-              <PropertyRef Name="ico_idt_inscrito_concurso" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tb_idt_inscrito_dados_prova_tb_ico_inscrito_concurso">
-          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="1" />
-          <End Type="TGV.IPEFAE.Web.Data.tb_idt_inscrito_dados_prova" Role="tb_idt_inscrito_dados_prova" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tb_ico_inscrito_concurso">
-              <PropertyRef Name="ico_idt_inscrito_concurso" />
-            </Principal>
-            <Dependent Role="tb_idt_inscrito_dados_prova">
-              <PropertyRef Name="ico_idt_inscrito_concurso" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tb_rec_recurso_tb_ico_inscrito_concurso">
-          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="1" />
-          <End Type="TGV.IPEFAE.Web.Data.tb_rec_recurso" Role="tb_rec_recurso" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_ico_inscrito_concurso">
-              <PropertyRef Name="ico_idt_inscrito_concurso" />
-            </Principal>
-            <Dependent Role="tb_rec_recurso">
-              <PropertyRef Name="ico_idt_inscrito_concurso" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1633,6 +1495,146 @@
           <Property Name="ema_des_corpo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ema_bit_anexo" Type="Boolean" Nullable="false" />
         </EntityType>
+        <EntityType Name="tb_ico_inscrito_concurso">
+          <Key>
+            <PropertyRef Name="ico_idt_inscrito_concurso" />
+          </Key>
+          <Property Name="ico_idt_inscrito_concurso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cid_idt_cidade" Type="Int32" Nullable="false" />
+          <Property Name="con_idt_concurso" Type="Int32" Nullable="false" />
+          <Property Name="est_idt_estado_rg" Type="Int32" Nullable="false" />
+          <Property Name="ico_nom_inscrito_concurso" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ico_dat_nascimento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ico_dat_inscricao" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ico_dat_pagamento" Type="DateTime" Precision="3" />
+          <Property Name="ico_des_cpf" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_rg" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_endereco" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_nro_endereco" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_complemento" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_bairro" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_cep" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_telefone" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_celular" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_outras_solicitacoes" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_tratamento_especial_qual" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ico_num_filhos_menores" Type="Int32" Nullable="false" />
+          <Property Name="ico_num_valor_pago" Type="Decimal" Precision="9" Scale="2" />
+          <Property Name="ico_flg_deficiencia" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ico_flg_estado_civil" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="ico_bit_pago" Type="Boolean" Nullable="false" />
+          <Property Name="ico_bit_destro" Type="Boolean" Nullable="false" />
+          <Property Name="ico_bit_isento" Type="Boolean" Nullable="false" />
+          <Property Name="ico_bit_possui_deficiencia" Type="Boolean" Nullable="false" />
+          <Property Name="ico_bit_tratamento_especial" Type="Boolean" Nullable="false" />
+          <Property Name="ico_bit_ativo" Type="Boolean" Nullable="false" />
+          <Property Name="ico_des_link_boleto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tb_cci_concurso_cargo_inscrito" Relationship="TGV.IPEFAE.Web.Data.FK_tb_cci_concurso_cargo_inscrito_tb_ico_inscrito_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_cci_concurso_cargo_inscrito" />
+          <NavigationProperty Name="tb_cid_cidade" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_cid_cidade" FromRole="tb_ico_inscrito_concurso" ToRole="tb_cid_cidade" />
+          <NavigationProperty Name="tb_con_concurso" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_con_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_con_concurso" />
+          <NavigationProperty Name="tb_est_estado" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_est_estado" FromRole="tb_ico_inscrito_concurso" ToRole="tb_est_estado" />
+          <NavigationProperty Name="tb_icl_inscrito_classificacao" Relationship="TGV.IPEFAE.Web.Data.FK_tb_icl_inscrito_classificacao_tb_ico_inscrito_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_icl_inscrito_classificacao" />
+          <NavigationProperty Name="tb_icv_inscrito_concurso_vestibular" Relationship="TGV.IPEFAE.Web.Data.FK_tb_icv_inscrito_concurso_vestibular_tb_ico_inscrito_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_icv_inscrito_concurso_vestibular" />
+          <NavigationProperty Name="tb_idt_inscrito_dados_prova" Relationship="TGV.IPEFAE.Web.Data.FK_tb_idt_inscrito_dados_prova_tb_ico_inscrito_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_idt_inscrito_dados_prova" />
+          <NavigationProperty Name="tb_rec_recurso" Relationship="TGV.IPEFAE.Web.Data.FK_tb_rec_recurso_tb_ico_inscrito_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_rec_recurso" />
+        </EntityType>
+        <Association Name="FK_tb_cci_concurso_cargo_inscrito_tb_ico_inscrito_concurso">
+          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.tb_cci_concurso_cargo_inscrito" Role="tb_cci_concurso_cargo_inscrito" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ico_inscrito_concurso">
+              <PropertyRef Name="ico_idt_inscrito_concurso" />
+            </Principal>
+            <Dependent Role="tb_cci_concurso_cargo_inscrito">
+              <PropertyRef Name="ico_idt_inscrito_concurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ico_inscrito_concurso_tb_cid_cidade">
+          <End Type="TGV.IPEFAE.Web.Data.tb_cid_cidade" Role="tb_cid_cidade" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_idt_cidade" />
+            </Principal>
+            <Dependent Role="tb_ico_inscrito_concurso">
+              <PropertyRef Name="cid_idt_cidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ico_inscrito_concurso_tb_con_concurso">
+          <End Type="TGV.IPEFAE.Web.Data.tb_con_concurso" Role="tb_con_concurso" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_con_concurso">
+              <PropertyRef Name="con_idt_concurso" />
+            </Principal>
+            <Dependent Role="tb_ico_inscrito_concurso">
+              <PropertyRef Name="con_idt_concurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_ico_inscrito_concurso_tb_est_estado">
+          <End Type="TGV.IPEFAE.Web.Data.tb_est_estado" Role="tb_est_estado" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_est_estado">
+              <PropertyRef Name="est_idt_estado" />
+            </Principal>
+            <Dependent Role="tb_ico_inscrito_concurso">
+              <PropertyRef Name="est_idt_estado_rg" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_icl_inscrito_classificacao_tb_ico_inscrito_concurso">
+          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.tb_icl_inscrito_classificacao" Role="tb_icl_inscrito_classificacao" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ico_inscrito_concurso">
+              <PropertyRef Name="ico_idt_inscrito_concurso" />
+            </Principal>
+            <Dependent Role="tb_icl_inscrito_classificacao">
+              <PropertyRef Name="ico_idt_inscrito_concurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_icv_inscrito_concurso_vestibular_tb_ico_inscrito_concurso">
+          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.tb_icv_inscrito_concurso_vestibular" Role="tb_icv_inscrito_concurso_vestibular" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ico_inscrito_concurso">
+              <PropertyRef Name="ico_idt_inscrito_concurso" />
+            </Principal>
+            <Dependent Role="tb_icv_inscrito_concurso_vestibular">
+              <PropertyRef Name="ico_idt_inscrito_concurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_idt_inscrito_dados_prova_tb_ico_inscrito_concurso">
+          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.tb_idt_inscrito_dados_prova" Role="tb_idt_inscrito_dados_prova" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ico_inscrito_concurso">
+              <PropertyRef Name="ico_idt_inscrito_concurso" />
+            </Principal>
+            <Dependent Role="tb_idt_inscrito_dados_prova">
+              <PropertyRef Name="ico_idt_inscrito_concurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_rec_recurso_tb_ico_inscrito_concurso">
+          <End Type="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Role="tb_ico_inscrito_concurso" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.tb_rec_recurso" Role="tb_rec_recurso" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_ico_inscrito_concurso">
+              <PropertyRef Name="ico_idt_inscrito_concurso" />
+            </Principal>
+            <Dependent Role="tb_rec_recurso">
+              <PropertyRef Name="ico_idt_inscrito_concurso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1939,42 +1941,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tb_ico_inscrito_concurso">
-            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso">
-              <MappingFragment StoreEntitySet="tb_ico_inscrito_concurso">
-                <ScalarProperty Name="ico_bit_ativo" ColumnName="ico_bit_ativo" />
-                <ScalarProperty Name="ico_bit_tratamento_especial" ColumnName="ico_bit_tratamento_especial" />
-                <ScalarProperty Name="ico_bit_possui_deficiencia" ColumnName="ico_bit_possui_deficiencia" />
-                <ScalarProperty Name="ico_bit_isento" ColumnName="ico_bit_isento" />
-                <ScalarProperty Name="ico_bit_destro" ColumnName="ico_bit_destro" />
-                <ScalarProperty Name="ico_bit_pago" ColumnName="ico_bit_pago" />
-                <ScalarProperty Name="ico_flg_estado_civil" ColumnName="ico_flg_estado_civil" />
-                <ScalarProperty Name="ico_flg_deficiencia" ColumnName="ico_flg_deficiencia" />
-                <ScalarProperty Name="ico_num_valor_pago" ColumnName="ico_num_valor_pago" />
-                <ScalarProperty Name="ico_num_filhos_menores" ColumnName="ico_num_filhos_menores" />
-                <ScalarProperty Name="ico_des_tratamento_especial_qual" ColumnName="ico_des_tratamento_especial_qual" />
-                <ScalarProperty Name="ico_des_outras_solicitacoes" ColumnName="ico_des_outras_solicitacoes" />
-                <ScalarProperty Name="ico_des_email" ColumnName="ico_des_email" />
-                <ScalarProperty Name="ico_des_celular" ColumnName="ico_des_celular" />
-                <ScalarProperty Name="ico_des_telefone" ColumnName="ico_des_telefone" />
-                <ScalarProperty Name="ico_des_cep" ColumnName="ico_des_cep" />
-                <ScalarProperty Name="ico_des_bairro" ColumnName="ico_des_bairro" />
-                <ScalarProperty Name="ico_des_complemento" ColumnName="ico_des_complemento" />
-                <ScalarProperty Name="ico_des_nro_endereco" ColumnName="ico_des_nro_endereco" />
-                <ScalarProperty Name="ico_des_endereco" ColumnName="ico_des_endereco" />
-                <ScalarProperty Name="ico_des_rg" ColumnName="ico_des_rg" />
-                <ScalarProperty Name="ico_des_cpf" ColumnName="ico_des_cpf" />
-                <ScalarProperty Name="ico_dat_pagamento" ColumnName="ico_dat_pagamento" />
-                <ScalarProperty Name="ico_dat_inscricao" ColumnName="ico_dat_inscricao" />
-                <ScalarProperty Name="ico_dat_nascimento" ColumnName="ico_dat_nascimento" />
-                <ScalarProperty Name="ico_nom_inscrito_concurso" ColumnName="ico_nom_inscrito_concurso" />
-                <ScalarProperty Name="est_idt_estado_rg" ColumnName="est_idt_estado_rg" />
-                <ScalarProperty Name="con_idt_concurso" ColumnName="con_idt_concurso" />
-                <ScalarProperty Name="cid_idt_cidade" ColumnName="cid_idt_cidade" />
-                <ScalarProperty Name="ico_idt_inscrito_concurso" ColumnName="ico_idt_inscrito_concurso" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="spr_tgv_gerar_lista_inscritos" FunctionName="TGV.IPEFAE.Web.Data.Store.spr_tgv_gerar_lista_inscritos">
             <ResultMapping>
               <ComplexTypeMapping TypeName="TGV.IPEFAE.Web.Data.spr_tgv_gerar_lista_inscritos_Result">
@@ -2084,6 +2050,43 @@
                 <ScalarProperty Name="ema_des_to" ColumnName="ema_des_to" />
                 <ScalarProperty Name="ema_des_from" ColumnName="ema_des_from" />
                 <ScalarProperty Name="ema_dat_email" ColumnName="ema_dat_email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tb_ico_inscrito_concurso">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso">
+              <MappingFragment StoreEntitySet="tb_ico_inscrito_concurso">
+                <ScalarProperty Name="ico_des_link_boleto" ColumnName="ico_des_link_boleto" />
+                <ScalarProperty Name="ico_bit_ativo" ColumnName="ico_bit_ativo" />
+                <ScalarProperty Name="ico_bit_tratamento_especial" ColumnName="ico_bit_tratamento_especial" />
+                <ScalarProperty Name="ico_bit_possui_deficiencia" ColumnName="ico_bit_possui_deficiencia" />
+                <ScalarProperty Name="ico_bit_isento" ColumnName="ico_bit_isento" />
+                <ScalarProperty Name="ico_bit_destro" ColumnName="ico_bit_destro" />
+                <ScalarProperty Name="ico_bit_pago" ColumnName="ico_bit_pago" />
+                <ScalarProperty Name="ico_flg_estado_civil" ColumnName="ico_flg_estado_civil" />
+                <ScalarProperty Name="ico_flg_deficiencia" ColumnName="ico_flg_deficiencia" />
+                <ScalarProperty Name="ico_num_valor_pago" ColumnName="ico_num_valor_pago" />
+                <ScalarProperty Name="ico_num_filhos_menores" ColumnName="ico_num_filhos_menores" />
+                <ScalarProperty Name="ico_des_tratamento_especial_qual" ColumnName="ico_des_tratamento_especial_qual" />
+                <ScalarProperty Name="ico_des_outras_solicitacoes" ColumnName="ico_des_outras_solicitacoes" />
+                <ScalarProperty Name="ico_des_email" ColumnName="ico_des_email" />
+                <ScalarProperty Name="ico_des_celular" ColumnName="ico_des_celular" />
+                <ScalarProperty Name="ico_des_telefone" ColumnName="ico_des_telefone" />
+                <ScalarProperty Name="ico_des_cep" ColumnName="ico_des_cep" />
+                <ScalarProperty Name="ico_des_bairro" ColumnName="ico_des_bairro" />
+                <ScalarProperty Name="ico_des_complemento" ColumnName="ico_des_complemento" />
+                <ScalarProperty Name="ico_des_nro_endereco" ColumnName="ico_des_nro_endereco" />
+                <ScalarProperty Name="ico_des_endereco" ColumnName="ico_des_endereco" />
+                <ScalarProperty Name="ico_des_rg" ColumnName="ico_des_rg" />
+                <ScalarProperty Name="ico_des_cpf" ColumnName="ico_des_cpf" />
+                <ScalarProperty Name="ico_dat_pagamento" ColumnName="ico_dat_pagamento" />
+                <ScalarProperty Name="ico_dat_inscricao" ColumnName="ico_dat_inscricao" />
+                <ScalarProperty Name="ico_dat_nascimento" ColumnName="ico_dat_nascimento" />
+                <ScalarProperty Name="ico_nom_inscrito_concurso" ColumnName="ico_nom_inscrito_concurso" />
+                <ScalarProperty Name="est_idt_estado_rg" ColumnName="est_idt_estado_rg" />
+                <ScalarProperty Name="con_idt_concurso" ColumnName="con_idt_concurso" />
+                <ScalarProperty Name="cid_idt_cidade" ColumnName="cid_idt_cidade" />
+                <ScalarProperty Name="ico_idt_inscrito_concurso" ColumnName="ico_idt_inscrito_concurso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -39,6 +39,9 @@
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_cco_cargo_concurso_tb_con_concurso" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_con_concurso_tb_tlc_tipo_layout_concurso" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_rec_recurso_tb_con_concurso" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_emp_empresa" Width="1.5" PointX="9.375" PointY="34.875" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_con_concurso_tb_emp_empresa" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ema_email" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Width="1.5" PointX="13.875" PointY="5" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_cci_concurso_cargo_inscrito_tb_ico_inscrito_concurso" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_cid_cidade" />
@@ -48,9 +51,6 @@
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_icv_inscrito_concurso_vestibular_tb_ico_inscrito_concurso" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_idt_inscrito_dados_prova_tb_ico_inscrito_concurso" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_rec_recurso_tb_ico_inscrito_concurso" />
-        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_emp_empresa" Width="1.5" PointX="9.375" PointY="34.875" />
-        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_con_concurso_tb_emp_empresa" />
-        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ema_email" Width="1.5" PointX="5.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

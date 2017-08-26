@@ -522,6 +522,7 @@ function iniciarTelaListaConcursos() {
 
     $('#txtUploadFileConcurso').on('change', function (e) { uploadFileConcurso(e); });
     $('#btnSalvarConcurso').on('click', function () { realizarUploadArquivoConcurso(); });
+
     listarConcursos();
 }
 
@@ -618,14 +619,14 @@ function iniciarTelaListaPublicacoes()
     if (inicioComprovante - today <= 0 && today - fimComprovante <= 0)
     {
         $('#btnComprovante').parent().show();
-        $('#btnComprovante').on('click', function () { abrirModalBuscaInscrito(idConcurso, 2, nomeConcurso); });
+        $('.btnComprovante').on('click', function () { abrirModalBuscaInscrito(idConcurso, 2, nomeConcurso); });
     }
 
     // Classificação
     if (inicioClassificacao - today <= 0)
     {
         $('#btnClassificacao').parent().show();
-        $('#btnClassificacao').on('click', function () { abrirModalBuscaInscrito(idConcurso, 3, nomeConcurso); });
+        $('.btnClassificacao').on('click', function () { abrirModalBuscaInscrito(idConcurso, 3, nomeConcurso); });
     }
 
     $('#btnInscricao').on('click', function () { window.location.href = homePage + 'Concurso/' + idConcurso + '/Inscricao'; });

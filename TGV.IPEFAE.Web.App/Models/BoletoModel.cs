@@ -195,7 +195,9 @@ namespace TGV.IPEFAE.Web.App.Models
             string physicalFilePah = $"{physicalDirectory}/{inscrito.Id}";
             string virtualPath = $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Authority}{HttpContext.Current.Request.ApplicationPath.TrimEnd('/')}{filePath}";
 
-            if (File.Exists($"{physicalFilePah}.pdf"))
+            if (!String.IsNullOrEmpty(inscrito.LinkBoleto))
+                return $"<html><head><title>IPEFAE</title><style type=\"text/css\">body, html {{margin: 0;padding: 0;height: 100%;overflow: hidden;}} #content {{position: absolute;left: 0;right: 0;bottom: 0;top: 0px;}} </style></head><body><div id=\"content\"><iframe width=\"100%\" height=\"100%\" frameborder=\"0\" src=\"{inscrito.LinkBoleto}\" /></div></body></html>";
+            else if (File.Exists($"{physicalFilePah}.pdf"))
                 return $"<html><head>IPEFAE</head><body><embed src='{virtualPath}.pdf' width='800px' height='2100px' /></body></html>";
             else if (File.Exists($"{physicalFilePah}.html"))
                 return (new WebClient()).DownloadString($"{virtualPath}.html");
@@ -307,13 +309,18 @@ namespace TGV.IPEFAE.Web.App.Models
 
             string html = BaseController.ObterHtmlFromURL(serviceResponse.boleto.url_acesso);
 
-            // Grava o arquivo html
-            if (!Directory.Exists(physicalDirectory))
-                Directory.CreateDirectory(physicalDirectory);
-
-            using (StreamWriter arquivoHtml = File.CreateText($"{physicalDirectory}/{inscrito.Id}.html"))
+            if (!String.IsNullOrEmpty(serviceResponse.boleto.url_acesso))
+                InscritoConcursoBusiness.SalvarLinkBoleto(inscrito.Id, serviceResponse.boleto.url_acesso);
+            else
             {
-                arquivoHtml.Write(html);
+                // Grava o arquivo html
+                if (!Directory.Exists(physicalDirectory))
+                    Directory.CreateDirectory(physicalDirectory);
+
+                using (StreamWriter arquivoHtml = File.CreateText($"{physicalDirectory}/{inscrito.Id}.html"))
+                {
+                    arquivoHtml.Write(html);
+                }
             }
 
             return html;

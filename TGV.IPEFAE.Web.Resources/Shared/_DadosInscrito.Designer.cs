@@ -403,7 +403,7 @@ namespace TGV.IPEFAE.Web.Resources.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Necessita tratamento especial?.
+        ///   Looks up a localized string similar to Condição Especial Realização Prova Objetiva?.
         /// </summary>
         public static string LabelTratamentoEspecial {
             get {

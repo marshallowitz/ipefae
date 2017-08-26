@@ -61,6 +61,15 @@ namespace TGV.IPEFAE.Web.Resources.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CNPJ: 00.582.074/0001-83.
+        /// </summary>
+        public static string CNPJIPEFAE {
+            get {
+                return ResourceManager.GetString("CNPJIPEFAE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Contato.
         /// </summary>
         public static string Contato {
@@ -264,6 +273,15 @@ namespace TGV.IPEFAE.Web.Resources.Shared {
         public static string ContatoUnlockInicial {
             get {
                 return ResourceManager.GetString("ContatoUnlockInicial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to INSTITUTO DE PESQUISAS ECONÔMICAS - IPEFAE.
+        /// </summary>
+        public static string NomeIPEFAE {
+            get {
+                return ResourceManager.GetString("NomeIPEFAE", resourceCulture);
             }
         }
     }

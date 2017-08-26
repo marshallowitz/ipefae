@@ -50,6 +50,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public bool ico_bit_possui_deficiencia { get; set; }
         public bool ico_bit_tratamento_especial { get; set; }
         public bool ico_bit_ativo { get; set; }
+        public string ico_des_link_boleto { get; set; }
     
         public virtual ICollection<tb_cci_concurso_cargo_inscrito> tb_cci_concurso_cargo_inscrito { get; set; }
         public virtual tb_cid_cidade tb_cid_cidade { get; set; }

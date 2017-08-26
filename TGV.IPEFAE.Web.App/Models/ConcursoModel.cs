@@ -354,6 +354,7 @@ namespace TGV.IPEFAE.Web.App.Models
                 this.FlgDeficiencia = inscrito.ico_flg_deficiencia;
                 this.FlgEstadoCivil = inscrito.ico_flg_estado_civil;
                 this.OutrasSolicitacoes = inscrito.ico_des_outras_solicitacoes;
+                this.LinkBoleto = inscrito.ico_des_link_boleto;
                 this.QuantidadeFilhosMenores = inscrito.ico_num_filhos_menores;
                 this.ValorPago = inscrito.ico_num_valor_pago;
                 this.TratamentoEspecialQual = inscrito.ico_des_tratamento_especial_qual;
@@ -514,6 +515,7 @@ namespace TGV.IPEFAE.Web.App.Models
             public string FlgDeficiencia        { get; set; }
             public string FlgEstadoCivil        { get; set; }
             public string OutrasSolicitacoes    { get; set; }
+            public string LinkBoleto            { get; set; }
             public int QuantidadeFilhosMenores  { get; set; }
             public decimal? ValorPago           { get; set; }
             public string TratamentoEspecialQual { get; set; }

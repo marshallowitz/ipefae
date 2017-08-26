@@ -124,7 +124,7 @@ namespace TGV.IPEFAE.Web.Resources.Home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O INSTITUTO DE PESQUISAS ECONÔMICAS – IPEFAE atende ao inciso XIII, do artigo 24, da Lei Federal nº 8666/93, depois alterada pela Lei 8.883/94, que dispõe sobre a contratação por dispensa de licitação:.
+        ///   Looks up a localized string similar to O INSTITUTO DE PESQUISAS ECONÔMICAS – IPEFAE (CNPJ: 00.582.074/0001-83) atende ao inciso XIII, do artigo 24, da Lei Federal nº 8666/93, depois alterada pela Lei 8.883/94, que dispõe sobre a contratação por dispensa de licitação:.
         /// </summary>
         public static string ServicesH3Principal {
             get {
