@@ -30,7 +30,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
             return Json(estadosLI, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Salvar(int id, int idConcurso, int idCargo, string nome, string email, string cpf, string rg, int? estado_rg, string dataNasc, string estadocivil, string telefone, string celular, string endereco, string nroEndereco, string complemento, string bairro, string cep, int idCidade, int filhosmenores, bool possuiDef, string deficiencia_qual, bool necessitaTratEsp, string tratamento_especial_qual, bool ico_bit_ativo, bool ico_bit_pago, DateTime dataInscricao, string dataPagamento, string valorPago, bool isento, bool salvarBanco, string nomeConcurso, string nomeCargo, string estado_rg_string, string nomeCidade, string nomeEstado, int idEstado)
+        public ActionResult Salvar(int id, int idConcurso, int idCargo, string nome, string email, string cpf, string rg, int? estado_rg, string dataNasc, string estadocivil, string telefone, string celular, string endereco, string nroEndereco, string complemento, string bairro, string cep, int idCidade, int filhosmenores, bool possuiDef, string deficiencia_qual, bool necessitaTratEsp, string tratamento_especial_qual, bool ico_bit_ativo, bool ico_bit_pago, DateTime dataInscricao, string dataPagamento, string valorPago, bool isento, bool salvarBanco, string nomeConcurso, string nomeCargo, string estado_rg_string, string nomeCidade, string nomeEstado, int idEstado, string linkBoleto)
         {
             DateTime? dPagamento = String.IsNullOrEmpty(dataPagamento) ? (DateTime?)null : Convert.ToDateTime(dataPagamento);
             DateTime dataNascimento = Convert.ToDateTime(dataNasc);
@@ -74,7 +74,8 @@ namespace TGV.IPEFAE.Web.App.Controllers
                 ico_des_nro_endereco = nroEndereco,
                 ico_num_filhos_menores = filhosmenores,
                 ico_num_valor_pago = vPago,
-                ico_bit_isento = isento
+                ico_bit_isento = isento,
+                ico_des_link_boleto = linkBoleto
             };
 
             if (salvarBanco)

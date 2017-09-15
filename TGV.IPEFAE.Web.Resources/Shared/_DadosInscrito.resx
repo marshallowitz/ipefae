@@ -312,4 +312,10 @@
   <data name="CpfJaExistente" xml:space="preserve">
     <value>CPF já cadastrado para este </value>
   </data>
+  <data name="LegendaAreaAdministrativa" xml:space="preserve">
+    <value>Área Administrativa</value>
+  </data>
+  <data name="LinkBoleto" xml:space="preserve">
+    <value>Link Boleto</value>
+  </data>
 </root>

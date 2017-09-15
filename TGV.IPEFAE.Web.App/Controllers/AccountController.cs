@@ -29,6 +29,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
             userCookie.Expires = DateTime.Today.AddDays(-1);
             userCookie["email"] = "expired";
             Response.Cookies.Add(userCookie);
+            BaseController.EhGestor = false;
             Session.Clear();
             return Json(true, JsonRequestBehavior.AllowGet);
         }
@@ -52,6 +53,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
                 userCookie.Expires = BaseBusiness.DataAgora.AddDays(1);
                 userCookie["email"] = usuario.usu_des_email;
                 Response.Cookies.Add(userCookie);
+                BaseController.EhGestor = usuario.per_idt_permissao == (int)PermissaoModel.Tipo.Administrador;
             }
 
             return Json(new { status = status.ToString(), Mensagem = mensagem, Admin = UsuarioLogado.IsAdministrador, Id = UsuarioLogado.Id, Url = UsuarioLogado.UrlAcessoInicial }, JsonRequestBehavior.AllowGet);

@@ -32,6 +32,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
 
         protected const string _nomeSessionConcursoSelecionado = "ConcursoSelecionadoSession";
         protected const string _nomeSessionTodosConcursos = "TodosConcursosSession";
+        protected const string _nomeSessionEhGestor = "EhGestor";
 
         protected List<ConcursoModel> TodosConcursos
         {
@@ -67,6 +68,23 @@ namespace TGV.IPEFAE.Web.App.Controllers
             {
                 System.Web.HttpContext.Current.Session[_nomeSessionConcursoSelecionado] = value;
             }
+        }
+
+        public static bool EhGestor
+        {
+            get
+            {
+                if (System.Web.HttpContext.Current.Session == null || System.Web.HttpContext.Current.Session[_nomeSessionEhGestor] == null)
+                    return false;
+
+                bool ehGestor = false;
+
+                Boolean.TryParse(System.Web.HttpContext.Current.Session[_nomeSessionEhGestor].ToString(), out ehGestor);
+
+                return ehGestor;
+            }
+
+            set { System.Web.HttpContext.Current.Session[_nomeSessionEhGestor] = value; }
         }
 
         #endregion [ FIM - Sessions ]

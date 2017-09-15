@@ -274,6 +274,22 @@
                 </fieldset>
 
                 <br />
+
+                @if (TGV.IPEFAE.Web.App.Controllers.BaseController.UsuarioLogado.IsAdministrador && Model.Id > 0)
+                {
+                    <fieldset class="area_adm">
+                        <legend>@_DadosInscrito.LegendaAreaAdministrativa</legend>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>@_DadosInscrito.LinkBoleto</label><br />
+                                <input type="text" class="form-control" name="linkBoleto" id="txtLinkBoleto" value="@Model.LinkBoleto" />
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <br />
+                }
+
                 <div class="row" style="margin-bottom: 50px;">
                     <div class="col-md-12 text-center">
                         <input type="button" name="btnVoltar" id="btnVoltar" class="btn btn-personal1 btn-lg" value="@_DadosInscrito.BotaoVoltar" />

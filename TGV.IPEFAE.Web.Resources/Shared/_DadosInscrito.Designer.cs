@@ -421,6 +421,15 @@ namespace TGV.IPEFAE.Web.Resources.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Área Administrativa.
+        /// </summary>
+        public static string LegendaAreaAdministrativa {
+            get {
+                return ResourceManager.GetString("LegendaAreaAdministrativa", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dados Pessoais.
         /// </summary>
         public static string LegendDadosPessoais {
@@ -435,6 +444,15 @@ namespace TGV.IPEFAE.Web.Resources.Shared {
         public static string LegendOpcaoCargo {
             get {
                 return ResourceManager.GetString("LegendOpcaoCargo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link Boleto.
+        /// </summary>
+        public static string LinkBoleto {
+            get {
+                return ResourceManager.GetString("LinkBoleto", resourceCulture);
             }
         }
         

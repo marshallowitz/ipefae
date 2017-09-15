@@ -391,6 +391,7 @@ function salvar() {
     var tratamento_especial_qual = necessitaTratEsp ? $('#txtTratamentoEspecialQual').val() : null;
     var ico_bit_ativo = id == 0 ? true : $('#rdAtivoSim').is(':checked');
     var ico_bit_pago = $('#Pagou').val() != '' ? eval($('#Pagou').val().toLowerCase()) : false;
+    var ico_des_link_boleto = $('#txtLinkBoleto').val() === undefined ? '' : $('#txtLinkBoleto').val();
     var dataInscricao = $('#DataInscricao').val();
     var dataPagamento = $('#DataPagamento').val();
     var valorPago = $('#ValorPago').val();
@@ -416,7 +417,7 @@ function salvar() {
         type: "POST",
         url: url,
         data: {
-            id: id, idConcurso: idConcurso, idCargo: cargo, nome: nome, email: email, cpf: cpf, rg: rg, estado_rg: estado_rg, dataNasc: dataNasc, estadocivil: estadocivil, telefone: telefone, celular: celular, endereco: endereco, nroEndereco: nroEndereco, complemento: complemento, bairro: bairro, cep: cep, idCidade: cidade, filhosmenores: filhosmenores, possuiDef: possuiDef, deficiencia_qual: deficiencia_qual, necessitaTratEsp: necessitaTratEsp, tratamento_especial_qual: tratamento_especial_qual, ico_bit_ativo: ico_bit_ativo, ico_bit_pago: ico_bit_pago, dataInscricao: dataInscricao, dataPagamento: dataPagamento, valorPago: valorPago, isento: isento, salvarBanco: salvarBanco, nomeConcurso: nomeConcurso, nomeCargo: nomeCargo, estado_rg_string: estado_rg_string, nomeCidade: nomeCidade, nomeEstado: nomeEstado, idEstado: idEstado
+            id: id, idConcurso: idConcurso, idCargo: cargo, nome: nome, email: email, cpf: cpf, rg: rg, estado_rg: estado_rg, dataNasc: dataNasc, estadocivil: estadocivil, telefone: telefone, celular: celular, endereco: endereco, nroEndereco: nroEndereco, complemento: complemento, bairro: bairro, cep: cep, idCidade: cidade, filhosmenores: filhosmenores, possuiDef: possuiDef, deficiencia_qual: deficiencia_qual, necessitaTratEsp: necessitaTratEsp, tratamento_especial_qual: tratamento_especial_qual, ico_bit_ativo: ico_bit_ativo, ico_bit_pago: ico_bit_pago, dataInscricao: dataInscricao, dataPagamento: dataPagamento, valorPago: valorPago, isento: isento, salvarBanco: salvarBanco, nomeConcurso: nomeConcurso, nomeCargo: nomeCargo, estado_rg_string: estado_rg_string, nomeCidade: nomeCidade, nomeEstado: nomeEstado, idEstado: idEstado, linkBoleto: ico_des_link_boleto
         },
         success: function (retorno) {
             if (eval(salvarBanco) && retorno.Mensagem != undefined)
