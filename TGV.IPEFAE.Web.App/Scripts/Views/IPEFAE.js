@@ -52,6 +52,7 @@ function gerarBoletoBancario(idConcurso, idInscrito, apagarSessao, reload) {
         data: { idConcurso: idConcurso, idInscrito: idInscrito, apagarSessao: apagarSessao },
         success: function (retorno) {
             var w = janelaPopUp;
+            //console.log(retorno);
             gerarBoletoBancarioChamadaFuncao(w, retorno.Boleto, reload);
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -66,9 +67,20 @@ function gerarBoletoBancarioChamadaFuncao(w, boleto, reload)
 {
     if (!janelaPopUp.getTitulo || janelaPopUp.getTitulo() === '')
         setTimeout(function () { gerarBoletoBancarioChamadaFuncao(w, boleto, reload); }, 1000);
-    else {
+    else
+    {
         w.document.title = ".:: IPEFAE ::.";
-        try { $(w.document.body).html(boleto); } catch (e) { if (reload) window.location.reload(); }
+
+        try
+        {
+            w.document.write(boleto);
+            w.document.close();
+        } catch (e)
+        {
+            //alert(e);
+            
+            if (reload) window.location.reload();
+        }
     }
 }
 
