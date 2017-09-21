@@ -3,6 +3,7 @@
 
 /* SECTIONS */
 .error                              { display: table; height: 100%; left: 0; margin: 0 auto; position: absolute; width: 100%; }
+.error.boleto                       { background-size: cover; background: url(imagens/boleto.png) no-repeat center top fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
 .error.generic                      { background-size: cover; background: url(imagens/error.png) no-repeat center top fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
 .error.notfound                     { background-size: cover; background: url(imagens/notfound.jpg) no-repeat center top fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }
 .error.unauthorized                 { background-size: cover; background: url(imagens/acessonegado.jpg) no-repeat center top fixed; -moz-background-size: cover; -o-background-size: cover; -webkit-background-size: cover; }

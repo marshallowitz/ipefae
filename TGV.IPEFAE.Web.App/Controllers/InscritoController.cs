@@ -30,7 +30,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
             return Json(estadosLI, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Salvar(int id, int idConcurso, int idCargo, string nome, string email, string cpf, string rg, int? estado_rg, string dataNasc, string estadocivil, string telefone, string celular, string endereco, string nroEndereco, string complemento, string bairro, string cep, int idCidade, int filhosmenores, bool possuiDef, string deficiencia_qual, bool necessitaTratEsp, string tratamento_especial_qual, bool ico_bit_ativo, bool ico_bit_pago, DateTime dataInscricao, string dataPagamento, string valorPago, bool isento, bool salvarBanco, string nomeConcurso, string nomeCargo, string estado_rg_string, string nomeCidade, string nomeEstado, int idEstado, string linkBoleto)
+        public ActionResult Salvar(int id, int idConcurso, int idCargo, string nome, string email, string cpf, string rg, int? estado_rg, string dataNasc, string estadocivil, string telefone, string celular, string endereco, string nroEndereco, string complemento, string bairro, string cep, int idCidade, int filhosmenores, bool possuiDef, string deficiencia_qual, bool necessitaTratEsp, string tratamento_especial_qual, bool ico_bit_ativo, bool ico_bit_pago, DateTime dataInscricao, string dataPagamento, string valorPago, bool isento, bool salvarBanco, string nomeConcurso, string nomeCargo, string estado_rg_string, string nomeCidade, string nomeEstado, int idEstado, string linkBoleto, string browserCadastro)
         {
             DateTime? dPagamento = String.IsNullOrEmpty(dataPagamento) ? (DateTime?)null : Convert.ToDateTime(dataPagamento);
             DateTime dataNascimento = Convert.ToDateTime(dataNasc);
@@ -75,7 +75,8 @@ namespace TGV.IPEFAE.Web.App.Controllers
                 ico_num_filhos_menores = filhosmenores,
                 ico_num_valor_pago = vPago,
                 ico_bit_isento = isento,
-                ico_des_link_boleto = linkBoleto
+                ico_des_link_boleto = linkBoleto,
+                ico_des_browser_cadastro = browserCadastro
             };
 
             if (salvarBanco)
@@ -107,6 +108,8 @@ namespace TGV.IPEFAE.Web.App.Controllers
 
         public ActionResult SalvarVestibular(int id, int idConcurso, int? idOpcao2, int? idOpcao3, int localProva, bool ehMasculino, string indicadoPor, string cursoIndicadoPor, string semestreIndicadoPor, int? escolaridadeMae, int? escolaridadePai, int? exerceAtividadeRemunerada, int? motivoOptouCurso, int? motivoOptouUnifae, int? rendaMensal, int? tipoCEF, int? tipoCEM, int? tipoEM, int? tcnf, string tcnfOutros, bool salvarBanco)
         {
+            int tamanhoIndicadoPor = indicadoPor.Length > 100 ? 90 : indicadoPor.Length - 1;
+
             tb_icv_inscrito_concurso_vestibular icv = new tb_icv_inscrito_concurso_vestibular()
             {
                 ico_idt_inscrito_concurso = id,
@@ -115,7 +118,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
                 icv_dat_aceito_termos = DateTime.Now,
                 icv_des_conhecimento_unifae_outros = tcnfOutros,
                 icv_des_curso_indicado_por = cursoIndicadoPor,
-                icv_des_nome_indicado_por = indicadoPor,
+                icv_des_nome_indicado_por = indicadoPor.Trim().Substring(0, tamanhoIndicadoPor),
                 icv_des_semestre_curso_indicado_por = semestreIndicadoPor,
                 icv_idt_opcao_2 = idOpcao2,
                 icv_idt_opcao_3 = idOpcao3,

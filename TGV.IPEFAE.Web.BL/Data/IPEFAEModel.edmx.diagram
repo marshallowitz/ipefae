@@ -42,7 +42,7 @@
         <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_emp_empresa" Width="1.5" PointX="9.375" PointY="34.875" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_con_concurso_tb_emp_empresa" />
         <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ema_email" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Width="1.5" PointX="13.875" PointY="5" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso" Width="1.5" PointX="13.875" PointY="4.875" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_cci_concurso_cargo_inscrito_tb_ico_inscrito_concurso" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_cid_cidade" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_con_concurso" />

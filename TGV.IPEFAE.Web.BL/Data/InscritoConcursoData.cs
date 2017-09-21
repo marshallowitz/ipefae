@@ -231,6 +231,7 @@ namespace TGV.IPEFAE.Web.BL.Data
                 toUpdate.ico_dat_nascimento = inscrito.ico_dat_nascimento;
                 toUpdate.ico_dat_pagamento = inscrito.ico_dat_pagamento;
                 toUpdate.ico_des_bairro = inscrito.ico_des_bairro;
+                toUpdate.ico_des_browser_cadastro = inscrito.ico_des_browser_cadastro;
                 toUpdate.ico_des_celular = celular;
                 toUpdate.ico_des_cep = inscrito.ico_des_cep;
                 toUpdate.ico_des_complemento = inscrito.ico_des_complemento;

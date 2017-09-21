@@ -170,6 +170,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>_ModalBuscaInscrito.resx</DependentUpon>
     </Compile>
+    <Compile Include="Error\BoletoEnviado.Designer.cs">
+      <DependentUpon>BoletoEnviado.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Error\InscricoesFechadas.Designer.cs">
       <DependentUpon>InscricoesFechadas.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -446,6 +451,10 @@
     <EmbeddedResource Include="Concurso\_ModalBuscaInscrito.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>_ModalBuscaInscrito.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Error\BoletoEnviado.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BoletoEnviado.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Error\InscricoesFechadas.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

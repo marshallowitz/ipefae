@@ -88,6 +88,15 @@ namespace TGV.IPEFAE.Web.Resources.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browser Cadastro.
+        /// </summary>
+        public static string BrowserCadastro {
+            get {
+                return ResourceManager.GetString("BrowserCadastro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A opção é obrigatória.
         /// </summary>
         public static string CargoObrigatorio {

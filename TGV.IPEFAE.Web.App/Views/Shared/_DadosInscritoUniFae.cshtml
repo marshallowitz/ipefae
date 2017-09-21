@@ -507,9 +507,13 @@
                     <fieldset class="area_adm">
                         <legend>@_DadosInscrito.LegendaAreaAdministrativa</legend>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <label>@_DadosInscrito.LinkBoleto</label><br />
                                 <input type="text" class="form-control" name="linkBoleto" id="txtLinkBoleto" value="@Model.LinkBoleto" />
+                            </div>
+                            <div class="col-md-6">
+                                <label>@_DadosInscrito.BrowserCadastro</label><br />
+                                <input type="text" class="form-control" name="browserCadastro" id="txtBrowserCadastro" disabled value="@Model.BrowserCadastro" />
                             </div>
                         </div>
                     </fieldset>

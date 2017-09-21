@@ -157,6 +157,7 @@
           <Property Name="ico_bit_tratamento_especial" Type="bit" Nullable="false" />
           <Property Name="ico_bit_ativo" Type="bit" Nullable="false" />
           <Property Name="ico_des_link_boleto" Type="varchar" MaxLength="500" />
+          <Property Name="ico_des_browser_cadastro" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="tb_icv_inscrito_concurso_vestibular">
           <Key>
@@ -1530,6 +1531,7 @@
           <Property Name="ico_bit_tratamento_especial" Type="Boolean" Nullable="false" />
           <Property Name="ico_bit_ativo" Type="Boolean" Nullable="false" />
           <Property Name="ico_des_link_boleto" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ico_des_browser_cadastro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tb_cci_concurso_cargo_inscrito" Relationship="TGV.IPEFAE.Web.Data.FK_tb_cci_concurso_cargo_inscrito_tb_ico_inscrito_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_cci_concurso_cargo_inscrito" />
           <NavigationProperty Name="tb_cid_cidade" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_cid_cidade" FromRole="tb_ico_inscrito_concurso" ToRole="tb_cid_cidade" />
           <NavigationProperty Name="tb_con_concurso" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_con_concurso" FromRole="tb_ico_inscrito_concurso" ToRole="tb_con_concurso" />
@@ -2056,6 +2058,7 @@
           <EntitySetMapping Name="tb_ico_inscrito_concurso">
             <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.tb_ico_inscrito_concurso">
               <MappingFragment StoreEntitySet="tb_ico_inscrito_concurso">
+                <ScalarProperty Name="ico_des_browser_cadastro" ColumnName="ico_des_browser_cadastro" />
                 <ScalarProperty Name="ico_des_link_boleto" ColumnName="ico_des_link_boleto" />
                 <ScalarProperty Name="ico_bit_ativo" ColumnName="ico_bit_ativo" />
                 <ScalarProperty Name="ico_bit_tratamento_especial" ColumnName="ico_bit_tratamento_especial" />

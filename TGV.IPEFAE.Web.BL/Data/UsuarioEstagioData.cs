@@ -59,7 +59,14 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return db.tb_ues_usuario_estagio.LastOrDefault(ues => ues.ues_des_cpf == ues_des_cpf);
+                var lista = (from ues in db.tb_ues_usuario_estagio
+                        where ues.ues_des_cpf == ues_des_cpf
+                        select ues).ToList();
+
+                if (lista.Count == 0)
+                    return null;
+
+                return lista[lista.Count - 1];
             }
         }
 

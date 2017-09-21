@@ -100,8 +100,19 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
             catch (Exception exc)
             {
+                if (exc.Message.Equals("An error occurred while updating the entries. See the inner exception for details."))
+                    exc = ObterException(exc.InnerException);
+
                 throw exc;
             }
+        }
+
+        private static Exception ObterException(Exception exc)
+        {
+            if (exc.Message.Equals("An error occurred while updating the entries. See the inner exception for details."))
+                exc = ObterException(exc.InnerException);
+
+            return exc;
         }
 
         internal static async Task<int> SaveChangesWithErrorsAsync(this DbContext context)

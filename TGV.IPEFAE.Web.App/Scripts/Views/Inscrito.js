@@ -383,15 +383,18 @@ function salvar() {
     var complemento = $('#txtComplemento').val();
     var bairro = $('#txtBairro').val();
     var cep = removerTodosCaracteresMenosNumeros($('#txtCEP').val());
-    var cidade = $('#ddlCidade').val();
+    var cidade = isInteger($('#ddlCidade').val()) ? $('#ddlCidade').val() : 9401;
     var filhosmenores = removerTodosCaracteresMenosNumeros($('#txtFilhosMenores').val());
     var possuiDef = $('#rdDefSim').is(':checked');
     var deficiencia_qual = possuiDef ? $('input[name="deficiencia_qual"]:checked').val() : null;
     var necessitaTratEsp = possuiDef ? $('#rdTraSim').is(':checked') : false;
     var tratamento_especial_qual = necessitaTratEsp ? $('#txtTratamentoEspecialQual').val() : null;
-    var ico_bit_ativo = id == 0 ? true : $('#rdAtivoSim').is(':checked');
+    var ico_bit_ativo = id <= 0 ? true : $('#rdAtivoSim').is(':checked');
     var ico_bit_pago = $('#Pagou').val() != '' ? eval($('#Pagou').val().toLowerCase()) : false;
     var ico_des_link_boleto = $('#txtLinkBoleto').val() === undefined ? '' : $('#txtLinkBoleto').val();
+    var ico_des_browser_cadastro = id <= 0 ? detectarBrowse() : ($('#txtBrowserCadastro').val() === undefined ? '' : $('#txtBrowserCadastro').val());
+    //console.log(ico_des_browser_cadastro);
+    //console.log(id);
     var dataInscricao = $('#DataInscricao').val();
     var dataPagamento = $('#DataPagamento').val();
     var valorPago = $('#ValorPago').val();
@@ -417,7 +420,7 @@ function salvar() {
         type: "POST",
         url: url,
         data: {
-            id: id, idConcurso: idConcurso, idCargo: cargo, nome: nome, email: email, cpf: cpf, rg: rg, estado_rg: estado_rg, dataNasc: dataNasc, estadocivil: estadocivil, telefone: telefone, celular: celular, endereco: endereco, nroEndereco: nroEndereco, complemento: complemento, bairro: bairro, cep: cep, idCidade: cidade, filhosmenores: filhosmenores, possuiDef: possuiDef, deficiencia_qual: deficiencia_qual, necessitaTratEsp: necessitaTratEsp, tratamento_especial_qual: tratamento_especial_qual, ico_bit_ativo: ico_bit_ativo, ico_bit_pago: ico_bit_pago, dataInscricao: dataInscricao, dataPagamento: dataPagamento, valorPago: valorPago, isento: isento, salvarBanco: salvarBanco, nomeConcurso: nomeConcurso, nomeCargo: nomeCargo, estado_rg_string: estado_rg_string, nomeCidade: nomeCidade, nomeEstado: nomeEstado, idEstado: idEstado, linkBoleto: ico_des_link_boleto
+            id: id, idConcurso: idConcurso, idCargo: cargo, nome: nome, email: email, cpf: cpf, rg: rg, estado_rg: estado_rg, dataNasc: dataNasc, estadocivil: estadocivil, telefone: telefone, celular: celular, endereco: endereco, nroEndereco: nroEndereco, complemento: complemento, bairro: bairro, cep: cep, idCidade: cidade, filhosmenores: filhosmenores, possuiDef: possuiDef, deficiencia_qual: deficiencia_qual, necessitaTratEsp: necessitaTratEsp, tratamento_especial_qual: tratamento_especial_qual, ico_bit_ativo: ico_bit_ativo, ico_bit_pago: ico_bit_pago, dataInscricao: dataInscricao, dataPagamento: dataPagamento, valorPago: valorPago, isento: isento, salvarBanco: salvarBanco, nomeConcurso: nomeConcurso, nomeCargo: nomeCargo, estado_rg_string: estado_rg_string, nomeCidade: nomeCidade, nomeEstado: nomeEstado, idEstado: idEstado, linkBoleto: ico_des_link_boleto, browserCadastro: ico_des_browser_cadastro
         },
         success: function (retorno) {
             if (eval(salvarBanco) && retorno.Mensagem != undefined)
@@ -448,7 +451,7 @@ function salvarVestibular(id)
     var idConcurso = $('#IdConcurso').val();
     var idOpcao2 = $('#ddlCurso2').val() == "" ? null : $('#ddlCurso2').val();
     var idOpcao3 = $('#ddlCurso3').val() == "" ? null : $('#ddlCurso3').val();
-    var localProva = $('#ddlLocalProva').val();
+    var localProva = isInteger($('#ddlLocalProva').val()) ? $('#ddlLocalProva').val() : 1;
     var ehMasculino = $('#ddlSexo').val() == "M";
     var indicadoPor = $('#txtNomeIndicado').val();
     var cursoIndicadoPor = $('#txtCursoIndicado').val();

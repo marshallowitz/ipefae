@@ -318,4 +318,7 @@
   <data name="LinkBoleto" xml:space="preserve">
     <value>Link Boleto</value>
   </data>
+  <data name="BrowserCadastro" xml:space="preserve">
+    <value>Browser Cadastro</value>
+  </data>
 </root>

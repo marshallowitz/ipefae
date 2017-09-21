@@ -15,6 +15,7 @@ using TGV.IPEFAE.Web.App.Models.Bradesco.Response;
 using TGV.IPEFAE.Web.App.Controllers;
 using TGV.IPEFAE.Web.App.Models.BancoBrasil;
 using System.Collections.Specialized;
+using TGV.IPEFAE.Web.BL.Data;
 
 namespace TGV.IPEFAE.Web.App.Models
 {
@@ -160,7 +161,11 @@ namespace TGV.IPEFAE.Web.App.Models
             }
             catch (Exception ex)
             {
-                
+                // Grava um log com o erro
+                string mensagem = GravarLogErroGeracaoBoleto(inscrito, ex);
+
+                // Envia e-mail para Thiago e Raul alertando sobre o erro
+                EmailBusiness.EnviarEmail("valente.thi@hotmail.com", BaseBusiness.EmailNaoRespondaIPEFAE, BaseBusiness.NomeNaoRespondaIPEFAE, "Erro Geração Boleto", mensagem);
             }
 
             return String.Empty;
@@ -343,6 +348,52 @@ namespace TGV.IPEFAE.Web.App.Models
             }
 
             return html.ToString();
+        }
+
+        private string GravarLogErroGeracaoBoleto(ConcursoModel.InscritoModel ico, Exception ex)
+        {
+            StringBuilder sbInscrito = new StringBuilder();
+            sbInscrito.AppendFormat("IdConcurso: {0}", ico.IdConcurso);
+            sbInscrito.AppendLine();
+
+            if (ico.Id > 0)
+            {
+                sbInscrito.AppendFormat("Id Inscrito: {0}", ico.Id);
+                sbInscrito.AppendLine();
+            }
+
+            sbInscrito.AppendFormat("CPF: {0}", ico.CPFFormatado);
+            sbInscrito.AppendLine();
+            sbInscrito.AppendFormat("Data Inscrição: {0}", ico.DataInscricao.ToString("dd/MM/yyyy HH:mm"));
+            sbInscrito.AppendLine();
+            sbInscrito.AppendFormat("Browser: {0}", ico.BrowserCadastro);
+            sbInscrito.AppendLine();
+            sbInscrito.AppendFormat("Exception: {0}", ex.Message);
+            sbInscrito.AppendLine();
+
+            if (ex.InnerException != null)
+            {
+                sbInscrito.AppendFormat("InnerException: {0}", ex.InnerException.Message);
+                sbInscrito.AppendLine();
+            }
+
+            Int64 idErro = Convert.ToInt64(BaseBusiness.DataAgora.ToString("yyyyMMddHHmmssfff"));
+            tb_ler_log_erro ler = new tb_ler_log_erro();
+            ler.ler_dat_erro = BaseBusiness.DataAgora;
+            ler.ler_des_inner_exception = null;
+            ler.ler_des_mensagem = sbInscrito.ToString();
+            ler.ler_des_nome_metodo = "BoletoModel/GerarBoletoBanco";
+            ler.ler_des_source = "BoletoModel";
+            ler.ler_des_stack_trace = String.Empty;
+            ler.ler_des_tipo_exception = String.Empty;
+            ler.ler_des_url = String.Empty;
+            ler.ler_idt_log_erro = idErro;
+            ler.ler_num_codigo_erro = null;
+            ler.usu_idt_usuario = null;
+
+            LogErroBusiness.Salvar(ler);
+
+            return sbInscrito.ToString();
         }
 
         private Boletos ListarBoletos(ConcursoModel concurso, Cedente cedente, Banco banco)

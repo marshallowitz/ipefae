@@ -366,6 +366,9 @@ namespace TGV.IPEFAE.Web.App.Controllers
             BoletoModel bm = new BoletoModel();
             string htmlBoleto = bm.GerarBoleto(idConcurso, iModel);
 
+            if (String.IsNullOrEmpty(htmlBoleto))
+                htmlBoleto = System.Web.HttpUtility.HtmlDecode(this.PartialViewToString("~/Views/Error/BoletoEnviado.cshtml", null));
+
             return Json(new { Boleto = htmlBoleto }, JsonRequestBehavior.AllowGet);
         }
 
@@ -565,7 +568,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
                 sbInscrito.AppendFormat("InnerException: {0}", ex.InnerException.Message);
                 sbInscrito.AppendLine();
             }
-            
+
             if (icv != null)
             {
                 sbInscrito.AppendFormat("Opção 2: {0}", icv.icv_idt_opcao_2.HasValue ? icv.icv_idt_opcao_2.Value : 0);

@@ -1,0 +1,15 @@
+﻿@using TGV.IPEFAE.Web.Resources.Error;
+@model System.Web.Mvc.HandleErrorInfo
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+
+<link href="@Url.Content("~/Content/Error.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<script>
+    $(function () { $('.ulDeslogado').hide(); $('.navbar-custom.logado').removeClass('logado'); });
+</script>
+<section id="Error" class="error boleto">
+    <div class="mensagem" style="margin-top: 15%; transform: translateY(-50%);">
+        <h2>@BoletoEnviado.Titulo</h2>
+        <h3>@BoletoEnviado.AvisoPrincipal</h3>
+        <h3>@BoletoEnviado.AvisoSecundario</h3>
+    </div>
+</section>
