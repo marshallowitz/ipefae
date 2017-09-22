@@ -61,7 +61,7 @@ namespace TGV.IPEFAE.Web.Resources.Error {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to O seu boleto está sendo gerado e será enviado a seu e-mail em até 30 minutos.
+        ///   Looks up a localized string similar to Para ter acesso ao seu boleto entre em contato com o IPEFAE através do email ou telefone:.
         /// </summary>
         public static string AvisoPrincipal {
             get {
@@ -70,7 +70,7 @@ namespace TGV.IPEFAE.Web.Resources.Error {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Caso não receba, entre em contato conosco.
+        ///   Looks up a localized string similar to concurso@ipefae.org.br.
         /// </summary>
         public static string AvisoSecundario {
             get {
@@ -79,11 +79,11 @@ namespace TGV.IPEFAE.Web.Resources.Error {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Boleto Sendo Enviado.
+        ///   Looks up a localized string similar to (19) 3622-3119.
         /// </summary>
-        public static string Titulo {
+        public static string AvisoSecundarioFone {
             get {
-                return ResourceManager.GetString("Titulo", resourceCulture);
+                return ResourceManager.GetString("AvisoSecundarioFone", resourceCulture);
             }
         }
     }

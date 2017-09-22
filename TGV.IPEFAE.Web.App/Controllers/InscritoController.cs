@@ -115,7 +115,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
                 ico_idt_inscrito_concurso = id,
                 icv_bit_ativo = true,
                 icv_bit_eh_masculino = ehMasculino,
-                icv_dat_aceito_termos = DateTime.Now,
+                icv_dat_aceito_termos = BaseController.DataAgora,
                 icv_des_conhecimento_unifae_outros = tcnfOutros,
                 icv_des_curso_indicado_por = cursoIndicadoPor,
                 icv_des_nome_indicado_por = indicadoPor.Trim().Substring(0, tamanhoIndicadoPor),
@@ -151,7 +151,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
                 {
                     Ativo = true,
                     CursoIndicadoPor = cursoIndicadoPor,
-                    DataAceitouOsTermos = DateTime.Now,
+                    DataAceitouOsTermos = BaseController.DataAgora,
                     DataProva = 0,
                     EhMasculino = ehMasculino,
                     EscolaridadeMae = escolaridadeMae,

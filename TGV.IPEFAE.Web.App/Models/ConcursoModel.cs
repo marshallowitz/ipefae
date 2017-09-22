@@ -718,7 +718,7 @@ namespace TGV.IPEFAE.Web.App.Models
                     this.MotivoOptouUniFae = inscrito.icv_num_optar_unifae;
                     this.MotivoOptouCurso = inscrito.icv_num_optar_curso;
                     this.TomouConhecimentoUniFae = inscrito.icv_num_conhecimento_unifae;
-                    this.DataAceitouOsTermos = inscrito.icv_dat_aceito_termos.HasValue ? inscrito.icv_dat_aceito_termos.Value : DateTime.Now;
+                    this.DataAceitouOsTermos = inscrito.icv_dat_aceito_termos.HasValue ? inscrito.icv_dat_aceito_termos.Value : BaseController.DataAgora;
                     this.EhMasculino = inscrito.icv_bit_eh_masculino.HasValue ? inscrito.icv_bit_eh_masculino.Value : true;
                     this.Ativo = inscrito.icv_bit_ativo.HasValue ? inscrito.icv_bit_ativo.Value : true;
 

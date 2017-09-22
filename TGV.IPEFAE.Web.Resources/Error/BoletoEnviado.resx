@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AvisoPrincipal" xml:space="preserve">
-    <value>O seu boleto está sendo gerado e será enviado a seu e-mail em até 30 minutos</value>
+    <value>Para ter acesso ao seu boleto entre em contato com o IPEFAE através do email ou telefone:</value>
   </data>
   <data name="AvisoSecundario" xml:space="preserve">
-    <value>Caso não receba, entre em contato conosco</value>
+    <value>concurso@ipefae.org.br</value>
   </data>
-  <data name="Titulo" xml:space="preserve">
-    <value>Boleto Sendo Enviado</value>
+  <data name="AvisoSecundarioFone" xml:space="preserve">
+    <value>(19) 3622-3119</value>
   </data>
 </root>

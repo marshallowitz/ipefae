@@ -91,6 +91,8 @@ namespace TGV.IPEFAE.Web.App.Controllers
 
         #region [ Propriedades ]
 
+        public static DateTime DataAgora    { get { return TimeZoneInfo.ConvertTimeFromUtc(DateTime.Now.ToUniversalTime(), TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time")); } }
+
         public static int TamanhoPaginaLista
         {
             get

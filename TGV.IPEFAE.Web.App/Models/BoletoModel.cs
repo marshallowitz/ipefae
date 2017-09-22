@@ -165,7 +165,7 @@ namespace TGV.IPEFAE.Web.App.Models
                 string mensagem = GravarLogErroGeracaoBoleto(inscrito, ex);
 
                 // Envia e-mail para Thiago e Raul alertando sobre o erro
-                EmailBusiness.EnviarEmail("valente.thi@hotmail.com", BaseBusiness.EmailNaoRespondaIPEFAE, BaseBusiness.NomeNaoRespondaIPEFAE, "Erro Geração Boleto", mensagem);
+                EmailBusiness.EnviarEmail("concurso@ipefae.org.br", BaseBusiness.EmailNaoRespondaIPEFAE, BaseBusiness.NomeNaoRespondaIPEFAE, "Erro Geração Boleto", mensagem);
             }
 
             return String.Empty;
@@ -175,7 +175,7 @@ namespace TGV.IPEFAE.Web.App.Models
         {
             int convenio_comercio_eletronico = concurso.Empresa.Convenio;
             string convenio_cobranca = concurso.Empresa.ConvenioCobranca.HasValue ? concurso.Empresa.ConvenioCobranca.Value.ToString().PadLeft(7, '0') : "0000000";
-            string dataVencimento = DateTime.Now > vencimento ? DateTime.Now.AddDays(10).ToString("ddMMyyyy") : vencimento.ToString("ddMMyyyy");
+            string dataVencimento = BaseController.DataAgora > vencimento ? BaseController.DataAgora.AddDays(10).ToString("ddMMyyyy") : vencimento.ToString("ddMMyyyy");
             PagamentoModel pm = new PagamentoModel(inscrito, concurso.Nome, inscrito.CargosString, tipo, convenio_comercio_eletronico, $"{convenio_cobranca}{nossoNumero}", valor, dataVencimento);
             
             string url = "https://mpag.bb.com.br/site/mpag";
@@ -210,8 +210,8 @@ namespace TGV.IPEFAE.Web.App.Models
             var valorInteiro = Convert.ToInt32(valor * 100);
             string mensagem = "Pagamento de Taxa de Inscrição";
 
-            string dataEmissao = DateTime.Now.ToString("yyyy-MM-dd");
-            string dataVencimento = DateTime.Now > vencimento ? DateTime.Now.AddDays(10).ToString("yyyy-MM-dd") : vencimento.ToString("yyyy-MM-dd");
+            string dataEmissao = BaseController.DataAgora.ToString("yyyy-MM-dd");
+            string dataVencimento = BaseController.DataAgora > vencimento ? BaseController.DataAgora.AddDays(10).ToString("yyyy-MM-dd") : vencimento.ToString("yyyy-MM-dd");
 
             string instrucao01 = "Pagamento de Taxa de Inscrição";
             string instrucao02 = $"CONCURSO: {concurso.Nome}";
