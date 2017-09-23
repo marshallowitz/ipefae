@@ -118,7 +118,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
                 icv_dat_aceito_termos = BaseController.DataAgora,
                 icv_des_conhecimento_unifae_outros = tcnfOutros,
                 icv_des_curso_indicado_por = cursoIndicadoPor,
-                icv_des_nome_indicado_por = indicadoPor.Trim().Substring(0, tamanhoIndicadoPor),
+                icv_des_nome_indicado_por = tamanhoIndicadoPor > 0 ? indicadoPor.Trim().Substring(0, tamanhoIndicadoPor) : String.Empty,
                 icv_des_semestre_curso_indicado_por = semestreIndicadoPor,
                 icv_idt_opcao_2 = idOpcao2,
                 icv_idt_opcao_3 = idOpcao3,

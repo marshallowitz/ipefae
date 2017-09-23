@@ -552,7 +552,9 @@ namespace TGV.IPEFAE.Web.App.Controllers
                 return Json(new { Sucesso = false, PathFoto = "" }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { Sucesso = true, PathFoto = String.Format("data:image/jpg;base64,{0}", pathFoto) }, JsonRequestBehavior.AllowGet);
+            JsonResult result = Json(new { Sucesso = true, PathFoto = String.Format("data:image/jpg;base64,{0}", pathFoto) }, JsonRequestBehavior.AllowGet);
+            result.MaxJsonLength = int.MaxValue;
+            return result;
         }
 	}
 }
