@@ -47,7 +47,8 @@ namespace TGV.IPEFAE.Web.App.Controllers
             Session[SessionDadosInscrito] = null;
 
             // Busca os dados do concurso a partir do Id
-            ConcursoModel concurso = new ConcursoModel(ConcursoBusiness.Obter(idConcurso, false));
+            tb_con_concurso con = ConcursoBusiness.Obter(idConcurso, false, false);
+            ConcursoModel concurso = new ConcursoModel(con);
 
             if (concurso == null || concurso.Id <= 0)
                 return RedirecionarPagina("Index", "Concurso", "", 0);
@@ -486,7 +487,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
                 return RedirecionarPagina("Index", "Concurso", "", 0);
 
             int concursoId = idConcurso.Value;
-            ConcursoModel concurso = new ConcursoModel(ConcursoBusiness.Obter(concursoId, false));
+            ConcursoModel concurso = new ConcursoModel(ConcursoBusiness.Obter(concursoId, false, false));
 
             try
             {
