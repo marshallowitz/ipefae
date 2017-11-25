@@ -540,7 +540,7 @@ namespace TGV.IPEFAE.Web.App.Models
             public string CPFFormatado          { get { return String.IsNullOrEmpty(CPF) ? String.Empty : String.Format(@"{0:000\.000\.000\-00}", Int64.Parse(CPF)); } }
             public string ValorPagoString       { get { return this.ValorPago.HasValue ? String.Format("{0:C}", this.ValorPago.Value) : String.Empty; } }
             public string DataNascimentoString  { get { return DataNascimento.ToString("dd/MM/yyyy"); } }
-            public string SiglaEstado           { get { return this.EstadoRG != null ? this.EstadoRG.Sigla : String.Empty; } }
+            public string SiglaEstado           { get { return this.Cidade != null && this.Cidade.Estado != null ? this.Cidade.Estado.Sigla : String.Empty; } }
             public string SiglaEstadoCSV        { get; set; }
             public string NumeroEnderecoString  { get { return this.NumeroEndereco; } }
             public string NossoNumero           { get { return this.Id.ToString().PadLeft(10, '0'); } }
