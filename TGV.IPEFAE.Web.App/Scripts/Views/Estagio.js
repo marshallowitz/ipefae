@@ -48,6 +48,25 @@ function alterarAdicionarRemover(link, adicionar, idContainer, idLink, nameFocus
     $('#btnSalvar').removeAttr('disabled');
 }
 
+function atualizarTotalRelatorios()
+{
+    var url = homePage + 'Admin/Estagio/BuscarTotalRelatorios';
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        success: function (data)
+        {
+            console.log(data);
+            $('.totalRelatorios').html(data.Total);
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            alertaErroJS({ NomeFuncao: 'atualizarTotalRelatorios()', ResponseText: xhr.responseText });
+        }
+    });
+}
+
 function buildComboNumeros(ddl, totalItens, start)
 {
     ddl.html('');
@@ -287,7 +306,7 @@ function gerarPDFPesquisa()
                 $('#iframePDF').attr('src', homePage + 'Handlers/DownloadPDFHandler.ashx');
                 $('#iframePDF').load();
 
-                setTimeout(function () { terminouDownload(homePage + 'Admin/Estagio/GerarPDFPesquisaConfirmacao'); }, 2000);
+                setTimeout(function () { terminouDownload(homePage + 'Admin/Estagio/GerarPDFPesquisaConfirmacao'); atualizarTotalRelatorios(); }, 2000);
             }
             else
             {
@@ -371,6 +390,7 @@ function incluirFoto(e) {
 
 function iniciarTelaAdminListagem()
 {
+    atualizarTotalRelatorios();
     buscarCidadesComEstagiario();
     $('#txtCPF').mask('999.999.999-99');
     $('#txtNome').focus();

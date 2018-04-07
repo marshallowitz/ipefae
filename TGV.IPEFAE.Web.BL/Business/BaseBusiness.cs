@@ -48,5 +48,10 @@ namespace TGV.IPEFAE.Web.BL.Business
         {
             return texto.Descriptografar(ParametroSistema);
         }
+
+        public static dynamic ObterValorWebConfig(string key)
+        {
+            return ConfigurationManager.AppSettings[key];
+        }
     }
 }

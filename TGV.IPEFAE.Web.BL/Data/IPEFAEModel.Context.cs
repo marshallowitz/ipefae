@@ -49,6 +49,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public virtual DbSet<tb_emp_empresa> tb_emp_empresa { get; set; }
         public virtual DbSet<tb_ema_email> tb_ema_email { get; set; }
         public virtual DbSet<tb_ico_inscrito_concurso> tb_ico_inscrito_concurso { get; set; }
+        public virtual DbSet<relatorio_pdf> relatorio_pdf { get; set; }
     
         public virtual ObjectResult<spr_tgv_gerar_lista_inscritos_Result> spr_tgv_gerar_lista_inscritos(Nullable<int> con_idt_concurso)
         {

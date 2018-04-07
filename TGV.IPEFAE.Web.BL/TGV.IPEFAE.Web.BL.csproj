@@ -60,6 +60,7 @@
     <Compile Include="Business\IpeFaeBusiness.cs" />
     <Compile Include="Business\EstadoBusiness.cs" />
     <Compile Include="Business\CidadeBusiness.cs" />
+    <Compile Include="Business\PDFBusiness.cs" />
     <Compile Include="Business\RecursoBusiness.cs" />
     <Compile Include="Business\InscritoConcursoBusiness.cs" />
     <Compile Include="Business\EmailBusiness.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Data\EmailData.cs" />
     <Compile Include="Data\EstadoData.cs" />
     <Compile Include="Data\LogErroData.cs" />
+    <Compile Include="Data\PDFData.cs" />
     <Compile Include="Data\RecursoData.cs" />
     <Compile Include="Data\InscritoConcursoData.cs" />
     <Compile Include="Data\IPEFAEEntitiesExtension.cs" />
@@ -88,6 +90,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>IPEFAEModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\relatorio_pdf.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\spr_tgv_gerar_lista_inscritos_Result.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>

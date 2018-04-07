@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using Rotativa.Options;
 using System.Collections.Specialized;
+using System.Configuration;
 
 namespace Rotativa
 {
@@ -216,17 +217,21 @@ namespace Rotativa
             }
         }
 
+        private string ApiKey { get; set; }
+
         public override void ExecuteResult(ControllerContext context)
         {
             //var fileContent = BuildFile(context);
-            var fileContent = NewBuildFile(context);
+            string apiKey = String.IsNullOrEmpty(this.ApiKey) ? ConfigurationManager.AppSettings["apiKeyPDF05"] : this.ApiKey;
+            var fileContent = NewBuildFile(context, apiKey);
             var response = PrepareResponse(context.HttpContext.Response);
             response.OutputStream.Write(fileContent, 0, fileContent.Length);
         }
 
-        public byte[] NewBuildFile(ControllerContext context)
+        public byte[] NewBuildFile(ControllerContext context, string apiKey)
         {
-            string apiKey = "057853b2-16a9-4d04-a4ad-b68c2aa8f5a2";
+            ApiKey = apiKey;
+            //string apiKey = "057853b2-16a9-4d04-a4ad-b68c2aa8f5a2";
             string value = GetHtmlView(context);
             using (var client = new System.Net.WebClient())
             {

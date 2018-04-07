@@ -51,6 +51,7 @@
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_icv_inscrito_concurso_vestibular_tb_ico_inscrito_concurso" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_idt_inscrito_dados_prova_tb_ico_inscrito_concurso" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_tb_rec_recurso_tb_ico_inscrito_concurso" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.relatorio_pdf" Width="1.5" PointX="6.375" PointY="4.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

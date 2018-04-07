@@ -67,7 +67,11 @@ namespace TGV.IPEFAE.Web.App.Handlers
 
                     Trace("vAsPDF ok");
 
-                    byte[] estagPDF = vAsPDF.NewBuildFile(ctx);
+                    int relatorioId = PDFBusiness.ObterChaveRelatorio();
+                    string chaveId = relatorioId.ToString().PadLeft(2, '0');
+
+                    string apiKey = BaseBusiness.ObterValorWebConfig($"apiKeyPDF{chaveId}");
+                    byte[] estagPDF = vAsPDF.NewBuildFile(ctx, apiKey);
 
                     Trace($"estagPDF ok: {estagPDF.Length}");
 

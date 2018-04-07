@@ -63,6 +63,13 @@ namespace TGV.IPEFAE.Web.App.Controllers
             }
         }
 
+        public ActionResult BuscarTotalRelatorios()
+        {
+            int total = PDFBusiness.ListarTotalGeradosMesCorrente();
+
+            return Json(new { Total = total }, JsonRequestBehavior.AllowGet);
+        }
+
         public List<UsuarioEstagioModel.ExperienciaProfissionalModel> MontarListaExperienciaProfissional(int? idUsuarioEstagio, List<UsuarioEstagioModel.ExperienciaProfissionalModel> eps)
         {
             UsuarioEstagioModel ueModel = new UsuarioEstagioModel();
@@ -163,6 +170,9 @@ namespace TGV.IPEFAE.Web.App.Controllers
 
             ueModel = DefinirSessaoUsuarioEstagio(idt);
 
+            // Atualiza a 5 chave
+            PDFBusiness.Atualizar5Chave();
+
             return GerarPDFCurriculo(ueModel);
         }
 
@@ -171,6 +181,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
             try
             {
                 ViewAsPdf vpdf = new ViewAsPdf(ueModel);
+
                 return vpdf;
             }
             catch (Exception ex)
