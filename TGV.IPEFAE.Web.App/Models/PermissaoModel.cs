@@ -26,6 +26,8 @@ namespace TGV.IPEFAE.Web.App.Models
             Vestibular = 8,
             [Description("Estagiário")]
             Estagiario = 16,
+            [Description("Colaborador")]
+            Colaborador = 32,
             [Description("Público")]
             Publico = 100
         }

@@ -1,0 +1,83 @@
+﻿.acao.inscritos .group      { left: 0%; transform: translateX(16%) translateY(10%); }
+.acao.inscritos .icons      { float: left; position: relative; }
+
+.modal-senha-white          { padding: 10px; }
+.modal-reenviar-senha-white { padding: 10px; }
+.direita                    { border-left: solid 1px lightgray; }
+.direita ul                 { line-height: 30px; list-style-type: disc; }
+.centro                     { display: block; margin-left: auto; margin-right: auto; width: 90%; }
+.subtitest                  { font-size: 18px; margin-bottom: 20px; }
+.col-md-8 i                 { right: 10px; }
+
+div.mensagem                { border-radius: 4px; left: -50%; margin-top: 10px; padding: 2px 20px 2px 20px; text-align: center; }
+div.mensagem.erro           { background-color: #F2DCDB; border-color: #C00000; color: #C00000; }
+div.mensagem.sucesso        { background-color: #92D050; border-color: #00B050; color: #004A00; }
+
+.marginBottom-30            { margin-bottom: 30px; }
+.deficienciaQual li         { display: inline; }
+
+.tipo_ensino                { padding: 0; }
+.tipo_ensino li             { display: inline; }
+.tem_experiencia            { padding: 0; }
+.tem_experiencia li         { display: inline; }
+
+.container_experiencia,
+.cursos-capacitacoes,
+.outros-conhecimentos       { border: solid 1px lightgray; border-radius: 4px; padding: 10px; }
+
+.listagem                               { margin-top: 30px; }
+.listagem .scrollTable                  { border: 1px solid #ddd; border-collapse: separate !important; border-color: rgb(66, 139, 202); border-bottom: 1px solid #111; border-radius: 2px; display: table; margin: 0 auto; margin-bottom: 30px; padding: 0px; width: 100%; }
+.listagem .scrollTableHeader            { background-color: rgba(66, 139, 202, 1); border-color: #d35400; color: #fff; display: table-header-group; }
+.listagem .scrollTableHeader li         { display: table-row; font-size: 12px; font-weight: bold; }
+.listagem .scrollTableHeader li > span  { display: table-cell; list-style: none; padding: 12px 16px; }
+.listagem .scrollTableBody              { display: table-row-group; }
+.listagem .scrollTableBody li           { background-color: #fff; display: table-row; font-size: 12px; height: 40px; line-height: 40px; }
+.listagem .scrollTableBody li.odd       { background-color: #f9f9f9; }
+.listagem .scrollTableBody li.even      { background-color: rgba(66, 139, 202, 0.1); }
+.listagem .scrollTableBody li > span    { border: 1px solid #ccc; border-left-width: 0; border-bottom-width: 0; display: table-cell; line-height: 25px; list-style: none; padding: 2px 6px; }
+.listagem .emptyTable                   { margin: 0 auto; margin-bottom: 30px; margin-top: 70px; }
+
+.listagem .mais                         { caption-side: bottom; cursor: pointer; display: table-caption; font-size: 10px; text-align: center; }
+.listagem .mais:hover                   { text-decoration: underline; }
+
+.listagem .order                        { cursor: pointer; }
+.listagem .selecionado                  { text-decoration: underline; }
+
+.foto                                   { height: 90px; }
+.est-botoes input[type=button],
+.est-botoes input[type=submit],
+.est-botoes a                           { width: 123px; }
+
+@media (max-width: 1025px)
+{
+    .deficienciaQual li:nth-child(4):after { content: "\A"; white-space: pre; }
+}
+
+@media (max-width: 799px)
+{
+    .foto                               { height: auto; }
+    .terceiro-botao                     { clear: both; margin-top: 10px; }
+    .quarto-botao                       { margin-top: 10px; }
+}
+
+@media (max-width:727px)
+{
+    .deficienciaQual li                 { display: block; }
+    .tipo_ensino li                     { display: block; }
+}
+
+@media (max-width:480px)
+{
+    .container > .navbar-header         { margin-left: 0px; }
+
+    h2.titulo                           { margin-top: 20px; }
+    .subtitest                          { border-bottom: solid 1px rgb(210, 210, 210); font-size: 14px; font-weight: bold; margin-top: 20px; }
+    .centro                             { width: 100%; }
+    .container                          { padding: 0px; }
+    .direita                            { border-left: none; }
+    .direita ul                         { line-height: 20px; }
+    .direita ul li                      { font-size: 12px; }
+
+    fieldset .row                       { margin-right: 0px; }
+    .link_exp, .link_cca, .link_oco     { font-size: 12px; }
+}

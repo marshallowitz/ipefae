@@ -5,6 +5,108 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="TGV.IPEFAE.Web.Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="banco">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ordem" Type="int" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="colaborador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="banco_id" Type="int" Nullable="false" />
+          <Property Name="carteira_trabalho_estado_id" Type="int" />
+          <Property Name="endereco_cidade_id" Type="int" Nullable="false" />
+          <Property Name="grau_instrucao_id" Type="int" Nullable="false" />
+          <Property Name="naturalidade_cidade_id" Type="int" Nullable="false" />
+          <Property Name="raca_id" Type="int" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cpf" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="rg" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="carteira_trabalho_nro" Type="varchar" MaxLength="50" />
+          <Property Name="carteira_trabalho_serie" Type="varchar" MaxLength="50" />
+          <Property Name="titulo_eleitor_nro" Type="varchar" MaxLength="50" />
+          <Property Name="titulo_eleitor_zona" Type="varchar" MaxLength="50" />
+          <Property Name="titulo_eleitor_secao" Type="varchar" MaxLength="50" />
+          <Property Name="pis_pasep_net" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="data_nascimento" Type="datetime" Nullable="false" />
+          <Property Name="nacionalidade" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nome_mae" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="nome_pai" Type="varchar" MaxLength="100" />
+          <Property Name="sexo_masculino" Type="bit" Nullable="false" />
+          <Property Name="estado_civil" Type="int" Nullable="false" />
+          <Property Name="telefone_01" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="telefone_02" Type="varchar" MaxLength="11" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="senha" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="agencia" Type="int" Nullable="false" />
+          <Property Name="agencia_digito" Type="varchar" MaxLength="1" />
+          <Property Name="conta_corrente" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="endereco_cep" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="endereco_logradouro" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="endereco_nro" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="endereco_bairro" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="endereco_complemento" Type="varchar" MaxLength="100" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="concurso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="concurso_colaborador">
+          <Key>
+            <PropertyRef Name="concurso_id" />
+            <PropertyRef Name="colaborador_id" />
+          </Key>
+          <Property Name="concurso_id" Type="int" Nullable="false" />
+          <Property Name="colaborador_id" Type="int" Nullable="false" />
+          <Property Name="tem_empresa" Type="bit" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="concurso_funcao">
+          <Key>
+            <PropertyRef Name="concurso_id" />
+            <PropertyRef Name="funcao_id" />
+          </Key>
+          <Property Name="concurso_id" Type="int" Nullable="false" />
+          <Property Name="funcao_id" Type="int" Nullable="false" />
+          <Property Name="valor_liquido" Type="numeric" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="funcao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="grau_instrucao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="raca">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="relatorio_pdf">
           <Key>
             <PropertyRef Name="id" />
@@ -67,6 +169,7 @@
           <Property Name="tlc_idt_tipo_layout_concurso" Type="int" Nullable="false" />
           <Property Name="con_nom_concurso" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="con_dat_concurso" Type="datetime" Nullable="false" />
+          <Property Name="con_dat_boleto" Type="datetime" Nullable="false" />
           <Property Name="con_dat_inicio_classificacao" Type="datetime" Nullable="false" />
           <Property Name="con_dat_inicio_comprovante" Type="datetime" Nullable="false" />
           <Property Name="con_dat_inicio_isento" Type="datetime" Nullable="false" />
@@ -77,7 +180,6 @@
           <Property Name="con_bit_encerrado" Type="bit" Nullable="false" />
           <Property Name="con_bit_inscricao_online" Type="bit" Nullable="false" />
           <Property Name="con_bit_ativo" Type="bit" Nullable="false" />
-          <Property Name="con_dat_boleto" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_ema_email">
           <Key>
@@ -145,6 +247,7 @@
           <Property Name="ico_des_cpf" Type="varchar" MaxLength="11" Nullable="false" />
           <Property Name="ico_des_rg" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ico_des_endereco" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="ico_des_nro_endereco" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="ico_des_complemento" Type="varchar" MaxLength="200" />
           <Property Name="ico_des_bairro" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ico_des_cep" Type="varchar" MaxLength="8" Nullable="false" />
@@ -153,7 +256,6 @@
           <Property Name="ico_des_email" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ico_des_outras_solicitacoes" Type="varchar" MaxLength="200" />
           <Property Name="ico_des_tratamento_especial_qual" Type="varchar" MaxLength="200" />
-          <Property Name="ico_des_nro_endereco" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="ico_num_filhos_menores" Type="int" Nullable="false" />
           <Property Name="ico_num_valor_pago" Type="numeric" Precision="9" Scale="2" />
           <Property Name="ico_flg_deficiencia" Type="char" MaxLength="1" />
@@ -323,8 +425,8 @@
           <Property Name="ues_des_rg" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="ues_des_email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ues_des_senha" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="ues_des_carteira_trabalho_numero" Type="varchar" MaxLength="30" />
-          <Property Name="ues_des_carteira_trabalho_serie" Type="varchar" MaxLength="30" />
+          <Property Name="ues_des_carteira_trabalho_numero" Type="varchar" MaxLength="20" />
+          <Property Name="ues_des_carteira_trabalho_serie" Type="varchar" MaxLength="20" />
           <Property Name="ues_des_endereco" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ues_des_numero_endereco" Type="int" Nullable="false" />
           <Property Name="ues_des_bairro" Type="varchar" MaxLength="100" Nullable="false" />
@@ -361,6 +463,126 @@
           <Property Name="usu_num_telefone" Type="bigint" Nullable="false" />
           <Property Name="usu_bit_ativo" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="FK_colaborador_banco">
+          <End Role="banco" Type="Self.banco" Multiplicity="1" />
+          <End Role="colaborador" Type="Self.colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="banco">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="banco_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_colaborador_grau_instrucao">
+          <End Role="grau_instrucao" Type="Self.grau_instrucao" Multiplicity="1" />
+          <End Role="colaborador" Type="Self.colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grau_instrucao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="grau_instrucao_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_colaborador_raca">
+          <End Role="raca" Type="Self.raca" Multiplicity="1" />
+          <End Role="colaborador" Type="Self.colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raca">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="raca_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_colaborador_tb_cid_cidade_endereco">
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="1" />
+          <End Role="colaborador" Type="Self.colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_idt_cidade" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="endereco_cidade_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_colaborador_tb_cid_cidade_naturalidade">
+          <End Role="tb_cid_cidade" Type="Self.tb_cid_cidade" Multiplicity="1" />
+          <End Role="colaborador" Type="Self.colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_idt_cidade" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="naturalidade_cidade_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_colaborador_tb_est_estado">
+          <End Role="tb_est_estado" Type="Self.tb_est_estado" Multiplicity="0..1" />
+          <End Role="colaborador" Type="Self.colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_est_estado">
+              <PropertyRef Name="est_idt_estado" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="carteira_trabalho_estado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_concurso_colaborador_colaborador">
+          <End Role="colaborador" Type="Self.colaborador" Multiplicity="1" />
+          <End Role="concurso_colaborador" Type="Self.concurso_colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="colaborador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="concurso_colaborador">
+              <PropertyRef Name="colaborador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_concurso_colaborador_concurso">
+          <End Role="concurso" Type="Self.concurso" Multiplicity="1" />
+          <End Role="concurso_colaborador" Type="Self.concurso_colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="concurso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="concurso_colaborador">
+              <PropertyRef Name="concurso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_concurso_funcao_concurso">
+          <End Role="concurso" Type="Self.concurso" Multiplicity="1" />
+          <End Role="concurso_funcao" Type="Self.concurso_funcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="concurso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="concurso_funcao">
+              <PropertyRef Name="concurso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_concurso_funcao_funcao">
+          <End Role="funcao" Type="Self.funcao" Multiplicity="1" />
+          <End Role="concurso_funcao" Type="Self.concurso_funcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="funcao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="concurso_funcao">
+              <PropertyRef Name="funcao_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tb_can_concurso_anexo_tb_con_concurso">
           <End Role="tb_con_concurso" Type="Self.tb_con_concurso" Multiplicity="1" />
           <End Role="tb_can_concurso_anexo" Type="Self.tb_can_concurso_anexo" Multiplicity="*" />
@@ -641,6 +863,14 @@
           <Parameter Name="con_idt_concurso" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="TGVIPEFAEWebDataStoreContainer">
+          <EntitySet Name="banco" EntityType="Self.banco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="colaborador" EntityType="Self.colaborador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="concurso" EntityType="Self.concurso" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="concurso_colaborador" EntityType="Self.concurso_colaborador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="concurso_funcao" EntityType="Self.concurso_funcao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="funcao" EntityType="Self.funcao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="grau_instrucao" EntityType="Self.grau_instrucao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="raca" EntityType="Self.raca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="relatorio_pdf" EntityType="Self.relatorio_pdf" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_can_concurso_anexo" EntityType="Self.tb_can_concurso_anexo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_cci_concurso_cargo_inscrito" EntityType="Self.tb_cci_concurso_cargo_inscrito" Schema="dbo" store:Type="Tables" />
@@ -664,6 +894,46 @@
           <EntitySet Name="tb_ueo_usuario_estagio_outros" EntityType="Self.tb_ueo_usuario_estagio_outros" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_ues_usuario_estagio" EntityType="Self.tb_ues_usuario_estagio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_usu_usuario" EntityType="Self.tb_usu_usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_colaborador_banco" Association="Self.FK_colaborador_banco">
+            <End Role="banco" EntitySet="banco" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_colaborador_grau_instrucao" Association="Self.FK_colaborador_grau_instrucao">
+            <End Role="grau_instrucao" EntitySet="grau_instrucao" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_colaborador_raca" Association="Self.FK_colaborador_raca">
+            <End Role="raca" EntitySet="raca" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_colaborador_tb_cid_cidade_endereco" Association="Self.FK_colaborador_tb_cid_cidade_endereco">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_colaborador_tb_cid_cidade_naturalidade" Association="Self.FK_colaborador_tb_cid_cidade_naturalidade">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_colaborador_tb_est_estado" Association="Self.FK_colaborador_tb_est_estado">
+            <End Role="tb_est_estado" EntitySet="tb_est_estado" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_concurso_colaborador_colaborador" Association="Self.FK_concurso_colaborador_colaborador">
+            <End Role="colaborador" EntitySet="colaborador" />
+            <End Role="concurso_colaborador" EntitySet="concurso_colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_concurso_colaborador_concurso" Association="Self.FK_concurso_colaborador_concurso">
+            <End Role="concurso" EntitySet="concurso" />
+            <End Role="concurso_colaborador" EntitySet="concurso_colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_concurso_funcao_concurso" Association="Self.FK_concurso_funcao_concurso">
+            <End Role="concurso" EntitySet="concurso" />
+            <End Role="concurso_funcao" EntitySet="concurso_funcao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_concurso_funcao_funcao" Association="Self.FK_concurso_funcao_funcao">
+            <End Role="funcao" EntitySet="funcao" />
+            <End Role="concurso_funcao" EntitySet="concurso_funcao" />
+          </AssociationSet>
           <AssociationSet Name="FK_tb_can_concurso_anexo_tb_con_concurso" Association="Self.FK_tb_can_concurso_anexo_tb_con_concurso">
             <End Role="tb_con_concurso" EntitySet="tb_con_concurso" />
             <End Role="tb_can_concurso_anexo" EntitySet="tb_can_concurso_anexo" />
@@ -884,6 +1154,54 @@
             <End Role="tb_rec_recurso" EntitySet="tb_rec_recurso" />
           </AssociationSet>
           <EntitySet Name="relatorio_pdf" EntityType="TGV.IPEFAE.Web.Data.relatorio_pdf" />
+          <EntitySet Name="banco" EntityType="TGV.IPEFAE.Web.Data.banco" />
+          <EntitySet Name="concurso" EntityType="TGV.IPEFAE.Web.Data.concurso" />
+          <EntitySet Name="concurso_colaborador" EntityType="TGV.IPEFAE.Web.Data.concurso_colaborador" />
+          <EntitySet Name="concurso_funcao" EntityType="TGV.IPEFAE.Web.Data.concurso_funcao" />
+          <EntitySet Name="funcao" EntityType="TGV.IPEFAE.Web.Data.funcao" />
+          <EntitySet Name="grau_instrucao" EntityType="TGV.IPEFAE.Web.Data.grau_instrucao" />
+          <EntitySet Name="raca" EntityType="TGV.IPEFAE.Web.Data.raca" />
+          <AssociationSet Name="FK_concurso_colaborador_concurso" Association="TGV.IPEFAE.Web.Data.FK_concurso_colaborador_concurso">
+            <End Role="concurso" EntitySet="concurso" />
+            <End Role="concurso_colaborador" EntitySet="concurso_colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_concurso_funcao_concurso" Association="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso">
+            <End Role="concurso" EntitySet="concurso" />
+            <End Role="concurso_funcao" EntitySet="concurso_funcao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_concurso_funcao_funcao" Association="TGV.IPEFAE.Web.Data.FK_concurso_funcao_funcao">
+            <End Role="funcao" EntitySet="funcao" />
+            <End Role="concurso_funcao" EntitySet="concurso_funcao" />
+          </AssociationSet>
+          <EntitySet Name="colaborador" EntityType="TGV.IPEFAE.Web.Data.colaborador" />
+          <AssociationSet Name="FK_colaborador_banco" Association="TGV.IPEFAE.Web.Data.FK_colaborador_banco">
+            <End Role="banco" EntitySet="banco" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_colaborador_grau_instrucao" Association="TGV.IPEFAE.Web.Data.FK_colaborador_grau_instrucao">
+            <End Role="grau_instrucao" EntitySet="grau_instrucao" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_colaborador_raca" Association="TGV.IPEFAE.Web.Data.FK_colaborador_raca">
+            <End Role="raca" EntitySet="raca" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_colaborador_tb_cid_cidade_endereco" Association="TGV.IPEFAE.Web.Data.FK_colaborador_tb_cid_cidade_endereco">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_colaborador_tb_cid_cidade_naturalidade" Association="TGV.IPEFAE.Web.Data.FK_colaborador_tb_cid_cidade_naturalidade">
+            <End Role="tb_cid_cidade" EntitySet="tb_cid_cidade" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_colaborador_tb_est_estado" Association="TGV.IPEFAE.Web.Data.FK_colaborador_tb_est_estado">
+            <End Role="tb_est_estado" EntitySet="tb_est_estado" />
+            <End Role="colaborador" EntitySet="colaborador" />
+          </AssociationSet>
+          <AssociationSet Name="FK_concurso_colaborador_colaborador" Association="TGV.IPEFAE.Web.Data.FK_concurso_colaborador_colaborador">
+            <End Role="colaborador" EntitySet="colaborador" />
+            <End Role="concurso_colaborador" EntitySet="concurso_colaborador" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="tb_usu_usuario">
           <Key>
@@ -917,6 +1235,7 @@
           <NavigationProperty Name="tb_cid_cidade" Relationship="TGV.IPEFAE.Web.Data.FK_tb_cid_cidade_tb_est_estado" FromRole="tb_est_estado" ToRole="tb_cid_cidade" />
           <NavigationProperty Name="tb_ues_usuario_estagio" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ues_usuario_estagio_tb_est_estado" FromRole="tb_est_estado" ToRole="tb_ues_usuario_estagio" />
           <NavigationProperty Name="tb_ico_inscrito_concurso" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_est_estado" FromRole="tb_est_estado" ToRole="tb_ico_inscrito_concurso" />
+          <NavigationProperty Name="colaborador" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_tb_est_estado" FromRole="tb_est_estado" ToRole="colaborador" />
         </EntityType>
         <EntityType Name="tb_cci_concurso_cargo_inscrito">
           <Key>
@@ -943,6 +1262,8 @@
           <NavigationProperty Name="tb_est_estado" Relationship="TGV.IPEFAE.Web.Data.FK_tb_cid_cidade_tb_est_estado" FromRole="tb_cid_cidade" ToRole="tb_est_estado" />
           <NavigationProperty Name="tb_ues_usuario_estagio" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ues_usuario_estagio_tb_cid_cidade" FromRole="tb_cid_cidade" ToRole="tb_ues_usuario_estagio" />
           <NavigationProperty Name="tb_ico_inscrito_concurso" Relationship="TGV.IPEFAE.Web.Data.FK_tb_ico_inscrito_concurso_tb_cid_cidade" FromRole="tb_cid_cidade" ToRole="tb_ico_inscrito_concurso" />
+          <NavigationProperty Name="colaborador" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_tb_cid_cidade_endereco" FromRole="tb_cid_cidade" ToRole="colaborador" />
+          <NavigationProperty Name="colaborador1" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_tb_cid_cidade_naturalidade" FromRole="tb_cid_cidade" ToRole="colaborador" />
         </EntityType>
         <Association Name="FK_tb_cid_cidade_tb_est_estado">
           <End Type="TGV.IPEFAE.Web.Data.tb_est_estado" Role="tb_est_estado" Multiplicity="1" />
@@ -1132,8 +1453,8 @@
           <Property Name="ues_des_rg" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="ues_des_email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ues_des_senha" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ues_des_carteira_trabalho_numero" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="ues_des_carteira_trabalho_serie" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ues_des_carteira_trabalho_numero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ues_des_carteira_trabalho_serie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="ues_des_endereco" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="ues_des_numero_endereco" Type="Int32" Nullable="false" />
           <Property Name="ues_des_bairro" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -1655,6 +1976,245 @@
           <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="quantidade" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="banco">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ordem" Type="Int32" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="colaborador" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_banco" FromRole="banco" ToRole="colaborador" />
+        </EntityType>
+        <EntityType Name="concurso">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="concurso_colaborador" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_colaborador_concurso" FromRole="concurso" ToRole="concurso_colaborador" />
+          <NavigationProperty Name="concurso_funcao" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso" FromRole="concurso" ToRole="concurso_funcao" />
+        </EntityType>
+        <EntityType Name="concurso_colaborador">
+          <Key>
+            <PropertyRef Name="concurso_id" />
+            <PropertyRef Name="colaborador_id" />
+          </Key>
+          <Property Name="concurso_id" Type="Int32" Nullable="false" />
+          <Property Name="colaborador_id" Type="Int32" Nullable="false" />
+          <Property Name="tem_empresa" Type="Boolean" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="concurso" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_colaborador_concurso" FromRole="concurso_colaborador" ToRole="concurso" />
+          <NavigationProperty Name="colaborador" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_colaborador_colaborador" FromRole="concurso_colaborador" ToRole="colaborador" />
+        </EntityType>
+        <EntityType Name="concurso_funcao">
+          <Key>
+            <PropertyRef Name="concurso_id" />
+            <PropertyRef Name="funcao_id" />
+          </Key>
+          <Property Name="concurso_id" Type="Int32" Nullable="false" />
+          <Property Name="funcao_id" Type="Int32" Nullable="false" />
+          <Property Name="valor_liquido" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="concurso" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso" FromRole="concurso_funcao" ToRole="concurso" />
+          <NavigationProperty Name="funcao" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_funcao_funcao" FromRole="concurso_funcao" ToRole="funcao" />
+        </EntityType>
+        <EntityType Name="funcao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="concurso_funcao" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_funcao_funcao" FromRole="funcao" ToRole="concurso_funcao" />
+        </EntityType>
+        <EntityType Name="grau_instrucao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="colaborador" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_grau_instrucao" FromRole="grau_instrucao" ToRole="colaborador" />
+        </EntityType>
+        <EntityType Name="raca">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="colaborador" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_raca" FromRole="raca" ToRole="colaborador" />
+        </EntityType>
+        <Association Name="FK_concurso_colaborador_concurso">
+          <End Type="TGV.IPEFAE.Web.Data.concurso" Role="concurso" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.concurso_colaborador" Role="concurso_colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="concurso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="concurso_colaborador">
+              <PropertyRef Name="concurso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_concurso_funcao_concurso">
+          <End Type="TGV.IPEFAE.Web.Data.concurso" Role="concurso" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.concurso_funcao" Role="concurso_funcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="concurso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="concurso_funcao">
+              <PropertyRef Name="concurso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_concurso_funcao_funcao">
+          <End Type="TGV.IPEFAE.Web.Data.funcao" Role="funcao" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.concurso_funcao" Role="concurso_funcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="funcao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="concurso_funcao">
+              <PropertyRef Name="funcao_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="colaborador">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="banco_id" Type="Int32" Nullable="false" />
+          <Property Name="carteira_trabalho_estado_id" Type="Int32" />
+          <Property Name="endereco_cidade_id" Type="Int32" Nullable="false" />
+          <Property Name="grau_instrucao_id" Type="Int32" Nullable="false" />
+          <Property Name="naturalidade_cidade_id" Type="Int32" Nullable="false" />
+          <Property Name="raca_id" Type="Int32" Nullable="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cpf" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="rg" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="carteira_trabalho_nro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="carteira_trabalho_serie" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="titulo_eleitor_nro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="titulo_eleitor_zona" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="titulo_eleitor_secao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="pis_pasep_net" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="data_nascimento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="nacionalidade" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nome_mae" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nome_pai" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="sexo_masculino" Type="Boolean" Nullable="false" />
+          <Property Name="estado_civil" Type="Int32" Nullable="false" />
+          <Property Name="telefone_01" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="telefone_02" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="senha" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="agencia" Type="Int32" Nullable="false" />
+          <Property Name="agencia_digito" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="conta_corrente" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="endereco_cep" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="endereco_logradouro" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="endereco_nro" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="endereco_bairro" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="endereco_complemento" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="banco" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_banco" FromRole="colaborador" ToRole="banco" />
+          <NavigationProperty Name="grau_instrucao" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_grau_instrucao" FromRole="colaborador" ToRole="grau_instrucao" />
+          <NavigationProperty Name="raca" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_raca" FromRole="colaborador" ToRole="raca" />
+          <NavigationProperty Name="tb_cid_cidade" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_tb_cid_cidade_endereco" FromRole="colaborador" ToRole="tb_cid_cidade" />
+          <NavigationProperty Name="tb_cid_cidade1" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_tb_cid_cidade_naturalidade" FromRole="colaborador" ToRole="tb_cid_cidade" />
+          <NavigationProperty Name="tb_est_estado" Relationship="TGV.IPEFAE.Web.Data.FK_colaborador_tb_est_estado" FromRole="colaborador" ToRole="tb_est_estado" />
+          <NavigationProperty Name="concurso_colaborador" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_colaborador_colaborador" FromRole="colaborador" ToRole="concurso_colaborador" />
+        </EntityType>
+        <Association Name="FK_colaborador_banco">
+          <End Type="TGV.IPEFAE.Web.Data.banco" Role="banco" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.colaborador" Role="colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="banco">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="banco_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_colaborador_grau_instrucao">
+          <End Type="TGV.IPEFAE.Web.Data.grau_instrucao" Role="grau_instrucao" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.colaborador" Role="colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grau_instrucao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="grau_instrucao_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_colaborador_raca">
+          <End Type="TGV.IPEFAE.Web.Data.raca" Role="raca" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.colaborador" Role="colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="raca">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="raca_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_colaborador_tb_cid_cidade_endereco">
+          <End Type="TGV.IPEFAE.Web.Data.tb_cid_cidade" Role="tb_cid_cidade" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.colaborador" Role="colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_idt_cidade" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="endereco_cidade_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_colaborador_tb_cid_cidade_naturalidade">
+          <End Type="TGV.IPEFAE.Web.Data.tb_cid_cidade" Role="tb_cid_cidade" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.colaborador" Role="colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_cid_cidade">
+              <PropertyRef Name="cid_idt_cidade" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="naturalidade_cidade_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_colaborador_tb_est_estado">
+          <End Type="TGV.IPEFAE.Web.Data.tb_est_estado" Role="tb_est_estado" Multiplicity="0..1" />
+          <End Type="TGV.IPEFAE.Web.Data.colaborador" Role="colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_est_estado">
+              <PropertyRef Name="est_idt_estado" />
+            </Principal>
+            <Dependent Role="colaborador">
+              <PropertyRef Name="carteira_trabalho_estado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_concurso_colaborador_colaborador">
+          <End Type="TGV.IPEFAE.Web.Data.colaborador" Role="colaborador" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.concurso_colaborador" Role="concurso_colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="colaborador">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="concurso_colaborador">
+              <PropertyRef Name="colaborador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2116,6 +2676,114 @@
               <MappingFragment StoreEntitySet="relatorio_pdf">
                 <ScalarProperty Name="quantidade" ColumnName="quantidade" />
                 <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="banco">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.banco">
+              <MappingFragment StoreEntitySet="banco">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="ordem" ColumnName="ordem" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="concurso">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.concurso">
+              <MappingFragment StoreEntitySet="concurso">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="concurso_colaborador">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.concurso_colaborador">
+              <MappingFragment StoreEntitySet="concurso_colaborador">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="tem_empresa" ColumnName="tem_empresa" />
+                <ScalarProperty Name="colaborador_id" ColumnName="colaborador_id" />
+                <ScalarProperty Name="concurso_id" ColumnName="concurso_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="concurso_funcao">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.concurso_funcao">
+              <MappingFragment StoreEntitySet="concurso_funcao">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="valor_liquido" ColumnName="valor_liquido" />
+                <ScalarProperty Name="funcao_id" ColumnName="funcao_id" />
+                <ScalarProperty Name="concurso_id" ColumnName="concurso_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="funcao">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.funcao">
+              <MappingFragment StoreEntitySet="funcao">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="grau_instrucao">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.grau_instrucao">
+              <MappingFragment StoreEntitySet="grau_instrucao">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="raca">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.raca">
+              <MappingFragment StoreEntitySet="raca">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="colaborador">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.colaborador">
+              <MappingFragment StoreEntitySet="colaborador">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="endereco_complemento" ColumnName="endereco_complemento" />
+                <ScalarProperty Name="endereco_bairro" ColumnName="endereco_bairro" />
+                <ScalarProperty Name="endereco_nro" ColumnName="endereco_nro" />
+                <ScalarProperty Name="endereco_logradouro" ColumnName="endereco_logradouro" />
+                <ScalarProperty Name="endereco_cep" ColumnName="endereco_cep" />
+                <ScalarProperty Name="conta_corrente" ColumnName="conta_corrente" />
+                <ScalarProperty Name="agencia_digito" ColumnName="agencia_digito" />
+                <ScalarProperty Name="agencia" ColumnName="agencia" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefone_02" ColumnName="telefone_02" />
+                <ScalarProperty Name="telefone_01" ColumnName="telefone_01" />
+                <ScalarProperty Name="estado_civil" ColumnName="estado_civil" />
+                <ScalarProperty Name="sexo_masculino" ColumnName="sexo_masculino" />
+                <ScalarProperty Name="nome_pai" ColumnName="nome_pai" />
+                <ScalarProperty Name="nome_mae" ColumnName="nome_mae" />
+                <ScalarProperty Name="nacionalidade" ColumnName="nacionalidade" />
+                <ScalarProperty Name="data_nascimento" ColumnName="data_nascimento" />
+                <ScalarProperty Name="pis_pasep_net" ColumnName="pis_pasep_net" />
+                <ScalarProperty Name="titulo_eleitor_secao" ColumnName="titulo_eleitor_secao" />
+                <ScalarProperty Name="titulo_eleitor_zona" ColumnName="titulo_eleitor_zona" />
+                <ScalarProperty Name="titulo_eleitor_nro" ColumnName="titulo_eleitor_nro" />
+                <ScalarProperty Name="carteira_trabalho_serie" ColumnName="carteira_trabalho_serie" />
+                <ScalarProperty Name="carteira_trabalho_nro" ColumnName="carteira_trabalho_nro" />
+                <ScalarProperty Name="rg" ColumnName="rg" />
+                <ScalarProperty Name="cpf" ColumnName="cpf" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="raca_id" ColumnName="raca_id" />
+                <ScalarProperty Name="naturalidade_cidade_id" ColumnName="naturalidade_cidade_id" />
+                <ScalarProperty Name="grau_instrucao_id" ColumnName="grau_instrucao_id" />
+                <ScalarProperty Name="endereco_cidade_id" ColumnName="endereco_cidade_id" />
+                <ScalarProperty Name="carteira_trabalho_estado_id" ColumnName="carteira_trabalho_estado_id" />
+                <ScalarProperty Name="banco_id" ColumnName="banco_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

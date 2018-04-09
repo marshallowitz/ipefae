@@ -19,6 +19,7 @@ namespace TGV.IPEFAE.Web.BL.Data
             this.tb_cid_cidade = new HashSet<tb_cid_cidade>();
             this.tb_ues_usuario_estagio = new HashSet<tb_ues_usuario_estagio>();
             this.tb_ico_inscrito_concurso = new HashSet<tb_ico_inscrito_concurso>();
+            this.colaborador = new HashSet<colaborador>();
         }
     
         public int est_idt_estado { get; set; }
@@ -29,5 +30,6 @@ namespace TGV.IPEFAE.Web.BL.Data
         public virtual ICollection<tb_cid_cidade> tb_cid_cidade { get; set; }
         public virtual ICollection<tb_ues_usuario_estagio> tb_ues_usuario_estagio { get; set; }
         public virtual ICollection<tb_ico_inscrito_concurso> tb_ico_inscrito_concurso { get; set; }
+        public virtual ICollection<colaborador> colaborador { get; set; }
     }
 }

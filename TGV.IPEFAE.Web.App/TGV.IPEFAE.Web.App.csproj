@@ -218,6 +218,7 @@
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ConcursoController.cs" />
     <Compile Include="Controllers\BaseEstagioController.cs" />
+    <Compile Include="Controllers\ColaboradorController.cs" />
     <Compile Include="Controllers\EstagioController.cs" />
     <Compile Include="Controllers\InscritoController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
@@ -273,6 +274,7 @@
     <Content Include="Content\Concurso.css" />
     <Content Include="Content\Contato.css" />
     <Content Include="Content\Error.css" />
+    <Content Include="Content\Colaborador.css" />
     <Content Include="Content\Estagio.css" />
     <Content Include="Content\Estagio\cvModelo01.css" />
     <Content Include="Content\Estagio\cvModelo01_pdf.css" />
@@ -437,6 +439,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Views\Colaborador.js" />
     <Content Include="Scripts\Views\CursosScript.js" />
     <Content Include="Scripts\Views\Estagio.js" />
     <Content Include="Scripts\Views\Inscrito.js" />
@@ -537,6 +540,9 @@
     <Content Include="Views\Shared\_BoletoBB.cshtml" />
     <Content Include="Views\Home\_old_Index.cshtml" />
     <Content Include="Views\Error\BoletoEnviado.cshtml" />
+    <Content Include="Views\Colaborador\Index.cshtml" />
+    <Content Include="Views\Colaborador\Cadastro.cshtml" />
+    <Content Include="Views\Shared\_DadosColaborador.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

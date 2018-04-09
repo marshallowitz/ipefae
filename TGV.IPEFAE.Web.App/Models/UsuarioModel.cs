@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using TGV.IPEFAE.Web.App.Extensions;
 using TGV.IPEFAE.Web.BL.Data;
 
@@ -43,6 +40,20 @@ namespace TGV.IPEFAE.Web.App.Models
             this.Ativo = usuario.ues_bit_ativo;
         }
 
+        public UsuarioModel(ColaboradorModel usuario) : this()
+        {
+            if (usuario == null)
+                return;
+
+            this.Id = usuario.id;
+            this.IdPermissao = (int)PermissaoModel.Tipo.Colaborador;
+            this.Nome = usuario.nome;
+            this.Email = usuario.email;
+            this.Senha = usuario.senha;
+            this.Telefone = 0;
+            this.Ativo = usuario.ativo;
+        }
+
         public int Id                   { get; set; }
         public int IdPermissao          { get; set; }
         public string Nome              { get; set; }
@@ -67,6 +78,8 @@ namespace TGV.IPEFAE.Web.App.Models
                 {
                     case PermissaoModel.Tipo.Concurso:
                         return String.Format("{0} {1}", permissao, PermissaoModel.Tipo.Concurso.GetDescription());
+                    case PermissaoModel.Tipo.Colaborador:
+                        return String.Format("{0} {1}", permissao, PermissaoModel.Tipo.Colaborador.GetDescription());
                     case PermissaoModel.Tipo.Estagio:
                         return String.Format("{0} {1}", permissao, PermissaoModel.Tipo.Estagio.GetDescription());
                     case PermissaoModel.Tipo.Vestibular:
@@ -82,6 +95,12 @@ namespace TGV.IPEFAE.Web.App.Models
                 if ((Permissao & PermissaoModel.Tipo.Concurso) == PermissaoModel.Tipo.Concurso)
                 {
                     permissao = String.Format("{0} {1}", permissao, PermissaoModel.Tipo.Concurso.GetDescription());
+                    poeBarra = true;
+                }
+
+                if ((Permissao & PermissaoModel.Tipo.Colaborador) == PermissaoModel.Tipo.Colaborador)
+                {
+                    permissao = String.Format("{0}{2}{1}", permissao, PermissaoModel.Tipo.Colaborador.GetDescription(), poeBarra ? "|" : " ");
                     poeBarra = true;
                 }
 
@@ -117,12 +136,14 @@ namespace TGV.IPEFAE.Web.App.Models
                 if ((Permissao & PermissaoModel.Tipo.Concurso) == PermissaoModel.Tipo.Concurso)
                     return "Admin/Concurso";
 
+                if ((Permissao & PermissaoModel.Tipo.Colaborador) == PermissaoModel.Tipo.Colaborador)
+                    return "Admin/Colaborador";
+
                 if ((Permissao & PermissaoModel.Tipo.Estagio) == PermissaoModel.Tipo.Estagio)
                     return "Admin/Estagio";
 
                 if ((Permissao & PermissaoModel.Tipo.Vestibular) == PermissaoModel.Tipo.Vestibular)
                     return "Admin/Vestibular";
-
 
                 return "";
             }
@@ -131,6 +152,7 @@ namespace TGV.IPEFAE.Web.App.Models
         public bool IsAdministrador { get { return (Permissao & PermissaoModel.Tipo.Administrador) == PermissaoModel.Tipo.Administrador; } }
         public bool IsConcurso      { get { return this.IsAdministrador || (Permissao & PermissaoModel.Tipo.Concurso) == PermissaoModel.Tipo.Concurso; } }
         public bool IsEstagio       { get { return this.IsAdministrador || (Permissao & PermissaoModel.Tipo.Estagio) == PermissaoModel.Tipo.Estagio; } }
+        public bool IsColaborador   { get { return this.IsAdministrador || (Permissao & PermissaoModel.Tipo.Colaborador) == PermissaoModel.Tipo.Colaborador; } }
         public bool IsVestibular    { get { return this.IsAdministrador || (Permissao & PermissaoModel.Tipo.Vestibular) == PermissaoModel.Tipo.Vestibular; } }
         public bool IsEstagiario    { get { return this.IsAdministrador || (Permissao & PermissaoModel.Tipo.Estagiario) == PermissaoModel.Tipo.Estagiario; } }
 

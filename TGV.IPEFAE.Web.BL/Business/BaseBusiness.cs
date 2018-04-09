@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TGV.Framework.Criptografia;
 
@@ -52,6 +53,12 @@ namespace TGV.IPEFAE.Web.BL.Business
         public static dynamic ObterValorWebConfig(string key)
         {
             return ConfigurationManager.AppSettings[key];
+        }
+
+        public static string OnlyNumbers(string valor)
+        {
+            Regex digitsOnly = new Regex(@"[^\d]");
+            return digitsOnly.Replace(valor, "");
         }
     }
 }

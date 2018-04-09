@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\BaseBusiness.cs" />
+    <Compile Include="Business\ColaboradorBusiness.cs" />
     <Compile Include="Business\EmpresaBusiness.cs" />
     <Compile Include="Business\IpeFaeBusiness.cs" />
     <Compile Include="Business\EstadoBusiness.cs" />
@@ -68,11 +69,37 @@
     <Compile Include="Business\ConcursoBusiness.cs" />
     <Compile Include="Business\UsuarioEstagioBusiness.cs" />
     <Compile Include="Business\UsuarioBusiness.cs" />
+    <Compile Include="Data\banco.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\BaseData.cs" />
+    <Compile Include="Data\colaborador.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\ColaboradorData.cs" />
+    <Compile Include="Data\concurso.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\concurso_colaborador.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\concurso_funcao.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\DTOExtension.cs" />
     <Compile Include="Data\EmailData.cs" />
     <Compile Include="Data\EstadoData.cs" />
+    <Compile Include="Data\funcao.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\grau_instrucao.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\LogErroData.cs" />
     <Compile Include="Data\PDFData.cs" />
+    <Compile Include="Data\raca.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\RecursoData.cs" />
     <Compile Include="Data\InscritoConcursoData.cs" />
     <Compile Include="Data\IPEFAEEntitiesExtension.cs" />
