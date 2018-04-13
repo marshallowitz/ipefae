@@ -116,7 +116,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public string nome_mae                  { get; set; }
         public string nome_pai                  { get; set; }
         public bool sexo_masculino              { get; set; }
-        public int estado_civil                 { get; set; }
+        public string estado_civil              { get; set; }
         public int grau_instrucao_id            { get; set; }
         public int raca_id                      { get; set; }
         public string telefone_01               { get; set; }

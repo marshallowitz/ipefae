@@ -16,7 +16,7 @@ namespace TGV.IPEFAE.Web.BL.Data
     {
         public colaborador()
         {
-            this.concurso_colaborador = new HashSet<concurso_colaborador>();
+            this.concurso_local_colaborador = new HashSet<concurso_local_colaborador>();
         }
     
         public int id { get; set; }
@@ -40,7 +40,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public string nome_mae { get; set; }
         public string nome_pai { get; set; }
         public bool sexo_masculino { get; set; }
-        public int estado_civil { get; set; }
+        public string estado_civil { get; set; }
         public string telefone_01 { get; set; }
         public string telefone_02 { get; set; }
         public string email { get; set; }
@@ -61,6 +61,6 @@ namespace TGV.IPEFAE.Web.BL.Data
         public virtual tb_cid_cidade tb_cid_cidade { get; set; }
         public virtual tb_cid_cidade tb_cid_cidade1 { get; set; }
         public virtual tb_est_estado tb_est_estado { get; set; }
-        public virtual ICollection<concurso_colaborador> concurso_colaborador { get; set; }
+        public virtual ICollection<concurso_local_colaborador> concurso_local_colaborador { get; set; }
     }
 }

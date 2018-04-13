@@ -50,361 +50,276 @@
     </div>
 </section>
 
-<h2 class="titulo">Cadastro de Colaborador</h2>
+<h2 class="titulo">Cadastro de Colaborador <a href="javascript:void(0)" ng-if="id > 0">Alterar Senha</a></h2> 
 
 <div class="container marginBottom-30">
-    <input type="text" ng-model="nome">
-    <p>Olá, Tableless! Meu nome é: {{ nome }}</p>
     @RenderBody()
     <div class="row centro">
-        @*<form id="colCadastroForm" class="colCadastroForm">
+        <form id="colCadastroForm" class="colCadastroForm">
             <fieldset>
-                <legend>@_DadosEstagiario.LegendaDadosPessoais</legend>
+                <legend>Dados Pessoais</legend>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelNomeCompleto</label><em>*</em>
-                            <input type="text" class="form-control" name="nome" id="txtNomeCompleto" value="@Model.Nome" />
+                            <label>Nome Completo</label><em>*</em>
+                            <input type="text" class="form-control" name="nome" id="txtNomeCompleto" ng-model="nome" maxlength="100" required />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelEmail</label><em>*</em>
-                            <input type="text" class="form-control" name="email" id="txtEmail" value="@Model.Email" />
+                            <label>E-mail</label><em>*</em>
+                            <input type="text" class="form-control" name="email" id="txtEmail" ng-model="email" maxlength="100" required />
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelCPF</label><em>*</em>
-                            <input type="text" class="form-control" name="cpf" id="txtCPF" value="@Model.CPFFormatado" />
+                            <label>CPF</label><em>*</em>
+                            <input type="text" class="form-control" name="cpf" id="txtCPF" ng-model="cpf" maxlength="14" required />
                         </div>
                     </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelRG</label><em>*</em>
-                            <input type="text" class="form-control" name="rg" id="txtRG" value="@Model.RG" />
+                            <label>RG</label><em>*</em>
+                            <input type="text" class="form-control" name="rg" id="txtRG" ng-model="rg" maxlength="20" required />
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelDataExpedicao</label><em>*</em>
-                            <input type="text" class="form-control" name="dataRGExpedicao" id="txtDataRGExpedicao" value="@Model.DataExpedicaoRGString" />
+                            <label>Data Nascimento</label> <span id="idade" ng-model="idade"></span><em>*</em>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="dataNasc" id="txtDataNascimento" ng-model="data_nascimento_formatada" />
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelCarteiraTrabalho</label><em>*</em>
-                            <input type="text" class="form-control" maxlength="20" name="carteiraTrabalhoNumero" id="txtCarteiraTrabalhoNumero" value="@Model.CarteiraTrabalhoNumero" />
-                        </div>
-                    </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>@_DadosEstagiario.LabelCarteiraTrabalhoSerie</label><em>*</em>
-                            <input type="text" class="form-control" name="carteiraTrabalhoSerie" id="txtCarteiraTrabalhoSerie" value="@Model.CarteiraTrabalhoSerie" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>@_DadosEstagiario.LabelCarteiraTrabalhoUF</label><em>*</em>
-                            <select id="ddlCarteiraTrabalhoUF" name="carteiraTrabalhoUF" class="form-control"></select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>@_DadosEstagiario.LabelEstadoCivil</label><em>*</em>
-                            <select id="ddlEstadoCivil" name="estadocivil" class="form-control">
-                                <option value="C">@_DadosEstagiario.OptionCasado</option>
-                                <option value="D">@_DadosEstagiario.OptionDivorciado</option>
-                                <option value="S" selected>@_DadosEstagiario.OptionSolteiro</option>
-                                <option value="V">@_DadosEstagiario.OptionViuvo</option>
-                                <option value="O">@_DadosEstagiario.OptionOutros</option>
+                            <label>Estado Civil</label><em>*</em>
+                            <select id="ddlEstadoCivil" name="estadocivil" class="form-control" ng-model="estado_civil">
+                                <option value="C">Casado</option>
+                                <option value="D">Divorciado</option>
+                                <option value="S" selected>Solteiro</option>
+                                <option value="V">Viuvo</option>
+                                <option value="O">Outros</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelSexo</label><em>*</em>
-                            <select id="ddlSexo" name="sexo" class="form-control">
+                            <label>Sexo</label><em>*</em>
+                            <select id="ddlSexo" name="sexo" class="form-control" ng-model="sexo_masculino">
                                 <option value=""></option>
-                                <option value="F">@_DadosEstagiario.OptionFeminino</option>
-                                <option value="M">@_DadosEstagiario.OptionMasculino</option>
+                                <option value="false">Feminino</option>
+                                <option value="true">Masculino</option>
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelDataNascimento</label> <span id="idade"></span><em>*</em>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="dataNasc" id="txtDataNascimento" value="@Model.DataNascimentoString" />
-                            </div>
+                            <label>Grau Instrução</label><em>*</em>
+                            <select id="ddlGrauInstrucao" name="grau_instrucao" class="form-control" ng-model="grau_instrucao" required></select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelTelefone</label><em>*</em>
-                            <input type="text" class="form-control" name="telefone" id="txtTelefone" value="@Model.Telefone" />
+                            <label>Raça</label><em>*</em>
+                            <select id="ddlRaca" name="raca" class="form-control" ng-model="raca" required></select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelCelular</label>
-                            <input type="text" class="form-control" name="celular" id="txtCelular" value="@Model.Celular" />
+                            <label>Telefone</label><em>*</em>
+                            <input type="text" class="form-control" name="telefone" id="txtTelefone" ng-model="telefone_01_formatado" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Outro Telefone</label>
+                            <input type="text" class="form-control" name="celular" id="txtCelular" ng-model="telefone_02_formatado" />
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>PIS, PASEP ou NET</label><em>*</em>
+                            <input type="text" class="form-control" name="pisPasepNet" id="txtPisPasepNet" ng-model="pis_pasep_net" maxlength="11" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Nro Carteira Trabalho</label><em>*</em>
+                            <input type="text" class="form-control" maxlength="50" name="carteiraTrabalhoNumero" id="txtCarteiraTrabalhoNumero" ng-model="carteira_trabalho_nro" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Série Carteira de Trabalho</label><em>*</em>
+                            <input type="text" class="form-control" name="carteiraTrabalhoSerie" id="txtCarteiraTrabalhoSerie" ng-model="carteira_trabalho_serie" maxlength="50" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Estado Carteira de Trabalho</label><em>*</em>
+                            <select id="ddlCarteiraTrabalhoUF" name="carteiraTrabalhoUF" class="form-control" ng-model="carteira_trabalho_uf"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Nro Título Eleitor</label><em>*</em>
+                            <input type="text" class="form-control" maxlength="50" name="tituloEleitorNumero" id="txtTituloEleitorNumero" ng-model="titulo_eleitor_nro" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Zona Título Eleitor</label><em>*</em>
+                            <input type="text" class="form-control" name="tituloEleitorZona" id="txtTituloEleitorZona" ng-model="titulo_eleitor_zona" maxlength="50" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Seção Título Eleitor</label><em>*</em>
+                            <input type="text" class="form-control" name="tituloEleitorSecao" id="txtTituloEleitorSecao" ng-model="titulo_eleitor_secao" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Nacionalidade</label><em>*</em>
+                            <input type="text" class="form-control" name="nacionalidade" id="txtNacionalidade" ng-model="nacionalidade" maxlength="50" required />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Naturalidade - Estado</label><em>*</em>
+                            <select id="ddlNaturalidadeUF" name="naturalidadeEstado" class="form-control" ng-model="naturalidade.estado" required></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Naturalidade - Cidade</label><em>*</em>
+                            <select id="ddlNaturalidadeCidade" name="naturalidadeCidade" class="form-control" ng-model="naturalidade.cidade" required></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nome Mãe</label><em>*</em>
+                            <input type="text" class="form-control" name="nome" id="txtNomeMae" ng-model="nome_mae" maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nome Pai</label><em>*</em>
+                            <input type="text" class="form-control" name="nome" id="txtNomePai" ng-model="nome_pai" maxlength="100" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <fieldset>
+                <legend>Dados Endereço</legend>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelEndereco</label><em>*</em>
-                            <input type="text" class="form-control" name="endereco" id="txtEndereco" value="@Model.Endereco" />
+                            <label>Logradouro</label><em>*</em>
+                            <input type="text" class="form-control" name="logradouro" id="txtLogradouro" ng-model="endereco_logradouro" maxlength="500" required />
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelNumeroEndereco</label><em>*</em>
-                            <input type="text" class="form-control" name="nroEndereco" id="txtNroEndereco" value="@Model.NumeroEnderecoString" />
+                            <label>Número</label><em>*</em>
+                            <input type="text" class="form-control" name="nroEndereco" id="txtNroEndereco" ng-model="endereco_nro" maxlength="10" required />
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelComplemento</label>
-                            <input type="text" class="form-control" name="complemento" id="txtComplemento" value="@Model.Complemento" />
+                            <label>Complemento</label>
+                            <input type="text" class="form-control" name="complemento" id="txtComplemento" ng-model="endereco_complemento" maxlength="100" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelBairro</label><em>*</em>
-                            <input type="text" class="form-control" name="bairro" id="txtBairro" value="@Model.Bairro" />
+                            <label>Bairro</label><em>*</em>
+                            <input type="text" class="form-control" name="bairro" id="txtBairro" ng-model="endereco_bairro" maxlength="100" required />
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelCEP</label><em>*</em>
-                            <input type="text" class="form-control" name="cep" id="txtCEP" value="@Model.CEP" />
+                            <label>CEP</label><em>*</em>
+                            <input type="text" class="form-control" name="cep" id="txtCEP" ng-model="endereco_cep" maxlength="9" />
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelEstado</label><em>*</em>
-                            <select id="ddlEstado" name="estado" class="form-control"></select>
+                            <label>Estado</label><em>*</em>
+                            <select id="ddlEstado" name="estado" class="form-control" ng-model="endereco_estado" required></select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelCidade</label><em>*</em>
-                            <select id="ddlCidade" name="cidade" class="form-control" disabled></select>
+                            <label>Cidade</label><em>*</em>
+                            <select id="ddlCidade" name="cidade" class="form-control" disabled ng-model="endereco_cidade" required></select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <fieldset>
+                <legend>Dados Bancários</legend>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Banco</label><em>*</em>
+                            <select id="ddlBanco" name="banco" class="form-control" ng-model="banco" required></select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Agência</label><em>*</em>
+                            <input type="text" class="form-control" name="agencia" id="txtAgencia" ng-model="agencia" maxlength="4" required />
+                        </div>
+                    </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            <label>@_DadosEstagiario.LabelFilhos</label><em>*</em>
-                            <input type="text" class="form-control" name="qtdadeFilhos" id="txtQtdadeFilhos" value="@Model.NumeroFilhos" />
-                        </div>
-                    </div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>@_DadosEstagiario.LabelPossuiDeficiencia</label><em>*</em><br />
-                            <input type="radio" id="rdDefSim" name="deficiencia" value="S" /><label class="label-radio" for="rdDefSim">@_DadosEstagiario.OptionSim</label>
-                            <input type="radio" id="rdDefNao" name="deficiencia" value="N" checked /><label class="label-radio" for="rdDefNao">@_DadosEstagiario.OptionNao</label>
-                        </div>
-                    </div>
-                    <div class="col-md-5 tem-deficiencia" style="display: none;">
-                        <div class="form-group deficienciaQual">
-                            <label>@_DadosEstagiario.LabelPossuiDeficienciaQual</label><em>*</em><br />
-                            <ul style="padding: 0;">
-                                <li>
-                                    <input type="radio" id="rdDefFisica" name="deficiencia_qual" value="F" />
-                                    <label class="label-radio" for="rdDefFisica">@_DadosEstagiario.OptionFisica</label>
-                                </li>
-                                <li>
-                                    <input type="radio" id="rdDefAuditiva" name="deficiencia_qual" value="A" />
-                                    <label class="label-radio" for="rdDefAuditiva">@_DadosEstagiario.OptionAuditiva</label>
-                                </li>
-                                <li>
-                                    <input type="radio" id="rdDefVisual" name="deficiencia_qual" value="V" />
-                                    <label class="label-radio" for="rdDefVisual">@_DadosEstagiario.OptionVisual</label>
-                                </li>
-                                <li>
-                                    <input type="radio" id="rdDefMental" name="deficiencia_qual" value="M" />
-                                    <label class="label-radio" for="rdDefMental">@_DadosEstagiario.OptionMental</label>
-                                </li>
-                                <li>
-                                    <input type="radio" id="rdDefMultipla" name="deficiencia_qual" value="O" />
-                                    <label class="label-radio" for="rdDefMultipla">@_DadosEstagiario.OptionMultipla</label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="row foto">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label>@_DadosEstagiario.LabelFoto</label><em>*</em>
-                            <label style="font-size: 10px; font-weight: normal;">@_DadosEstagiario.LabelInfoFoto</label>
-                            <div class="upload-file">
-                                <input type="file" name="UploadFile" id="txtUploadFoto" class="form-control" accept="image/*" />
-                                <input type="hidden" id="hdnTemFoto" value="@Model.TemFoto.ToString().ToLower()" />
-                            </div>
+                            <label>Dígito</label><em>*</em>
+                            <input type="text" class="form-control" name="agenciaDigito" id="txtAgenciaDigito" ng-model="agencia_digito" maxlength="1" />
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <img id="fotoEstagio" height="90" width="81" src="" />
-                            <img class="remover-foto" src="@Url.Content("~/Content/imagens/delete.png")" />
+                            <label>Conta Corrente</label><em>*</em>
+                            <input type="text" class="form-control" name="contaCorrente" id="txtContaCorrente" ng-model="conta_corrente" maxlength="20" required />
                         </div>
                     </div>
                 </div>
-            </fieldset>
-            <br />
-            <fieldset>
-                <legend>@_DadosEstagiario.LegendaObjetivosEstagio</legend>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <textarea id="txtObjetivos" name="objetivos" style="max-width: none; height: 100px;" placeholder="@_DadosEstagiario.PlaceHolderObjetivosEstagio" class="form-control">@Model.Objetivos</textarea>
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-            <br />
-            <fieldset>
-                <legend>@_DadosEstagiario.LegendaDadosEscolares</legend>
-                <input type="hidden" id="hdnIdDadosEstagio" value="@Model.IdUsuarioEstagioDadosEscolares" />
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>@_DadosEstagiario.LabelTipoEnsino</label><em>*</em><br />
-                            <ul class="tipo_ensino">
-                                <li>
-                                    <input type="radio" id="rdEnsinoMedio" name="tipo_ensino" value="M" />
-                                    <label class="label-radio" for="rdEnsinoMedio">@_DadosEstagiario.OptionEnsinoMedio</label>
-                                </li>
-                                <li>
-                                    <input type="radio" id="rdTecnico" name="tipo_ensino" value="T" />
-                                    <label class="label-radio" for="rdTecnico">@_DadosEstagiario.OptionTecnico</label>
-                                </li>
-                                <li>
-                                    <input type="radio" id="rdEJA" name="tipo_ensino" value="E" />
-                                    <label class="label-radio" for="rdEJA">@_DadosEstagiario.OptionEJA</label>
-                                </li>
-                                <li>
-                                    <input type="radio" id="rdEnsinoSuperior" name="tipo_ensino" value="S" />
-                                    <label class="label-radio" for="rdEnsinoSuperior">@_DadosEstagiario.OptionEnsinoSuperior</label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="tipo-ensino" style="display:none;">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>@_DadosEstagiario.LabelNomeEscola</label><em>*</em>
-                                <input type="text" class="form-control" name="nomeEscola" id="txtNomeEscola" value="@Model.DadosEscolares.NomeEscola" />
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label id="lblDE01"></label><em>*</em>
-                                <select id="ddlDE01" name="de01" class="form-control"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group terceira-coluna">
-                                <label id="lblDE02"></label><em>*</em>
-                                <select id="ddlDE02" name="de02" class="form-control"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label id="lblPeriodo">@_DadosEstagiario.LabelPeriodo</label><em>*</em>
-                                <select id="ddlPeriodo" name="periodo" class="form-control"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row segunda-linha">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>@_DadosEstagiario.LabelNomeCurso</label><em>*</em>
-                                <input type="text" class="form-control nomeCursoAutoComplete" name="nomeCurso" id="txtNomeCurso" value="@Model.DadosEscolares.NomeCurso" />
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label id="lblInicioDE">@_DadosEstagiario.LabelMesAnoInicio</label><em>*</em>
-                                <input type="text" class="form-control" name="dataInicioDE" id="txtInicioDE" placeholder="__/____" value="@Model.DadosEscolares.DataInicioString" />
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label id="lblTerminoDE" style="white-space: nowrap;">@_DadosEstagiario.LabelMesAnoPrevisaoTermino<em>*</em></label>
-                                <input type="text" class="form-control" name="dataTerminoDE" id="txtTerminoDE" placeholder="__/____" value="@Model.DadosEscolares.DataTerminoString" />
-                            </div>
-                        </div>
-                        <div class="col-md-2"></div>
-                    </div>
-                </div>
-            </fieldset>
-            <br />
-            <fieldset>
-                <legend>@_DadosEstagiario.LegendaExperienciaProfissional</legend>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label>@_DadosEstagiario.LabelPossuiExperienciaProfissional</label><br />
-                            <ul class="tem_experiencia">
-                                <li>
-                                    <input type="radio" id="rdExpSim" name="experiencia_profissional" value="S" />
-                                    <label class="label-radio" for="rdExpSim">@_DadosEstagiario.OptionSim</label>
-                                </li>
-                                <li>
-                                    <input type="radio" id="rdExpNao" name="experiencia_profissional" value="N" checked />
-                                    <label class="label-radio" for="rdExpNao">@_DadosEstagiario.OptionNao</label>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="tem-experiencia-profissional" style="display: none;">
-                    @Html.Partial("_ExperienciasProfissionais", Model.ExperienciasProfissionais)
-                </div>
-            </fieldset>
-            <br />
-            <fieldset>
-                <legend>@_DadosEstagiario.LegendaCursosCapacitacoes</legend>
-                <div class="cursos-capacitacoes" style="min-height: 114px;"></div>
-            </fieldset>
-            <br />
-            <fieldset>
-                <legend>@_DadosEstagiario.LegendaOutrosConhecimentos</legend>
-                <div class="outros-conhecimentos" style="min-height: 114px;"></div>
             </fieldset>
             <br />
             <div class="row col-botoes text-center">
                 <input type="button" name="btnVoltar" id="btnVoltar" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
                 <input type="submit" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" />
             </div>
-        </form>*@
+        </form>
     </div>
 </div>

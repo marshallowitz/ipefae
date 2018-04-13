@@ -16,15 +16,16 @@ namespace TGV.IPEFAE.Web.BL.Data
     {
         public concurso()
         {
-            this.concurso_colaborador = new HashSet<concurso_colaborador>();
             this.concurso_funcao = new HashSet<concurso_funcao>();
+            this.concurso_local = new HashSet<concurso_local>();
         }
     
         public int id { get; set; }
         public string nome { get; set; }
+        public System.DateTime data { get; set; }
         public bool ativo { get; set; }
     
-        public virtual ICollection<concurso_colaborador> concurso_colaborador { get; set; }
         public virtual ICollection<concurso_funcao> concurso_funcao { get; set; }
+        public virtual ICollection<concurso_local> concurso_local { get; set; }
     }
 }

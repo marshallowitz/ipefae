@@ -12,17 +12,16 @@ namespace TGV.IPEFAE.Web.BL.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class funcao
+    public partial class concurso_local_colaborador
     {
-        public funcao()
-        {
-            this.concurso_funcao = new HashSet<concurso_funcao>();
-        }
-    
-        public int id { get; set; }
-        public string nome { get; set; }
+        public int concurso_local_id { get; set; }
+        public int colaborador_id { get; set; }
+        public int funcao_id { get; set; }
+        public decimal valor { get; set; }
+        public bool tem_empresa { get; set; }
         public bool ativo { get; set; }
     
-        public virtual ICollection<concurso_funcao> concurso_funcao { get; set; }
+        public virtual concurso_local concurso_local { get; set; }
+        public virtual colaborador colaborador { get; set; }
     }
 }

@@ -14,12 +14,13 @@ namespace TGV.IPEFAE.Web.BL.Data
     
     public partial class concurso_funcao
     {
+        public int id { get; set; }
         public int concurso_id { get; set; }
-        public int funcao_id { get; set; }
+        public string funcao { get; set; }
         public decimal valor_liquido { get; set; }
+        public bool sem_desconto { get; set; }
         public bool ativo { get; set; }
     
         public virtual concurso concurso { get; set; }
-        public virtual funcao funcao { get; set; }
     }
 }

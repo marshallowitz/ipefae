@@ -80,18 +80,18 @@
     <Compile Include="Data\concurso.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\concurso_colaborador.cs">
+    <Compile Include="Data\concurso_funcao.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\concurso_funcao.cs">
+    <Compile Include="Data\concurso_local.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\concurso_local_colaborador.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\DTOExtension.cs" />
     <Compile Include="Data\EmailData.cs" />
     <Compile Include="Data\EstadoData.cs" />
-    <Compile Include="Data\funcao.cs">
-      <DependentUpon>IPEFAEModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\grau_instrucao.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>
     </Compile>
