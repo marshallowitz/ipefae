@@ -56,6 +56,11 @@
     $('.modal-reenviar-senha').on('shown.bs.modal', function () { $('.modal-reenviar-senha').find('#txtCPF').focus(); });
 }
 
+function iniciarTelaCadastroColaborador()
+{
+
+}
+
 function realizarLogin()
 {
     $.blockUI({ message: 'Realizando Login...', css: cssCarregando });
@@ -119,3 +124,119 @@ function reenviarSenha()
     return false;
 }
 
+(function ()
+{
+    'use strict';
+
+    angular.module('ipefae').controller('colaboradorController', colaboradorController);
+    colaboradorController.$inject = ['$scope', '$rootScope', '$q', '$timeout'];
+
+    function colaboradorController($scope, $rootScope, $q, $timeout)
+    {
+        var vm = this;
+        vm.activate = _activate;
+
+        function inicializar()
+        {
+            $scope.errorList = {};
+            $scope.errorList.nome = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.email = { enable: false, ind: -1, validacoes: ['email'] };
+            $scope.errorList.cpf = { enable: false, ind: -1, validacoes: ['cpf'] };
+        }
+
+        function _activate()
+        {
+            inicializar();
+
+            $scope.checkIfIsTooltipEnable = function(fieldName, outrasValidacoes)
+            {
+                var isDirty = $scope.checkIsDirty(fieldName);
+                var result = !$scope[fieldName] && isDirty;
+                var ind = 0;
+
+                if (result || !outrasValidacoes || !$.isArray(outrasValidacoes))
+                {
+                    var r = { enable: result, ind: result ? 0 : -1, validacoes: outrasValidacoes  };
+                    $scope.errorList[fieldName] = r;
+                    return r;
+                }
+
+                $.each(outrasValidacoes, function (i, v)
+                {
+                    if (eval('$scope.colCadastroForm.$error.' + v))
+                    {
+                        result = true;
+                        ind = i + 1;
+                        return false;
+                    }
+                });
+
+                var r = { enable: result, ind: result ? ind : -1, validacoes: outrasValidacoes };
+                $scope.errorList[fieldName] = r;
+                return r;
+            }
+
+            $scope.checkIsDirty = function (fieldName)
+            {
+                var field = $scope.getField(fieldName);
+
+                if (field === undefined)
+                    return false;
+
+                return field.$dirty;
+            }
+
+            $scope.getErrorMessage = function(fieldName, lista)
+            {
+                if ($scope.errorList[fieldName] === undefined)
+                    return '';
+
+                $scope.checkIfIsTooltipEnable(fieldName, $scope.errorList[fieldName].validacoes);
+
+                var ind = $scope.errorList[fieldName].ind;
+
+                if (!$.isArray(lista) || ind > lista.length - 1)
+                    return '';
+
+                return lista[ind];
+            }
+
+            $scope.getField = function (fieldName)
+            {
+                var result = undefined;
+
+                angular.forEach($scope.colCadastroForm.$error.required, function (field)
+                {
+                    if (field.$name === fieldName)
+                        result = field;
+                });
+
+                return result;
+            }
+
+            $scope.salvar = function()
+            {
+                var firstErrorField = undefined;
+
+                angular.forEach($scope.colCadastroForm.$$controls, function (field)
+                {
+                    field.$dirty = true;
+                    var item = $scope.errorList[field.$name];
+
+                    if (item !== undefined)
+                    {
+                        if (firstErrorField === undefined && field.$invalid)
+                            firstErrorField = $('[name="' + field.$name + '"]');
+
+                        $scope.checkIfIsTooltipEnable(field.$name, item.validacoes);
+                    }
+                });
+
+                if (firstErrorField !== undefined)
+                    firstErrorField.focus();
+            }
+        }
+
+        vm.activate();
+    }
+})();

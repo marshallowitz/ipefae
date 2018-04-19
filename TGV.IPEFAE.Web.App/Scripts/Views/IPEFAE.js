@@ -224,3 +224,48 @@ function setTabsContentHeight(func, ctl, cnt)
         else
             setTimeout(function () { setTabsContentHeight(func, ctl, cnt++); }, 500);
 }
+
+
+(function ()
+{
+    'use strict';
+
+    angular.module('ipefae', ['ngRoute', 'ui.bootstrap', 'ui.utils.masks']);
+
+    angular.module('ipefae').controller('ipefaeController', ipefaeController);
+    ipefaeController.$inject = ['$scope', '$rootScope', '$q', '$state', '$log', '$filter', '$location', '$timeout', '$window'];
+
+    function ipefaeController($scope, $rootScope, $q, $state, $log, $filter, $location, $timeout, $window)
+    {
+        $rootScope.hasError = function (e, d)
+        {
+            if (angular.isDefined(e))
+                return e && d;
+
+            return false;
+        }
+
+        $rootScope.hasError2 = function (element, errorName)
+        {
+            return (!angular.equals({}, element.$error) && element.$error[errorName] && element.$dirty);
+        }
+
+        $rootScope.hasErrorMultiple = function (errors, d)
+        {
+            if (errors === undefined)
+                return { hasError: false, message: '' };
+
+            for (var i = 0; i <= errors.length - 1; i++) {
+                var e = errors[i].error;
+                var message = errors[i].message;
+
+                if (angular.isDefined(e) && e && d) {
+                    return { hasError: true, message: message };
+                }
+            }
+
+            return { hasError: false, message: '' };
+        }
+    }
+})();
+

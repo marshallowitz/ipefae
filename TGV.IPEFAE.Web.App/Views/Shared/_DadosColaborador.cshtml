@@ -3,7 +3,6 @@
 @{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
 <link href="@Url.Content("~/Content/Colaborador.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
 <script src="@Url.Content("~/Scripts/Views/Colaborador.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
 
 <script>
     var urlVoltar = '@Url.Content("~/Colaborador")';
@@ -52,31 +51,32 @@
 
 <h2 class="titulo">Cadastro de Colaborador <a href="javascript:void(0)" ng-if="id > 0">Alterar Senha</a></h2> 
 
-<div class="container marginBottom-30">
+<div class="container marginBottom-30" ng-controller="colaboradorController">
     @RenderBody()
     <div class="row centro">
-        <form id="colCadastroForm" class="colCadastroForm">
+        <form id="colCadastroForm" name="colCadastroForm" class="colCadastroForm form-validate" novalidate="">
             <fieldset>
                 <legend>Dados Pessoais</legend>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error': errorList.nome.enable}">
                             <label>Nome Completo</label><em>*</em>
-                            <input type="text" class="form-control" name="nome" id="txtNomeCompleto" ng-model="nome" maxlength="100" required />
+                            <input type="text" class="form-control" name="nome" id="txtNomeCompleto" ng-model="nome" maxlength="100" required uib-tooltip="{{getErrorMessage('nome', ['O nome é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.nome.enable" />
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error': errorList.email.enable}">
                             <label>E-mail</label><em>*</em>
-                            <input type="text" class="form-control" name="email" id="txtEmail" ng-model="email" maxlength="100" required />
+                            <input type="email" class="form-control text-lowercase" name="email" id="txtEmail" ng-model="email" maxlength="100" required uib-tooltip="{{getErrorMessage('email', ['O e-mail é obrigatório', 'Formato do e-mail inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.email.enable" />
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error': errorList.cpf.enable}">
                             <label>CPF</label><em>*</em>
-                            <input type="text" class="form-control" name="cpf" id="txtCPF" ng-model="cpf" maxlength="14" required />
+                            <input type="text" class="form-control" name="cpf" id="txtCPF" ui-br-cpf-mask ui-validate="{cpfJaExiste:'verificarCPFJaExiste($value)'}" ng-model="cpf" maxlength="14" required uib-tooltip="{{getErrorMessage('cpf', ['O CPF é obrigatório', 'Formato do CPF inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.cpf.enable" />
+                            @*<uib-tooltip ng-if="hasErrorMultiple([{error: colCadastroForm.cpf.$error.required, message: 'O CPF é obrigatório'}, {error: colCadastroForm.cpf.$error.cpf, message: 'O formato do CPF está inválido'}, {error: colCadastroForm.cpf.$error.cpfJaExiste, message: 'Este CPF já está cadastrado no sistema para outra pessoa'}], colCadastroForm.cpf.$dirty).hasError" ui-message="{{hasErrorMultiple([{error: colCadastroForm.cpf.$error.required, message: 'O CPF é obrigatório'}, {error: colCadastroForm.cpf.$error.cpf, message: 'O formato do CPF está inválido'}, {error: colCadastroForm.cpf.$error.cpfJaExiste, message: 'Este CPF já está cadastrado no sistema para outra pessoa'}], colCadastroForm.cpf.$dirty, 'admin.cadastros.holding.wizard.dados.cnpj').message}}" ui-placement="top"></uib-tooltip>*@
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -216,13 +216,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Nome Mãe</label><em>*</em>
-                            <input type="text" class="form-control" name="nome" id="txtNomeMae" ng-model="nome_mae" maxlength="100" />
+                            <input type="text" class="form-control" name="nome_mae" id="txtNomeMae" ng-model="nome_mae" maxlength="100" />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Nome Pai</label><em>*</em>
-                            <input type="text" class="form-control" name="nome" id="txtNomePai" ng-model="nome_pai" maxlength="100" />
+                            <input type="text" class="form-control" name="nome_pai" id="txtNomePai" ng-model="nome_pai" maxlength="100" />
                         </div>
                     </div>
                 </div>
@@ -318,7 +318,7 @@
             <br />
             <div class="row col-botoes text-center">
                 <input type="button" name="btnVoltar" id="btnVoltar" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
-                <input type="submit" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" />
+                <input type="button" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />
             </div>
         </form>
     </div>
