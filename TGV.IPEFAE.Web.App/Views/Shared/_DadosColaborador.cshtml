@@ -75,14 +75,13 @@
                     <div class="col-md-4">
                         <div class="form-group" ng-class="{'has-error': errorList.cpf.enable}">
                             <label>CPF</label><em>*</em>
-                            <input type="text" class="form-control" name="cpf" id="txtCPF" ui-br-cpf-mask ui-validate="{cpfJaExiste:'verificarCPFJaExiste($value)'}" ng-model="cpf" maxlength="14" required uib-tooltip="{{getErrorMessage('cpf', ['O CPF é obrigatório', 'Formato do CPF inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.cpf.enable" />
-                            @*<uib-tooltip ng-if="hasErrorMultiple([{error: colCadastroForm.cpf.$error.required, message: 'O CPF é obrigatório'}, {error: colCadastroForm.cpf.$error.cpf, message: 'O formato do CPF está inválido'}, {error: colCadastroForm.cpf.$error.cpfJaExiste, message: 'Este CPF já está cadastrado no sistema para outra pessoa'}], colCadastroForm.cpf.$dirty).hasError" ui-message="{{hasErrorMultiple([{error: colCadastroForm.cpf.$error.required, message: 'O CPF é obrigatório'}, {error: colCadastroForm.cpf.$error.cpf, message: 'O formato do CPF está inválido'}, {error: colCadastroForm.cpf.$error.cpfJaExiste, message: 'Este CPF já está cadastrado no sistema para outra pessoa'}], colCadastroForm.cpf.$dirty, 'admin.cadastros.holding.wizard.dados.cnpj').message}}" ui-placement="top"></uib-tooltip>*@
+                            <input type="text" class="form-control" name="cpf" id="txtCPF" ui-br-cpf-mask ui-validate="{cpfJaExiste:'verificarCPFJaExiste($value)'}" ng-model="cpf" maxlength="14" required uib-tooltip="{{getErrorMessage('cpf', ['O CPF é obrigatório', 'Formato do CPF inválido', 'Este CPF já está vinculado a outro usuário'])}}" tooltip-placement="top" tooltip-is-open="errorList.cpf.enable" />
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error': errorList.rg.enable}">
                             <label>RG</label><em>*</em>
-                            <input type="text" class="form-control" name="rg" id="txtRG" ng-model="rg" maxlength="20" required />
+                            <input type="text" class="form-control" name="rg" id="txtRG" ng-model="rg" maxlength="20" required uib-tooltip="{{getErrorMessage('rg', ['O RG é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.rg.enable" />
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -108,9 +107,9 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error': errorList.sexo.enable}">
                             <label>Sexo</label><em>*</em>
-                            <select id="ddlSexo" name="sexo" class="form-control" ng-model="sexo_masculino">
+                            <select id="ddlSexo" name="sexo" class="form-control" ng-model="sexo_masculino" required uib-tooltip="{{getErrorMessage('sexo', ['O gênero é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.sexo.enable">
                                 <option value=""></option>
                                 <option value="false">Feminino</option>
                                 <option value="true">Masculino</option>
@@ -118,23 +117,23 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error': errorList.grau_instrucao.enable}">
                             <label>Grau Instrução</label><em>*</em>
-                            <select id="ddlGrauInstrucao" name="grau_instrucao" class="form-control" ng-model="grau_instrucao" required></select>
+                            <select id="ddlGrauInstrucao" name="grau_instrucao" class="form-control" ng-model="grau_instrucao" required uib-tooltip="{{getErrorMessage('grau_instrucao', ['O grau de instrução é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.grau_instrucao.enable"></select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error': errorList.raca.enable}">
                             <label>Raça</label><em>*</em>
-                            <select id="ddlRaca" name="raca" class="form-control" ng-model="raca" required></select>
+                            <select id="ddlRaca" name="raca" class="form-control" ng-model="raca" required uib-tooltip="{{getErrorMessage('raca', ['A raça é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.raca.enable"></select>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
+                        <div class="form-group" ng-class="{'has-error': errorList.telefone.enable}">
                             <label>Telefone</label><em>*</em>
-                            <input type="text" class="form-control" name="telefone" id="txtTelefone" ng-model="telefone_01_formatado" />
+                            <input type="text" class="form-control" name="telefone" id="txtTelefone" ng-model="telefone_01_formatado" required  uib-tooltip="{{getErrorMessage('telefone', ['O telefone é obrigatório', 'Formato do telefone inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.telefone.enable" />
                         </div>
                     </div>
                     <div class="col-md-4">

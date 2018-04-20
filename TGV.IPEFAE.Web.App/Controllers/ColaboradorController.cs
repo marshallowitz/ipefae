@@ -69,6 +69,15 @@ namespace TGV.IPEFAE.Web.App.Controllers
             return Json(new { Colaborador = colaborador, Sucesso = true }, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult VerificarCPFJaExiste(int id, string cpf)
+        {
+            ColaboradorModel cM = ColaboradorBusiness.ObterPorCPF(cpf);
+
+            bool retorno = (cM != null && cM.id != id);
+
+            return Json(retorno, JsonRequestBehavior.AllowGet);
+        }
+
         private bool EnviarSenha(string nome, string email, string senha)
         {
             if (String.IsNullOrEmpty(nome) || String.IsNullOrEmpty(email) || String.IsNullOrEmpty(senha))

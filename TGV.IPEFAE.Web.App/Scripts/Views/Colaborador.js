@@ -141,7 +141,13 @@ function reenviarSenha()
             $scope.errorList = {};
             $scope.errorList.nome = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.email = { enable: false, ind: -1, validacoes: ['email'] };
-            $scope.errorList.cpf = { enable: false, ind: -1, validacoes: ['cpf'] };
+            $scope.errorList.cpf = { enable: false, ind: -1, validacoes: ['cpf', 'cpfJaExiste'] };
+            $scope.errorList.rg = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.dataNasc = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.sexo = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.grau_instrucao = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.raca = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.telefone = { enable: false, ind: -1, validacoes: ['email'] };
         }
 
         function _activate()
@@ -234,6 +240,28 @@ function reenviarSenha()
 
                 if (firstErrorField !== undefined)
                     firstErrorField.focus();
+            }
+
+            $scope.verificarCPFJaExiste = function(cpf)
+            {
+                var url = homePage + 'Colaborador/VerificarCPFJaExiste';
+                var id = $scope.id || 0;
+                cpf = removerTodosCaracteresMenosNumeros(cpf);
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: { id: id, cpf: cpf },
+                    success: function (retorno)
+                    {
+                        console.log(retorno);
+                        return retorno;
+                    },
+                    error: function (xhr, ajaxOptions, thrownError)
+                    {
+                        alertaErroJS({ NomeFuncao: 'removerAnexo()', ResponseText: xhr.responseText });
+                    }
+                });
             }
         }
 
