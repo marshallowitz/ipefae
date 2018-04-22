@@ -1,0 +1,43 @@
+﻿@model List<TGV.IPEFAE.Web.BL.Data.ColaboradorModel>
+
+@if (Model.Count > 0)
+{
+    <table id="tblColaboradores" class="table table-striped table-bordered table-hover" summary="Lista de Colaboradores">
+        <caption>Lista de Colaboradores</caption>
+        <thead>
+            <tr>
+                <th scope="col" style="display: none">#</th>@* -- id -- *@
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">CPF</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TGV.IPEFAE.Web.BL.Data.ColaboradorModel colaborador in Model)
+            {
+                <tr>
+                    <td style="display: none"><span>@colaborador.id</span></td>
+                    <td>@colaborador.nome</td>
+                    <td>@colaborador.email</td>
+                    <td>@colaborador.telefone_01_formatado</td>
+                    <td>@colaborador.cpf_formatado</td>
+                    <td class="acao">
+                        <div class="icons editar" title="Editar"></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <table class="table table-striped table-bordered table-hover" summary="Nenhum colaborador foi encontrado">
+        <thead>
+            <tr>
+                <th scope="col">Nenhum colaborador foi encontrado</th>
+            </tr>
+        </thead>
+    </table>
+}

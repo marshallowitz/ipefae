@@ -1,4 +1,14 @@
-﻿function iniciarTelaInicialColaborador()
+﻿function editar(id)
+{
+    window.location.href = homePage + 'Admin/Colaborador/Cadastro/' + id;
+}
+
+function iniciarTelaListaColaboradores()
+{
+    listarColaboradores();
+}
+
+function iniciarTelaInicialColaborador()
 {
     $('.modal-reenviar-senha').find('#txtCPF').mask('999.999.999-99');
 
@@ -82,6 +92,51 @@ function iniciarTelaCadastroColaborador()
         var valor = $.trim(firstLetterCapitalized($(this).val()));
         $(this).val(valor);
     });
+}
+
+function listarColaboradores()
+{
+    $.blockUI({ message: 'Carregando Colaboradores', css: cssCarregando });
+    var url = homePage + 'Admin/Colaborador/ListarColaboradores';
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        success: function (retorno)
+        {
+            $('.lista').html('');
+            $('.lista').append(retorno);
+            montarTabela();
+
+            if ($('.lista').find('table').attr('summary') == 'Nenhum colaborador foi encontrado')
+                $('.lista').css('marginTop', 0);
+
+            $('.editar').on('click', function () { editar($(this).closest('tr').find('td:first span').html()); });
+            $.unblockUI();
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            alertaErroJS({ NomeFuncao: 'listarColaboradores()', ResponseText: xhr.responseText });
+            $.unblockUI();
+        }
+    });
+}
+
+function montarTabela()
+{
+    oTable = $('#tblColaboradores').dataTable(
+            {
+                "bLengthChange": false,
+                "order": [[1, "asc"]],
+                "aoColumnDefs": [{ "bSortable": false, "aTargets": [0, 3, 5 ] }],
+                "language": {
+                    "url": urlDataTable
+                }
+            }
+        );
+
+    $('#tblColaboradores_filter').parent().removeClass('col-sm-6').addClass('col-sm-10');
+    $('#tblColaboradores_filter input').focus();
 }
 
 function realizarLogin()
@@ -230,6 +285,7 @@ function reenviarSenha()
         function inicializar()
         {
             var id = $('#hdnId').val();
+            $scope.isAdmin = $('#hdnIsAdmin').val() === "1";
             $scope.colaborador = {};
             $scope.colaborador.estado_civil = 'S';
             $scope.listas = {};

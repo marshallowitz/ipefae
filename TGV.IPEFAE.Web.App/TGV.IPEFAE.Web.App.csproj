@@ -215,6 +215,7 @@
     <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Admin\Controllers\EstagioController.cs" />
     <Compile Include="Areas\Admin\Controllers\RecursoController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ColaboradorController.cs" />
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ConcursoController.cs" />
     <Compile Include="Controllers\BaseEstagioController.cs" />
@@ -409,6 +410,9 @@
     <Content Include="Areas\Admin\Views\Concurso\_ListaEmpresas.cshtml" />
     <Content Include="Areas\Admin\Views\Concurso\Cadastro_Empresa.cshtml" />
     <Content Include="Handlers\DownloadTXTHandler.ashx" />
+    <Content Include="Areas\Admin\Views\Colaborador\_ListaColaboradores.cshtml" />
+    <Content Include="Areas\Admin\Views\Colaborador\Cadastro.cshtml" />
+    <Content Include="Areas\Admin\Views\Colaborador\Index.cshtml" />
     <None Include="Properties\PublishProfiles\ipefae %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\IPEFAE.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />

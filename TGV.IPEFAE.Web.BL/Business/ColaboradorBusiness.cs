@@ -10,6 +10,11 @@ namespace TGV.IPEFAE.Web.BL.Business
 {
     public class ColaboradorBusiness
     {
+        public static List<ColaboradorModel> Listar()
+        {
+            return ColaboradorData.Listar();
+        }
+
         public static ColaboradorModel Obter(int id)
         {
             return ColaboradorData.Obter(id);

@@ -1,0 +1,10 @@
+﻿@model TGV.IPEFAE.Web.BL.Data.ColaboradorModel
+@{ Layout = "~/Views/Shared/_DadosColaborador.cshtml"; }
+
+<script>
+    $(function(){
+        urlVoltar = '@Url.Content("~/Admin/Colaborador")';
+    });
+</script>
+
+<input type="hidden" id="hdnIsAdmin" value="1" />

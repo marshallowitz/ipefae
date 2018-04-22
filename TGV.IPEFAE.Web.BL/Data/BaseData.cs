@@ -128,6 +128,36 @@ namespace TGV.IPEFAE.Web.BL.Data
             return System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(input.ToLower());
         }
 
+        public static string FormatarCPF(string cpf, bool aceitarNull = false)
+        {
+            if (aceitarNull && String.IsNullOrEmpty(cpf))
+                return String.Empty;
+
+            long nroCPF = 0;
+
+            if (!Int64.TryParse(cpf, out nroCPF) || cpf.Length != 11)
+                return "Formato CPF Inválido";
+
+            return nroCPF.ToString(@"000\.000\.000\-00");
+        }
+
+        public static string FormatarFone(string fone, bool aceitarNull = false)
+        {
+            if (aceitarNull && String.IsNullOrEmpty(fone))
+                return String.Empty;
+
+            long nroFone = 0;
+
+            if (!Int64.TryParse(fone, out nroFone) || fone.Length < 10)
+                return "Formato de Telefone Inválido";
+
+            if (fone.Length == 11)
+                return String.Format("{0:(##) #####-####}", nroFone);
+
+            return String.Format("{0:(##) ####-####}", nroFone);
+        }
+
+
         internal static async Task<int> SaveChangesWithErrorsAsync(this DbContext context)
         {
             try

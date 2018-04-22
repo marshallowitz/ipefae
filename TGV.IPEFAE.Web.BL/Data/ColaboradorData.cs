@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Script.Serialization;
 
@@ -6,7 +7,15 @@ namespace TGV.IPEFAE.Web.BL.Data
 {
     public class ColaboradorData
     {
-        public static ColaboradorModel Obter(int id)
+        internal static List<ColaboradorModel> Listar()
+        {
+            using (IPEFAEEntities db = BaseData.Contexto)
+            {
+                return db.colaborador.ToList().ConvertAll(c => c.CopyObject<ColaboradorModel>());
+            }
+        }
+
+        internal static ColaboradorModel Obter(int id)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
@@ -14,7 +23,7 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
-        public static ColaboradorModel ObterPorCPF(string cpf)
+        internal static ColaboradorModel ObterPorCPF(string cpf)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
@@ -22,7 +31,7 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
-        public static ColaboradorModel ObterPorEmail(string email)
+        internal static ColaboradorModel ObterPorEmail(string email)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
@@ -30,7 +39,7 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
-        public static ColaboradorModel ObterPorEmailSenha(string email, string senhaCriptografada)
+        internal static ColaboradorModel ObterPorEmailSenha(string email, string senhaCriptografada)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
@@ -38,7 +47,7 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
-        public static ColaboradorModel Salvar(ColaboradorModel cM)
+        internal static ColaboradorModel Salvar(ColaboradorModel cM)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
@@ -141,6 +150,10 @@ namespace TGV.IPEFAE.Web.BL.Data
 
         [ScriptIgnore]
         public string senhaDescriptografada     { get; set; }
+
+        public string cpf_formatado             { get { return BaseData.FormatarCPF(this.cpf); } }
+        public string telefone_01_formatado     { get { return BaseData.FormatarFone(this.telefone_01); } }
+        public string telefone_02_formatado     { get { return BaseData.FormatarFone(this.telefone_02, true); } }
 
         #endregion [ FIM - Propriedades ]
 
