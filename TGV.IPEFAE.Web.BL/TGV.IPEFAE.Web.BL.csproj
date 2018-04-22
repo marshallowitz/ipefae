@@ -45,6 +45,7 @@
     <Reference Include="System.Security" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business\BaseBusiness.cs" />
+    <Compile Include="Business\BancoBusiness.cs" />
+    <Compile Include="Business\RacaBusiness.cs" />
+    <Compile Include="Business\GrauInstrucaoBusiness.cs" />
     <Compile Include="Business\ColaboradorBusiness.cs" />
     <Compile Include="Business\EmpresaBusiness.cs" />
     <Compile Include="Business\IpeFaeBusiness.cs" />
@@ -76,6 +80,9 @@
     <Compile Include="Data\colaborador.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\BancoData.cs" />
+    <Compile Include="Data\RacaData.cs" />
+    <Compile Include="Data\GrauInstrucaoData.cs" />
     <Compile Include="Data\ColaboradorData.cs" />
     <Compile Include="Data\concurso.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>

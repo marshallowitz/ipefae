@@ -39,7 +39,7 @@ namespace TGV.IPEFAE.Web.BL.Business
         public static ColaboradorModel Salvar(ColaboradorModel cM)
         {
             // Valida salvar por e-mail
-            if (!String.IsNullOrEmpty(cM.email))
+            if (String.IsNullOrEmpty(cM.email))
                 return null;
 
             var us = ColaboradorData.ObterPorEmail(cM.email);
@@ -48,7 +48,7 @@ namespace TGV.IPEFAE.Web.BL.Business
                 return null;
 
             // Valida salvar por cpf
-            if (!String.IsNullOrEmpty(cM.cpf))
+            if (String.IsNullOrEmpty(cM.cpf))
                 return null;
 
             us = ObterPorCPF(cM.cpf);
@@ -60,7 +60,9 @@ namespace TGV.IPEFAE.Web.BL.Business
             if (!String.IsNullOrEmpty(cM.senha))
                 cM.senha = cM.senha.Criptografar(BaseBusiness.ParametroSistema);
 
-            return ColaboradorData.Salvar(cM);
+            ColaboradorModel retorno = ColaboradorData.Salvar(cM);
+            retorno.senhaDescriptografada = retorno.senha.Descriptografar(BaseBusiness.ParametroSistema);
+            return retorno;
         }
     }
 }

@@ -19,7 +19,14 @@
             <tr>
                 <td>
                     <p><font color="Red" face="arial" size="+1"><b>@_HtmlEnvioSenha.CorpoSaudacao @Model.Nome,</b></font></p>
-                    <p style="margin-top: 5px; margin-bottom: 5px"><font face="arial" size="2">@_HtmlEnvioSenha.CorpoInfoEmail <b>@Model.Email</b>.</font></p>
+                    @if (Model.IsNovo)
+                    {
+                        <p style="margin-top: 5px; margin-bottom: 5px"><font face="arial" size="2"> @_HtmlEnvioSenha.CorpoInfoEmailNovo <b>@Model.Email</b>.</font></p>
+                    }
+                    else
+                    {
+                        <p style="margin-top: 5px; margin-bottom: 5px"><font face="arial" size="2"> @_HtmlEnvioSenha.CorpoInfoEmail <b>@Model.Email</b>.</font></p>
+                    }
                 </td>
             </tr>
             <tr>

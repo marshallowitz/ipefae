@@ -70,6 +70,15 @@ namespace TGV.IPEFAE.Web.Resources.Email {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Você se cadastrou em nosso site utilizando o e-mail:.
+        /// </summary>
+        public static string CorpoInfoEmailNovo {
+            get {
+                return ResourceManager.GetString("CorpoInfoEmailNovo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sua senha é:.
         /// </summary>
         public static string CorpoInfoSenha {

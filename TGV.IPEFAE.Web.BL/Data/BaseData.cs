@@ -115,6 +115,19 @@ namespace TGV.IPEFAE.Web.BL.Data
             return exc;
         }
 
+        public static string FirstCharToUpper(this string input)
+        {
+            if (String.IsNullOrEmpty(input))
+                return String.Empty;
+
+            return input.First().ToString().ToUpper() + input.Substring(1);
+        }
+
+        public static string FirstCharOfEachWordToUpper(this string input)
+        {
+            return System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(input.ToLower());
+        }
+
         internal static async Task<int> SaveChangesWithErrorsAsync(this DbContext context)
         {
             try

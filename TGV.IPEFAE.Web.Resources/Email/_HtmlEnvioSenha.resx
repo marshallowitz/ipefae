@@ -120,6 +120,9 @@
   <data name="CorpoInfoEmail" xml:space="preserve">
     <value>Você solicitou sua senha em nosso site utilizando o e-mail:</value>
   </data>
+  <data name="CorpoInfoEmailNovo" xml:space="preserve">
+    <value>Você se cadastrou em nosso site utilizando o e-mail:</value>
+  </data>
   <data name="CorpoInfoSenha" xml:space="preserve">
     <value>Sua senha é:</value>
   </data>

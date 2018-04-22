@@ -16,6 +16,7 @@ namespace TGV.IPEFAE.Web.App.Models
         public string Telefone  { get; set; }
         public string Assunto   { get; set; }
         public string Mensagem  { get; set; }
+        public bool IsNovo      { get; set; } = false;
 
         public RecursoModel Recurso { get; set; }
 

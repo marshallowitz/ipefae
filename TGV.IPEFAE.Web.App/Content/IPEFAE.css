@@ -42,7 +42,9 @@ input[type=email]           { max-width: none; }
 
 .subtitulo                  { color: #000;  display: table; font-family: IPEFAE; font-size: 16px; font-weight: 600; margin: 0 auto; text-transform: none; }
 
-#footer                     { bottom:0px; height: 30px; left:0px; position:fixed; width:100%; z-index: 100; }
+.login-partial,
+.navbar-custom.logado       { z-index: 1071; }
+#footer                     { bottom:0px; height: 30px; left:0px; position:fixed; width:100%; z-index: 1071; }
 #footer-outer               { background-color: #C70303; border-color: #d35400; color: #fff; height: 30px; position: relative; z-index: 10; }
 #footer-outer .row          { margin-bottom: 0px; padding: 10px; }
 #footer p.footer            { font-size: 10px; line-height: 30px; position: absolute; text-align: center; top: 0; width: 100%; }
@@ -60,7 +62,7 @@ input[type=email]           { max-width: none; }
 .logomarca.topo             { top: 20px; }
 .logomarca.rodape .logo     { width: 60%; }
 .logomarca.topo .logo       { width: 40%; }
-.logomarca.logado           { cursor: pointer; position: fixed; z-index: 97; }
+.logomarca.logado           { cursor: pointer; position: fixed; z-index: 1072; }
 
 /* ----- Login ----- */
 .modal-open                                     { overflow-y: auto; padding-right: 0px !important; }

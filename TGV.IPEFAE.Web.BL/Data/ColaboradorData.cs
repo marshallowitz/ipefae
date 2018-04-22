@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web.Script.Serialization;
 
 namespace TGV.IPEFAE.Web.BL.Data
 {
@@ -9,7 +10,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return db.colaborador.SingleOrDefault(col => col.id == id).CopyObject<ColaboradorModel>();
+                return ColaboradorModel.Clone(db.colaborador.Include("tb_cid_cidade").Include("tb_cid_cidade1").SingleOrDefault(col => col.id == id));
             }
         }
 
@@ -45,43 +46,46 @@ namespace TGV.IPEFAE.Web.BL.Data
 
                 if (toUpdate == null) // Nao encontrou
                 {
+                    toUpdate = new colaborador();
                     db.colaborador.Add(toUpdate);
                     cM.ativo = true;
                 }
+                else
+                    cM.senha = null;
 
                 toUpdate.agencia = cM.agencia;
                 toUpdate.agencia_digito = cM.agencia_digito;
                 toUpdate.ativo = cM.ativo;
                 toUpdate.banco_id = cM.banco_id;
                 toUpdate.carteira_trabalho_estado_id = cM.carteira_trabalho_estado_id;
-                toUpdate.carteira_trabalho_nro = cM.carteira_trabalho_nro;
-                toUpdate.carteira_trabalho_serie = cM.carteira_trabalho_serie;
-                toUpdate.conta_corrente = cM.conta_corrente;
+                toUpdate.carteira_trabalho_nro = cM.carteira_trabalho_nro?.FirstCharOfEachWordToUpper();
+                toUpdate.carteira_trabalho_serie = cM.carteira_trabalho_serie?.FirstCharOfEachWordToUpper();
+                toUpdate.conta_corrente = cM.conta_corrente?.FirstCharOfEachWordToUpper();
                 toUpdate.raca_id = cM.raca_id;
                 toUpdate.cpf = cM.cpf;
                 toUpdate.data_nascimento = cM.data_nascimento;
                 toUpdate.email = cM.email;
-                toUpdate.endereco_bairro = cM.endereco_bairro;
+                toUpdate.endereco_bairro = cM.endereco_bairro?.FirstCharOfEachWordToUpper();
                 toUpdate.endereco_cep = cM.endereco_cep;
                 toUpdate.endereco_cidade_id = cM.endereco_cidade_id;
-                toUpdate.endereco_complemento = cM.endereco_complemento;
-                toUpdate.endereco_logradouro = cM.endereco_logradouro;
-                toUpdate.endereco_nro = cM.endereco_nro;
-                toUpdate.estado_civil = cM.estado_civil;
+                toUpdate.endereco_complemento = cM.endereco_complemento?.FirstCharOfEachWordToUpper();
+                toUpdate.endereco_logradouro = cM.endereco_logradouro?.FirstCharOfEachWordToUpper();
+                toUpdate.endereco_nro = cM.endereco_nro?.FirstCharOfEachWordToUpper();
+                toUpdate.estado_civil = cM.estado_civil?.FirstCharOfEachWordToUpper();
                 toUpdate.grau_instrucao_id = cM.grau_instrucao_id;
-                toUpdate.nacionalidade = cM.nacionalidade;
+                toUpdate.nacionalidade = cM.nacionalidade?.FirstCharOfEachWordToUpper();
                 toUpdate.naturalidade_cidade_id = cM.naturalidade_cidade_id;
-                toUpdate.nome = cM.nome;
-                toUpdate.nome_mae = cM.nome_mae;
-                toUpdate.nome_pai = cM.nome_pai;
-                toUpdate.pis_pasep_net = cM.pis_pasep_net;
-                toUpdate.rg = cM.rg;
+                toUpdate.nome = cM.nome?.FirstCharOfEachWordToUpper();
+                toUpdate.nome_mae = cM.nome_mae?.FirstCharOfEachWordToUpper();
+                toUpdate.nome_pai = cM.nome_pai?.FirstCharOfEachWordToUpper();
+                toUpdate.pis_pasep_net = cM.pis_pasep_net?.FirstCharOfEachWordToUpper();
+                toUpdate.rg = cM.rg?.FirstCharOfEachWordToUpper();
                 toUpdate.sexo_masculino = cM.sexo_masculino;
                 toUpdate.telefone_01 = cM.telefone_01;
                 toUpdate.telefone_02 = cM.telefone_02;
-                toUpdate.titulo_eleitor_nro = cM.titulo_eleitor_nro;
-                toUpdate.titulo_eleitor_secao = cM.titulo_eleitor_secao;
-                toUpdate.titulo_eleitor_zona = cM.titulo_eleitor_zona;
+                toUpdate.titulo_eleitor_nro = cM.titulo_eleitor_nro?.FirstCharOfEachWordToUpper();
+                toUpdate.titulo_eleitor_secao = cM.titulo_eleitor_secao?.FirstCharOfEachWordToUpper();
+                toUpdate.titulo_eleitor_zona = cM.titulo_eleitor_zona?.FirstCharOfEachWordToUpper();
 
                 if (!String.IsNullOrEmpty(cM.senha))
                     toUpdate.senha = cM.senha;
@@ -97,11 +101,13 @@ namespace TGV.IPEFAE.Web.BL.Data
     {
         #region [ Propriedades ]
 
-        public int id                           { get; set; }
+        public int id                           { get; set; } = 0;
         public int banco_id                     { get; set; }
         public int? carteira_trabalho_estado_id { get; set; }
         public int endereco_cidade_id           { get; set; }
+        public int endereco_estado_id           { get; set; } = 0;
         public int naturalidade_cidade_id       { get; set; }
+        public int naturalidade_estado_id       { get; set; } = 0;
         public string nome                      { get; set; }
         public string cpf                       { get; set; }
         public string rg                        { get; set; }
@@ -133,8 +139,29 @@ namespace TGV.IPEFAE.Web.BL.Data
         public string endereco_complemento      { get; set; }
         public bool ativo                       { get; set; }
 
+        [ScriptIgnore]
         public string senhaDescriptografada     { get; set; }
 
         #endregion [ FIM - Propriedades ]
+
+        #region [ Metodos ]
+
+        public static ColaboradorModel Clone(colaborador col)
+        {
+            if (col == null)
+                return null;
+
+            ColaboradorModel c = col.CopyObject<ColaboradorModel>();
+
+            if (col.tb_cid_cidade != null)
+                c.endereco_estado_id = col.tb_cid_cidade.est_idt_estado;
+
+            if (col.tb_cid_cidade1 != null)
+                c.naturalidade_estado_id = col.tb_cid_cidade1.est_idt_estado;
+
+            return c;
+        }
+
+        #endregion [ FIM - Metodos ]
     }
 }

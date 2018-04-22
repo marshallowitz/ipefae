@@ -63,6 +63,16 @@ function detectarBrowse()
     return "Não Detectado";
 }
 
+function firstLetterCapitalized(str)
+{
+    str = str.toLowerCase().replace(/\b[a-z]/g, function (letter)
+    {
+        return letter.toUpperCase();
+    });
+
+    return str;
+}
+
 function IsCEP(strCEP, blnVazio)
 {
     // Caso o CEP não esteja nesse formato ele é inválido!
@@ -254,6 +264,19 @@ function ajustarCelularSP(element) {
         element.mask('(00) 00000-0000');
     else
         element.mask('(00) 0000-0000');
+}
+
+function findInArray(array, key, value)
+{
+    if (!array)
+        return null;
+
+    for (var i = 0, len = array.length; i < len; i++) {
+        if (eval('array[' + i + '].' + key) === value)
+            return array[i];
+    }
+
+    return null;
 }
 
 function focusIn(ctl) {
