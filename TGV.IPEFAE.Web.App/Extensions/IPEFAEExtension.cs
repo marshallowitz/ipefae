@@ -20,34 +20,6 @@ namespace TGV.IPEFAE.Web.App.Extensions
 {
     public static class IPEFAEExtension
     {
-        public static ConcursosExtension ObterConcursosExtension(this List<ConcursoModel> concursos)
-        {
-            ConcursosExtension ce = new ConcursosExtension();
-
-            concursos.ForEach(con =>
-                {
-                    if (BaseBusiness.DataAgora < con.DataEncerramentoInscricoes)
-                        ce.Abertas.Add(con);
-                    else if (BaseBusiness.DataAgora >= con.DataEncerramentoInscricoes && !con.Encerrado)
-                        ce.EmAndamento.Add(con);
-                    else if (con.Encerrado && con.DataEncerramento >= BaseBusiness.DataAgora)
-                        ce.Encerradas.Add(con);
-                });
-
-            return ce;
-        }
-
-        public static string ToCargoString(this List<ConcursoModel.CargoModel> cargos)
-        {
-            StringBuilder sb = new StringBuilder();
-
-            cargos.Where(cco => cco.Ativo).ToList().ForEach(c => sb.AppendFormat(" {0} /", c.Nome.ToUpper()));
-
-            string listaCargos = sb.ToString();
-
-            return listaCargos.Substring(0, listaCargos.Length - 1).Trim();
-        }
-
         public static void Empty(this System.IO.DirectoryInfo directory)
         {
             foreach (System.IO.FileInfo file in directory.GetFiles()) file.Delete();
@@ -497,24 +469,6 @@ namespace TGV.IPEFAE.Web.App.Extensions
             if (string.IsNullOrEmpty(value)) return value;
             return value.Length <= maxLength ? value : value.Substring(0, maxLength);
         }
-    }
-
-    public class ConcursosExtension
-    {
-        public ConcursosExtension()
-        {
-            this.Abertas = new List<ConcursoModel>();
-            this.EmAndamento = new List<ConcursoModel>();
-            this.Encerradas = new List<ConcursoModel>();
-        }
-
-        public int TotalAbertas     { get { return this.Abertas.Count; } }
-        public int TotalEmAndamento { get { return this.EmAndamento.Count; } }
-        public int TotalEncerradas  { get { return this.Encerradas.Count; } }
-
-        public List<ConcursoModel> Abertas      { get; set; }
-        public List<ConcursoModel> EmAndamento  { get; set; }
-        public List<ConcursoModel> Encerradas   { get; set; }
     }
 
     public static class ControllerExtensions

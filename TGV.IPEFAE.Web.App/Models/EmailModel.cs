@@ -18,8 +18,6 @@ namespace TGV.IPEFAE.Web.App.Models
         public string Mensagem  { get; set; }
         public bool IsNovo      { get; set; } = false;
 
-        public RecursoModel Recurso { get; set; }
-
         public string UrlSite { get { return ConfigurationManager.AppSettings["URLAmbiente"]; } }
 
         public string UrlLogo

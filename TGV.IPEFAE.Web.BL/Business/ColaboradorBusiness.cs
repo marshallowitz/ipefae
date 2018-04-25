@@ -17,7 +17,9 @@ namespace TGV.IPEFAE.Web.BL.Business
 
         public static ColaboradorModel Obter(int id)
         {
-            return ColaboradorData.Obter(id);
+            ColaboradorModel colaborador = ColaboradorData.Obter(id);
+            colaborador.senhaDescriptografada = colaborador.senha.Descriptografar(BaseBusiness.ParametroSistema);
+            return colaborador;
         }
 
         public static ColaboradorModel ObterPorCPF(string cpf)

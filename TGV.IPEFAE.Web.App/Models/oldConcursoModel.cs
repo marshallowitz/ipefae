@@ -14,9 +14,9 @@ using TGV.IPEFAE.Web.BL.Data;
 
 namespace TGV.IPEFAE.Web.App.Models
 {
-    public class ConcursoModel
+    public class oldConcursoModel
     {
-        public ConcursoModel()
+        public oldConcursoModel()
         {
             this.Id = Int32.MinValue;
             this.IdTipoLayoutConcurso = 1;
@@ -32,7 +32,7 @@ namespace TGV.IPEFAE.Web.App.Models
             this.Recursos = new List<RecursoModel>();
         }
 
-        public ConcursoModel(tb_con_concurso concurso, bool noInscrito = false, bool noRecurso = false) : this()
+        public oldConcursoModel(tb_con_concurso concurso, bool noInscrito = false, bool noRecurso = false) : this()
         {
             if (concurso == null)
                 return;
@@ -370,7 +370,7 @@ namespace TGV.IPEFAE.Web.App.Models
                 {
                     if (inscrito.tb_con_concurso != null && inscrito.tb_con_concurso.con_idt_concurso > 0)
                     {
-                        ConcursoModel concurso = new ConcursoModel(inscrito.tb_con_concurso, true, noRecurso);
+                        oldConcursoModel concurso = new oldConcursoModel(inscrito.tb_con_concurso, true, noRecurso);
                         this.BancoCss = concurso.BancoCss;
                         this.DataEncerramentoInscricao = concurso.DataEncerramentoInscricoes;
                         this.DataVencimentoBoletoString = concurso.DataBoletoString;
@@ -825,7 +825,7 @@ namespace TGV.IPEFAE.Web.App.Models
 
         public class InscritoCSVModel
         {
-            public InscritoCSVModel(InscritoModel inscrito, ConcursoModel concurso)
+            public InscritoCSVModel(InscritoModel inscrito, oldConcursoModel concurso)
             {
                 this.ConcursoDescricao = concurso.Nome.ToUpper();
                 this.CargoDescricao = inscrito.ResultInscrito.cco_nom_cargo_concurso;
@@ -1015,12 +1015,12 @@ namespace TGV.IPEFAE.Web.App.Models
 
         public class InscritoVestibularCSVModel : InscritoCSVModel
         {
-            public InscritoVestibularCSVModel(InscritoModel inscrito, ConcursoModel concurso) : base(inscrito, concurso)
+            public InscritoVestibularCSVModel(InscritoModel inscrito, oldConcursoModel concurso) : base(inscrito, concurso)
             {
                 if (inscrito.InscritoVestibular == null || !inscrito.InscritoVestibular.Ativo)
                     return;
 
-                ConcursoModel.InscritoModel.InscritoVestibularModel iv = inscrito.InscritoVestibular;
+                oldConcursoModel.InscritoModel.InscritoVestibularModel iv = inscrito.InscritoVestibular;
 
                 this.Sexo = iv.EhMasculino ? Resources.Shared._DadosInscritoUniFae.OptionMasculino : Resources.Shared._DadosInscritoUniFae.OptionFeminino;
                 this.Opcao2 = !String.IsNullOrEmpty(inscrito.ResultInscrito.cco_nom_cargo_concurso_2) ? inscrito.ResultInscrito.cco_nom_cargo_concurso_2 : Resources.Shared._DadosInscritoUniFae.NaoInformado;
@@ -1216,7 +1216,7 @@ namespace TGV.IPEFAE.Web.App.Models
                 this.InscritosPorData = new Dictionary<string, int>();
             }
 
-            public ConcursoInscritosEstatisticaModel(ConcursoModel concurso) : this()
+            public ConcursoInscritosEstatisticaModel(oldConcursoModel concurso) : this()
             {
                 this.TotalInscritos = concurso.Inscritos.Count;
 

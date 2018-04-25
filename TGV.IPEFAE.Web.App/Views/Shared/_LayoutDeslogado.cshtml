@@ -21,8 +21,9 @@
     <div class="drop decor3_2" style="width: 300px;">
         <div class='left'>
             <div>
-                @Html.ActionLink(_Layout.MenuAreasItemEstagios, "Index", "Estagio", new { area = "Admin" }, new { @class = "decor3_2A" })
+                @Html.ActionLink("Colaboradores", "Index", "Colaborador", new { area = "Admin" }, new { @class = "decor3_2A" })
                 @Html.ActionLink(_Layout.MenuAreasItemConcursos, "Index", "Concurso", new { area = "Admin" }, new { @class = "decor3_2A" })
+                @Html.ActionLink(_Layout.MenuAreasItemEstagios, "Index", "Estagio", new { area = "Admin" }, new { @class = "decor3_2A" })
                 @Html.ActionLink(_Layout.MenuAreasItemUsuario, "Index", "Usuario", new { area = "Admin" }, new { @class = "decor3_2A" })
                 @*@Html.ActionLink(_Layout.MenuAreasItemVestibulares, "Index", "Vestibulares", new object { }, new { @class = "decor3_2A" })*@
             </div>
@@ -35,9 +36,9 @@
     <div class="drop decor3_2" style="width: 300px;">
         <div class='left'>
             <div>
-                @Html.ActionLink(_Layout.MenuAreasItemEstagios, "Index", "Estagio", new object { }, new { @class = "decor3_2A" })
-                @Html.ActionLink(_Layout.MenuAreasItemConcursos, "Index", "Concurso", new object { }, new { @class = "decor3_2A" })
                 @Html.ActionLink("Colaboradores", "Index", "Colaborador", new { area = "" }, new { @class = "decor3_2A" })
+                @Html.ActionLink(_Layout.MenuAreasItemConcursos, "Index", "Concurso", new { area = "" }, new { @class = "decor3_2A" })
+                @Html.ActionLink(_Layout.MenuAreasItemEstagios, "Index", "Estagio", new { area = "" }, new { @class = "decor3_2A" })
                 @*@Html.ActionLink(_Layout.MenuAreasItemCurriculo, "Cadastro", "Estagio", new object { }, new { @class = "decor3_2A" })*@
                 @*@Html.ActionLink(_Layout.MenuAreasItemVestibulares, "Index", "Vestibulares", new object { }, new { @class = "decor3_2A" })*@
             </div>

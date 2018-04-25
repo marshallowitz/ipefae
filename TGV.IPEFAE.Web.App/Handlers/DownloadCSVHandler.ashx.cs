@@ -37,36 +37,36 @@ namespace TGV.IPEFAE.Web.App.Handlers
 
         private void ProcessRequestForConcurso(HttpContext context, int id)
         {
-            tb_con_concurso concurso = ConcursoBusiness.Obter(id, false);
+            //tb_con_concurso concurso = ConcursoBusiness.Obter(id, false);
 
-            if (concurso == null)
-                return;
+            //if (concurso == null)
+            //    return;
 
-            ConcursoModel cModel = new ConcursoModel(concurso);
-            List<ConcursoModel.InscritoModel> iModels = InscritoConcursoBusiness.GerarListaInscritos(id).ConvertAll(ico => new ConcursoModel.InscritoModel(ico));
-            string fileName = String.Format("{1}_{0}.csv", cModel.NomeSemEspaco, cModel.Data.ToString("yyyyMMdd"));
-            byte[] fileBytes = null;
+            //oldConcursoModel cModel = new oldConcursoModel(concurso);
+            //List<oldConcursoModel.InscritoModel> iModels = InscritoConcursoBusiness.GerarListaInscritos(id).ConvertAll(ico => new oldConcursoModel.InscritoModel(ico));
+            //string fileName = String.Format("{1}_{0}.csv", cModel.NomeSemEspaco, cModel.Data.ToString("yyyyMMdd"));
+            //byte[] fileBytes = null;
 
-            if (cModel.IdTipoLayoutConcurso == 1)
-            {
-                List<ConcursoModel.InscritoCSVModel> iCSVs = iModels.ConvertAll(i => new ConcursoModel.InscritoCSVModel(i, cModel));
-                fileBytes = WriteCsvWithHeaderToMemory(iCSVs, true);
-            }
-            else
-            {
-                List<ConcursoModel.InscritoVestibularCSVModel> iCSVs = iModels.ConvertAll(i => new ConcursoModel.InscritoVestibularCSVModel(i, cModel));
-                fileBytes = WriteCsvWithHeaderToMemory(iCSVs, true);
-            }
+            //if (cModel.IdTipoLayoutConcurso == 1)
+            //{
+            //    List<oldConcursoModel.InscritoCSVModel> iCSVs = iModels.ConvertAll(i => new oldConcursoModel.InscritoCSVModel(i, cModel));
+            //    fileBytes = WriteCsvWithHeaderToMemory(iCSVs, true);
+            //}
+            //else
+            //{
+            //    List<oldConcursoModel.InscritoVestibularCSVModel> iCSVs = iModels.ConvertAll(i => new oldConcursoModel.InscritoVestibularCSVModel(i, cModel));
+            //    fileBytes = WriteCsvWithHeaderToMemory(iCSVs, true);
+            //}
 
-            context.Response.Clear();
-            MemoryStream ms = new MemoryStream(fileBytes);
-            context.Response.ContentType = "text/csv";
-            context.Response.AddHeader("content-disposition", String.Format("attachment;filename={0}", fileName));
-            context.Response.Buffer = true;
-            ms.WriteTo(context.Response.OutputStream);
-            context.Response.Flush(); // Sends all currently buffered output to the client.
-            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
-            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+            //context.Response.Clear();
+            //MemoryStream ms = new MemoryStream(fileBytes);
+            //context.Response.ContentType = "text/csv";
+            //context.Response.AddHeader("content-disposition", String.Format("attachment;filename={0}", fileName));
+            //context.Response.Buffer = true;
+            //ms.WriteTo(context.Response.OutputStream);
+            //context.Response.Flush(); // Sends all currently buffered output to the client.
+            //context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+            //context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
 
         }
 

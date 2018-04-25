@@ -16,8 +16,8 @@ namespace TGV.IPEFAE.Web.BL.Data
     {
         public concurso()
         {
-            this.concurso_funcao = new HashSet<concurso_funcao>();
             this.concurso_local = new HashSet<concurso_local>();
+            this.concurso_funcao = new HashSet<concurso_funcao>();
         }
     
         public int id { get; set; }
@@ -25,7 +25,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public System.DateTime data { get; set; }
         public bool ativo { get; set; }
     
-        public virtual ICollection<concurso_funcao> concurso_funcao { get; set; }
         public virtual ICollection<concurso_local> concurso_local { get; set; }
+        public virtual ICollection<concurso_funcao> concurso_funcao { get; set; }
     }
 }

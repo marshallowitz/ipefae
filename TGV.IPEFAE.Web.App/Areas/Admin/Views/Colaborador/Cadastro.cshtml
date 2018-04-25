@@ -8,3 +8,15 @@
 </script>
 
 <input type="hidden" id="hdnIsAdmin" value="1" />
+
+<fieldset class="area_adm">
+    <legend>Área Administrativa</legend>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Senha</label><br />
+            <input type="password" style="width: 50%;" readonly class="form-control" name="senhaAdmin" id="txtSenhaAdmin" ng-model="colaborador.senhaDescriptografada" />
+            <input id="chkVer" type="checkbox" onclick="exibirSenha()" />Exibir Senha
+        </div>
+    </div>
+</fieldset>
+<br />

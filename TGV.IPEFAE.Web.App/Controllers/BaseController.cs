@@ -30,45 +30,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
 
         #region [ Sessions ]
 
-        protected const string _nomeSessionConcursoSelecionado = "ConcursoSelecionadoSession";
-        protected const string _nomeSessionTodosConcursos = "TodosConcursosSession";
         protected const string _nomeSessionEhGestor = "EhGestor";
-
-        protected List<ConcursoModel> TodosConcursos
-        {
-            get
-            {
-                if (System.Web.HttpContext.Current.Session == null || System.Web.HttpContext.Current.Session[_nomeSessionTodosConcursos] == null)
-                {
-                    return new List<ConcursoModel>();
-                }
-
-                return (List<ConcursoModel>)System.Web.HttpContext.Current.Session[_nomeSessionTodosConcursos];
-            }
-
-            set
-            {
-                System.Web.HttpContext.Current.Session[_nomeSessionTodosConcursos] = value;
-            }
-        }
-
-        protected ConcursoModel ConcursoSelecionado
-        {
-            get
-            {
-                if (System.Web.HttpContext.Current.Session == null || System.Web.HttpContext.Current.Session[_nomeSessionConcursoSelecionado] == null)
-                {
-                    return new ConcursoModel();
-                }
-
-                return (ConcursoModel)System.Web.HttpContext.Current.Session[_nomeSessionConcursoSelecionado];
-            }
-
-            set
-            {
-                System.Web.HttpContext.Current.Session[_nomeSessionConcursoSelecionado] = value;
-            }
-        }
 
         public static bool EhGestor
         {
@@ -193,28 +155,6 @@ namespace TGV.IPEFAE.Web.App.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        public void EnviarEmailRecurso(RecursoModel recurso, string partialViewEmail, string tituloEmailResource, bool atendente)
-        {
-            // Envia e-mail
-            string tituloEmail = String.Format(tituloEmailResource, recurso.Concurso.Nome, recurso.Protocolo);
-            string email = recurso.Inscrito.Email;
-            string corpoEmail = MontarCorpoEmailRecurso(recurso, tituloEmail, partialViewEmail);
-
-            List<string> anexos = new List<string>();
-            string pathFiles = atendente ? recurso.PathAnexosAtendente : recurso.PathAnexosRequerente;
-            string pathTotal = Server.MapPath(pathFiles);
-
-            if (Directory.Exists(pathTotal))
-            {
-                string[] files = IPEFAEExtension.GetFiles(pathTotal, "*.pdf|*.doc|*.docx", SearchOption.TopDirectoryOnly);
-
-                foreach (string filePath in files)
-                    anexos.Add(filePath);
-            }
-
-            EmailBusiness.EnviarEmail(email, BaseBusiness.EmailNaoRespondaIPEFAE, BaseBusiness.NomeNaoRespondaIPEFAE, tituloEmail, corpoEmail, true, anexos);
-        }
-
         public ActionResult ListarAnexos(string pathAnexos)
         {
             string pathTotal = Server.MapPath(pathAnexos);
@@ -257,33 +197,6 @@ namespace TGV.IPEFAE.Web.App.Controllers
             //LogErroBusiness.Salvar(logErro);
 
             return Json(true, JsonRequestBehavior.AllowGet);
-        }
-
-        private string MontarCorpoEmailRecurso(RecursoModel recurso, string assunto, string partialViewEmail)
-        {
-            EmailModel eModel = new EmailModel();
-            eModel.Nome = recurso.Inscrito.Nome;
-            eModel.Matricula = recurso.Inscrito.NroMatricula;
-            eModel.Email = recurso.Inscrito.Email;
-            eModel.Assunto = assunto;
-            eModel.Recurso = recurso;
-            eModel.Recurso.Mensagem = eModel.Recurso.Mensagem.Replace("\n", "<br />");
-            eModel.Recurso.Comentario = String.IsNullOrEmpty(eModel.Recurso.Comentario) ? String.Empty : eModel.Recurso.Comentario.Replace("\n", "<br />");
-
-            // Caso não tenha cargo, vai buscar
-            string nomeCargo = recurso.Inscrito.NomeCargo;
-
-            if (String.IsNullOrEmpty(nomeCargo))
-            {
-                tb_cco_cargo_concurso cco = ConcursoBusiness.ObterCargoInscritoCandidato(recurso.Inscrito.Id);
-
-                if (cco != null)
-                    nomeCargo = cco.cco_nom_cargo_concurso;
-            }
-
-            eModel.Cargo = nomeCargo;
-
-            return System.Web.HttpUtility.HtmlDecode(this.PartialViewToString(String.Format("~/Views/Email/{0}.cshtml", partialViewEmail), eModel));
         }
 
         public static string ObterHtmlFromURL(string urlAddress, byte[] postData = null, string parameters = null)
@@ -480,28 +393,8 @@ namespace TGV.IPEFAE.Web.App.Controllers
             switch (idt)
             {
                 case 2:
-                    eModel.Recurso = new RecursoModel()
-                    {
-                        Comentario = "Teste de comentário de resposta",
-                        Concurso = new ConcursoModel() { Nome = "Nome do Concurso" },
-                        DataAbertura = DateTime.Today,
-                        Inscrito = new ConcursoModel.InscritoModel() { Nome = "João da Silva" },
-                        Mensagem = eModel.Mensagem,
-                        Status = RecursoModel.StatusRecurso.Recusado
-                    };
-
                     return Json(System.Web.HttpUtility.HtmlDecode(this.PartialViewToString("~/Views/Email/_HtmlRespostaRecurso.cshtml", eModel)), JsonRequestBehavior.AllowGet);
                 case 3:
-                    eModel.Recurso = new RecursoModel()
-                    {
-                        Comentario = "Teste de comentário de resposta",
-                        Concurso = new ConcursoModel() { Nome = "Nome do Concurso" },
-                        DataAbertura = DateTime.Today,
-                        Inscrito = new ConcursoModel.InscritoModel() { Nome = "João da Silva" },
-                        Mensagem = eModel.Mensagem,
-                        Status = RecursoModel.StatusRecurso.Recusado
-                    };
-
                     return Json(System.Web.HttpUtility.HtmlDecode(this.PartialViewToString("~/Views/Email/_HtmlAberturaRecurso.cshtml", eModel)), JsonRequestBehavior.AllowGet);
                 default:
                     return Json(System.Web.HttpUtility.HtmlDecode(this.PartialViewToString("~/Views/Email/_HtmlContato.cshtml", eModel)), JsonRequestBehavior.AllowGet);

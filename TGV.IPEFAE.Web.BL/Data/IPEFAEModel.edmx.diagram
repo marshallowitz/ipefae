@@ -59,8 +59,6 @@
         <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.concurso_local_colaborador" Width="1.5" PointX="18.625" PointY="18.5" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_local" />
         <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.concurso" Width="1.5" PointX="5.125" PointY="12.75" />
-        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.concurso_funcao" Width="1.5" PointX="7.375" PointY="44.625" />
-        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_concurso" />
         <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.colaborador" Width="1.5" PointX="13.375" PointY="24.25" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_banco" />
@@ -70,6 +68,8 @@
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_tb_cid_cidade_naturalidade" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_tb_est_estado" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_colaborador" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.concurso_funcao" Width="1.5" PointX="7.375" PointY="44.625" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -38,21 +38,21 @@ namespace TGV.IPEFAE.Web.App.Handlers
 
         private void ProcessRequestForRemessaBoleto(HttpContext context, int id)
         {
-            string fileName = String.Format("{0}.txt", BaseBusiness.DataAgora.ToString("yyyyMMddHHmmss"));
-            BoletoModel bm = new BoletoModel();
-            byte[] fileBytes = bm.GerarRemessa(id);
+            //string fileName = String.Format("{0}.txt", BaseBusiness.DataAgora.ToString("yyyyMMddHHmmss"));
+            //BoletoModel bm = new BoletoModel();
+            //byte[] fileBytes = bm.GerarRemessa(id);
 
-            context.Session["GerouTXT"] = true;
+            //context.Session["GerouTXT"] = true;
 
-            context.Response.Clear();
-            MemoryStream ms = new MemoryStream(fileBytes);
-            context.Response.ContentType = "text/txt";
-            context.Response.AddHeader("content-disposition", String.Format("attachment;filename={0}", fileName));
-            context.Response.Buffer = true;
-            ms.WriteTo(context.Response.OutputStream);
-            context.Response.Flush(); // Sends all currently buffered output to the client.
-            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
-            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+            //context.Response.Clear();
+            //MemoryStream ms = new MemoryStream(fileBytes);
+            //context.Response.ContentType = "text/txt";
+            //context.Response.AddHeader("content-disposition", String.Format("attachment;filename={0}", fileName));
+            //context.Response.Buffer = true;
+            //ms.WriteTo(context.Response.OutputStream);
+            //context.Response.Flush(); // Sends all currently buffered output to the client.
+            //context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+            //context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
 
         }
 

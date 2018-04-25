@@ -151,6 +151,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         [ScriptIgnore]
         public string senhaDescriptografada     { get; set; }
 
+        public string codigo                    { get { return this.id.ToString().PadLeft(6, '0'); } }
         public string cpf_formatado             { get { return BaseData.FormatarCPF(this.cpf); } }
         public string telefone_01_formatado     { get { return BaseData.FormatarFone(this.telefone_01); } }
         public string telefone_02_formatado     { get { return BaseData.FormatarFone(this.telefone_02, true); } }

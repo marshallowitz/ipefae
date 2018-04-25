@@ -81,6 +81,7 @@
       <DependentUpon>IPEFAEModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\BancoData.cs" />
+    <Compile Include="Data\ConcursoData.cs" />
     <Compile Include="Data\RacaData.cs" />
     <Compile Include="Data\GrauInstrucaoData.cs" />
     <Compile Include="Data\ColaboradorData.cs" />
@@ -199,7 +200,7 @@
     <Compile Include="Data\tb_usu_usuario.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\ConcursoData.cs" />
+    <Compile Include="Data\oldConcursoData.cs" />
     <Compile Include="Data\CidadeData.cs" />
     <Compile Include="Data\EmpresaData.cs" />
     <Compile Include="Data\UsuarioEstagioData.cs" />

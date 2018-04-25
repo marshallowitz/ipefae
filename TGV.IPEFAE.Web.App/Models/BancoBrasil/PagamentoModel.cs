@@ -8,20 +8,20 @@ namespace TGV.IPEFAE.Web.App.Models.BancoBrasil
 {
     public class PagamentoModel
     {
-        public PagamentoModel(ConcursoModel.InscritoModel inscrito, string nomeConcurso, string cargo, string tipo, int idConv, string refTran, double valor, string dtVenc)
-        {
-            this.msgLoja = String.Format("Pagamento de Taxa de Inscrição<br><br>CONCURSO: {0}<br>{2}: {1}<br><br>Não receber após o vencimento", nomeConcurso, cargo, tipo);
-            this.idConv = idConv;
-            this.refTran = refTran;
-            this.valor = Convert.ToInt32(valor * 100);
-            this.dtVenc = dtVenc;
-            this.cpfCnpj = inscrito.CPF;
-            this.nome = inscrito.Nome;
-            this.endereco = inscrito.Endereco;
-            this.cidade = inscrito.Cidade.Nome;
-            this.uf = inscrito.SiglaEstado;
-            this.cep = inscrito.CEP.Replace("-", "");
-        }
+        //public PagamentoModel(oldConcursoModel.InscritoModel inscrito, string nomeConcurso, string cargo, string tipo, int idConv, string refTran, double valor, string dtVenc)
+        //{
+        //    this.msgLoja = String.Format("Pagamento de Taxa de Inscrição<br><br>CONCURSO: {0}<br>{2}: {1}<br><br>Não receber após o vencimento", nomeConcurso, cargo, tipo);
+        //    this.idConv = idConv;
+        //    this.refTran = refTran;
+        //    this.valor = Convert.ToInt32(valor * 100);
+        //    this.dtVenc = dtVenc;
+        //    this.cpfCnpj = inscrito.CPF;
+        //    this.nome = inscrito.Nome;
+        //    this.endereco = inscrito.Endereco;
+        //    this.cidade = inscrito.Cidade.Nome;
+        //    this.uf = inscrito.SiglaEstado;
+        //    this.cep = inscrito.CEP.Replace("-", "");
+        //}
 
         public int idConv                   { get; set; }
         public string refTran               { get; set; }

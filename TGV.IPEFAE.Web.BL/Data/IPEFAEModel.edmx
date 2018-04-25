@@ -68,7 +68,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="concurso_id" Type="int" Nullable="false" />
           <Property Name="funcao" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="valor_liquido" Type="numeric" Precision="9" Scale="2" Nullable="false" />
@@ -1169,11 +1169,6 @@
             <End Role="concurso_local_colaborador" EntitySet="concurso_local_colaborador" />
           </AssociationSet>
           <EntitySet Name="concurso" EntityType="TGV.IPEFAE.Web.Data.concurso" />
-          <EntitySet Name="concurso_funcao" EntityType="TGV.IPEFAE.Web.Data.concurso_funcao" />
-          <AssociationSet Name="FK_concurso_funcao_concurso" Association="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso">
-            <End Role="concurso" EntitySet="concurso" />
-            <End Role="concurso_funcao" EntitySet="concurso_funcao" />
-          </AssociationSet>
           <AssociationSet Name="FK_concurso_local_concurso" Association="TGV.IPEFAE.Web.Data.FK_concurso_local_concurso">
             <End Role="concurso" EntitySet="concurso" />
             <End Role="concurso_local" EntitySet="concurso_local" />
@@ -1206,6 +1201,11 @@
           <AssociationSet Name="FK_concurso_local_colaborador_colaborador" Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_colaborador">
             <End Role="colaborador" EntitySet="colaborador" />
             <End Role="concurso_local_colaborador" EntitySet="concurso_local_colaborador" />
+          </AssociationSet>
+          <EntitySet Name="concurso_funcao" EntityType="TGV.IPEFAE.Web.Data.concurso_funcao" />
+          <AssociationSet Name="FK_concurso_funcao_concurso" Association="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso">
+            <End Role="concurso" EntitySet="concurso" />
+            <End Role="concurso_funcao" EntitySet="concurso_funcao" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="tb_usu_usuario">
@@ -2055,33 +2055,9 @@
           <Property Name="nome" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ativo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="concurso_funcao" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso" FromRole="concurso" ToRole="concurso_funcao" />
           <NavigationProperty Name="concurso_local" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_local_concurso" FromRole="concurso" ToRole="concurso_local" />
+          <NavigationProperty Name="concurso_funcao" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso" FromRole="concurso" ToRole="concurso_funcao" />
         </EntityType>
-        <EntityType Name="concurso_funcao">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="concurso_id" Type="Int32" Nullable="false" />
-          <Property Name="funcao" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="valor_liquido" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="sem_desconto" Type="Boolean" Nullable="false" />
-          <Property Name="ativo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="concurso" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso" FromRole="concurso_funcao" ToRole="concurso" />
-        </EntityType>
-        <Association Name="FK_concurso_funcao_concurso">
-          <End Type="TGV.IPEFAE.Web.Data.concurso" Role="concurso" Multiplicity="1" />
-          <End Type="TGV.IPEFAE.Web.Data.concurso_funcao" Role="concurso_funcao" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="concurso">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="concurso_funcao">
-              <PropertyRef Name="concurso_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_concurso_local_concurso">
           <End Type="TGV.IPEFAE.Web.Data.concurso" Role="concurso" Multiplicity="1" />
           <End Type="TGV.IPEFAE.Web.Data.concurso_local" Role="concurso_local" Multiplicity="*" />
@@ -2222,6 +2198,30 @@
             </Principal>
             <Dependent Role="concurso_local_colaborador">
               <PropertyRef Name="colaborador_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="concurso_funcao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="concurso_id" Type="Int32" Nullable="false" />
+          <Property Name="funcao" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="valor_liquido" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="sem_desconto" Type="Boolean" Nullable="false" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="concurso" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso" FromRole="concurso_funcao" ToRole="concurso" />
+        </EntityType>
+        <Association Name="FK_concurso_funcao_concurso">
+          <End Type="TGV.IPEFAE.Web.Data.concurso" Role="concurso" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.concurso_funcao" Role="concurso_funcao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="concurso">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="concurso_funcao">
+              <PropertyRef Name="concurso_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2751,18 +2751,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="concurso_funcao">
-            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.concurso_funcao">
-              <MappingFragment StoreEntitySet="concurso_funcao">
-                <ScalarProperty Name="ativo" ColumnName="ativo" />
-                <ScalarProperty Name="sem_desconto" ColumnName="sem_desconto" />
-                <ScalarProperty Name="valor_liquido" ColumnName="valor_liquido" />
-                <ScalarProperty Name="funcao" ColumnName="funcao" />
-                <ScalarProperty Name="concurso_id" ColumnName="concurso_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="colaborador">
             <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.colaborador">
               <MappingFragment StoreEntitySet="colaborador">
@@ -2800,6 +2788,18 @@
                 <ScalarProperty Name="endereco_cidade_id" ColumnName="endereco_cidade_id" />
                 <ScalarProperty Name="carteira_trabalho_estado_id" ColumnName="carteira_trabalho_estado_id" />
                 <ScalarProperty Name="banco_id" ColumnName="banco_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="concurso_funcao">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.concurso_funcao">
+              <MappingFragment StoreEntitySet="concurso_funcao">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="sem_desconto" ColumnName="sem_desconto" />
+                <ScalarProperty Name="valor_liquido" ColumnName="valor_liquido" />
+                <ScalarProperty Name="funcao" ColumnName="funcao" />
+                <ScalarProperty Name="concurso_id" ColumnName="concurso_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

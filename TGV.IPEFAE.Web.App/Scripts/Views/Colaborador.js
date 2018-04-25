@@ -1,6 +1,15 @@
-﻿function editar(id)
+﻿function editar(codigo)
 {
+    var id = parseInt(codigo);
     window.location.href = homePage + 'Admin/Colaborador/Cadastro/' + id;
+}
+
+function exibirSenha()
+{
+    if ($('#chkVer').is(':checked'))
+        $('#txtSenhaAdmin').attr('type', 'text');
+    else
+        $('#txtSenhaAdmin').attr('type', 'password');
 }
 
 function iniciarTelaListaColaboradores()
@@ -128,7 +137,7 @@ function montarTabela()
             {
                 "bLengthChange": false,
                 "order": [[1, "asc"]],
-                "aoColumnDefs": [{ "bSortable": false, "aTargets": [0, 3, 5 ] }],
+                "aoColumnDefs": [{ "bSortable": false, "aTargets": [3, 5 ] }],
                 "language": {
                     "url": urlDataTable
                 }
@@ -307,7 +316,7 @@ function reenviarSenha()
             $scope.errorList.raca = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.telefone = { enable: false, ind: -1, validacoes: ['brPhoneNumber'] };
             $scope.errorList.celular = { enable: false, ind: -1, validacoes: ['brPhoneNumber'] };
-            $scope.errorList.pisPasepNet = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.pisPasepNet = { enable: false, ind: -1, validacoes: ['minlength'] };
             $scope.errorList.nacionalidade = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.naturalidadeEstado = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.naturalidadeCidade = { enable: false, ind: -1, validacoes: undefined };
@@ -334,23 +343,28 @@ function reenviarSenha()
             $scope.buscarColaborador = function(id)
             {
                 var url = homePage + 'Colaborador/Obter';
+                var isAdmin = $scope.isAdmin || false;
+
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: { id: id },
+                    data: { id: id, isAdmin: isAdmin },
                     success: function (retorno)
                     {
                         if (retorno.Sucesso)
                         {
                             $scope.colaborador = retorno.Colaborador;
                             $scope.id = $scope.colaborador.id;
+                            
+                            if (isAdmin)
+                                $scope.colaborador.senhaDescriptografada = retorno.SD;
+
                             $scope.carregarColaborador();
                         }
+                        else
+                            $timeout(function () { $('.container.body-content').removeClass('whirl'); }, 500);
                     },
-                    error: function (xhr, ajaxOptions, thrownError)
-                    {
-                        alertaErroJS({ NomeFuncao: 'buscarColaborador()', ResponseText: xhr.responseText });
-                    }
+                    error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'buscarColaborador()', ResponseText: xhr.responseText }); }
                 });
             }
 

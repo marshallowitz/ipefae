@@ -66,15 +66,12 @@ namespace TGV.IPEFAE.Web.App.Controllers
             return Json(new { Bancos = bancos, Estados = estados, GrausInstrucao = grausInstrucao, Racas = racas }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Obter(int id)
+        public ActionResult Obter(int id, bool isAdmin)
         {
             ColaboradorModel cM = ColaboradorBusiness.Obter(id);
-            bool sucesso = false;
+            bool sucesso = (cM != null);
 
-            if (cM != null)
-                sucesso = true;
-
-            return Json(new { Sucesso = sucesso, Colaborador = cM }, JsonRequestBehavior.AllowGet);
+            return Json(new { Sucesso = sucesso, Colaborador = cM, SD = isAdmin ? cM?.senhaDescriptografada : null }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult RealizarLogin(string email, string senha)

@@ -1,56 +1,26 @@
-﻿@using TGV.IPEFAE.Web.Resources.Admin.Concurso;
-@model List<TGV.IPEFAE.Web.App.Models.ConcursoModel>
-
-<style>
-    div.mensagem.erro { background-color: #F2DCDB; border-color: #C00000; border-radius: 4px; color: #C00000; margin-top: 25px; padding: 2px; position: initial; text-align: center; }
-</style>
+﻿@model List<TGV.IPEFAE.Web.BL.Data.ConcursoModel>
 
 @if (Model.Count > 0)
 {
-    <table id="tblConcursos" class="table table-striped table-bordered table-hover" summary="@Index.Summary">
-        <caption>@Index.TituloTela</caption>
+    <table id="tblConcursos" class="table table-striped table-bordered table-hover" summary="Lista de Concursos">
+        <caption>Lista de Concursos</caption>
         <thead>
-            <tr style="font-size: 12px;">
-                <th scope="col" style="display: none">#</th>@* -- id -- *@
-                <th scope="col" style="width: 300px;">@Index.ColunaConcurso</th>
-                <th scope="col" style="display: none">@Index.ColunaData</th>
-                <th scope="col" style="min-width: 75px;">@Index.ColunaCargos</th>
-                <th scope="col" style="min-width: 75px;">@Index.ColunaInscritos</th>
-                <th scope="col" style="min-width: 75px;">@Index.ColunaPagos</th>
-                <th scope="col">@Index.ColunaAtivo</th>
-                <th scope="col">@Index.ColunaCSV</th>
-                <th scope="col">@Index.ColunaRecursos</th>
-                <th scope="col" style="width: 125px;"></th>
+            <tr>
+                <th scope="col">Código</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Data</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (TGV.IPEFAE.Web.App.Models.ConcursoModel concurso in Model)
+            @foreach (TGV.IPEFAE.Web.BL.Data.ConcursoModel concurso in Model)
             {
-                <tr id="linha_@concurso.Id">
-                    <td style="display: none"><span>@concurso.Id</span></td>
-                    <td>@concurso.Nome</td>
-                    <td class="text-center" style="display: none">@concurso.DataString</td>
-                    <td class="text-center">@concurso.QuantidadeCargos</td>
-                    <td class="text-center">@concurso.QuantidadeInscritos</td>
-                    <td class="text-center">@concurso.QuantidadePagos</td>
-                    <td><div class="icons @Html.Raw(concurso.Ativo ? "checked" : "unchecked")" style="cursor: default;"></div></td>
+                <tr>
+                    <td><span>@concurso.codigo</span></td>
+                    <td>@concurso.nome</td>
+                    <td>@concurso.data_formatada</td>
                     <td class="acao">
-                        <div class="@Html.Raw(concurso.QuantidadeInscritos > 0 ? "excel" : "excel-preto") icons" title="@Index.TitleCSV"></div>
-                    </td>
-                    <td class="acao">
-                        @{ string alerta = concurso.Recursos.Count(r => r.Status == TGV.IPEFAE.Web.App.Models.RecursoModel.StatusRecurso.Novo) > 0 ? "" : "display: none;"; }
-                        <img id="imgExisteRecurso" src="@Url.Content("~/Content/imagens/alert.png")" style="@Html.Raw(String.Format("{0}float: right; position: relative; width: 16px; top: -5px;", alerta))" />
-                        <div class="recurso icons" title="@Index.TitleRecursos"></div>
-                    </td>
-                    <td class="acao text-center" style="padding-left: 0px; padding-right: 0px;">
-                        <div style="transform: translateX(10%);">
-                            <div class="fa fa-2x fa-pencil editar" style="cursor: pointer; float: left;" title="@Index.TitleEditar"></div>
-                            <div class="fa fa-2x fa-users inscrito" style="cursor: pointer; float: left;" title="@Index.TitleGerenciarInscritos"></div>
-                            <div class="fa fa-2x fa-sort-numeric-asc btnClassificacao" style="cursor: pointer; float: left;" onclick="abrirModalBuscaInscrito(@concurso.Id, 3, '@concurso.Nome');" title="@Index.TitleClassificacao"></div>
-                            <div class="fa fa-2x fa-info-circle btnComprovante" style="cursor: pointer; float: left;" onclick="abrirModalBuscaInscrito(@concurso.Id, 2, '@concurso.Nome');" title="@Index.TitleCartaoCandidato"></div>
-                            @*<div class="fa fa-2x fa-files-o download-remessa" style="float: left;" title="@Index.TitleDownloadRemessa"></div>*@
-                            <div class="fa fa-2x fa-times excluir" style="cursor: pointer; float: left;" title="Excluir Concurso"></div>
-                        </div>
+                        <div class="icons editar" title="Editar"></div>
                     </td>
                 </tr>
             }
@@ -59,13 +29,11 @@
 }
 else
 {
-    <table class="table table-striped table-bordered table-hover" summary="@Index.NenhumConcursoEncontrado">
+    <table class="table table-striped table-bordered table-hover" summary="Nenhum concurso foi encontrado">
         <thead>
             <tr>
-                <th scope="col">@Index.NenhumConcursoEncontrado</th>
+                <th scope="col">Nenhum concurso foi encontrado</th>
             </tr>
         </thead>
     </table>
 }
-
-<section id="modal-boleto"></section>

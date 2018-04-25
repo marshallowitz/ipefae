@@ -279,6 +279,23 @@ function findInArray(array, key, value)
     return null;
 }
 
+function findInArrayIndex(array, key, value)
+{
+    if (!array)
+        return null;
+
+    for (var i = 0, len = array.length; i < len; i++) {
+        if (Array.isArray(key)) {
+            if (findInArrayValidateMultiple(array[i], key, value))
+                return i;
+        }
+        else if (eval('array[' + i + '].' + key) === value)
+            return i;
+    }
+
+    return null;
+}
+
 function focusIn(ctl) {
     ctl.mask('(00) 00000-0000');
 }

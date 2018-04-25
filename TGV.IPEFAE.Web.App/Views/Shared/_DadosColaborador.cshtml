@@ -13,12 +13,19 @@
 <h2 class="titulo" style="margin-top: 30px;">Cadastro de Colaborador <a href="javascript:void(0)" ng-if="id > 0">Alterar Senha</a></h2> 
 
 <div class="container marginBottom-30" ng-controller="colaboradorController">
-    @RenderBody()
     <input type="hidden" id="hdnId" value="@Model.id" />
     <div class="row centro">
         <form id="colCadastroForm" name="colCadastroForm" class="colCadastroForm form-validate" novalidate="">
             <fieldset>
                 <legend>Dados Pessoais</legend>
+                <div class="row" ng-show="colaborador.id > 0">
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error': errorList.nroEndereco.enable}">
+                            <label>Código</label>
+                            <input type="text" class="form-control" name="codigo" id="txtCodigo" ng-model="colaborador.codigo" readonly />
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group" ng-class="{'has-error': errorList.nome.enable}">
@@ -109,7 +116,7 @@
                     <div class="col-md-4">
                         <div class="form-group" ng-class="{'has-error': errorList.pisPasepNet.enable}">
                             <label>PIS, PASEP ou NET</label><em>*</em>
-                            <input type="text" class="form-control" name="pisPasepNet" id="txtPisPasepNet" ng-model="colaborador.pis_pasep_net" maxlength="11" required uib-tooltip="{{getErrorMessage('pisPasepNet', ['O PIS, PASEP ou NET é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.pisPasepNet.enable" />
+                            <input type="text" class="form-control" name="pisPasepNet" id="txtPisPasepNet" ng-model="colaborador.pis_pasep_net" ng-minlength="11" maxlength="11" required uib-tooltip="{{getErrorMessage('pisPasepNet', ['O PIS, PASEP ou NET é obrigatório', 'O tamanho mínimo é de 11 caracteres'])}}" tooltip-placement="top" tooltip-is-open="errorList.pisPasepNet.enable" />
                         </div>
                     </div>
                 </div>
@@ -247,15 +254,13 @@
             <fieldset>
                 <legend>Dados Bancários</legend>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <div class="form-group" ng-class="{'has-error': errorList.banco.enable}">
                             <label>Banco</label><em>*</em>
                             <select id="ddlBanco" name="banco" class="form-control" ng-options="banco as banco.nome for banco in listas.bancos track by banco.id" ng-model="colaborador.banco" required uib-tooltip="{{getErrorMessage('banco', ['O banco é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.banco.enable"></select>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group" ng-class="{'has-error': errorList.agencia.enable}">
                             <label>Agência</label><em>*</em>
                             <input type="text" class="form-control" name="agencia" id="txtAgencia" ng-model="colaborador.agencia" maxlength="4" required uib-tooltip="{{getErrorMessage('agencia', ['A agência bancária é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.agencia.enable" />
@@ -267,7 +272,7 @@
                             <input type="text" class="form-control" name="agenciaDigito" id="txtAgenciaDigito" ng-model="colaborador.agencia_digito" maxlength="1" required uib-tooltip="{{getErrorMessage('agenciaDigito', ['O dígito da agência bancária é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.agenciaDigito.enable" />
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group" ng-class="{'has-error': errorList.contaCorrente.enable}">
                             <label>Conta Corrente</label><em>*</em>
                             <input type="text" class="form-control" name="contaCorrente" id="txtContaCorrente" ng-model="colaborador.conta_corrente" maxlength="20" required uib-tooltip="{{getErrorMessage('contaCorrente', ['A conta corrente é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.contaCorrente.enable" />
@@ -276,6 +281,27 @@
                 </div>
             </fieldset>
             <br />
+            <div class="row"ng-show="!isAdmin" >
+                <div class="col-md-8 col-md-offset-2" style="text-align: justify;">
+                    <span style="color:red;">
+                        O IPEFAE atua na organização de Concursos Públicos e Processos Seletivos e conta com a participação de Colaboradores na aplicação das provas e diversos outros serviços de certame público.
+                    </span><br />
+                    <span style="color:red;">
+                        Para ser um colaborador, é necessário se cadastrar em nosso site. O cadastro no Ipefae é necessário para agilizar a organização dos trabalhos, providenciar o pagamento dos serviços prestados e recolhimento dos impostos.
+                    </span><br /><br />
+                    <span style="color:red;">
+                        O fato de se cadastrar em nosso site não garante ao colaborador a obrigatoriedade da prestação de serviços. Conforme a necessidade e/ou dimensão do Concurso, o colaborador pode ser convidado a prestar os serviços.
+                    </span><br /><br />
+                    <span style="color:red;">
+                        O IPEFAE, inicialmente, agradece seu dispor para colaborar quando necessário!
+                    </span><br />
+                    <span style="color:red;">
+                        O sucesso de nossas atividades estão intimamente ligadas a disposição e comprometimento de todos.
+                    </span>
+                </div>
+            </div>
+            <br />
+            @RenderBody()
             <div class="row col-botoes text-center">
                 <input type="button" name="btnVoltar" id="btnVoltar" ng-show="isAdmin" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
                 <input type="button" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />

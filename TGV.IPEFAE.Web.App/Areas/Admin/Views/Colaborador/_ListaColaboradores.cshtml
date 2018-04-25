@@ -6,7 +6,7 @@
         <caption>Lista de Colaboradores</caption>
         <thead>
             <tr>
-                <th scope="col" style="display: none">#</th>@* -- id -- *@
+                <th scope="col">Código</th>
                 <th scope="col">Nome</th>
                 <th scope="col">E-mail</th>
                 <th scope="col">Telefone</th>
@@ -18,7 +18,7 @@
             @foreach (TGV.IPEFAE.Web.BL.Data.ColaboradorModel colaborador in Model)
             {
                 <tr>
-                    <td style="display: none"><span>@colaborador.id</span></td>
+                    <td><span>@colaborador.codigo</span></td>
                     <td>@colaborador.nome</td>
                     <td>@colaborador.email</td>
                     <td>@colaborador.telefone_01_formatado</td>
