@@ -51,6 +51,27 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
             return PartialView("_ListaConcursos", concursos);
         }
 
+        public ActionResult Local_Colaborador_Excluir(int idConcursoLocal, int idColaborador)
+        {
+            ConcursoBusiness.Local_Colaborador_Excluir(idConcursoLocal, idColaborador);
+
+            return Json(new { Sucesso = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Local_Excluir(int idLocal)
+        {
+            ConcursoBusiness.Local_Excluir(idLocal);
+
+            return Json(new { Sucesso = true }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Local_Salvar(int idConcurso, ConcursoLocalModel clM)
+        {
+            ConcursoLocalModel local = ConcursoBusiness.Local_Salvar(idConcurso, clM);
+
+            return Json(new { Local = local, Sucesso = true }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Obter(int id)
         {
             ConcursoModel cM = ConcursoBusiness.Obter(id);

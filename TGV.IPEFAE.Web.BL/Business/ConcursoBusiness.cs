@@ -26,6 +26,27 @@ namespace TGV.IPEFAE.Web.BL.Business
             return ConcursoData.Listar();
         }
 
+        public static bool Local_Colaborador_Excluir(int idConcursoLocal, int idColaborador)
+        {
+            return ConcursoData.Local_Colaborador_Excluir(idConcursoLocal, idColaborador);
+        }
+
+        public static bool Local_Excluir(int idLocal)
+        {
+            return ConcursoData.Local_Excluir(idLocal);
+        }
+
+        public static ConcursoLocalColaboradorModel Local_Colaborador_Salvar(int idConcurso, ConcursoLocalColaboradorModel clcM)
+        {
+            return ConcursoData.Local_Colaborador_Salvar(clcM);
+        }
+
+        public static ConcursoLocalModel Local_Salvar(int idConcurso, ConcursoLocalModel clM)
+        {
+            clM.concurso_id = idConcurso;
+            return ConcursoData.Local_Salvar(clM);
+        }
+
         public static ConcursoModel Obter(int id)
         {
             return ConcursoData.Obter(id);

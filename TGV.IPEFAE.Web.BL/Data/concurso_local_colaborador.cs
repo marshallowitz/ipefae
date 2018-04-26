@@ -23,5 +23,6 @@ namespace TGV.IPEFAE.Web.BL.Data
     
         public virtual concurso_local concurso_local { get; set; }
         public virtual colaborador colaborador { get; set; }
+        public virtual concurso_funcao concurso_funcao { get; set; }
     }
 }

@@ -2,9 +2,9 @@
 @{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
 <script type="text/javascript" src="http://cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 <script src="@Url.Content("~/Scripts/Views/Concurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<link rel="stylesheet" href="@Url.Content("~/Content/Concurso.css")">
 
 <script>
-    var urlDataTable = '@Url.Content(String.Format("~/Scripts/language/dataTables.{0}.txt", TGV.IPEFAE.Web.Resources.Shared.Listas.IdiomaDataTable))';
     var urlVoltar = '@Url.Content("~/Admin/Concurso")';
 
     $(function () { iniciarTelaCadastroConcurso(); });
@@ -45,31 +45,12 @@
             </fieldset>
             <br />
             <fieldset class="lista-funcoes">
-                <legend>Lista de Funções</legend>
-                <div class="row" ng-show="concurso.id > 0">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Função</label><em>*</em>
-                            <input type="text" class="form-control" name="funcao" id="txtFuncao" ng-model="funcao" maxlength="100" required uib-tooltip="{{getErrorMessage('funcao', ['O nome da função é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.funcao.enable" />
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group" ng-class="{'has-error': errorList.valor_liquido.enable}">
-                            <label>Valor Líquido</label><em>*</em>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="valor_liquido" id="txtValorLiquido" ng-model="valor_liquido" ui-number-mask min="0" max="100000" maxlength="9" required uib-tooltip="{{getErrorMessage('valor_liquido', ['O valor líquido é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.valor_liquido.enable" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-2" style="line-height: 74px;">
-                        <input type="button" name="btnAdicionarFuncao" id="btnAdicionarFuncao" ng-disabled="" class="btn btn-personal1 btn-md" value="Adicionar" ng-click="funcao_salvar(0)" />
-                    </div>
-                </div>
+                <legend>Lista de Funções <a href="javascript:void(0)" ng-click="funcao_adicionar()" style="font-size: 12px;" ng-show="!funcao_checkIfInEdicao()">+ Adicionar</a></legend>
                 @Html.Partial("_ListaFuncoes", Model.funcoes)
             </fieldset>
             <br />
-            <fieldset>
-                <legend>Lista de Locais de Prova</legend>
+            <fieldset class="lista-locais">
+                <legend>Lista de Locais de Prova<a href="javascript:void(0)" ng-click="local_adicionar()" style="font-size: 12px; margin-left: 10px;" ng-show="!local_checkIfInEdicao()">+ Adicionar</a></legend>
                 @Html.Partial("_ListaLocaisProva", Model.locais)
             </fieldset>
             <br />

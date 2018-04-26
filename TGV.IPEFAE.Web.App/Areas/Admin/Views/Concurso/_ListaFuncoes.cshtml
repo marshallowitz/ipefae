@@ -1,42 +1,42 @@
 ﻿@model List<TGV.IPEFAE.Web.BL.Data.ConcursoFuncaoModel>
 
-@if (Model.Count > 0)
-{
-    <table id="tblFuncoes" class="table table-striped table-bordered table-hover" summary="Lista de Funções">
-        <caption>Lista de Funções</caption>
-        <thead>
-            <tr>
-                <th scope="col" style="display: none;">#</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Valor Líquido</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (TGV.IPEFAE.Web.BL.Data.ConcursoFuncaoModel concurso in Model)
-            {
-                <tr>
-                    <td style="display: none;"><span>@concurso.id</span></td>
-                    <td>@concurso.funcao</td>
-                    <td>@concurso.valor_liquido_formatado</td>
-                    <td class="acao">
-                        <div class="icons salvar" title="Salvar" ng-show="modoEdicaoFuncao" ng-click="funcao_salvar('@concurso.id')"></div>
-                        <div class="icons editar" title="Editar" ng-show="!modoEdicaoFuncao" ng-click="modoEdicaoFuncao = true"></div>
-                        <div class="icons excluir" title="Excluir" ng-show="!modoEdicaoFuncao" ng-click="funcao_excluir('@concurso.id')"></div>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <table class="table table-striped table-bordered table-hover" summary="Nenhuma função foi encontrada">
-        <thead>
-            <tr>
-                <th id="funcaoNaoEncontrada" scope="col" ng-show="concurso.id > 0">Nenhuma função foi encontrada</th>
-                <th id="funcaoNaoEncontradaSemConcurso" scope="col" ng-show="concurso.id <= 0">Salve o concurso para adicionar funções</th>
-            </tr>
-        </thead>
-    </table>
-}
+<table id="tblFuncoes" class="table table-striped table-bordered table-hover" summary="Lista de Funções" ng-show="concurso.funcoes.length > 0">
+    <thead>
+        <tr>
+            <th scope="col" style="display: none;">#</th>
+            <th scope="col">Função</th>
+            <th scope="col">Valor Líquido</th>
+            <th scope="col" style="width: 60px;"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="funcao in concurso.funcoes">
+            <td>
+                <div class="tooltip-error">
+                    <input type="text" ng-model="funcao.funcao" class="form-control ipt-funcao" ng-class="funcao.modoEdicao ? '' : 'input-as-span'" maxlength="100" ng-readonly="!funcao.modoEdicao" required />
+                    <span class="tooltiptext" ng-class="funcao.funcao_enabled ? '' : 'hidden'">O nome da função é obrigatório</span>
+                </div>
+            </td>
+            <td>
+                <div class="input-group">
+                    <span class="input-group-addon" ng-class="funcao.modoEdicao ? '' : 'input-as-span'">R$</span>
+                    <input type="text" ng-model="funcao.valor_liquido" ui-number-mask ng-blur="funcao_valor_liquido(funcao)" class="form-control ipt-valor_liquido" ng-class="funcao.modoEdicao ? '' : 'input-as-span'" ng-readonly="!funcao.modoEdicao" required />
+                </div>
+            </td>
+            <td class="text-center" style="cursor: pointer; vertical-align: middle;">
+                <div class="fas fa-lg fa-save" title="Salvar" ng-show="funcao.modoEdicao" ng-click="funcao_salvar(funcao)"></div>
+                <div class="fas fa-lg fa-times" title="Cancelar" ng-show="funcao.modoEdicao" ng-click="funcao_editar(funcao, false)"></div>
+                <div class="fas fa-lg fa-edit" title="Editar" ng-show="!funcao.modoEdicao" ng-click="funcao_editar(funcao, true)"></div>
+                <div class="fas fa-lg fa-trash-alt" title="Excluir" ng-show="!funcao.temAssociacao && !funcao.modoEdicao" ng-click="funcao_excluir(funcao.id)"></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-striped table-bordered table-hover" summary="Nenhuma função foi encontrada" ng-show="concurso.funcoes.length <= 0">
+    <thead>
+        <tr>
+            <th id="funcaoNaoEncontrada" scope="col" ng-show="concurso.id > 0">Nenhuma função foi encontrada</th>
+            <th id="funcaoNaoEncontradaSemConcurso" scope="col" ng-show="concurso.id <= 0">Salve o concurso para adicionar funções</th>
+        </tr>
+    </thead>
+</table>

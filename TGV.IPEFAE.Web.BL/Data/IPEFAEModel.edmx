@@ -564,6 +564,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_concurso_local_colaborador_concurso_funcao">
+          <End Role="concurso_funcao" Type="Self.concurso_funcao" Multiplicity="1" />
+          <End Role="concurso_local_colaborador" Type="Self.concurso_local_colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="concurso_funcao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="concurso_local_colaborador">
+              <PropertyRef Name="funcao_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_concurso_local_colaborador_concurso_local">
           <End Role="concurso_local" Type="Self.concurso_local" Multiplicity="1" />
           <End Role="concurso_local_colaborador" Type="Self.concurso_local_colaborador" Multiplicity="*" />
@@ -931,6 +943,10 @@
             <End Role="colaborador" EntitySet="colaborador" />
             <End Role="concurso_local_colaborador" EntitySet="concurso_local_colaborador" />
           </AssociationSet>
+          <AssociationSet Name="FK_concurso_local_colaborador_concurso_funcao" Association="Self.FK_concurso_local_colaborador_concurso_funcao">
+            <End Role="concurso_funcao" EntitySet="concurso_funcao" />
+            <End Role="concurso_local_colaborador" EntitySet="concurso_local_colaborador" />
+          </AssociationSet>
           <AssociationSet Name="FK_concurso_local_colaborador_concurso_local" Association="Self.FK_concurso_local_colaborador_concurso_local">
             <End Role="concurso_local" EntitySet="concurso_local" />
             <End Role="concurso_local_colaborador" EntitySet="concurso_local_colaborador" />
@@ -1206,6 +1222,10 @@
           <AssociationSet Name="FK_concurso_funcao_concurso" Association="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso">
             <End Role="concurso" EntitySet="concurso" />
             <End Role="concurso_funcao" EntitySet="concurso_funcao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_concurso_local_colaborador_concurso_funcao" Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_funcao">
+            <End Role="concurso_funcao" EntitySet="concurso_funcao" />
+            <End Role="concurso_local_colaborador" EntitySet="concurso_local_colaborador" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="tb_usu_usuario">
@@ -2034,6 +2054,7 @@
           <Property Name="ativo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="concurso_local" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_local" FromRole="concurso_local_colaborador" ToRole="concurso_local" />
           <NavigationProperty Name="colaborador" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_colaborador" FromRole="concurso_local_colaborador" ToRole="colaborador" />
+          <NavigationProperty Name="concurso_funcao" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_funcao" FromRole="concurso_local_colaborador" ToRole="concurso_funcao" />
         </EntityType>
         <Association Name="FK_concurso_local_colaborador_concurso_local">
           <End Type="TGV.IPEFAE.Web.Data.concurso_local" Role="concurso_local" Multiplicity="1" />
@@ -2212,6 +2233,7 @@
           <Property Name="sem_desconto" Type="Boolean" Nullable="false" />
           <Property Name="ativo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="concurso" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso" FromRole="concurso_funcao" ToRole="concurso" />
+          <NavigationProperty Name="concurso_local_colaborador" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_funcao" FromRole="concurso_funcao" ToRole="concurso_local_colaborador" />
         </EntityType>
         <Association Name="FK_concurso_funcao_concurso">
           <End Type="TGV.IPEFAE.Web.Data.concurso" Role="concurso" Multiplicity="1" />
@@ -2222,6 +2244,18 @@
             </Principal>
             <Dependent Role="concurso_funcao">
               <PropertyRef Name="concurso_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_concurso_local_colaborador_concurso_funcao">
+          <End Type="TGV.IPEFAE.Web.Data.concurso_funcao" Role="concurso_funcao" Multiplicity="1" />
+          <End Type="TGV.IPEFAE.Web.Data.concurso_local_colaborador" Role="concurso_local_colaborador" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="concurso_funcao">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="concurso_local_colaborador">
+              <PropertyRef Name="funcao_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

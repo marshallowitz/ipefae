@@ -14,6 +14,11 @@ namespace TGV.IPEFAE.Web.BL.Data
     
     public partial class concurso_funcao
     {
+        public concurso_funcao()
+        {
+            this.concurso_local_colaborador = new HashSet<concurso_local_colaborador>();
+        }
+    
         public int id { get; set; }
         public int concurso_id { get; set; }
         public string funcao { get; set; }
@@ -22,5 +27,6 @@ namespace TGV.IPEFAE.Web.BL.Data
         public bool ativo { get; set; }
     
         public virtual concurso concurso { get; set; }
+        public virtual ICollection<concurso_local_colaborador> concurso_local_colaborador { get; set; }
     }
 }

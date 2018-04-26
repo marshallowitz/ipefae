@@ -11,7 +11,7 @@ function iniciarTelaListaConcursos()
     listarConcursos();
 }
 
-function iniciarTelaCadastroConcurso() { montarTabelaFuncoes(); }
+function iniciarTelaCadastroConcurso() { }
 
 function listarConcursos()
 {
@@ -58,22 +58,6 @@ function montarTabela()
     $('#tblConcursos_filter input').focus();
 }
 
-function montarTabelaFuncoes()
-{
-    oTable = $('#tblFuncoes').dataTable(
-            {
-                "bLengthChange": false,
-                "order": [[1, "asc"]],
-                "aoColumnDefs": [{ "bSortable": false, "aTargets": [0, 2, 3] }],
-                "language": {
-                    "url": urlDataTable
-                }
-            }
-        );
-
-    $('#tblFuncoes_filter').parent().removeClass('col-sm-6').addClass('col-sm-10');
-}
-
 function montarTabelaLocais()
 {
     oTable = $('#tblLocais').dataTable(
@@ -114,6 +98,7 @@ function montarTabelaLocais()
                     data: { id: id },
                     success: function (retorno)
                     {
+                        console.log(retorno);
                         if (retorno.Sucesso)
                         {
                             $scope.concurso = retorno.Concurso;
@@ -177,6 +162,72 @@ function montarTabelaLocais()
                 return field.$dirty;
             }
 
+            $scope.funcao_adicionar = function()
+            {
+                var nova_funcao = { id: 0, funcao: '', valor_liquido: 0 };
+                $scope.concurso.funcoes.push(nova_funcao);
+                $scope.funcao_editar(nova_funcao, true);
+
+                $timeout(function ()
+                {
+                    $.each($('.ipt-funcao'), function (i, el)
+                    {
+                        if ($(el).scope().funcao.id === 0)
+                            $(el).focus();
+                    });
+                }, 500);
+            }
+
+            $scope.funcao_changeIfInEdicao = function (inEdicao)
+            {
+                $.each($scope.concurso.funcoes, function (i, funcao)
+                {
+                    funcao.modoEdicao = inEdicao;
+                });
+            }
+
+            $scope.funcao_checkIfInEdicao = function()
+            {
+                var inEdicao = false;
+                
+                $.each($scope.concurso.funcoes, function (i, funcao)
+                {
+                    if(funcao.modoEdicao)
+                    {
+                        inEdicao = true;
+                        return false;
+                    }
+                });
+
+                return inEdicao;
+            }
+
+            $scope.funcao_editar = function (funcao, editar)
+            {
+                if (editar)
+                    funcao.old_values = { id: funcao.id, funcao: funcao.funcao, valor_liquido: funcao.valor_liquido, valor_liquido_formatado: funcao.valor_liquido_formatado };
+                else
+                {
+                    var index = findInArrayIndex($scope.concurso.funcoes, 'id', funcao.old_values.id);
+
+                    if (funcao.old_values.id === 0)
+                    {
+                        $scope.concurso.funcoes.splice(index, 1);
+                    }
+                    else
+                    {
+                        funcao.id = funcao.old_values.id;
+                        funcao.funcao = funcao.old_values.funcao;
+                        funcao.valor_liquido = funcao.old_values.valor_liquido;
+                        funcao.valor_liquido_formatado = funcao.old_values.valor_liquido_formatado;
+                    }
+
+                    $scope.funcao_limparDirty('ipt-funcao', index, funcao);
+                }
+
+                funcao.modoEdicao = !funcao.modoEdicao;
+            }
+
             $scope.funcao_excluir = function (idFuncao)
             {
                 var url = homePage + 'Admin/Concurso/Funcao_Excluir';
@@ -185,44 +236,49 @@ function montarTabelaLocais()
                 if (index < 0)
                     return;
 
+                $scope.funcao_changeIfInEdicao(false);
+
+                $('.lista-funcoes').addClass('whirl');
+
                 $.ajax({
                     type: "POST",
                     url: url,
                     data: { idFuncao: idFuncao },
                     success: function (retorno)
                     {
-                        if (retorno.Sucesso) {
-                            $scope.concurso.funcoes.splice(index, 1);
+                        if (retorno.Sucesso)
+                        {
+                            $timeout(function () { $scope.$apply(function () { $scope.concurso.funcoes.splice(index, 1); }); });
+
+                            alert('Função removida com sucesso');
                         }
+
+                        $('.lista-funcoes').removeClass('whirl');
                     },
                     error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'funcao_excluir()', ResponseText: xhr.responseText }); }
                 });
             }
 
-            $scope.funcao_salvar = function (idFuncao)
+            $scope.funcao_limparDirty = function(nomeCampo, index, funcao)
             {
-                idFuncao = idFuncao || 0;
+                $('.' + nomeCampo + ':eq(' + index + ')').parent().removeClass('has-error');
+                funcao.funcao_enabled = false;
+            }
 
+            $scope.funcao_salvar = function (funcao)
+            {
                 var firstErrorField = undefined;
+                var index = findInArrayIndex($scope.concurso.funcoes, 'id', funcao.id);
 
-                angular.forEach($scope.conCadastroForm.$$controls, function (field)
+                if (funcao.funcao === undefined || $.trim(funcao.funcao) === '')
                 {
-                    field.$dirty = true;
-                    var item = $scope.errorListConcurso[field.$name];
+                    $('.ipt-funcao:eq(' + index + ')').parent().addClass('has-error');
+                    funcao.funcao_enabled = true;
+                    firstErrorField = $('.ipt-funcao:eq(' + index + ')');
+                }
+                else
+                    $scope.funcao_limparDirty('ipt-funcao', index, funcao);
 
-                    if (item !== undefined && item.tipo === 'funcao')
-                    {
-                        if (firstErrorField === undefined && field.$invalid)
-                            firstErrorField = $('[name="' + field.$name + '"]');
-
-                        var r = $scope.checkIfIsTooltipEnable(field.$name, item.validacoes, 'conCadastroForm');
-
-                        if (r.enable)
-                            $('[name="' + field.$name + '"]').parent().addClass('has-error');
-                        else
-                            $('[name="' + field.$name + '"]').parent().removeClass('has-error');
-                    }
-                });
 
                 if (firstErrorField !== undefined) {
                     firstErrorField.focus();
@@ -230,9 +286,6 @@ function montarTabelaLocais()
                 }
 
                 var idConcurso = $scope.concurso.id;
-                var funcao = $scope.funcao;
-                var valor_liquido = $scope.valor_liquido;
-                var funcaoModel = { id: idFuncao, funcao: funcao, valor_liquido: valor_liquido };
 
                 $('.lista-funcoes').addClass('whirl');
                 var url = homePage + 'Admin/Concurso/Funcao_Salvar';
@@ -240,26 +293,173 @@ function montarTabelaLocais()
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: { idConcurso: idConcurso, cfM: funcaoModel },
+                    data: { idConcurso: idConcurso, cfM: funcao },
                     success: function (retorno)
                     {
                         if (retorno.Sucesso)
                         {
-                            if (idFuncao === 0)
-                            {
-                                $scope.concurso.funcoes.push({ id: retorno.IdFuncao, funcao: funcao, valor_liquido: valor_liquido });
-                            }
-
-                            $scope.modoEdicaoFuncao = false;
-                            $scope.funcao = '';
-                            $scope.valor_liquido = '';
+                            $timeout(function () { $scope.$apply(function () { funcao.modoEdicao = false; funcao.id = retorno.Funcao.id }); });
+ 
+                            alert('Dados da função gravados com sucesso');
                         }
 
                         $('.lista-funcoes').removeClass('whirl');
                     },
-                    error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'funcao_adicionar()', ResponseText: xhr.responseText }); }
+                    error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'funcao_salvar()', ResponseText: xhr.responseText }); }
                 });
             }
+
+            $scope.funcao_valor_liquido = function(funcao)
+            {
+                if (!funcao.valor_liquido)
+                    funcao.valor_liquido = 0;
+            }
+
+
+            $scope.local_adicionar = function ()
+            {
+                var novo_local = { id: 0, local: '', colaboradores: [] };
+                $scope.concurso.locais.push(novo_local);
+                $scope.local_editar(novo_local, true);
+
+                $timeout(function ()
+                {
+                    $.each($('.ipt-local'), function (i, el)
+                    {
+                        if ($(el).scope().local.id === 0)
+                            $(el).focus();
+                    });
+                }, 500);
+            }
+
+            $scope.local_changeIfInEdicao = function (inEdicao)
+            {
+                $.each($scope.concurso.locais, function (i, local)
+                {
+                    local.modoEdicao = inEdicao;
+                });
+            }
+
+            $scope.local_checkIfInEdicao = function ()
+            {
+                var inEdicao = false;
+
+                $.each($scope.concurso.locais, function (i, local)
+                {
+                    if (local.modoEdicao) {
+                        inEdicao = true;
+                        return false;
+                    }
+                });
+
+                return inEdicao;
+            }
+
+            $scope.local_editar = function (local, editar)
+            {
+                if (editar)
+                    local.old_values = { id: local.id, local: local.local, colaboradores: local.colaboradores };
+                else {
+                    var index = findInArrayIndex($scope.concurso.locais, 'id', local.old_values.id);
+
+                    if (local.old_values.id === 0) {
+                        $scope.concurso.locais.splice(index, 1);
+                    }
+                    else {
+                        local.id = local.old_values.id;
+                        local.funcao = local.old_values.local;
+                        local.colaboradores = local.old_values.colaboradores;
+                    }
+
+                    $scope.local_limparDirty('ipt-local', index, local);
+                }
+
+                local.modoEdicao = !local.modoEdicao;
+            }
+
+            $scope.local_excluir = function (idLocal)
+            {
+                if (!confirm('Deseja realmente remover este local de prova?'))
+                    return;
+
+                var url = homePage + 'Admin/Concurso/Local_Excluir';
+                var index = findInArrayIndex($scope.concurso.locais, 'id', idLocal);
+
+                if (index < 0)
+                    return;
+
+                $scope.local_changeIfInEdicao(false);
+
+                $('.lista-locais').addClass('whirl');
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: { idLocal: idLocal },
+                    success: function (retorno)
+                    {
+                        if (retorno.Sucesso) {
+                            $timeout(function () { $scope.$apply(function () { $scope.concurso.locais.splice(index, 1); }); });
+
+                            alert('Local de Prova removido com sucesso');
+                        }
+
+                        $('.lista-locais').removeClass('whirl');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'local_excluir()', ResponseText: xhr.responseText }); }
+                });
+            }
+
+            $scope.local_limparDirty = function (nomeCampo, index, local)
+            {
+                $('.' + nomeCampo + ':eq(' + index + ')').parent().removeClass('has-error');
+                local.local_enabled = false;
+            }
+
+            $scope.local_salvar = function (local)
+            {
+                var firstErrorField = undefined;
+                var index = findInArrayIndex($scope.concurso.funcoes, 'id', funcao.id);
+
+                if (funcao.funcao === undefined || $.trim(funcao.funcao) === '') {
+                    $('.ipt-funcao:eq(' + index + ')').parent().addClass('has-error');
+                    funcao.funcao_enabled = true;
+                    firstErrorField = $('.ipt-funcao:eq(' + index + ')');
+                }
+                else
+                    $scope.funcao_limparDirty('ipt-funcao', index, funcao);
+
+
+                if (firstErrorField !== undefined) {
+                    firstErrorField.focus();
+                    return;
+                }
+
+                var idConcurso = $scope.concurso.id;
+
+                $('.lista-funcoes').addClass('whirl');
+                var url = homePage + 'Admin/Concurso/Funcao_Salvar';
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: { idConcurso: idConcurso, cfM: funcao },
+                    success: function (retorno)
+                    {
+                        if (retorno.Sucesso) {
+                            $timeout(function () { $scope.$apply(function () { funcao.modoEdicao = false; funcao.id = retorno.Funcao.id }); });
+
+                            alert('Dados da função gravados com sucesso');
+                        }
+
+                        $('.lista-funcoes').removeClass('whirl');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'funcao_salvar()', ResponseText: xhr.responseText }); }
+                });
+            }
+
+
+
 
             $scope.getErrorMessage = function (fieldName, lista, formName)
             {
@@ -301,6 +501,7 @@ function montarTabelaLocais()
                 $scope.concurso = {};
                 $scope.concurso.id = 0;
                 $scope.concurso.funcoes = [];
+                $scope.concurso.locais = [];
                 $scope.listas = {};
 
                 $scope.buscarConcurso(id);

@@ -27,6 +27,9 @@
     <link href="@Url.Content("~/Content/jquery.slideUnlock.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
     <link href="@Url.Content("~/Content/site.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+
     <script src="@Url.Content("~/Scripts/jquery-2.1.3.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
     <script src="@Url.Content("~/Scripts/bootstrap.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
@@ -62,6 +65,7 @@
     <script src="@Url.Content("~/Scripts/Views/Geral.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
     <script src="@Url.Content("~/Scripts/Views/IPEFAE.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
     <script src="@Url.Content("~/Scripts/Views/Login.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
     <script>
         var urlSite = '@System.Web.Configuration.WebConfigurationManager.AppSettings["URLAmbiente"]';
         var emailObrigatorio = encodeConversion('@_ModalLogin.ObrigatorioEmail', 'num', 'hex');
