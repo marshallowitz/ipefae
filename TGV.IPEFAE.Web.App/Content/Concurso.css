@@ -19,7 +19,8 @@
     transition: opacity 0.3s;
 }
 
-.tooltip-error .tooltiptext::after {
+.tooltip-error .tooltiptext::after,
+.tooltip-error .tooltiptext2::after {
     content: "";
     position: absolute;
     top: 100%;
@@ -34,6 +35,11 @@
     visibility: visible;
     opacity: 1;
 }
+
+.tooltip-error .tooltiptext2 { width: 50%; background-color: #555; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; left: 50%; margin-left: -60px; transform: translateX(-50%); position: absolute; top: 0px; }
+
+.cssSlideUp         { max-height: 1000px; overflow: hidden; transition: .5s linear all; }
+.cssSlideUp.ng-hide { max-height:0; }
 
 
 

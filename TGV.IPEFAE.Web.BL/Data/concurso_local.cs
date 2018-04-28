@@ -24,7 +24,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public string local { get; set; }
         public bool ativo { get; set; }
     
-        public virtual ICollection<concurso_local_colaborador> concurso_local_colaborador { get; set; }
         public virtual concurso concurso { get; set; }
+        public virtual ICollection<concurso_local_colaborador> concurso_local_colaborador { get; set; }
     }
 }

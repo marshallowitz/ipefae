@@ -58,22 +58,6 @@ function montarTabela()
     $('#tblConcursos_filter input').focus();
 }
 
-function montarTabelaLocais()
-{
-    oTable = $('#tblLocais').dataTable(
-            {
-                "bLengthChange": false,
-                "order": [[1, "asc"]],
-                "aoColumnDefs": [{ "bSortable": false, "aTargets": [0, 2] }],
-                "language": {
-                    "url": urlDataTable
-                }
-            }
-        );
-
-    $('#tblLocais_filter').parent().removeClass('col-sm-6').addClass('col-sm-10');
-}
-
 (function ()
 {
     'use strict';
@@ -98,7 +82,6 @@ function montarTabelaLocais()
                     data: { id: id },
                     success: function (retorno)
                     {
-                        console.log(retorno);
                         if (retorno.Sucesso)
                         {
                             $scope.concurso = retorno.Concurso;
@@ -164,6 +147,9 @@ function montarTabelaLocais()
 
             $scope.funcao_adicionar = function()
             {
+                $scope.funcao_opened = true;
+                $scope.local_opened = false;
+
                 var nova_funcao = { id: 0, funcao: '', valor_liquido: 0 };
                 $scope.concurso.funcoes.push(nova_funcao);
                 $scope.funcao_editar(nova_funcao, true);
@@ -316,9 +302,18 @@ function montarTabelaLocais()
             }
 
 
+            $scope.getUrl = function(url)
+            {
+                return homePage + url;
+            }
+            
+
             $scope.local_adicionar = function ()
             {
-                var novo_local = { id: 0, local: '', colaboradores: [] };
+                $scope.funcao_opened = false;
+                $scope.local_opened = true;
+
+                var novo_local = { id: 0, local: '', Colaboradores: [] };
                 $scope.concurso.locais.push(novo_local);
                 $scope.local_editar(novo_local, true);
 
@@ -419,47 +414,103 @@ function montarTabelaLocais()
             $scope.local_salvar = function (local)
             {
                 var firstErrorField = undefined;
-                var index = findInArrayIndex($scope.concurso.funcoes, 'id', funcao.id);
+                var index = findInArrayIndex($scope.concurso.locais, 'id', local.id);
 
-                if (funcao.funcao === undefined || $.trim(funcao.funcao) === '') {
-                    $('.ipt-funcao:eq(' + index + ')').parent().addClass('has-error');
-                    funcao.funcao_enabled = true;
-                    firstErrorField = $('.ipt-funcao:eq(' + index + ')');
+                if (local.local === undefined || $.trim(local.local) === '')
+                {
+                    $('.ipt-local:eq(' + index + ')').parent().addClass('has-error');
+                    local.local_enabled = true;
+                    firstErrorField = $('.ipt-local:eq(' + index + ')');
                 }
                 else
-                    $scope.funcao_limparDirty('ipt-funcao', index, funcao);
+                    $scope.local_limparDirty('ipt-local', index, local);
 
 
-                if (firstErrorField !== undefined) {
+                if (firstErrorField !== undefined)
+                {
                     firstErrorField.focus();
                     return;
                 }
 
                 var idConcurso = $scope.concurso.id;
 
-                $('.lista-funcoes').addClass('whirl');
-                var url = homePage + 'Admin/Concurso/Funcao_Salvar';
+                $('.lista-locais').addClass('whirl');
+                var url = homePage + 'Admin/Concurso/Local_Salvar';
 
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: { idConcurso: idConcurso, cfM: funcao },
+                    data: { idConcurso: idConcurso, clM: local },
                     success: function (retorno)
                     {
                         if (retorno.Sucesso) {
-                            $timeout(function () { $scope.$apply(function () { funcao.modoEdicao = false; funcao.id = retorno.Funcao.id }); });
+                            $timeout(function () { $scope.$apply(function () { local.modoEdicao = false; local.id = retorno.Local.id }); });
 
-                            alert('Dados da função gravados com sucesso');
+                            alert('Dados do local da prova gravados com sucesso');
                         }
 
-                        $('.lista-funcoes').removeClass('whirl');
+                        $('.lista-locais').removeClass('whirl');
                     },
-                    error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'funcao_salvar()', ResponseText: xhr.responseText }); }
+                    error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'local_salvar()', ResponseText: xhr.responseText }); }
                 });
             }
 
 
+            $scope.local_colaborador_adicionar = function (local)
+            {
+                var novo_colaborador = { id: 0, nome: '', valor_liquido: 0 };
+                local.Colaboradores.push(novo_colaborador);
+                $scope.local_colaborador_editar(local, novo_colaborador, true);
 
+                $timeout(function ()
+                {
+                    $.each($('.ipt-local_colaborador'), function (i, el)
+                    {
+                        if ($(el).scope().local.id === 0)
+                            $(el).focus();
+                    });
+                }, 500);
+            }
+
+            $scope.local_colaborador_checkIfInEdicao = function (local)
+            {
+                if (!$scope.local_checkIfInEdicao())
+                    return false;
+
+                var inEdicao = false;
+
+                $.each(local.Colaboradores, function (i, colaborador)
+                {
+                    if (colaborador.modoEdicao) {
+                        inEdicao = true;
+                        return false;
+                    }
+                });
+
+                return inEdicao;
+            }
+
+            $scope.local_colaborador_editar = function (local, colaborador, editar)
+            {
+                if (editar)
+                    colaborador.old_values = { id: colaborador.id, local: local, nome: colaborador.nome, valor_liquido: colaborador.valor_liquido };
+                else {
+                    var index = findInArrayIndex(local.Colaboradores, 'id', colaborador.old_values.id);
+
+                    if (local.old_values.id === 0) {
+                        $scope.concurso.locais.splice(index, 1);
+                    }
+                    else {
+                        local.id = local.old_values.id;
+                        local.funcao = local.old_values.local;
+                        local.colaboradores = local.old_values.colaboradores;
+                    }
+
+                    $scope.local_limparDirty('ipt-local', index, local);
+                }
+
+                local.modoEdicao = !local.modoEdicao;
+            }
 
             $scope.getErrorMessage = function (fieldName, lista, formName)
             {

@@ -268,6 +268,7 @@ namespace TGV.IPEFAE.Web.BL.Data
     {
         #region [ Propriedades ]
 
+        public int id                   { get; set; } = 0;
         public int concurso_local_id    { get; set; } = 0;
         public int colaborador_id       { get; set; } = 0;
         public int funcao_id            { get; set; }

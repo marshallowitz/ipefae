@@ -1,6 +1,5 @@
 ﻿@model TGV.IPEFAE.Web.BL.Data.ConcursoModel
 @{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
-<script type="text/javascript" src="http://cdn.datatables.net/plug-ins/9dcbecd42ad/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 <script src="@Url.Content("~/Scripts/Views/Concurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
 <link rel="stylesheet" href="@Url.Content("~/Content/Concurso.css")">
 
@@ -45,16 +44,22 @@
             </fieldset>
             <br />
             <fieldset class="lista-funcoes">
-                <legend>Lista de Funções <a href="javascript:void(0)" ng-click="funcao_adicionar()" style="font-size: 12px;" ng-show="!funcao_checkIfInEdicao()">+ Adicionar</a></legend>
-                @Html.Partial("_ListaFuncoes", Model.funcoes)
+                <legend>Lista de Funções <a href="javascript:void(0)" ng-click="funcao_adicionar()" style="font-size: 12px;" ng-show="!funcao_checkIfInEdicao()">+ Adicionar</a> <em style="cursor: pointer; float: right;" class="fas" ng-class="funcao_opened ? 'fa-minus' : 'fa-plus'" ng-click="funcao_opened = !funcao_opened"></em></legend>
+                <div ng-hide="!funcao_opened" class="cssSlideUp">
+                    @Html.Partial("_ListaFuncoes", Model.funcoes)
+                </div>
             </fieldset>
             <br />
             <fieldset class="lista-locais">
-                <legend>Lista de Locais de Prova<a href="javascript:void(0)" ng-click="local_adicionar()" style="font-size: 12px; margin-left: 10px;" ng-show="!local_checkIfInEdicao()">+ Adicionar</a></legend>
-                @Html.Partial("_ListaLocaisProva", Model.locais)
+                <legend>Lista de Locais de Prova<a href="javascript:void(0)" ng-click="local_adicionar()" style="font-size: 12px; margin-left: 10px;" ng-show="!local_checkIfInEdicao()">+ Adicionar</a> <em style="cursor: pointer; float: right;" class="fas" ng-class="local_opened ? 'fa-minus' : 'fa-plus'" ng-click="local_opened = !local_opened"></em></legend>
+                <div ng-hide="!local_opened" class="cssSlideUp">
+                    @Html.Partial("_ListaLocaisProva", Model.locais)
+                </div>
             </fieldset>
             <br />
-            <div class="row col-botoes text-center">
+            <hr />
+            <br />
+            <div class="row col-botoes text-center" ng-hide="funcao_checkIfInEdicao() || local_checkIfInEdicao()">
                 <input type="button" name="btnVoltar" id="btnVoltar" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
                 <input type="button" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />
             </div>

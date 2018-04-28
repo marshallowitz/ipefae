@@ -233,6 +233,18 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SQL\Tabelas\01_banco.sql" />
+    <Content Include="SQL\Tabelas\02_grau_instrucao.sql" />
+    <Content Include="SQL\Tabelas\03_raca.sql" />
+    <Content Include="SQL\Tabelas\04_relatorio_pdf.sql" />
+    <Content Include="SQL\Tabelas\05_colaborador.sql" />
+    <Content Include="SQL\Tabelas\06_concurso.sql" />
+    <Content Include="SQL\Tabelas\07_concurso_funcao.sql" />
+    <Content Include="SQL\Tabelas\08_concurso_local.sql" />
+    <Content Include="SQL\Tabelas\09_concurso_local_colaborador.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
