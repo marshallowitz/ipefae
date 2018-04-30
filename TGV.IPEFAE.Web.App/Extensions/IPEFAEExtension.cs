@@ -200,7 +200,7 @@ namespace TGV.IPEFAE.Web.App.Extensions
 
         public static string ObterDescricao(this PropertyInfo propriedade, bool tipoConcurso)
         {
-            string resourcePath = tipoConcurso ? "TGV.IPEFAE.Web.Resources.Admin.Concurso.CSVInscritos" : "TGV.IPEFAE.Web.Resources.Admin.Estagio.EstagioCSV";
+            string resourcePath = tipoConcurso ? "TGV.IPEFAE.Web.Resources.Admin.Concurso.CSVColaboradores" : "TGV.IPEFAE.Web.Resources.Admin.Estagio.EstagioCSV";
 
             Assembly localizationAssembly = Assembly.Load("TGV.IPEFAE.Web.Resources");
             ResourceManager _resources = new ResourceManager(resourcePath, localizationAssembly);

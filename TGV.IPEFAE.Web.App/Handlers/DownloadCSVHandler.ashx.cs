@@ -37,37 +37,43 @@ namespace TGV.IPEFAE.Web.App.Handlers
 
         private void ProcessRequestForConcurso(HttpContext context, int id)
         {
-            //tb_con_concurso concurso = ConcursoBusiness.Obter(id, false);
+            ConcursoModel concurso = ConcursoBusiness.Obter(id, true);
 
-            //if (concurso == null)
-            //    return;
+            if (concurso == null)
+                return;
 
-            //oldConcursoModel cModel = new oldConcursoModel(concurso);
-            //List<oldConcursoModel.InscritoModel> iModels = InscritoConcursoBusiness.GerarListaInscritos(id).ConvertAll(ico => new oldConcursoModel.InscritoModel(ico));
-            //string fileName = String.Format("{1}_{0}.csv", cModel.NomeSemEspaco, cModel.Data.ToString("yyyyMMdd"));
-            //byte[] fileBytes = null;
+            List<ColaboradorModel> colaboradores = new List<ColaboradorModel>();
 
-            //if (cModel.IdTipoLayoutConcurso == 1)
-            //{
-            //    List<oldConcursoModel.InscritoCSVModel> iCSVs = iModels.ConvertAll(i => new oldConcursoModel.InscritoCSVModel(i, cModel));
-            //    fileBytes = WriteCsvWithHeaderToMemory(iCSVs, true);
-            //}
-            //else
-            //{
-            //    List<oldConcursoModel.InscritoVestibularCSVModel> iCSVs = iModels.ConvertAll(i => new oldConcursoModel.InscritoVestibularCSVModel(i, cModel));
-            //    fileBytes = WriteCsvWithHeaderToMemory(iCSVs, true);
-            //}
+            foreach (var local in concurso.locais)
+            {
+                foreach (var col in local.Colaboradores)
+                {
+                    colaboradores.Add(col.colaborador);
+                }
+            }
 
-            //context.Response.Clear();
-            //MemoryStream ms = new MemoryStream(fileBytes);
-            //context.Response.ContentType = "text/csv";
-            //context.Response.AddHeader("content-disposition", String.Format("attachment;filename={0}", fileName));
-            //context.Response.Buffer = true;
-            //ms.WriteTo(context.Response.OutputStream);
-            //context.Response.Flush(); // Sends all currently buffered output to the client.
-            //context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
-            //context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
+            string fileName = String.Format("{1}_{0}.csv", BaseBusiness.RemoverCaracteresEspeciais(concurso.nome), BaseBusiness.DataAgora.ToString("yyyyMMdd"));
+            byte[] fileBytes = null;
 
+            List<tb_est_estado> estados = EstadoBusiness.Listar();
+            List<tb_cid_cidade> cidades = CidadeBusiness.ListarTodas();
+            List<GrauInstrucaoModel> grausInstrucao = GrauInstrucaoBusiness.Listar();
+            List<RacaModel> racas = RacaBusiness.Listar();
+            List<BancoModel> bancos = BancoBusiness.Listar();
+            List<ColaboradorCSVModel> cCSVs = colaboradores.ConvertAll(c => new ColaboradorCSVModel(c, estados, cidades, grausInstrucao, racas, bancos));
+            fileBytes = WriteCsvWithHeaderToMemory(cCSVs, true);
+
+            context.Session["GerouCSV"] = true;
+
+            context.Response.Clear();
+            MemoryStream ms = new MemoryStream(fileBytes);
+            context.Response.ContentType = "text/csv";
+            context.Response.AddHeader("content-disposition", String.Format("attachment;filename={0}", fileName));
+            context.Response.Buffer = true;
+            ms.WriteTo(context.Response.OutputStream);
+            context.Response.Flush(); // Sends all currently buffered output to the client.
+            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
         }
 
         private void ProcessRequestForEstagio(HttpContext context)

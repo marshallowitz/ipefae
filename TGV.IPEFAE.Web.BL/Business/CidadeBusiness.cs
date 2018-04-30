@@ -14,6 +14,11 @@ namespace TGV.IPEFAE.Web.BL.Business
             return CidadeData.Listar(est_idt_estado);
         }
 
+        public static List<tb_cid_cidade> ListarTodas()
+        {
+            return CidadeData.ListarTodas();
+        }
+
         public static List<tb_cid_cidade> ListarCidadesComEstagiario()
         {
             return CidadeData.ListarCidadesComEstagiario();

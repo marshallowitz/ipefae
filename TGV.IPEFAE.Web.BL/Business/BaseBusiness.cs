@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TGV.Framework.Criptografia;
+using TGV.IPEFAE.Web.BL.Data;
 
 namespace TGV.IPEFAE.Web.BL.Business
 {
@@ -50,6 +51,16 @@ namespace TGV.IPEFAE.Web.BL.Business
             return texto.Descriptografar(ParametroSistema);
         }
 
+        public static string FormatarCPF(string cpf, bool aceitarNull = false)
+        {
+            return BaseData.FormatarCPF(cpf, aceitarNull);
+        }
+
+        public static string FormatarFone(string fone, bool aceitarNull = false)
+        {
+            return BaseData.FormatarFone(fone, aceitarNull);
+        }
+
         public static dynamic ObterValorWebConfig(string key)
         {
             return ConfigurationManager.AppSettings[key];
@@ -59,6 +70,16 @@ namespace TGV.IPEFAE.Web.BL.Business
         {
             Regex digitsOnly = new Regex(@"[^\d]");
             return digitsOnly.Replace(valor, "");
+        }
+
+        public static string RemoverCaracteresEspeciais(string stringToConvert)
+        {
+            string temp = stringToConvert.Normalize(NormalizationForm.FormD);
+            IEnumerable<char> filtered = temp;
+            filtered = filtered.Where(c => char.GetUnicodeCategory(c) != System.Globalization.UnicodeCategory.NonSpacingMark);
+            string final = new string(filtered.ToArray()).Replace(" ", "_");
+
+            return final;
         }
     }
 }

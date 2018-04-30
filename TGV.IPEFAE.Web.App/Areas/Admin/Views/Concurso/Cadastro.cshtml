@@ -1,7 +1,7 @@
 ﻿@model TGV.IPEFAE.Web.BL.Data.ConcursoModel
 @{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
 <script src="@Url.Content("~/Scripts/Views/Concurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
-<link rel="stylesheet" href="@Url.Content("~/Content/Concurso.css")">
+<link rel="stylesheet" href="@Url.Content("~/Content/Concurso.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)">
 
 <script>
     var urlVoltar = '@Url.Content("~/Admin/Concurso")';

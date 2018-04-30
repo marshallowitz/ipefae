@@ -255,6 +255,7 @@
     <Compile Include="Models\Bradesco\Response\ServiceResponse.cs" />
     <Compile Include="Models\Bradesco\Response\StatusResponse.cs" />
     <Compile Include="Models\CidadeModel.cs" />
+    <Compile Include="Models\ColaboradorCSVModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\EstadoModel.cs" />
     <Compile Include="Models\PermissaoModel.cs" />

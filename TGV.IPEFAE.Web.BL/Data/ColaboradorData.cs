@@ -110,51 +110,51 @@ namespace TGV.IPEFAE.Web.BL.Data
     {
         #region [ Propriedades ]
 
-        public int id                           { get; set; } = 0;
-        public int banco_id                     { get; set; }
+        public int id { get; set; } = 0;
+        public int banco_id { get; set; }
         public int? carteira_trabalho_estado_id { get; set; }
-        public int endereco_cidade_id           { get; set; }
-        public int endereco_estado_id           { get; set; } = 0;
-        public int naturalidade_cidade_id       { get; set; }
-        public int naturalidade_estado_id       { get; set; } = 0;
-        public string nome                      { get; set; }
-        public string cpf                       { get; set; }
-        public string rg                        { get; set; }
-        public string carteira_trabalho_nro     { get; set; }
-        public string carteira_trabalho_serie   { get; set; }
-        public string titulo_eleitor_nro        { get; set; }
-        public string titulo_eleitor_zona       { get; set; }
-        public string titulo_eleitor_secao      { get; set; }
-        public string pis_pasep_net             { get; set; }
-        public DateTime data_nascimento         { get; set; }
-        public string nacionalidade             { get; set; }
-        public string nome_mae                  { get; set; }
-        public string nome_pai                  { get; set; }
-        public bool sexo_masculino              { get; set; }
-        public string estado_civil              { get; set; }
-        public int grau_instrucao_id            { get; set; }
-        public int raca_id                      { get; set; }
-        public string telefone_01               { get; set; }
-        public string telefone_02               { get; set; }
-        public string email                     { get; set; }
-        public string senha                     { get; set; }
-        public int agencia                      { get; set; }
-        public string agencia_digito            { get; set; }
-        public string conta_corrente            { get; set; }
-        public string endereco_cep              { get; set; }
-        public string endereco_logradouro       { get; set; }
-        public string endereco_nro              { get; set; }
-        public string endereco_bairro           { get; set; }
-        public string endereco_complemento      { get; set; }
-        public bool ativo                       { get; set; }
+        public int endereco_cidade_id { get; set; }
+        public int endereco_estado_id { get; set; } = 0;
+        public int naturalidade_cidade_id { get; set; }
+        public int naturalidade_estado_id { get; set; } = 0;
+        public string nome { get; set; }
+        public string cpf { get; set; }
+        public string rg { get; set; }
+        public string carteira_trabalho_nro { get; set; }
+        public string carteira_trabalho_serie { get; set; }
+        public string titulo_eleitor_nro { get; set; }
+        public string titulo_eleitor_zona { get; set; }
+        public string titulo_eleitor_secao { get; set; }
+        public string pis_pasep_net { get; set; }
+        public DateTime data_nascimento { get; set; }
+        public string nacionalidade { get; set; }
+        public string nome_mae { get; set; }
+        public string nome_pai { get; set; }
+        public bool sexo_masculino { get; set; }
+        public string estado_civil { get; set; }
+        public int grau_instrucao_id { get; set; }
+        public int raca_id { get; set; }
+        public string telefone_01 { get; set; }
+        public string telefone_02 { get; set; }
+        public string email { get; set; }
+        public string senha { get; set; }
+        public int agencia { get; set; }
+        public string agencia_digito { get; set; }
+        public string conta_corrente { get; set; }
+        public string endereco_cep { get; set; }
+        public string endereco_logradouro { get; set; }
+        public string endereco_nro { get; set; }
+        public string endereco_bairro { get; set; }
+        public string endereco_complemento { get; set; }
+        public bool ativo { get; set; }
 
         [ScriptIgnore]
-        public string senhaDescriptografada     { get; set; }
+        public string senhaDescriptografada { get; set; }
 
-        public string codigo                    { get { return this.id.ToString().PadLeft(6, '0'); } }
-        public string cpf_formatado             { get { return BaseData.FormatarCPF(this.cpf); } }
-        public string telefone_01_formatado     { get { return BaseData.FormatarFone(this.telefone_01); } }
-        public string telefone_02_formatado     { get { return BaseData.FormatarFone(this.telefone_02, true); } }
+        public string codigo { get { return this.id.ToString().PadLeft(6, '0'); } }
+        public string cpf_formatado { get { return BaseData.FormatarCPF(this.cpf); } }
+        public string telefone_01_formatado { get { return BaseData.FormatarFone(this.telefone_01); } }
+        public string telefone_02_formatado { get { return BaseData.FormatarFone(this.telefone_02, true); } }
 
         #endregion [ FIM - Propriedades ]
 

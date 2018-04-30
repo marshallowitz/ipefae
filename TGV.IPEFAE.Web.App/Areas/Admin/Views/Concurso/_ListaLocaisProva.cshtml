@@ -29,7 +29,9 @@
     <div class="col-md-10 col-md-offset-1">
         <br />
         <div ng-show="local.modoEdicao">
-            <label>Lista de Colaboradores <a href="javascript:void(0)" ng-click="local_colaborador_adicionar()" style="font-size: 12px; font-weight: normal; margin-left: 10px;" ng-show="!local_colaborador_checkIfInEdicao(local)">+ Adicionar</a></label>
+            <label>Lista de Colaboradores 
+                <a href="javascript:void(0)" ng-click="local_colaborador_adicionar(local)" style="font-size: 12px; font-weight: normal; margin-left: 10px;" ng-show="!local_colaborador_checkIfInEdicao(local) && local.id > 0 && (listas.colaboradores | notInLocais:concurso.locais:0).length > 0">+ Adicionar</a>
+            </label>
             <br />
             <table id="tblColaboradores" class="table table-striped table-bordered table-hover" summary="Lista de Colaboradores" ng-show="local.Colaboradores.length > 0">
                 <thead>
@@ -46,30 +48,30 @@
                     <tr ng-repeat="colaborador in local.Colaboradores">
                         <td>
                             <div class="form-group">
-                                <select id="ddlColaborador" name="colaboradorSelecionado" class="form-control ipt-local_colaborador" ng-options="col as col.nome for col in listas.colaboradores track by col.id" ng-model="colaboradorSelecionado"></select>
+                                <select id="ddlColaborador" name="colaboradorSelecionado" class="form-control ipt-local_colaborador" ng-options="col as col.nome for col in listas.colaboradores | notInLocais:concurso.locais:colaborador.colaborador_id | orderBy: 'nome' track by col.id" ng-model="colaborador.colaborador" ng-class="colaborador.modoEdicao ? '' : 'select-as-span'" ng-disabled="!colaborador.modoEdicao"></select>
                             </div>
                         </td>
                         <td>
                             <div class="form-group">
-                                <select id="ddlFuncao" name="funcaoSelecionada" class="form-control" ng-options="fun as fun.funcao for fun in concurso.funcoes track by fun.id" ng-model="funcaoSelecionada"></select>
+                                <select id="ddlFuncao" name="funcaoSelecionada" class="form-control" ng-change="local_colaborador_mudar_funcao(colaborador)" ng-options="fun as fun.funcao for fun in concurso.funcoes | orderBy: 'funcao' track by fun.id" ng-model="colaborador.funcao" ng-class="colaborador.modoEdicao ? '' : 'select-as-span'" ng-disabled="!colaborador.modoEdicao"></select>
                             </div>
                         </td>
                         <td>
                             <div class="input-group">
                                 <span class="input-group-addon" ng-class="colaborador.modoEdicao ? '' : 'input-as-span'">R$</span>
-                                <input type="text" ng-model="colaborador.valor_liquido" ui-number-mask ng-blur="colaborador_valor_liquido(colaborador)" class="form-control ipt-valor_liquido" ng-class="colaborador.modoEdicao ? '' : 'input-as-span'" ng-readonly="!colaborador.modoEdicao" required />
+                                <input type="text" ng-model="colaborador.valor" ui-number-mask ng-blur="colaborador_valor_liquido(colaborador)" class="form-control ipt-colaborador_valor_liquido" ng-class="colaborador.modoEdicao ? '' : 'input-as-span'" ng-readonly="!colaborador.modoEdicao" required />
                             </div>
                         </td>
-                        <td>
-                            <div class="form-group">
-                                <input type="checkbox" id="chkSemImposto" name="colaborador.semImposto" class="form-control" />
+                        <td class="text-center">
+                            <div class="form-group checkbox c-checkbox" style="margin-top: 5px;">
+                                <label><input type="checkbox" ng-model="colaborador.tem_empresa"  ng-disabled="!colaborador.modoEdicao" /><span class="fa fa-check"></span></label>
                             </div>
                         </td>
                         <td class="text-center" style="cursor: pointer; vertical-align: middle;">
-                            <div class="fas fa-lg fa-save" title="Salvar" ng-show="colaborador.modoEdicao" ng-click="colaborador_salvar(colaborador)"></div>
-                            <div class="fas fa-lg fa-times" title="Cancelar" ng-show="colaborador.modoEdicao" ng-click="colaborador_editar(colaborador, false)"></div>
-                            <div class="fas fa-lg fa-edit" title="Editar" ng-show="!colaborador.modoEdicao" ng-click="colaborador_editar(colaborador, true)"></div>
-                            <div class="fas fa-lg fa-trash-alt" title="Excluir" ng-show="!colaborador.temAssociacao && !colaborador.modoEdicao" ng-click="colaborador_excluir(colaborador.id)"></div>
+                            <div class="fas fa-lg fa-save" title="Salvar" ng-show="colaborador.modoEdicao" ng-click="local_colaborador_salvar(local, colaborador)"></div>
+                            <div class="fas fa-lg fa-times" title="Cancelar" ng-show="colaborador.modoEdicao" ng-click="local_colaborador_editar(local, colaborador, false)"></div>
+                            <div class="fas fa-lg fa-edit" title="Editar" ng-show="!colaborador.modoEdicao" ng-click="local_colaborador_editar(local, colaborador, true)"></div>
+                            <div class="fas fa-lg fa-trash-alt" title="Excluir" ng-show="!colaborador.temAssociacao && !colaborador.modoEdicao" ng-click="local_colaborador_excluir(local, colaborador.id)"></div>
                         </td>
                     </tr>
                 </tbody>
@@ -84,7 +86,7 @@
             </table>
 
             <br />
-            <div class="row col-botoes text-center">
+            <div class="row col-botoes text-center" ng-hide="local_colaborador_checkIfInEdicao(local)">
                 <input type="button" name="btnCancelarLocal" id="btnCancelarLocal" class="btn btn-personal1 btn-lg" value="Cancelar" ng-click="local_editar(local, false)" />
                 <input type="button" name="btnSalvarLocal" id="btnSalvarLocal" class="btn btn-success btn-lg" value="Salvar Local" ng-click="local_salvar(local)" />
             </div>

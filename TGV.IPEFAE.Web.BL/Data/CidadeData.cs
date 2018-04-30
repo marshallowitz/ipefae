@@ -20,6 +20,17 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
+        internal static List<tb_cid_cidade> ListarTodas()
+        {
+            using (IPEFAEEntities db = BaseData.Contexto)
+            {
+                return (from cid in db.tb_cid_cidade
+                        where cid.cid_bit_ativo
+                        orderby cid.cid_nom_cidade
+                        select cid).ToList();
+            }
+        }
+
         internal static List<tb_cid_cidade> ListarCidadesComEstagiario()
         {
             using (IPEFAEEntities db = BaseData.Contexto)

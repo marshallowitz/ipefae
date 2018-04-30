@@ -8,6 +8,24 @@ namespace TGV.IPEFAE.Web.BL.Data
 {
     public class ConcursoData
     {
+        internal static bool Excluir(int id)
+        {
+            using (IPEFAEEntities db = BaseData.Contexto)
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    db.DeleteWhere<concurso_local_colaborador>(clc => clc.concurso_local.concurso_id == id);
+                    db.DeleteWhere<concurso_local>(cl => cl.concurso_id == id);
+                    db.DeleteWhere<concurso_funcao>(cf => cf.concurso_id == id);
+                    db.DeleteWhere<concurso>(c => c.id == id);
+
+                    scope.Complete();
+                }
+
+                return true;
+            }
+        }
+
         internal static bool Funcao_Excluir(int idFuncao)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
@@ -51,11 +69,11 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
-        internal static bool Local_Colaborador_Excluir(int idConcursoLocal, int idColaborador)
+        internal static bool Local_Colaborador_Excluir(int idColaborador)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                db.DeleteWhere<concurso_local_colaborador>(clc => clc.concurso_local_id == idConcursoLocal && clc.colaborador_id == idColaborador);
+                db.DeleteWhere<concurso_local_colaborador>(clc => clc.id == idColaborador);
 
                 return true;
             }
@@ -69,6 +87,8 @@ namespace TGV.IPEFAE.Web.BL.Data
                 {
                     db.DeleteWhere<concurso_local_colaborador>(clc => clc.concurso_local.id == idLocal);
                     db.DeleteWhere<concurso_local>(cl => cl.id == idLocal);
+
+                    scope.Complete();
                 }
                 
                 return true;
@@ -79,7 +99,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                concurso_local_colaborador toUpdate = db.concurso_local_colaborador.SingleOrDefault(clc => clc.concurso_local_id == clcM.concurso_local_id && clc.colaborador_id == clcM.colaborador_id);
+                concurso_local_colaborador toUpdate = db.concurso_local_colaborador.SingleOrDefault(clc => clc.id == clcM.id);
 
                 if (toUpdate == null) // Nao encontrou
                 {
@@ -126,11 +146,14 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
-        internal static ConcursoModel Obter(int id)
+        internal static ConcursoModel Obter(int id, bool ate_colaborador = false)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return ConcursoModel.Clone(db.concurso.Include("concurso_funcao.concurso_local_colaborador").Include("concurso_local.concurso_local_colaborador").SingleOrDefault(con => con.id == id));
+                if (!ate_colaborador)
+                    return ConcursoModel.Clone(db.concurso.Include("concurso_funcao.concurso_local_colaborador").Include("concurso_local.concurso_local_colaborador").SingleOrDefault(con => con.id == id));
+                else
+                    return ConcursoModel.Clone(db.concurso.Include("concurso_funcao").Include("concurso_local.concurso_local_colaborador.colaborador").SingleOrDefault(con => con.id == id));
             }
         }
 
@@ -230,6 +253,14 @@ namespace TGV.IPEFAE.Web.BL.Data
             return funcao;
         }
 
+        public static List<ConcursoFuncaoModel> Listar(int idConcurso)
+        {
+            using (IPEFAEEntities db = BaseData.Contexto)
+            {
+                return db.concurso_funcao.Include("concurso_local_colaborador").Where(cf => cf.concurso_id == idConcurso).ToList().ConvertAll(cf => ConcursoFuncaoModel.Clone(cf));
+            }
+        }
+
         #endregion [ FIM - Metodos ]
     }
 
@@ -256,7 +287,7 @@ namespace TGV.IPEFAE.Web.BL.Data
             ConcursoLocalModel local = cl.CopyObject<ConcursoLocalModel>();
 
             if (cl.concurso_local_colaborador != null)
-                local.Colaboradores = cl.concurso_local_colaborador.ToList().ConvertAll(clc => clc.CopyObject<ConcursoLocalColaboradorModel>());
+                local.Colaboradores = cl.concurso_local_colaborador.ToList().ConvertAll(clc => ConcursoLocalColaboradorModel.Clone(clc));
 
             return local;
         }
@@ -276,6 +307,28 @@ namespace TGV.IPEFAE.Web.BL.Data
         public bool tem_empresa         { get; set; } = false;
         public bool ativo               { get; set; }
 
+        public bool modoEdicao          { get; set; } = false;
+
+        public ColaboradorModel colaborador { get; set; } = new ColaboradorModel();
+        public ConcursoFuncaoModel funcao { get; set; } = new ConcursoFuncaoModel();
+
         #endregion [ FIM - Propriedades ]
+
+        #region [ Metodos ]
+
+        public static ConcursoLocalColaboradorModel Clone(concurso_local_colaborador clc)
+        {
+            if (clc == null)
+                return null;
+
+            ConcursoLocalColaboradorModel local_colaborador = clc.CopyObject<ConcursoLocalColaboradorModel>();
+
+            if (clc.colaborador != null)
+                local_colaborador.colaborador = clc.colaborador.CopyObject<ColaboradorModel>();
+
+            return local_colaborador;
+        }
+
+        #endregion [ FIM - Metodos ]
     }
 }

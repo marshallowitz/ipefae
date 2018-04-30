@@ -40,6 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Concurso\CSVColaboradores.Designer.cs">
+      <DependentUpon>CSVColaboradores.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Admin\Concurso\Empresa\Cadastro.Designer.cs">
       <DependentUpon>Cadastro.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -348,6 +353,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Admin\Concurso\CSVColaboradores.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CSVColaboradores.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Admin\Concurso\Empresa\Cadastro.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Cadastro.Designer.cs</LastGenOutput>

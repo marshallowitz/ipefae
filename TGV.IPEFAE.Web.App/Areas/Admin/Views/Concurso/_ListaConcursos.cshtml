@@ -9,7 +9,7 @@
                 <th scope="col">Código</th>
                 <th scope="col">Nome</th>
                 <th scope="col">Data</th>
-                <th scope="col"></th>
+                <th scope="col" style="width: 120px;"></th>
             </tr>
         </thead>
         <tbody>
@@ -19,8 +19,11 @@
                     <td><span>@concurso.codigo</span></td>
                     <td>@concurso.nome</td>
                     <td>@concurso.data_formatada</td>
-                    <td class="acao">
-                        <div class="icons editar" title="Editar"></div>
+                    <td class="row acao">
+                        <div class="col-md-3" style="padding: 0px;" onclick="gerarRPA('@concurso.id')"><div class="icons download-remessa" title="RPA"></div></div>
+                        <div class="col-md-3" style="padding: 0px;" onclick="gerarListaColaboradores('@concurso.id')"><div class="icons excel" title="Lista Colaboradores"></div></div>
+                        <div class="col-md-3" style="padding: 0px;" onclick="editar('@concurso.id')"><div class="icons editar" title="Editar"></div></div>
+                        <div class="col-md-3" style="padding: 0px;" onclick="excluir('@concurso.id')"><div class="icons excluir" title="Excluir"></div></div>
                     </td>
                 </tr>
             }

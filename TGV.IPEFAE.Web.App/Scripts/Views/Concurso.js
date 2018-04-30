@@ -1,9 +1,76 @@
 ﻿var oTable;
 
-function editar(codigo)
+function editar(id)
 {
-    var id = parseInt(codigo);
     window.location.href = homePage + 'Admin/Concurso/Cadastro/' + id;
+}
+
+function excluir(id)
+{
+    if (!confirm('Deseja realmente remover este concurso?'))
+        return;
+
+    $.blockUI({ message: 'Excluindo o Concurso', css: cssCarregando });
+    var url = homePage + 'Admin/Concurso/Excluir';
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: { id: id },
+        success: function (retorno)
+        {
+            $('.lista').html('');
+            $('.lista').append(retorno);
+            montarTabela();
+
+            if ($('.lista').find('table').attr('summary') === 'Nenhum concurso foi encontrado')
+                $('.lista').css('marginTop', 0);
+
+            alert('Concurso excluído com sucesso');
+
+            $.unblockUI();
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            alertaErroJS({ NomeFuncao: 'excluir()', ResponseText: xhr.responseText });
+            $.unblockUI();
+        }
+    });
+}
+
+function gerarListaColaboradores(id)
+{
+    $.blockUI({ message: 'Gerando Lista de Colaboradores', css: cssCarregando });
+    var url = homePage + 'Admin/Concurso/GerarListaColaboradores';
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: { id: id },
+        success: function (result)
+        {
+            if (result) {
+                $('#iframeCSV').attr('src', homePage + 'Handlers/DownloadCSVHandler.ashx?tipo=con&id=' + id);
+                $('#iframeCSV').load();
+
+                setTimeout(function () { terminouDownload(homePage + 'Admin/Concurso/GerarCSVListaColaboradoresConfirmacao'); }, 2000);
+            }
+            else {
+                alert("Nenhum colaborador foi encontrado para este concurso");
+                $.unblockUI();
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            alertaErroJS({ NomeFuncao: 'gerarListaColaboradores()', ResponseText: xhr.responseText });
+            $.unblockUI();
+        }
+    });
+}
+
+function gerarRPA(id)
+{
+    console.log('gerarRPA', id);
 }
 
 function iniciarTelaListaConcursos()
@@ -30,7 +97,6 @@ function listarConcursos()
             if ($('.lista').find('table').attr('summary') === 'Nenhum concurso foi encontrado')
                 $('.lista').css('marginTop', 0);
 
-            $('.editar').on('click', function () { editar($(this).closest('tr').find('td:first span').html()); });
             $.unblockUI();
         },
         error: function (xhr, ajaxOptions, thrownError)
@@ -63,9 +129,9 @@ function montarTabela()
     'use strict';
 
     angular.module('ipefae').controller('concursoController', concursoController);
-    concursoController.$inject = ['$scope', '$rootScope', '$http', '$q', '$timeout'];
+    concursoController.$inject = ['$scope', '$rootScope', '$filter', '$http', '$q', '$timeout'];
 
-    function concursoController($scope, $rootScope, $http, $q, $timeout)
+    function concursoController($scope, $rootScope, $filter, $http, $q, $timeout)
     {
         var vm = this;
         vm.activate = _activate;
@@ -86,6 +152,8 @@ function montarTabela()
                         {
                             $scope.concurso = retorno.Concurso;
                             $scope.id = $scope.concurso.id;
+
+                            $scope.listas.colaboradores = retorno.Colaboradores;
                             
                             $scope.carregarConcurso();
                         }
@@ -162,6 +230,43 @@ function montarTabela()
                             $(el).focus();
                     });
                 }, 500);
+            }
+
+            $scope.funcao_atualizar_tem_associacao = function()
+            {
+                var idConcurso = $scope.concurso.id;
+
+                var url = homePage + 'Admin/Concurso/Funcao_Listar';
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: { idConcurso: idConcurso },
+                    success: function (retorno)
+                    {
+                        if (retorno.Sucesso)
+                        {
+                            var nova_lista = retorno.Funcoes;
+
+                            $scope.$apply(function ()
+                            {
+                                $.each(nova_lista, function (i, f)
+                                {
+                                    var ind = findInArrayIndex($scope.concurso.funcoes, 'id', f.id);
+
+                                    if (ind !== undefined && ind != null && ind >= 0) {
+                                        $scope.concurso.funcoes[ind].temAssociacao = f.temAssociacao;
+                                    }
+                                });
+                            });
+                        }
+
+                        $('.lista-locais').removeClass('whirl');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) { console.log(xhr.responseText); alertaErroJS({ NomeFuncao: 'local_colaborador_salvar()', ResponseText: xhr.responseText }); }
+                });
+
+                
             }
 
             $scope.funcao_changeIfInEdicao = function (inEdicao)
@@ -353,7 +458,15 @@ function montarTabela()
             $scope.local_editar = function (local, editar)
             {
                 if (editar)
-                    local.old_values = { id: local.id, local: local.local, colaboradores: local.colaboradores };
+                {
+                    $.each(local.Colaboradores, function (ind, colaborador)
+                    {
+                        colaborador.colaborador = findInArray($scope.listas.colaboradores, 'id', colaborador.colaborador_id);
+                        colaborador.funcao = findInArray($scope.concurso.funcoes, 'id', colaborador.funcao_id);
+                    });
+
+                    local.old_values = { id: local.id, local: local.local, Colaboradores: local.Colaboradores };
+                }
                 else {
                     var index = findInArrayIndex($scope.concurso.locais, 'id', local.old_values.id);
 
@@ -362,8 +475,8 @@ function montarTabela()
                     }
                     else {
                         local.id = local.old_values.id;
-                        local.funcao = local.old_values.local;
-                        local.colaboradores = local.old_values.colaboradores;
+                        local.local = local.old_values.local;
+                        local.Colaboradores = local.old_values.Colaboradores;
                     }
 
                     $scope.local_limparDirty('ipt-local', index, local);
@@ -394,7 +507,7 @@ function montarTabela()
                     success: function (retorno)
                     {
                         if (retorno.Sucesso) {
-                            $timeout(function () { $scope.$apply(function () { $scope.concurso.locais.splice(index, 1); }); });
+                            $timeout(function () { $scope.$apply(function () { $scope.concurso.locais.splice(index, 1); }); $scope.funcao_atualizar_tem_associacao(); });
 
                             alert('Local de Prova removido com sucesso');
                         }
@@ -458,7 +571,12 @@ function montarTabela()
 
             $scope.local_colaborador_adicionar = function (local)
             {
-                var novo_colaborador = { id: 0, nome: '', valor_liquido: 0 };
+                var funcao = $filter('orderBy')($scope.concurso.funcoes, 'funcao')[0];
+                var colaborador = $filter('orderBy')($scope.listas.colaboradores, 'nome')[0];
+                var novo_colaborador = { id: 0, colaborador: colaborador, funcao: funcao, valor: 0, tem_empresa: false, modoEdicao: false };
+
+                $scope.local_colaborador_mudar_funcao(novo_colaborador, funcao);
+
                 local.Colaboradores.push(novo_colaborador);
                 $scope.local_colaborador_editar(local, novo_colaborador, true);
 
@@ -470,6 +588,11 @@ function montarTabela()
                             $(el).focus();
                     });
                 }, 500);
+            }
+
+            $scope.local_colaborador_changeIfInEdicao = function (colaborador, inEdicao)
+            {
+                colaborador.modoEdicao = inEdicao;
             }
 
             $scope.local_colaborador_checkIfInEdicao = function (local)
@@ -493,24 +616,97 @@ function montarTabela()
             $scope.local_colaborador_editar = function (local, colaborador, editar)
             {
                 if (editar)
-                    colaborador.old_values = { id: colaborador.id, local: local, nome: colaborador.nome, valor_liquido: colaborador.valor_liquido };
+                    colaborador.old_values = { id: colaborador.id, nome: colaborador.nome, valor: colaborador.valor, tem_empresa: colaborador.tem_empresa };
                 else {
                     var index = findInArrayIndex(local.Colaboradores, 'id', colaborador.old_values.id);
 
-                    if (local.old_values.id === 0) {
-                        $scope.concurso.locais.splice(index, 1);
+                    if (colaborador.old_values.id === 0)
+                    {
+                        local.Colaboradores.splice(index, 1);
                     }
                     else {
-                        local.id = local.old_values.id;
-                        local.funcao = local.old_values.local;
-                        local.colaboradores = local.old_values.colaboradores;
+                        colaborador.id = colaborador.old_values.id;
+                        colaborador.nome = colaborador.old_values.nome;
+                        colaborador.valor = colaborador.old_values.valor;
+                        colaborador.tem_empresa = colaborador.old_values.tem_empresa;
                     }
-
-                    $scope.local_limparDirty('ipt-local', index, local);
                 }
 
-                local.modoEdicao = !local.modoEdicao;
+                colaborador.modoEdicao = !colaborador.modoEdicao;
             }
+
+            $scope.local_colaborador_excluir = function (local, idColaborador)
+            {
+                var url = homePage + 'Admin/Concurso/Local_Colaborador_Excluir';
+                var index = findInArrayIndex(local.Colaboradores, 'id', idColaborador);
+                var colaborador = findInArray(local.Colaboradores, 'id', idColaborador);
+                
+                if (colaborador === undefined || colaborador === null)
+                    return;
+
+                $scope.local_colaborador_changeIfInEdicao(colaborador, false);
+
+                $('.lista-colaboradores').addClass('whirl');
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: { idColaborador: idColaborador },
+                    success: function (retorno)
+                    {
+                        if (retorno.Sucesso)
+                        {
+                            $timeout(function () { $scope.$apply(function () { local.Colaboradores.splice(index, 1); }); $scope.funcao_atualizar_tem_associacao(); });
+
+                            alert('O Colaborador foi removido com sucesso do Local de Prova');
+                        }
+
+                        $('.lista-colaboradores').removeClass('whirl');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'local_colaborador_excluir()', ResponseText: xhr.responseText }); }
+                });
+            }
+
+            $scope.local_colaborador_mudar_funcao = function(colaborador, funcao)
+            {
+                funcao = funcao || colaborador.funcao;
+                colaborador.valor = funcao.valor_liquido;
+            }
+
+            $scope.local_colaborador_salvar = function (local, colaborador)
+            {
+                var idConcursoLocal = local.id;
+
+                colaborador.colaborador_id = colaborador.colaborador.id;
+                colaborador.funcao_id = colaborador.funcao.id;
+
+                $('.lista-locais').addClass('whirl');
+                var url = homePage + 'Admin/Concurso/Local_Colaborador_Salvar';
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: { idConcursoLocal: idConcursoLocal, clcM: colaborador },
+                    success: function (retorno)
+                    {
+                        if (retorno.Sucesso) {
+                            $timeout(function () { $scope.$apply(function () { colaborador.modoEdicao = false; colaborador.id = retorno.Colaborador.id; $scope.funcao_atualizar_tem_associacao(); }); });
+
+                            alert('Associação do colaborador com o local de prova efetuada com sucesso');
+                        }
+
+                        $('.lista-locais').removeClass('whirl');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) { console.log(xhr.responseText); alertaErroJS({ NomeFuncao: 'local_colaborador_salvar()', ResponseText: xhr.responseText }); }
+                });
+            }
+
+            $scope.local_colaborador_valor_liquido = function (colaborador)
+            {
+                if (!colaborador.valor_liquido)
+                    colaborador.valor_liquido = 0;
+            }
+
 
             $scope.getErrorMessage = function (fieldName, lista, formName)
             {
@@ -617,4 +813,41 @@ function montarTabela()
 
         vm.activate();
     }
+
+
+    angular.module('ipefae').filter('notInLocais', function ()
+    {
+        return function (list, locais, current_id)
+        {
+            if (locais)
+            {
+                // Obtem a lista de colaboradores selecionados
+                var colaboradores_ids = [];
+
+                $.each(locais, function (ind, local)
+                {
+                    $.each(local.Colaboradores, function (i, colaborador)
+                    {
+                        colaboradores_ids.push(colaborador.colaborador_id);
+                    });
+                });
+
+                // Se não houver nenhum selecionado, retorna a propria lista original
+                if (colaboradores_ids === undefined || colaboradores_ids.length <= 0)
+                    return list;
+
+                var result = [];
+
+                // Percorre a lista original
+                $.each(list, function (i, c)
+                {
+                    // Se o colaborador não estiver na lista de selecionados, adiciona
+                    if (c.id == current_id || colaboradores_ids.indexOf(c.id) < 0)
+                        result.push(c);
+                });
+
+                return result;
+            }
+        };
+    });
 })();

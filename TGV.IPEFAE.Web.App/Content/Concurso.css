@@ -1,52 +1,50 @@
-﻿.input-as-span                                              { background-color: transparent !important; border: none !important; box-shadow: none;}
+﻿.dataTables_filter input[type=search]   { padding: 0px; }
 
-.tooltip-error                        { position: relative; display: inline-block; width: 100%; }
+.input-as-span                      { background-color: transparent !important; border: none !important; box-shadow: none;}
+.select-as-span                     { background-color: transparent !important; border: none !important; box-shadow: none; -webkit-appearance: none; -moz-appearance: none; text-indent: 1px; text-overflow: ''; }
 
-.tooltip-error .tooltiptext {
-    visibility: hidden;
-    width: 50%;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
+.tooltip-error                      { position: relative; display: inline-block; width: 100%; }
+.tooltip-error .tooltiptext         { background-color: #555; border-radius: 6px; bottom: 125%; color: #fff; left: 50%; margin-left: -60px; opacity: 0; padding: 5px 0; position: absolute; text-align: center; transition: opacity 0.3s; visibility: hidden; width: 50%; z-index: 1; }
 
 .tooltip-error .tooltiptext::after,
-.tooltip-error .tooltiptext2::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -5px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #555 transparent transparent transparent;
-}
+.tooltip-error .tooltiptext2::after { border-width: 5px; border-style: solid; border-color: #555 transparent transparent transparent; content: ""; left: 50%; margin-left: -5px; position: absolute; top: 100%; }
+.tooltip-error:hover .tooltiptext   { opacity: 1; visibility: visible; }
+.tooltip-error .tooltiptext2        { width: 50%; background-color: #555; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; left: 50%; margin-left: -60px; transform: translateX(-50%); position: absolute; top: 0px; }
 
-.tooltip-error:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
-}
+.cssSlideUp                         { max-height: 1000px; overflow: hidden; transition: .5s linear all; }
+.cssSlideUp.ng-hide                 { max-height:0; }
 
-.tooltip-error .tooltiptext2 { width: 50%; background-color: #555; color: #fff; text-align: center; border-radius: 6px; padding: 5px 0; left: 50%; margin-left: -60px; transform: translateX(-50%); position: absolute; top: 0px; }
+.c-checkbox input,
+.c-radio input                                          { margin-left: 0!important; opacity: 0; position: absolute; }
+input[type=checkbox],
+ input[type=radio]                                      { line-height: normal; margin: 4px 0 0; margin-top: 1px\9; }
+input[type=checkbox],
+input[type=radio]                                       { box-sizing: border-box; padding: 0; }
+.c-checkbox *,
+.c-radio *                                              { cursor: pointer; }
 
-.cssSlideUp         { max-height: 1000px; overflow: hidden; transition: .5s linear all; }
-.cssSlideUp.ng-hide { max-height:0; }
+.c-checkbox input[type=checkbox]:checked+span,
+.c-checkbox input[type=radio]:checked+span,
+.c-radio input[type=checkbox]:checked+span,
+.c-radio input[type=radio]:checked+span                 { background-color: #5d9cec; border-color: #5d9cec; }
+.c-checkbox span, 
+.c-radio span                                           { border: 1px solid #ccc; border-radius: 2px; display: inline-block; height: 20px; margin-left: -20px; margin-right: 5px; position: relative; text-align: center; vertical-align: top; width: 20px; }
+.fa                                                     { display: inline-block; font: normal normal normal 14px/1 FontAwesome; font-size: inherit; text-rendering: auto; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+.c-checkbox *,
+.c-radio *                                              { cursor: pointer; }
+
+.c-checkbox input[type=checkbox]:checked+span:before,
+.c-checkbox input[type=radio]:checked+span:before,
+.c-radio input[type=checkbox]:checked+span:before,
+.c-radio input[type=radio]:checked+span:before          { color: #fff; opacity: 1; transition: color .3s ease-out; }
+.c-checkbox span:before,
+.c-radio span:before                                    { bottom: 0; font-size: 12px; left: 0; line-height: 18px; opacity: 0; position: absolute; right: 0; text-align: center!important; top: 0; vertical-align: middle; }
+.c-checkbox span:before,
+.c-radio span:before                                    {  margin-left: 0; }
 
 
-
-
-
-
-
+#tblLocais .form-group,
+#tblColaboradores .form-group   { margin-bottom: 0px; }
 
 
 
