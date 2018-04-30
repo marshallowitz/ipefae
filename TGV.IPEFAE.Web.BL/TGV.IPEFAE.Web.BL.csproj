@@ -56,6 +56,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\IRPFBusiness.cs" />
     <Compile Include="Business\BaseBusiness.cs" />
     <Compile Include="Business\BancoBusiness.cs" />
     <Compile Include="Business\RacaBusiness.cs" />
@@ -76,12 +77,16 @@
     <Compile Include="Data\banco.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\IRPFData.cs" />
     <Compile Include="Data\BaseData.cs" />
     <Compile Include="Data\colaborador.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\BancoData.cs" />
     <Compile Include="Data\ConcursoData.cs" />
+    <Compile Include="Data\irpf.cs">
+      <DependentUpon>IPEFAEModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Data\RacaData.cs" />
     <Compile Include="Data\GrauInstrucaoData.cs" />
     <Compile Include="Data\ColaboradorData.cs" />

@@ -15,6 +15,26 @@ namespace TGV.IPEFAE.Web.BL.Business
             return ColaboradorData.Listar();
         }
 
+        public static List<ColaboradorModel> ListarPorConcurso(int idConcurso)
+        {
+            ConcursoModel concurso = ConcursoBusiness.Obter(idConcurso, true);
+
+            if (concurso == null)
+                return new List<ColaboradorModel>();
+
+            List<ColaboradorModel> colaboradores = new List<ColaboradorModel>();
+
+            foreach (var local in concurso.locais)
+            {
+                foreach (var col in local.Colaboradores)
+                {
+                    colaboradores.Add(col.colaborador);
+                }
+            }
+
+            return colaboradores;
+        }
+
         public static ColaboradorModel Obter(int id)
         {
             ColaboradorModel colaborador = ColaboradorData.Obter(id);

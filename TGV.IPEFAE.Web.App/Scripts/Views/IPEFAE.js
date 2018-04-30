@@ -113,6 +113,46 @@ function gerarComprovanteInscricaoChamadaFuncao(w, comprovante) {
     }
 }
 
+function gerarPDFColaboradores(idConcurso, reload)
+{
+    var url = homePage + 'Admin/Concurso/RPA';
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: { id: idConcurso },
+        success: function (html)
+        {
+            var w = janelaPopUp;
+            //console.log(retorno);
+            gerarPDFColaboradoresChamadaFuncao(w, html, reload);
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            alertaErroJS({ NomeFuncao: 'gerarPDFColaboradores()', ResponseText: xhr.responseText });
+        }
+    });
+
+    return false;
+}
+
+function gerarPDFColaboradoresChamadaFuncao(w, html, reload)
+{
+    if (!janelaPopUp.getTitulo || janelaPopUp.getTitulo() === '')
+        setTimeout(function () { gerarPDFColaboradoresChamadaFuncao(w, html, reload); }, 1000);
+    else {
+        w.document.title = ".:: IPEFAE ::.";
+
+        try {
+            w.document.write(html);
+            w.document.close();
+        } catch (e) {
+            //alert(e);
+            if (reload) window.location.reload();
+        }
+    }
+}
+
 function obterClassificacao(nomeConcurso, idInscrito)
 {
     var url = homePage + 'Concurso/GerarClassificacao';

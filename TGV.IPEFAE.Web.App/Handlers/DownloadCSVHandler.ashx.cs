@@ -42,15 +42,7 @@ namespace TGV.IPEFAE.Web.App.Handlers
             if (concurso == null)
                 return;
 
-            List<ColaboradorModel> colaboradores = new List<ColaboradorModel>();
-
-            foreach (var local in concurso.locais)
-            {
-                foreach (var col in local.Colaboradores)
-                {
-                    colaboradores.Add(col.colaborador);
-                }
-            }
+            List<ColaboradorModel> colaboradores = ColaboradorBusiness.ListarPorConcurso(id);
 
             string fileName = String.Format("{1}_{0}.csv", BaseBusiness.RemoverCaracteresEspeciais(concurso.nome), BaseBusiness.DataAgora.ToString("yyyyMMdd"));
             byte[] fileBytes = null;

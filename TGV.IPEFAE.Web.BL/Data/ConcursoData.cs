@@ -326,7 +326,18 @@ namespace TGV.IPEFAE.Web.BL.Data
             if (clc.colaborador != null)
                 local_colaborador.colaborador = clc.colaborador.CopyObject<ColaboradorModel>();
 
+            if (clc.concurso_funcao != null)
+                local_colaborador.funcao = clc.concurso_funcao.CopyObject<ConcursoFuncaoModel>();
+
             return local_colaborador;
+        }
+
+        public static List<ConcursoLocalColaboradorModel> Listar(int idConcurso)
+        {
+            using (IPEFAEEntities db = BaseData.Contexto)
+            {
+                return db.concurso_local_colaborador.Include("concurso_funcao").Where(clc => clc.concurso_local.concurso_id == idConcurso).ToList().ConvertAll(clc => ConcursoLocalColaboradorModel.Clone(clc));
+            }
         }
 
         #endregion [ FIM - Metodos ]

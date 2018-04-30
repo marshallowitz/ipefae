@@ -104,6 +104,17 @@
           <Property Name="nome" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ativo" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="irpf">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="valor_min" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="valor_max" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="taxa" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="deducao" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="ativo" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="raca">
           <Key>
             <PropertyRef Name="id" />
@@ -887,6 +898,7 @@
           <EntitySet Name="concurso_local" EntityType="Self.concurso_local" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="concurso_local_colaborador" EntityType="Self.concurso_local_colaborador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="grau_instrucao" EntityType="Self.grau_instrucao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="irpf" EntityType="Self.irpf" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="raca" EntityType="Self.raca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="relatorio_pdf" EntityType="Self.relatorio_pdf" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_can_concurso_anexo" EntityType="Self.tb_can_concurso_anexo" Schema="dbo" store:Type="Tables" />
@@ -1227,6 +1239,7 @@
             <End Role="concurso_local" EntitySet="concurso_local" />
             <End Role="concurso_local_colaborador" EntitySet="concurso_local_colaborador" />
           </AssociationSet>
+          <EntitySet Name="irpf" EntityType="TGV.IPEFAE.Web.Data.irpf" />
           </EntityContainer>
         <EntityType Name="tb_usu_usuario">
           <Key>
@@ -2259,6 +2272,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="irpf">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="valor_min" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="valor_max" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="taxa" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="deducao" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2835,6 +2859,18 @@
                 <ScalarProperty Name="funcao_id" ColumnName="funcao_id" />
                 <ScalarProperty Name="colaborador_id" ColumnName="colaborador_id" />
                 <ScalarProperty Name="concurso_local_id" ColumnName="concurso_local_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="irpf">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.irpf">
+              <MappingFragment StoreEntitySet="irpf">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="deducao" ColumnName="deducao" />
+                <ScalarProperty Name="taxa" ColumnName="taxa" />
+                <ScalarProperty Name="valor_max" ColumnName="valor_max" />
+                <ScalarProperty Name="valor_min" ColumnName="valor_min" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

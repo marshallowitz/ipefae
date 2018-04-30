@@ -75,6 +75,23 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
             return Json(retorno, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult RPA(int id)
+        {
+            return View(id);
+        }
+
+        public ActionResult ListarColaboradores(int idConcurso)
+        {
+            List<tb_cid_cidade> cidades = CidadeBusiness.ListarTodas();
+            List<tb_est_estado> estados = EstadoBusiness.Listar();
+            List<IRPFModel> irpfs = IRPFBusiness.Listar();
+            List<ConcursoLocalColaboradorModel> locaisColaboradores = ConcursoLocalColaboradorModel.Listar(idConcurso);
+
+            List<ColaboradorModel> cs = ColaboradorBusiness.ListarPorConcurso(idConcurso);
+            List<ColaboradorRPAModel> colaboradores = cs.ConvertAll(c => ColaboradorRPAModel.Clone(c, cidades, estados, locaisColaboradores, irpfs));
+            return Json(new { Colaboradores = colaboradores }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ListarConcursos()
         {
             List<ConcursoModel> concursos = ConcursoBusiness.Listar();

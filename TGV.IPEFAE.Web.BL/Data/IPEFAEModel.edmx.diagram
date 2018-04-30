@@ -71,6 +71,7 @@
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_colaborador" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_funcao" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_local" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.irpf" Width="1.5" PointX="7.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

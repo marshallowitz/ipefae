@@ -70,7 +70,7 @@ function gerarListaColaboradores(id)
 
 function gerarRPA(id)
 {
-    console.log('gerarRPA', id);
+    window.location.href = homePage + 'Admin/Concurso/RPA/' + id;
 }
 
 function iniciarTelaListaConcursos()
@@ -850,4 +850,66 @@ function montarTabela()
             }
         };
     });
+})();
+
+(function ()
+{
+    'use strict';
+
+    angular.module('ipefae').controller("pdfController", pdfController);
+    pdfController.$inject = ['$scope', '$timeout'];
+
+    function pdfController($scope, $timeout)
+    {
+        $scope.colaboradores = [];
+
+        $('.rpa-container').addClass('whirl');
+
+        $scope.carregarDados = function ()
+        {
+            var url = homePage + 'Admin/Concurso/ListarColaboradores';
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: { idConcurso: idConcurso },
+                success: function (result)
+                {
+                    $scope.$apply(function ()
+                    {
+                        $scope.colaboradores = result.Colaboradores;
+                    });
+
+                    $('.rpa-container').removeClass('whirl');
+                },
+                error: function (xhr, ajaxOptions, thrownError)
+                {
+                    alertaErroJS({ NomeFuncao: 'carregarDados()', ResponseText: xhr.responseText });
+                    $.unblockUI();
+                }
+            });
+        }
+
+        $timeout(function () { $scope.carregarDados(); }, 500);
+
+        $scope.export = function ()
+        {
+            var exportthis = document.getElementById('exportthis');
+
+            html2canvas(exportthis, {
+                onrendered: function (canvas)
+                {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 500,
+                        }]
+                    };
+
+                    pdfMake.createPdf(docDefinition).download("rpa.pdf");
+                }
+            });
+        }
+    }
 })();
