@@ -19,7 +19,7 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CSVInscritos {
@@ -88,7 +88,7 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Não há nenhum inscrito neste concurso.
+        ///   Looks up a localized string similar to Não há nenhum colaborador neste concurso.
         /// </summary>
         public static string CSVNenhumInscrito {
             get {

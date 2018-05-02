@@ -36,7 +36,7 @@
                     <div class="col-md-6">
                         <div class="form-group" ng-class="{'has-error': errorList.email.enable}">
                             <label>E-mail</label><em>*</em>
-                            <input type="email" class="form-control text-lowercase" name="email" id="txtEmail" ng-model="colaborador.email" maxlength="100" required uib-tooltip="{{getErrorMessage('email', ['O e-mail é obrigatório', 'Formato do e-mail inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.email.enable" />
+                            <input type="email" class="form-control text-lowercase" name="email" id="txtEmail" ng-model="colaborador.email" ui-validate="{emailJaExiste:'verificarEmailJaExiste($value)'}" maxlength="100" required uib-tooltip="{{getErrorMessage('email', ['O e-mail é obrigatório', 'Formato do e-mail inválido', 'Este e-mail já está vinculado a outro usuário'])}}" tooltip-placement="top" tooltip-is-open="errorList.email.enable" />
                         </div>
                     </div>
                 </div>
@@ -196,7 +196,7 @@
                 </div>
             </fieldset>
             <br />
-            <fieldset>
+            <fieldset class="fsEndereco">
                 <legend>Dados Endereço</legend>
                 <div class="row">
                     <div class="col-md-10">
@@ -228,7 +228,7 @@
                     <div class="col-md-2">
                         <div class="form-group" ng-class="{'has-error': errorList.cep.enable}">
                             <label>CEP</label><em>*</em>
-                            <input type="text" class="form-control" name="cep" id="txtCEP" ng-model="colaborador.endereco_cep" maxlength="9" required ui-br-cep-mask uib-tooltip="{{getErrorMessage('cep', ['O CEP é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.cep.enable" />
+                            <input type="text" class="form-control" name="cep" id="txtCEP" ng-model="colaborador.endereco_cep" maxlength="9" required ui-br-cep-mask uib-tooltip="{{getErrorMessage('cep', ['O CEP é obrigatório', 'Formato do CEP inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.cep.enable" />
                         </div>
                     </div>
                     <div class="col-md-2" style="line-height: 74px;">
@@ -306,6 +306,7 @@
                 <input type="button" name="btnVoltar" id="btnVoltar" ng-show="isAdmin" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
                 <input type="button" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />
             </div>
+            <br />
         </form>
     </div>
 

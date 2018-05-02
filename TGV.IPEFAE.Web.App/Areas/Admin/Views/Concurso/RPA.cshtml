@@ -47,13 +47,13 @@
                             <div class="col-md-12">Nome: <b>{{colaborador.nome}}</b></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">Nº do CPF: <b>{{colaborador.cpf_formatado}}</b></div>
-                            <div class="col-md-4">Nº do RG: <b>{{colaborador.rg}}</b></div>
+                            <div class="col-md-5">Nº do CPF: <b>{{colaborador.cpf_formatado}}</b></div>
+                            <div class="col-md-3">Nº do RG: <b>{{colaborador.rg}}</b></div>
                             <div class="col-md-4">Nº do NIT/PIS: <b>{{colaborador.pis_pasep_net}}</b></div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">Endereço: <b>{{colaborador.endereco_logradouro}} - {{colaborador.endereco_nro}}</b></div>
-                            <div class="col-md-4">Bairro: <b>{{colaborador.endereco_bairro}}</b></div>
+                            <div class="col-md-5">Endereço: <b>{{colaborador.endereco_logradouro}} - {{colaborador.endereco_nro}}</b></div>
+                            <div class="col-md-3">Bairro: <b>{{colaborador.endereco_bairro}}</b></div>
                             <div class="col-md-4">Cidade: <b>{{colaborador.endereco_cidade_uf_nome}}</b></div>
                         </div>
                     </div>
@@ -114,6 +114,11 @@
             </div>
         </div>
     </div>
+
+    <div ng-show="colaboradores.length <= 0">
+        <button class="btn btn-default" onclick="window.location.href='@Url.Content("~/Admin/Concurso")'">Voltar</button>
+    </div>
+    <br />
     <div class="vazio" ng-show="colaboradores.length <= 0">
         Nenhum colaborador foi encontrado para este concurso
     </div>

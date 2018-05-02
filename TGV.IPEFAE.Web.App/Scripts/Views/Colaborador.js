@@ -223,7 +223,7 @@ function reenviarSenha()
         var vm = this;
         vm.activate = _activate;
 
-        function carregarCidades(estado_id, ehNaturalidade, cidade_id)
+        function carregarCidades(estado_id, ehNaturalidade, cidade_id, callback)
         {
             if (ehNaturalidade)
                 $('#ddlNaturalidadeCidade').parent().addClass('whirl');
@@ -238,9 +238,11 @@ function reenviarSenha()
                 data: { estado_id: estado_id },
                 success: function (retorno)
                 {
+                    var listaCidades = retorno.Cidades;
+
                     if (ehNaturalidade)
                     {
-                        $scope.listas.naturalidadeCidades = retorno.Cidades;
+                        $scope.listas.naturalidadeCidades = listaCidades;
                         
                         if (cidade_id !== undefined)
                             $scope.colaborador.naturalidade_cidade = findInArray($scope.listas.naturalidadeCidades, 'Id', $scope.colaborador.naturalidade_cidade_id);
@@ -249,12 +251,17 @@ function reenviarSenha()
                     }
                     else
                     {
-                        $scope.listas.enderecoCidades = retorno.Cidades;
+                        $scope.listas.enderecoCidades = listaCidades;
 
                         if (cidade_id !== undefined)
                             $scope.colaborador.endereco_cidade = findInArray($scope.listas.enderecoCidades, 'Id', $scope.colaborador.endereco_cidade_id);
 
-                        $timeout(function () { $('#ddlCidade').parent().removeClass('whirl'); }, 500);
+                        if (typeof callback === 'function')
+                        {
+                            callback();
+                        }
+                        else
+                            $timeout(function () { $('#ddlCidade').parent().removeClass('whirl'); }, 500);
                     }
                 },
                 error: function (xhr, ajaxOptions, thrownError)
@@ -306,7 +313,7 @@ function reenviarSenha()
 
             $scope.errorList = {};
             $scope.errorList.nome = { enable: false, ind: -1, validacoes: undefined };
-            $scope.errorList.email = { enable: false, ind: -1, validacoes: ['email'] };
+            $scope.errorList.email = { enable: false, ind: -1, validacoes: ['email', 'emailJaExiste'] };
             $scope.errorList.cpf = { enable: false, ind: -1, validacoes: ['cpf', 'cpfJaExiste'] };
             $scope.errorList.rg = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.dataNasc = { enable: false, ind: -1, validacoes: ['date'] };
@@ -324,7 +331,7 @@ function reenviarSenha()
             $scope.errorList.logradouro = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.nroEndereco = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.bairro = { enable: false, ind: -1, validacoes: undefined };
-            $scope.errorList.cep = { enable: false, ind: -1, validacoes: ['brCepMask'] };
+            $scope.errorList.cep = { enable: false, ind: -1, validacoes: ['cep'] };
             $scope.errorList.estado = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.cidade = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.banco = { enable: false, ind: -1, validacoes: undefined };
@@ -370,6 +377,20 @@ function reenviarSenha()
 
             $scope.buscarCEP = function ()
             {
+                var fieldName = 'cep';
+                var fieldCEP = findInArray($scope.colCadastroForm.$$controls, '$name', fieldName);
+
+                if (fieldCEP.$invalid)
+                {
+                    var item = $scope.errorList[fieldName];
+                    fieldCEP.$dirty = true;
+                    $scope.checkIfIsTooltipEnable(fieldName, item.validacoes, 'colCadastroForm');
+                    $('[name="' + fieldName + '"]').focus();
+                    return;
+                }
+
+                $('.fsEndereco').addClass('whirl'); 
+
                 var cep = $scope.colaborador.endereco_cep;
                 cep = cep.replace(/\./g, "");
                 cep = cep.replace(/\-/g, "");
@@ -380,11 +401,28 @@ function reenviarSenha()
                     $scope.colaborador.endereco_logradouro = response.data.logradouro;
                     $scope.colaborador.endereco_bairro = response.data.bairro;
 
+                    var estado = findInArray($scope.listas.estados, 'Sigla', response.data.uf);
 
+                    if (estado !== null && estado !== undefined)
+                    {
+                        $scope.colaborador.endereco_estado = estado;
+
+                        $scope.carregarCidadesEndereco(undefined, function ()
+                        {
+                            var cidade = findInArray($scope.listas.enderecoCidades, 'Nome', removeDiacritics(response.data.localidade));
+
+                            if (cidade !== undefined && cidade !== null)
+                                $scope.colaborador.endereco_cidade = cidade;
+
+                            $timeout(function () { $('.fsEndereco').removeClass('whirl'); $('#ddlCidade').parent().removeClass('whirl'); }, 500);
+                        });
+                    }
+
+                    //console.log(response.data);
                 });
             }
 
-            $scope.carregarCidadesEndereco = function(idCidade)
+            $scope.carregarCidadesEndereco = function (idCidade, callback)
             {
                 $scope.listas.enderecoCidades = [];
                 $scope.colaborador.endereco_cidade = {};
@@ -392,7 +430,7 @@ function reenviarSenha()
                 var estado = $scope.colaborador.endereco_estado;
 
                 if (estado !== undefined && estado.Id > 0)
-                    carregarCidades(estado.Id, false, idCidade);
+                    carregarCidades(estado.Id, false, idCidade, callback);
             }
 
             $scope.carregarCidadesNaturalidade = function (idCidade)
@@ -523,7 +561,10 @@ function reenviarSenha()
                 });
 
                 if (firstErrorField !== undefined)
+                {
                     firstErrorField.focus();
+                    return;
+                }
 
                 if ($scope.colaborador.id === undefined || $scope.colaborador.id <= 0) // Cadastro
                     $('.modal-senha').modal('show');
@@ -561,7 +602,10 @@ function reenviarSenha()
 
                 $scope.colaborador.email = $scope.colaborador.email.toLowerCase();
                 $scope.colaborador.banco_id = $scope.colaborador.banco.id;
-                $scope.colaborador.carteira_trabalho_estado_id = $scope.colaborador.carteira_trabalho_uf.Id;
+
+                if ($scope.colaborador.carteira_trabalho_uf !== undefined && $scope.colaborador.carteira_trabalho_uf !== null)
+                    $scope.colaborador.carteira_trabalho_estado_id = $scope.colaborador.carteira_trabalho_uf.Id;
+
                 $scope.colaborador.raca_id = $scope.colaborador.raca.id;
                 $scope.colaborador.data_nascimento = formatDateToDDMMYYYY($scope.colaborador.data_nascimento);
                 $scope.colaborador.endereco_cidade_id = $scope.colaborador.endereco_cidade.Id;
@@ -577,7 +621,13 @@ function reenviarSenha()
                     {
                         if (retorno.Sucesso)
                         {
+                            var isAdmin = $scope.isAdmin || false;
+
                             $scope.colaborador = retorno.Colaborador;
+
+                            if (isAdmin)
+                                $scope.colaborador.senhaDescriptografada = retorno.SD;
+
                             $scope.carregarColaborador();
                             alert('Dados salvos com sucesso');
                         }
@@ -613,6 +663,38 @@ function reenviarSenha()
                             error: function (xhr, ajaxOptions, thrownError)
                             {
                                 alertaErroJS({ NomeFuncao: 'verificarCPFJaExiste()', ResponseText: xhr.responseText });
+                            }
+                        });
+                    }, 500);
+                });
+            }
+
+            $scope.verificarEmailJaExiste = function (email)
+            {
+                return $q(function (resolve, reject)
+                {
+                    var fieldName = 'email';
+                    var fieldEmail = findInArray($scope.colCadastroForm.$$controls, '$name', fieldName);
+
+                    if (fieldEmail.$invalid)
+                        return resolve();
+
+                    var url = homePage + 'Colaborador/VerificarEmailJaExiste';
+                    var id = $scope.id || 0;
+
+                    $timeout(function ()
+                    {
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            data: { id: id, email: email },
+                            success: function (retorno)
+                            {
+                                return retorno ? reject() : resolve();
+                            },
+                            error: function (xhr, ajaxOptions, thrownError)
+                            {
+                                alertaErroJS({ NomeFuncao: 'verificarEmailJaExiste()', ResponseText: xhr.responseText });
                             }
                         });
                     }, 500);

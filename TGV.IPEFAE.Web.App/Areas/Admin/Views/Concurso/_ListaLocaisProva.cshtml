@@ -29,8 +29,9 @@
     <div class="col-md-10 col-md-offset-1">
         <br />
         <div ng-show="local.modoEdicao">
-            <label>Lista de Colaboradores 
-                <a href="javascript:void(0)" ng-click="local_colaborador_adicionar(local)" style="font-size: 12px; font-weight: normal; margin-left: 10px;" ng-show="!local_colaborador_checkIfInEdicao(local) && local.id > 0 && (listas.colaboradores | notInLocais:concurso.locais:0).length > 0">+ Adicionar</a>
+            <label>
+                Lista de Colaboradores
+                <a href="javascript:void(0)" ng-click="local_colaborador_adicionar(local)" style="font-size: 12px; font-weight: normal; margin-left: 10px;" ng-show="!local_colaborador_checkIfInEdicao(local) && local.id > 0 && (listas.colaboradores | notInLocais:concurso.locais:0).length > 0 && concurso.funcoes.length > 0">+ Adicionar</a><span style="color: red; font-size: 13px;" ng-show="concurso.funcoes.length <= 0">Não existem funções associadas ao concurso ou colaboradores cadastrados</span>
             </label>
             <br />
             <table id="tblColaboradores" class="table table-striped table-bordered table-hover" summary="Lista de Colaboradores" ng-show="local.Colaboradores.length > 0">

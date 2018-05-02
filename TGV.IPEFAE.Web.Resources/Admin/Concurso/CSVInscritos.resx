@@ -124,7 +124,7 @@
     <value>Destro</value>
   </data>
   <data name="CSVNenhumInscrito" xml:space="preserve">
-    <value>Não há nenhum inscrito neste concurso</value>
+    <value>Não há nenhum colaborador neste concurso</value>
   </data>
   <data name="CSVOutrasSolicitacoesVazio" xml:space="preserve">
     <value>Não</value>

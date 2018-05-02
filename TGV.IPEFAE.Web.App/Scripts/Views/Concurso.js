@@ -140,6 +140,7 @@ function montarTabela()
         {
             $scope.buscarConcurso = function(id)
             {
+                $('.conCadastroForm').addClass('whirl');
                 var url = homePage + 'Admin/Concurso/Obter';
 
                 $.ajax({
@@ -158,7 +159,7 @@ function montarTabela()
                             $scope.carregarConcurso();
                         }
                         else
-                            $timeout(function () { $('.container.body-content').removeClass('whirl'); }, 500);
+                            $timeout(function () { $('.conCadastroForm').removeClass('whirl'); }, 500);
                     },
                     error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'buscarConcurso()', ResponseText: xhr.responseText }); }
                 });
@@ -171,7 +172,7 @@ function montarTabela()
                 //$scope.colaborador.endereco_estado = findInArray($scope.listas.estados, 'Id', $scope.colaborador.endereco_estado_id);
                 //$scope.carregarCidadesEndereco($scope.colaborador.endereco_cidade_id);
 
-                $timeout(function () { $('.container.body-content').removeClass('whirl'); }, 500);
+                $timeout(function () { $('.conCadastroForm').removeClass('whirl'); }, 500);
             }
 
             $scope.checkIfIsTooltipEnable = function(fieldName, outrasValidacoes, formName)
@@ -180,14 +181,14 @@ function montarTabela()
                 var result = !$scope.concurso[fieldName] && isDirty;
                 var ind = 0;
                 var tipo = $scope.errorListConcurso[fieldName].tipo;
-                
+
                 if (result || !outrasValidacoes || !$.isArray(outrasValidacoes))
                 {
                     var r = { enable: result, ind: result ? 0 : -1, tipo: tipo, validacoes: outrasValidacoes  };
                     $scope.errorListConcurso[fieldName] = r;
                     return r;
                 }
-                
+
                 $.each(outrasValidacoes, function (i, v)
                 {
                     if (eval('$scope.' + formName + '.$error.' + v))
@@ -670,7 +671,9 @@ function montarTabela()
             $scope.local_colaborador_mudar_funcao = function(colaborador, funcao)
             {
                 funcao = funcao || colaborador.funcao;
-                colaborador.valor = funcao.valor_liquido;
+
+                if (funcao !== undefined)
+                    colaborador.valor = funcao.valor_liquido;
             }
 
             $scope.local_colaborador_salvar = function (local, colaborador)
@@ -787,7 +790,7 @@ function montarTabela()
 
                 $scope.concurso.data = formatDateToDDMMYYYY($scope.concurso.data);
 
-                $('.container.body-content').addClass('whirl');
+                $('.conCadastroForm').addClass('whirl');
                 var url = homePage + 'Concurso/Salvar';
                 $.ajax({
                     type: "POST",
@@ -795,10 +798,13 @@ function montarTabela()
                     data: { cM: $scope.concurso },
                     success: function (retorno)
                     {
-                        if (retorno.Sucesso) {
-                            $scope.concurso = retorno.Concurso;
-                            $scope.carregarConcurso();
+                        if (retorno.Sucesso)
+                        {
+                            //$scope.concurso = retorno.Concurso;
+                            //$scope.carregarConcurso();
                             alert('Dados salvos com sucesso');
+
+                            window.location.href = homePage + 'Admin/Concurso/Cadastro/' + retorno.Concurso.id;
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError)

@@ -101,16 +101,28 @@ namespace TGV.IPEFAE.Web.App.Controllers
                     EnviarSenha(colaborador.nome, colaborador.email, colaborador.senhaDescriptografada, true);
                 }
 
-                // Atualiza a sessão do usuário
-                RealizarLogin(colaborador.email, colaborador.senhaDescriptografada);
+                if (!UsuarioLogado.IsAdministrador)
+                {
+                    // Atualiza a sessão do usuário
+                    RealizarLogin(colaborador.email, colaborador.senhaDescriptografada);
+                }
             }
 
-            return Json(new { Colaborador = colaborador, Sucesso = true }, JsonRequestBehavior.AllowGet);
+            return Json(new { Colaborador = colaborador, Sucesso = true, SD = UsuarioLogado.IsAdministrador ? cM?.senhaDescriptografada : null }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult VerificarCPFJaExiste(int id, string cpf)
         {
             ColaboradorModel cM = ColaboradorBusiness.ObterPorCPF(cpf);
+
+            bool retorno = (cM != null && cM.id != id);
+
+            return Json(retorno, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult VerificarEmailJaExiste(int id, string email)
+        {
+            ColaboradorModel cM = ColaboradorBusiness.ObterPorEmail(email);
 
             bool retorno = (cM != null && cM.id != id);
 

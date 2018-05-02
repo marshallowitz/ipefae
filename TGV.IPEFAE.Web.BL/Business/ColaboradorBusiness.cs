@@ -38,7 +38,10 @@ namespace TGV.IPEFAE.Web.BL.Business
         public static ColaboradorModel Obter(int id)
         {
             ColaboradorModel colaborador = ColaboradorData.Obter(id);
-            colaborador.senhaDescriptografada = colaborador.senha.Descriptografar(BaseBusiness.ParametroSistema);
+
+            if (id > 0 && !String.IsNullOrEmpty(colaborador.senha))
+                colaborador.senhaDescriptografada = colaborador.senha.Descriptografar(BaseBusiness.ParametroSistema);
+
             return colaborador;
         }
 
@@ -47,6 +50,18 @@ namespace TGV.IPEFAE.Web.BL.Business
             cpf = BaseBusiness.OnlyNumbers(cpf);
 
             ColaboradorModel cM = ColaboradorData.ObterPorCPF(cpf);
+
+            if (cM == null)
+                return null;
+
+            cM.senhaDescriptografada = BaseBusiness.Descriptografar(cM.senha);
+
+            return cM;
+        }
+
+        public static ColaboradorModel ObterPorEmail(string email)
+        {
+            ColaboradorModel cM = ColaboradorData.ObterPorEmail(email);
 
             if (cM == null)
                 return null;

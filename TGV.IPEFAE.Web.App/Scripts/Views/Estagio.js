@@ -57,7 +57,7 @@ function atualizarTotalRelatorios()
         url: url,
         success: function (data)
         {
-            console.log(data);
+            //console.log(data);
             $('.totalRelatorios').html(data.Total);
         },
         error: function (xhr, ajaxOptions, thrownError)
