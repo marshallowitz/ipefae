@@ -227,6 +227,14 @@ namespace TGV.IPEFAE.Web.BL.Data
         public string telefone_01_formatado     { get { return BaseData.FormatarFone(this.telefone_01); } }
         public string telefone_02_formatado     { get { return BaseData.FormatarFone(this.telefone_02, true); } }
 
+        public string emitente_razao_social     { get; set; }
+        public string emitente_cnpj             { get; set; }
+        public string mesAno                    { get { return BaseData.DataAgora.ToString("MM/yyyy"); } }
+        public string emitente_endereco         { get; set; }
+        public string emitente_bairro           { get; set; }
+        public string emitente_cidade           { get; set; }
+
+        public bool tem_empresa                 { get; set; } = false;
         public string funcao_nome               { get; set; }
         public decimal valor_sem_formatacao     { get; set; }
         public string aliquota_inss             { get { return ConfigurationManager.AppSettings["Aliquota_INSS"]; } }
@@ -280,7 +288,7 @@ namespace TGV.IPEFAE.Web.BL.Data
 
         #region [ Metodos ]
 
-        public static ColaboradorRPAModel Clone(ColaboradorModel col, List<tb_cid_cidade> cidades, List<tb_est_estado> estados, List<ConcursoLocalColaboradorModel> locaisColaboradores, List<IRPFModel> irpfs)
+        public static ColaboradorRPAModel Clone(ColaboradorModel col, List<tb_cid_cidade> cidades, List<tb_est_estado> estados, List<ConcursoLocalColaboradorModel> locaisColaboradores, List<IRPFModel> irpfs, tb_emp_empresa emitente)
         {
             if (col == null)
                 return null;
@@ -309,8 +317,23 @@ namespace TGV.IPEFAE.Web.BL.Data
 
                 if (localColaborador != null)
                 {
+
+                    colaborador.tem_empresa = localColaborador.tem_empresa;
                     colaborador.funcao_nome = localColaborador.funcao.funcao;
-                    colaborador.valor_sem_formatacao = localColaborador.valor;
+
+                    if (!colaborador.tem_empresa)
+                        colaborador.valor_sem_formatacao = localColaborador.valor;
+                    else
+                    {
+                        decimal inss = 0;
+                        Decimal.TryParse(colaborador.aliquota_inss, out inss);
+
+                        decimal iss = 0;
+                        Decimal.TryParse(colaborador.aliquota_iss, out iss);
+
+                        decimal valor_bruto_sem_irpf = localColaborador.valor / (1 - inss / 100 - iss / 100);
+                        colaborador.valor_sem_formatacao = valor_bruto_sem_irpf; // Define o valor temporário
+                    }
                 }
             }
 
@@ -320,6 +343,18 @@ namespace TGV.IPEFAE.Web.BL.Data
                 colaborador.aliquota_irpf = sirpf.taxa.ToString();
                 colaborador.deducao_irpf = sirpf.deducao.ToString();
                 colaborador.valor_irpf_sem_formatacao = sirpf.irpf_retido;
+            }
+
+            if (colaborador.tem_empresa) // Se tiver empresa, continua ajustando o valor bruto - insere irpf
+                colaborador.valor_sem_formatacao += colaborador.valor_irpf_sem_formatacao;
+
+            if (emitente != null)
+            {
+                colaborador.emitente_razao_social = emitente.emp_des_razao_social;
+                colaborador.emitente_cnpj = emitente.CNPJ_Formatado;
+                colaborador.emitente_endereco = ConfigurationManager.AppSettings["EnderecoIPEFAE"];
+                colaborador.emitente_bairro = ConfigurationManager.AppSettings["BairroIPEFAE"];
+                colaborador.emitente_cidade = ConfigurationManager.AppSettings["CidadeIPEFAE"];
             }
 
             return colaborador;

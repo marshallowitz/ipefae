@@ -350,7 +350,9 @@
     <Content Include="Scripts\Angular\angular-locale_pt-br.js" />
     <Content Include="Scripts\Angular\angular.min.js" />
     <Content Include="Scripts\Angular\input-mask.js" />
+    <Content Include="Scripts\Angular\pdfmake.min.js" />
     <Content Include="Scripts\Angular\ui-bootstrap-tpls-2.5.0.min.js" />
+    <Content Include="Scripts\Angular\vfs_fonts.js" />
     <Content Include="Scripts\bootstrap-dialog.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -437,6 +439,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\splitImage.js" />
     <Content Include="Scripts\Views\Concurso.js" />
     <Content Include="Scripts\Views\Colaborador.js" />
     <Content Include="Scripts\Views\CursosScript.js" />

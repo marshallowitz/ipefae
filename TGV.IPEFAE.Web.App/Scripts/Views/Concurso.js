@@ -857,11 +857,14 @@ function montarTabela()
     'use strict';
 
     angular.module('ipefae').controller("pdfController", pdfController);
-    pdfController.$inject = ['$scope', '$timeout'];
+    pdfController.$inject = ['$scope', '$q', '$timeout'];
 
-    function pdfController($scope, $timeout)
+    function pdfController($scope, $q, $timeout)
     {
         $scope.colaboradores = [];
+        $scope.PAGE_HEIGHT = 842;
+        $scope.PAGE_WIDTH = 595;
+        $scope.docDefinition = {};
 
         $('.rpa-container').addClass('whirl');
 
@@ -895,21 +898,79 @@ function montarTabela()
         $scope.export = function ()
         {
             var exportthis = document.getElementById('exportthis');
+            var imageWidth = exportthis.clientWidth;
+
+            $('.lista-colaboradores').addClass('whirl');
 
             html2canvas(exportthis, {
+                useCORS: true,
                 onrendered: function (canvas)
                 {
                     var data = canvas.toDataURL();
-                    var docDefinition = {
-                        content: [{
-                            image: data,
-                            width: 500,
-                        }]
-                    };
-
-                    pdfMake.createPdf(docDefinition).download("rpa.pdf");
+                    addImage(data, imageWidth);
                 }
             });
+        }
+
+        function getPngDimensions (base64)
+        {
+            const header = atob(base64.slice(22, 70)).slice(16, 24);
+            const uint8 = Uint8Array.from(header, c => c.charCodeAt(0));
+            const dataView = new DataView(uint8.buffer);
+
+            return {
+                width: dataView.getInt32(0),
+                height: dataView.getInt32(4)
+            };
+        }
+
+        const splitImage = (img, imageWidth, callback) => () =>
+        {
+            var content = [];
+            const canvas = document.createElement('canvas');
+            const ctx    = canvas.getContext('2d');
+            const printHeight = img.height * $scope.PAGE_WIDTH / img.width;
+
+            canvas.width = 1140;
+            canvas.height = 1525;
+
+            for (let pages = 0; printHeight > pages * $scope.PAGE_HEIGHT; pages++)
+            {
+                ctx.fillStyle = "#FFFFFF";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, pages * 1540, 1140, 1525, 0, 0, 1000, 1338);
+                content.push({ image: canvas.toDataURL(), width: $scope.PAGE_WIDTH });
+            }
+
+            $scope.docDefinition.content = content;
+
+            if (typeof callback === 'function')
+                callback();
+        };
+
+        function next()
+        {
+            pdfMake.createPdf($scope.docDefinition).download("RPA.pdf", function () { $('.lista-colaboradores').removeClass('whirl'); });
+        }
+
+        function addImage(image, imageWidth)
+        {
+            var dimensoes = getPngDimensions(image);
+            var printHeight = dimensoes.height * $scope.PAGE_WIDTH / dimensoes.width;
+
+            if (printHeight > $scope.PAGE_HEIGHT)
+            {
+                var img = new Image();
+                img.onload = splitImage(img, imageWidth, next);
+                img.src = image;
+                return;
+            }
+
+            var content = [];
+            content.push({ image, margin: [0, 5], width: $scope.PAGE_WIDTH });
+
+            $scope.docDefinition.content = content;
+            next();
         }
     }
 })();

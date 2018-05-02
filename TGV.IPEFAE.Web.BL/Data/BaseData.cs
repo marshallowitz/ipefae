@@ -143,6 +143,19 @@ namespace TGV.IPEFAE.Web.BL.Data
             return nroCPF.ToString(@"000\.000\.000\-00");
         }
 
+        public static string FormatarCNPJ(string cnpj, bool aceitarNull = false)
+        {
+            if (aceitarNull && String.IsNullOrEmpty(cnpj))
+                return String.Empty;
+
+            long nroCNPJ = 0;
+
+            if (!Int64.TryParse(cnpj, out nroCNPJ) || cnpj.Length != 14)
+                return "Formato CNPJ Inválido";
+
+            return nroCNPJ.ToString(@"00\.000\.000\/0000\-00");
+        }
+
         public static string FormatarFone(string fone, bool aceitarNull = false)
         {
             if (aceitarNull && String.IsNullOrEmpty(fone))

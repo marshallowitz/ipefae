@@ -56,6 +56,11 @@ namespace TGV.IPEFAE.Web.BL.Business
             return BaseData.FormatarCPF(cpf, aceitarNull);
         }
 
+        public static string FormatarCNPJ(string cnpj, bool aceitarNull = false)
+        {
+            return BaseData.FormatarCNPJ(cnpj, aceitarNull);
+        }
+
         public static string FormatarFone(string fone, bool aceitarNull = false)
         {
             return BaseData.FormatarFone(fone, aceitarNull);

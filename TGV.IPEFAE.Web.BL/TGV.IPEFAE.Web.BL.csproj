@@ -152,6 +152,7 @@
     <Compile Include="Data\tb_con_concurso.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Data\tb_emp_empresa_extension.cs" />
     <Compile Include="Data\tb_con_concurso_extension.cs" />
     <Compile Include="Data\tb_ema_email.cs">
       <DependentUpon>IPEFAEModel.tt</DependentUpon>
@@ -240,6 +241,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="SQL\Scripts\01_Script.sql" />
     <Content Include="SQL\Tabelas\01_banco.sql" />
     <Content Include="SQL\Tabelas\02_grau_instrucao.sql" />
     <Content Include="SQL\Tabelas\03_raca.sql" />
@@ -249,6 +251,7 @@
     <Content Include="SQL\Tabelas\07_concurso_funcao.sql" />
     <Content Include="SQL\Tabelas\08_concurso_local.sql" />
     <Content Include="SQL\Tabelas\09_concurso_local_colaborador.sql" />
+    <Content Include="SQL\Tabelas\10_irpf.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
