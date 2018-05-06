@@ -46,10 +46,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="colaborador in local.Colaboradores">
+                    <tr ng-repeat="colaborador in local.Colaboradores track by $index">
                         <td>
-                            <div class="form-group">
-                                <select id="ddlColaborador" name="colaboradorSelecionado" class="form-control ipt-local_colaborador" ng-options="col as col.nome for col in listas.colaboradores | notInLocais:concurso.locais:colaborador.colaborador_id | orderBy: 'nome' track by col.id" ng-model="colaborador.colaborador" ng-class="colaborador.modoEdicao ? '' : 'select-as-span'" ng-disabled="!colaborador.modoEdicao"></select>
+                            <div class="form-group tooltip-error">
+                                @*<select id="ddlColaborador" name="colaboradorSelecionado" class="form-control ipt-local_colaborador" ng-options="col as col.nome for col in listas.colaboradores | notInLocais:concurso.locais:colaborador.colaborador_id | orderBy: 'nome' track by col.id" ng-model="colaborador.colaborador" ng-class="colaborador.modoEdicao ? '' : 'select-as-span'" ng-disabled="!colaborador.modoEdicao"></select>*@
+                                <span ng-class="colaborador.colaborador_enabled ? 'tooltiptext2' : 'tooltiptext2 hidden'" style="top: -40px; width: 100%;">O colaborador é obrigatório</span>
+                                <angucomplete-alt id="ddlColaborador{{$index}}" pause="100" selected-object="colaborador.colaborador" initial-value="colaborador.colaborador" local-data="(listas.colaboradores)" local-colaborador-id="colaborador.colaborador_id" local-search="local_colaborador_filtrar" title-field="nome" minlength="1" maxlength="100" input-class="form-control ipt-local_colaborador" ng-class="colaborador.modoEdicao ? '' : 'input-as-span'" disable-input="!colaborador.modoEdicao" />
                             </div>
                         </td>
                         <td>
@@ -69,9 +71,9 @@
                             </div>
                         </td>
                         <td class="text-center" style="cursor: pointer; vertical-align: middle;">
-                            <div class="fas fa-lg fa-save" title="Salvar" ng-show="colaborador.modoEdicao" ng-click="local_colaborador_salvar(local, colaborador)"></div>
-                            <div class="fas fa-lg fa-times" title="Cancelar" ng-show="colaborador.modoEdicao" ng-click="local_colaborador_editar(local, colaborador, false)"></div>
-                            <div class="fas fa-lg fa-edit" title="Editar" ng-show="!colaborador.modoEdicao" ng-click="local_colaborador_editar(local, colaborador, true)"></div>
+                            <div class="fas fa-lg fa-save" title="Salvar" ng-show="colaborador.modoEdicao" ng-click="local_colaborador_salvar($index, local, colaborador)"></div>
+                            <div class="fas fa-lg fa-times" title="Cancelar" ng-show="colaborador.modoEdicao" ng-click="local_colaborador_editar($index, local, colaborador, false)"></div>
+                            <div class="fas fa-lg fa-edit" title="Editar" ng-show="!colaborador.modoEdicao" ng-click="local_colaborador_editar($index, local, colaborador, true)"></div>
                             <div class="fas fa-lg fa-trash-alt" title="Excluir" ng-show="!colaborador.temAssociacao && !colaborador.modoEdicao" ng-click="local_colaborador_excluir(local, colaborador.id)"></div>
                         </td>
                     </tr>

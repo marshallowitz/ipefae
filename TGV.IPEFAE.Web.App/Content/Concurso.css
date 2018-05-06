@@ -1,6 +1,7 @@
 ﻿.dataTables_filter input[type=search]   { padding: 0px; }
 
-.input-as-span                      { background-color: transparent !important; border: none !important; box-shadow: none;}
+.input-as-span,
+.input-as-span input                { background-color: transparent !important; border: none !important; box-shadow: none;}
 .select-as-span                     { background-color: transparent !important; border: none !important; box-shadow: none; -webkit-appearance: none; -moz-appearance: none; text-indent: 1px; text-overflow: ''; }
 
 .tooltip-error                      { position: relative; display: inline-block; width: 100%; }

@@ -572,23 +572,16 @@ function montarTabela()
 
             $scope.local_colaborador_adicionar = function (local)
             {
+                var colaboradores = $filter('notInLocais')($scope.listas.colaboradores, $scope.concurso.locais, 0);
+
                 var funcao = $filter('orderBy')($scope.concurso.funcoes, 'funcao')[0];
-                var colaborador = $filter('orderBy')($scope.listas.colaboradores, 'nome')[0];
+                var colaborador = $filter('orderBy')(colaboradores, 'nome')[0];
                 var novo_colaborador = { id: 0, colaborador: colaborador, funcao: funcao, valor: 0, tem_empresa: false, modoEdicao: false };
 
                 $scope.local_colaborador_mudar_funcao(novo_colaborador, funcao);
 
                 local.Colaboradores.push(novo_colaborador);
-                $scope.local_colaborador_editar(local, novo_colaborador, true);
-
-                $timeout(function ()
-                {
-                    $.each($('.ipt-local_colaborador'), function (i, el)
-                    {
-                        if ($(el).scope().local.id === 0)
-                            $(el).focus();
-                    });
-                }, 500);
+                $scope.local_colaborador_editar(0, local, novo_colaborador, true);
             }
 
             $scope.local_colaborador_changeIfInEdicao = function (colaborador, inEdicao)
@@ -614,10 +607,10 @@ function montarTabela()
                 return inEdicao;
             }
 
-            $scope.local_colaborador_editar = function (local, colaborador, editar)
+            $scope.local_colaborador_editar = function (i, local, colaborador, editar)
             {
                 if (editar)
-                    colaborador.old_values = { id: colaborador.id, nome: colaborador.nome, valor: colaborador.valor, tem_empresa: colaborador.tem_empresa };
+                    colaborador.old_values = { id: colaborador.id, colaborador: colaborador.colaborador, funcao: colaborador.funcao, valor: colaborador.valor, tem_empresa: colaborador.tem_empresa };
                 else {
                     var index = findInArrayIndex(local.Colaboradores, 'id', colaborador.old_values.id);
 
@@ -627,7 +620,11 @@ function montarTabela()
                     }
                     else {
                         colaborador.id = colaborador.old_values.id;
-                        colaborador.nome = colaborador.old_values.nome;
+                        
+                        var old_colaborador = colaborador.old_values.colaborador.originalObject || colaborador.old_values.colaborador;
+                        $scope.$broadcast('angucomplete-alt:changeInput', 'ddlColaborador' + i, old_colaborador);
+
+                        colaborador.funcao = colaborador.old_values.funcao;
                         colaborador.valor = colaborador.old_values.valor;
                         colaborador.tem_empresa = colaborador.old_values.tem_empresa;
                     }
@@ -668,6 +665,22 @@ function montarTabela()
                 });
             }
 
+            $scope.local_colaborador_filtrar = function (str, colaboradores, colaboradorId)
+            {
+                var matches = [];
+                var listaColaboradores = $filter('notInLocais')(colaboradores, $scope.concurso.locais, colaboradorId);
+
+                listaColaboradores.forEach(function (colaborador)
+                {
+                    if ((colaborador.nome.toLowerCase().indexOf(str.toString().toLowerCase()) >= 0) ||
+                        (colaborador.cpf.toLowerCase().indexOf(str.replace('.', '').replace('.', '').replace('-', '').toString().toLowerCase()) >= 0)) {
+                        matches.push(colaborador);
+                    }
+                });
+
+                return matches;
+            };
+
             $scope.local_colaborador_mudar_funcao = function(colaborador, funcao)
             {
                 funcao = funcao || colaborador.funcao;
@@ -676,12 +689,32 @@ function montarTabela()
                     colaborador.valor = funcao.valor_liquido;
             }
 
-            $scope.local_colaborador_salvar = function (local, colaborador)
+            $scope.local_colaborador_salvar = function (index, local, colaborador)
             {
-                var idConcursoLocal = local.id;
+                var firstErrorField = undefined;
+                
+                if (colaborador.colaborador === undefined) {
+                    $('.ipt-local_colaborador:eq(' + index + ')').parent().addClass('has-error');
+                    firstErrorField = $('.ipt-local_colaborador:eq(' + index + ') input');
+                    colaborador.colaborador_enabled = true;
+                }
+                else
+                {
+                    $('.ipt-local_colaborador:eq(' + index + ')').parent().removeClass('has-error');
+                    colaborador.colaborador_enabled = false;
+                }
 
+                if (firstErrorField !== undefined) {
+                    firstErrorField.focus();
+                    return;
+                }
+
+                colaborador.colaborador = colaborador.colaborador.originalObject || colaborador.colaborador;
+
+                var idConcursoLocal = local.id;
                 colaborador.colaborador_id = colaborador.colaborador.id;
                 colaborador.funcao_id = colaborador.funcao.id;
+
 
                 $('.lista-locais').addClass('whirl');
                 var url = homePage + 'Admin/Concurso/Local_Colaborador_Salvar';

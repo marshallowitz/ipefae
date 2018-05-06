@@ -1,4 +1,5 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="angular/angucomplete.js" />
 /// <reference path="angular/angular.min.js" />
 /// <reference path="angular/angular-locale_pt-br.js" />
 /// <reference path="angular/input-mask.js" />

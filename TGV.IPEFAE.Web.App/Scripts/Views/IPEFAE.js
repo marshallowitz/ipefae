@@ -270,7 +270,7 @@ function setTabsContentHeight(func, ctl, cnt)
 {
     'use strict';
 
-    angular.module('ipefae', ['ngAnimate', 'ngRoute', 'ui.bootstrap', 'ui.utils.masks', 'ui.validate']);
+    angular.module('ipefae', ["angucomplete-alt", 'ngAnimate', 'ngRoute', 'ui.bootstrap', 'ui.utils.masks', 'ui.validate']);
 
     angular.module('ipefae').controller('ipefaeController', ipefaeController);
     ipefaeController.$inject = ['$scope', '$rootScope', '$q', '$state', '$log', '$filter', '$location', '$timeout', '$window'];

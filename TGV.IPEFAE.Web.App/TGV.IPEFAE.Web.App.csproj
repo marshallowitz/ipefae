@@ -267,6 +267,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Areas\Admin\Views\Concurso\RPA.cshtml" />
+    <Content Include="Content\angucomplete.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -320,17 +321,6 @@
     <Content Include="Content\jquery.slideUnlock.css" />
     <Content Include="Content\Listas.css" />
     <Content Include="Content\menu.css" />
-    <Content Include="Content\min\Concurso.css" />
-    <Content Include="Content\min\Contato.css" />
-    <Content Include="Content\min\Error.css" />
-    <Content Include="Content\min\Estagio.css" />
-    <Content Include="Content\min\HomePage.css" />
-    <Content Include="Content\min\IPEFAE.css" />
-    <Content Include="Content\min\Listas.css" />
-    <Content Include="Content\min\menu.css" />
-    <Content Include="Content\min\Recurso.css" />
-    <Content Include="Content\min\Site.css" />
-    <Content Include="Content\min\Tabs.css" />
     <Content Include="Content\Recurso.css" />
     <Content Include="Content\rpa.css" />
     <Content Include="Content\simple-line-icons.css" />
@@ -345,6 +335,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Scripts\Angular\angucomplete.js" />
     <Content Include="Scripts\Angular\angular-locale_pt-br.js" />
     <Content Include="Scripts\Angular\angular.min.js" />
     <Content Include="Scripts\Angular\input-mask.js" />
@@ -406,9 +397,8 @@
     <Content Include="Areas\Admin\Views\Concurso\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Concurso\_ListaFuncoes.cshtml" />
     <Content Include="Areas\Admin\Views\Concurso\_ListaLocaisProva.cshtml" />
-    <None Include="Properties\PublishProfiles\ipefae %282%29.pubxml" />
-    <None Include="Properties\PublishProfiles\IPEFAE.pubxml" />
-    <None Include="Properties\PublishProfiles\ipefaehomo - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\IPEFAE - Prd.pubxml" />
+    <None Include="Properties\PublishProfiles\IPEFAE - Homo.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\date.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
