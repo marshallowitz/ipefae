@@ -42,7 +42,9 @@ namespace TGV.IPEFAE.Web.App.Handlers
             if (concurso == null)
                 return;
 
-            List<ColaboradorModel> colaboradores = ColaboradorBusiness.ListarPorConcurso(id);
+            dynamic result = ColaboradorBusiness.ListarPorConcursoV2(concurso);
+            List<ColaboradorModel> colaboradores = (List<ColaboradorModel>)result.Colaboradores;
+            List<ConcursoLocalColaboradorModel> cLocaisColaboradores = (List<ConcursoLocalColaboradorModel>)result.LocaisColaboradores;
 
             string fileName = String.Format("{1}_{0}.csv", BaseBusiness.RemoverCaracteresEspeciais(concurso.nome), BaseBusiness.DataAgora.ToString("yyyyMMdd"));
             byte[] fileBytes = null;
@@ -52,7 +54,12 @@ namespace TGV.IPEFAE.Web.App.Handlers
             List<GrauInstrucaoModel> grausInstrucao = GrauInstrucaoBusiness.Listar();
             List<RacaModel> racas = RacaBusiness.Listar();
             List<BancoModel> bancos = BancoBusiness.Listar();
-            List<ColaboradorCSVModel> cCSVs = colaboradores.ConvertAll(c => new ColaboradorCSVModel(c, estados, cidades, grausInstrucao, racas, bancos));
+            List<IRPFModel> irpfs = IRPFBusiness.Listar();
+            tb_emp_empresa emitente = EmpresaBusiness.Obter(1);
+
+            List<ColaboradorRPAModel> colaboradoresRPA = colaboradores.ConvertAll(c => ColaboradorRPAModel.Clone(c, cidades, estados, cLocaisColaboradores, irpfs, emitente));
+
+            List<ColaboradorCSVModel> cCSVs = colaboradores.ConvertAll(c => new ColaboradorCSVModel(concurso, c, colaboradoresRPA, estados, cidades, grausInstrucao, racas, bancos));
             fileBytes = WriteCsvWithHeaderToMemory(cCSVs, true);
 
             context.Session["GerouCSV"] = true;

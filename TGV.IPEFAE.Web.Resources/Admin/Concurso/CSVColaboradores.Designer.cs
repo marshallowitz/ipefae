@@ -19,7 +19,7 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CSVColaboradores {
@@ -142,6 +142,15 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data.
+        /// </summary>
+        public static string Headerdata_concurso {
+            get {
+                return ResourceManager.GetString("Headerdata_concurso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Data Nasc.
         /// </summary>
         public static string Headerdata_nascimento {
@@ -232,6 +241,15 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Funcao.
+        /// </summary>
+        public static string Headerfuncao_colaborador {
+            get {
+                return ResourceManager.GetString("Headerfuncao_colaborador", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Grau Instrucao.
         /// </summary>
         public static string Headergrau_instrucao {
@@ -273,6 +291,15 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         public static string Headernome {
             get {
                 return ResourceManager.GetString("Headernome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Concurso.
+        /// </summary>
+        public static string Headernome_concurso {
+            get {
+                return ResourceManager.GetString("Headernome_concurso", resourceCulture);
             }
         }
         
@@ -372,6 +399,24 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         public static string Headertitulo_eleitor_zona {
             get {
                 return ResourceManager.GetString("Headertitulo_eleitor_zona", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valor Bruto.
+        /// </summary>
+        public static string Headervalor_bruto {
+            get {
+                return ResourceManager.GetString("Headervalor_bruto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valor Liquido.
+        /// </summary>
+        public static string Headervalor_liquido {
+            get {
+                return ResourceManager.GetString("Headervalor_liquido", resourceCulture);
             }
         }
     }

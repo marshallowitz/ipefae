@@ -576,7 +576,7 @@ function montarTabela()
 
                 var funcao = $filter('orderBy')($scope.concurso.funcoes, 'funcao')[0];
                 var colaborador = $filter('orderBy')(colaboradores, 'nome')[0];
-                var novo_colaborador = { id: 0, colaborador: colaborador, funcao: funcao, valor: 0, tem_empresa: false, modoEdicao: false };
+                var novo_colaborador = { id: 0, colaborador: undefined, funcao: funcao, valor: 0, tem_empresa: false, modoEdicao: false };
 
                 $scope.local_colaborador_mudar_funcao(novo_colaborador, funcao);
 

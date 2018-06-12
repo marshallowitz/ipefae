@@ -287,7 +287,6 @@ function reenviarSenha()
 
                     if (id !== undefined && id > 0)
                     {
-                        $('.container.body-content').addClass('whirl');
                         $scope.buscarColaborador(id);
                     }
                 },
@@ -308,6 +307,12 @@ function reenviarSenha()
             $scope.listas.estados = [];
             $scope.listas.grausInstrucao = [];
             $scope.listas.racas = [];
+
+            $scope.editMode = id <= 0;
+            $scope.bloquearDesbloquearEdicao(!$scope.editMode);
+
+            if (id > 0)
+                $('.container.body-content').addClass('whirl');
 
             carregarDados(id);
 
@@ -345,7 +350,12 @@ function reenviarSenha()
 
         function _activate()
         {
-            inicializar();
+            $scope.bloquearDesbloquearEdicao = function (bloquear)
+            {
+                $("#colCadastroForm :input:not(':button')").prop("disabled", bloquear);
+                $("#colCadastroForm #btnBuscarCEP").prop("disabled", bloquear);
+                $("#colCadastroForm select").prop("disabled", bloquear);
+            }
 
             $scope.buscarColaborador = function(id)
             {
@@ -460,6 +470,8 @@ function reenviarSenha()
                 $scope.colaborador.naturalidade_estado = findInArray($scope.listas.estados, 'Id', $scope.colaborador.naturalidade_estado_id);
                 $scope.carregarCidadesNaturalidade($scope.colaborador.naturalidade_cidade_id);
 
+                $scope.bloquearDesbloquearEdicao(!$scope.editMode);
+
                 $timeout(function () { $('.container.body-content').removeClass('whirl'); }, 500);
             }
 
@@ -499,6 +511,13 @@ function reenviarSenha()
                     return false;
 
                 return field.$dirty;
+            }
+
+            $scope.editarDados = function (editMode)
+            {
+                $scope.bloquearDesbloquearEdicao(!editMode);
+
+                $scope.editMode = !$scope.editMode;
             }
 
             $scope.getErrorMessage = function(fieldName, lista, formName)
@@ -628,6 +647,7 @@ function reenviarSenha()
                             if (isAdmin)
                                 $scope.colaborador.senhaDescriptografada = retorno.SD;
 
+                            $scope.editarDados(false);
                             $scope.carregarColaborador();
                             alert('Dados salvos com sucesso');
                         }
@@ -700,6 +720,8 @@ function reenviarSenha()
                     }, 500);
                 });
             }
+
+            inicializar();
         }
 
         vm.activate();
