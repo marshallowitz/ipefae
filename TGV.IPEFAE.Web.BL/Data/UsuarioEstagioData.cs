@@ -3,11 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace TGV.IPEFAE.Web.BL.Data
 {
     internal class UsuarioEstagioData
     {
+        internal static bool Excluir(int id)
+        {
+            using (IPEFAEEntities db = BaseData.Contexto)
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    db.DeleteWhere<tb_uee_usuario_estagio_experiencia>(ues => ues.ues_idt_usuario_estagio == id);
+                    db.DeleteWhere<tb_ueo_usuario_estagio_outros>(ues => ues.ues_idt_usuario_estagio == id);
+                    db.DeleteWhere<tb_ues_usuario_estagio>(ues => ues.ues_idt_usuario_estagio == id);
+
+                    scope.Complete();
+                }
+
+                return true;
+            }
+        }
+
         internal static List<tb_ues_usuario_estagio> Listar(int pagina, bool comPaginacao, int tamanhoPagina, string nome, string curso, int? semAno, bool? estagiando, string cpf, bool visualizacao, string cidade, string ordem)
         {
             using (IPEFAEEntities db = BaseData.Contexto)

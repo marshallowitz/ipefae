@@ -36,6 +36,12 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
             return View("Cadastro", ueModel);
         }
 
+        public ActionResult Excluir(int id)
+        {
+            UsuarioEstagioBusiness.Excluir(id);
+            return Json(new { Sucesso = true }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult GerarCSVPesquisa(int pagina, string nome, string curso, int? semAno, bool? estagiando, string cpf, bool visualizacao, string cidade, string ordem)
         {
             List<UsuarioEstagioModel> todosEstagiarios = ListarEstagiarios(pagina, false, nome, curso, semAno, estagiando, cpf, visualizacao, cidade, ordem);

@@ -248,6 +248,32 @@ function definirOrdenacao(coluna)
     mais(true);
 }
 
+function excluir(id)
+{
+    if (!confirm('Deseja realmente remover este cadastro?'))
+        return;
+
+    $.blockUI({ message: 'Excluindo o Cadastro', css: cssCarregando });
+    var url = homePage + 'Admin/Estagio/Excluir';
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: { id: id },
+        success: function (retorno)
+        {
+            $.unblockUI();
+
+            pesquisar();
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            alertaErroJS({ NomeFuncao: 'excluir()', ResponseText: xhr.responseText });
+            $.unblockUI();
+        }
+    });
+}
+
 function exibirSenha()
 {
     if ($('#chkVer').is(':checked'))

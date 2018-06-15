@@ -10,6 +10,11 @@ namespace TGV.IPEFAE.Web.BL.Business
 {
     public static class UsuarioEstagioBusiness
     {
+        public static bool Excluir(int id)
+        {
+            return UsuarioEstagioData.Excluir(id);
+        }
+
         public static List<tb_ues_usuario_estagio> Listar(int pagina, bool comPaginacao, int tamanhoPagina, string nome, string curso, int? semAno, bool? estagiando, string cpf, bool visualizacao, string cidade, string ordem)
         {
             if (String.IsNullOrEmpty(nome))

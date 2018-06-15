@@ -16,6 +16,11 @@
     <input type="hidden" id="hdnId" value="@Model.id" />
     <div class="row centro">
         <form id="colCadastroForm" name="colCadastroForm" class="colCadastroForm form-validate" novalidate="">
+            <div class="row col-botoes text-center">
+                <input type="button" name="btnVoltar2" id="btnVoltar" ng-show="isAdmin" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
+                <input type="button" name="btnSalvar2" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />
+            </div>
+            <br />
             <fieldset>
                 <legend>Dados Pessoais</legend>
                 <div class="row" ng-show="colaborador.id > 0">
