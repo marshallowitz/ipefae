@@ -222,4 +222,19 @@
   <data name="Headertitulo_eleitor_zona" xml:space="preserve">
     <value>Zona Titulo Eleitor</value>
   </data>
+  <data name="Headerdata_concurso" xml:space="preserve">
+    <value>Data</value>
+  </data>
+  <data name="Headerfuncao_colaborador" xml:space="preserve">
+    <value>Funcao</value>
+  </data>
+  <data name="Headernome_concurso" xml:space="preserve">
+    <value>Concurso</value>
+  </data>
+  <data name="Headervalor_bruto" xml:space="preserve">
+    <value>Valor Bruto</value>
+  </data>
+  <data name="Headervalor_liquido" xml:space="preserve">
+    <value>Valor Liquido</value>
+  </data>
 </root>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,6 +34,31 @@ namespace TGV.IPEFAE.Web.BL.Business
             }
 
             return colaboradores;
+        }
+
+        public static dynamic ListarPorConcursoV2(ConcursoModel concurso)
+        {
+            if (concurso == null)
+                return new List<ColaboradorModel>();
+
+            List<ColaboradorModel> colaboradores = new List<ColaboradorModel>();
+            List<ConcursoLocalColaboradorModel> cLocaisColaboradores = new List<ConcursoLocalColaboradorModel>();
+
+            foreach (var local in concurso.locais)
+            {
+                foreach (var col in local.Colaboradores)
+                {
+                    cLocaisColaboradores.Add(col);
+                    colaboradores.Add(col.colaborador);
+                }
+            }
+
+            dynamic result = new ExpandoObject();
+            result.Colaboradores = colaboradores;
+            result.Concurso = concurso;
+            result.LocaisColaboradores = cLocaisColaboradores;
+
+            return result;
         }
 
         public static ColaboradorModel Obter(int id)

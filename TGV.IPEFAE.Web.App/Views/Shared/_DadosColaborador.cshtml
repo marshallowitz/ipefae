@@ -120,8 +120,8 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group" ng-class="{'has-error': errorList.pisPasepNet.enable}">
-                            <label>PIS, PASEP ou NET</label><em>*</em>
-                            <input type="text" class="form-control" name="pisPasepNet" id="txtPisPasepNet" ng-model="colaborador.pis_pasep_net" ng-minlength="11" maxlength="11" required uib-tooltip="{{getErrorMessage('pisPasepNet', ['O PIS, PASEP ou NET é obrigatório', 'O tamanho mínimo é de 11 caracteres'])}}" tooltip-placement="top" tooltip-is-open="errorList.pisPasepNet.enable" />
+                            <label>PIS, PASEP ou NIT</label><em>*</em>
+                            <input type="text" class="form-control" name="pisPasepNet" id="txtPisPasepNet" ng-model="colaborador.pis_pasep_net" ui-number-mask="0" ui-hide-group-sep ng-minlength="11" maxlength="11" required uib-tooltip="{{getErrorMessage('pisPasepNet', ['O PIS, PASEP ou NET é obrigatório', 'O tamanho mínimo é de 11 caracteres'])}}" tooltip-placement="top" tooltip-is-open="errorList.pisPasepNet.enable" />
                         </div>
                     </div>
                 </div>
@@ -169,7 +169,7 @@
                     <div class="col-md-4">
                         <div class="form-group" ng-class="{'has-error': errorList.nacionalidade.enable}">
                             <label>Nacionalidade</label><em>*</em>
-                            <input type="text" class="form-control" name="nacionalidade" id="txtNacionalidade" ng-model="colaborador.nacionalidade" maxlength="50" required uib-tooltip="{{getErrorMessage('nacionalidade', ['A nacionalidade é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.nacionalidade.enable" />
+                            <input type="text" class="form-control" name="nacionalidade" id="txtNacionalidade" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'');" ng-model="colaborador.nacionalidade" maxlength="50" required uib-tooltip="{{getErrorMessage('nacionalidade', ['A nacionalidade é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.nacionalidade.enable" />
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -181,7 +181,7 @@
                     <div class="col-md-4">
                         <div class="form-group" ng-class="{'has-error': errorList.naturalidadeCidade.enable}">
                             <label>Naturalidade - Cidade</label><em>*</em>
-                            <select id="ddlNaturalidadeCidade" name="naturalidadeCidade" class="form-control" ng-disabled="colaborador.naturalidade_estado === undefined || colaborador.naturalidade_estado.Id <= 0 || listas.naturalidadeCidades.length <= 0" ng-options="cidade as cidade.Nome for cidade in listas.naturalidadeCidades track by cidade.Id" ng-model="colaborador.naturalidade_cidade" required uib-tooltip="{{getErrorMessage('naturalidadeCidade', ['A cidade de naturalidade é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.naturalidadeCidade.enable"></select>
+                            <select id="ddlNaturalidadeCidade" name="naturalidadeCidade" class="form-control" ng-disabled="colaborador.naturalidade_estado === undefined || colaborador.naturalidade_estado.Id <= 0 || listas.naturalidadeCidades.length <= 0 || !editMode" ng-options="cidade as cidade.Nome for cidade in listas.naturalidadeCidades track by cidade.Id" ng-model="colaborador.naturalidade_cidade" required uib-tooltip="{{getErrorMessage('naturalidadeCidade', ['A cidade de naturalidade é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.naturalidadeCidade.enable"></select>
                         </div>
                     </div>
                 </div>
@@ -203,6 +203,17 @@
             <br />
             <fieldset class="fsEndereco">
                 <legend>Dados Endereço</legend>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error': errorList.cep.enable}">
+                            <label>CEP</label><em>*</em>
+                            <input type="text" class="form-control" name="cep" id="txtCEP" ng-model="colaborador.endereco_cep" maxlength="9" required ui-br-cep-mask uib-tooltip="{{getErrorMessage('cep', ['O CEP é obrigatório', 'Formato do CEP inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.cep.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="line-height: 74px;">
+                        <input type="button" name="btnBuscarCEP" id="btnBuscarCEP" class="btn btn-personal1 btn-md" value="Buscar" ng-click="buscarCEP()" />
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-10">
                         <div class="form-group" ng-class="{'has-error': errorList.logradouro.enable}">
@@ -230,15 +241,6 @@
                             <input type="text" class="form-control" name="bairro" id="txtBairro" ng-model="colaborador.endereco_bairro" maxlength="100" required uib-tooltip="{{getErrorMessage('bairro', ['O bairro é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.bairro.enable" />
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="form-group" ng-class="{'has-error': errorList.cep.enable}">
-                            <label>CEP</label><em>*</em>
-                            <input type="text" class="form-control" name="cep" id="txtCEP" ng-model="colaborador.endereco_cep" maxlength="9" required ui-br-cep-mask uib-tooltip="{{getErrorMessage('cep', ['O CEP é obrigatório', 'Formato do CEP inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.cep.enable" />
-                        </div>
-                    </div>
-                    <div class="col-md-2" style="line-height: 74px;">
-                        <input type="button" name="btnBuscarCEP" id="btnBuscarCEP" class="btn btn-personal1 btn-md" value="Buscar" ng-click="buscarCEP()" />
-                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
@@ -250,7 +252,7 @@
                     <div class="col-md-4">
                         <div class="form-group" ng-class="{'has-error': errorList.cidade.enable}">
                             <label>Cidade</label><em>*</em>
-                            <select id="ddlCidade" name="cidade" class="form-control" ng-disabled="colaborador.endereco_estado === undefined || colaborador.endereco_estado.Id <= 0 || listas.enderecoCidades.length <= 0" ng-options="cidade as cidade.Nome for cidade in listas.enderecoCidades track by cidade.Id" ng-model="colaborador.endereco_cidade" required uib-tooltip="{{getErrorMessage('cidade', ['A cidade é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.cidade.enable"></select>
+                            <select id="ddlCidade" name="cidade" class="form-control" ng-disabled="colaborador.endereco_estado === undefined || colaborador.endereco_estado.Id <= 0 || listas.enderecoCidades.length <= 0 || !editMode" ng-options="cidade as cidade.Nome for cidade in listas.enderecoCidades track by cidade.Id" ng-model="colaborador.endereco_cidade" required uib-tooltip="{{getErrorMessage('cidade', ['A cidade é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.cidade.enable"></select>
                         </div>
                     </div>
                 </div>
@@ -309,7 +311,8 @@
             @RenderBody()
             <div class="row col-botoes text-center">
                 <input type="button" name="btnVoltar" id="btnVoltar" ng-show="isAdmin" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
-                <input type="button" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />
+                <input type="button" name="btnEditar" ng-if="!editMode" id="btnEditar" class="btn btn-success btn-lg" value="Editar Dados" ng-click="editarDados(true)" />
+                <input type="button" name="btnSalvar" ng-if="editMode" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />
             </div>
             <br />
         </form>
