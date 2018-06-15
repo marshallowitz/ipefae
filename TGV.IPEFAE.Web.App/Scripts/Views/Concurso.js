@@ -591,7 +591,7 @@ function montarTabela()
 
             $scope.local_colaborador_checkIfInEdicao = function (local)
             {
-                if (!$scope.local_checkIfInEdicao())
+                if (!$scope.local_checkIfInEdicao() || local === undefined)
                     return false;
 
                 var inEdicao = false;

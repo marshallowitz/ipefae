@@ -17,8 +17,9 @@
     <div class="row centro">
         <form id="colCadastroForm" name="colCadastroForm" class="colCadastroForm form-validate" novalidate="">
             <div class="row col-botoes text-center">
-                <input type="button" name="btnVoltar2" id="btnVoltar" ng-show="isAdmin" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
-                <input type="button" name="btnSalvar2" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />
+                <input type="button" name="btnVoltar" id="btnVoltar2" ng-show="isAdmin" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
+                <input type="button" name="btnEditar" ng-if="!editMode" id="btnEditar2" class="btn btn-success btn-lg" value="Editar Dados" ng-click="editarDados(true)" />
+                <input type="button" name="btnSalvar" ng-if="editMode" id="btnSalvar2" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />
             </div>
             <br />
             <fieldset>

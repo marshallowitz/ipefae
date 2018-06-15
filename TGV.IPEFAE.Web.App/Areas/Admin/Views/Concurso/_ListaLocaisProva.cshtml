@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="local in concurso.locais">
+            <tr>
                 <td>
                     <div class="tooltip-error" style="height: 70px; padding: 20px;">
                         <input type="text" ng-model="local.local" class="form-control ipt-local" placeholder="Digite o local da prova" ng-class="local.modoEdicao ? '' : 'input-as-span'" maxlength="100" ng-readonly="!local.modoEdicao" required />

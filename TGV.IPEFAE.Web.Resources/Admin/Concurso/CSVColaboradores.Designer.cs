@@ -19,7 +19,7 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class CSVColaboradores {
@@ -255,6 +255,15 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         public static string Headergrau_instrucao {
             get {
                 return ResourceManager.GetString("Headergrau_instrucao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local Prova.
+        /// </summary>
+        public static string Headerlocal_concurso {
+            get {
+                return ResourceManager.GetString("Headerlocal_concurso", resourceCulture);
             }
         }
         

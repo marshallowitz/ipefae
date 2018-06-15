@@ -69,6 +69,7 @@
 
         function link(scope, elem, attrs, ctrl)
         {
+            var in_debug = false;
             var inputField = elem.find('input');
             var minlength = MIN_LENGTH;
             var searchTimer = null;
@@ -85,8 +86,16 @@
             var displaySearching;
             var displayNoResults;
 
+            function executeInDebug(fName)
+            {
+                console.log(fName, inputField.val());
+            }
+
             elem.on('mousedown', function (event)
             {
+                if (in_debug)
+                    executeInDebug('mousedown');
+
                 if (event.target.id) {
                     mousedownOn = event.target.id;
                     if (mousedownOn === scope.id + '_dropdown') {
@@ -96,22 +105,34 @@
                 else {
                     mousedownOn = event.target.className;
                 }
+
+                if (in_debug)
+                    executeInDebug('mousedown_FIM');
             });
 
             scope.currentIndex = scope.focusFirst ? 0 : null;
             scope.searching = false;
             unbindInitialValue = scope.$watch('initialValue', function (newval)
             {
+                if (in_debug)
+                    executeInDebug('unbindInitialValue');
+
                 if (newval) {
                     // remove scope listener
                     unbindInitialValue();
                     // change input
                     handleInputChange(newval, true);
                 }
+
+                if (in_debug)
+                    executeInDebug('unbindInitialValue' + '_FIM');
             });
 
             scope.$watch('fieldRequired', function (newval, oldval)
             {
+                if (in_debug)
+                    executeInDebug('watch-fieldRequired');
+
                 if (newval !== oldval) {
                     if (!newval) {
                         ctrl[scope.inputName].$setValidity(requiredClassName, true);
@@ -123,27 +144,45 @@
                         handleRequired(true);
                     }
                 }
+
+                if (in_debug)
+                    executeInDebug('watch-fieldRequired' + '_FIM');
             });
 
             scope.$on('angucomplete-alt:clearInput', function (event, elementId)
             {
+                if (in_debug)
+                    executeInDebug('angucomplete-alt:clearInput');
+
                 if (!elementId || elementId === scope.id) {
                     scope.searchStr = null;
                     callOrAssign();
                     handleRequired(false);
                     clearResults();
                 }
+
+                if (in_debug)
+                    executeInDebug('angucomplete-alt:clearInput' + '_FIM');
             });
 
             scope.$on('angucomplete-alt:changeInput', function (event, elementId, newval)
             {
+                if (in_debug)
+                    executeInDebug('angucomplete-alt:changeInput');
+
                 if (!!elementId && elementId === scope.id) {
                     handleInputChange(newval);
                 }
+
+                if (in_debug)
+                    executeInDebug('angucomplete-alt:changeInput' + '_FIM');
             });
 
             function handleInputChange(newval, initial)
             {
+                if (in_debug)
+                    executeInDebug('handleInputChange');
+
                 if (newval) {
                     if (typeof newval === 'object') {
                         scope.searchStr = extractTitle(newval);
@@ -158,24 +197,39 @@
 
                     handleRequired(true);
                 }
+
+                if (in_debug)
+                    executeInDebug('handleInputChange' + '_FIM');
             }
 
             // #194 dropdown list not consistent in collapsing (bug).
             function clickoutHandlerForDropdown(event)
             {
+                if (in_debug)
+                    executeInDebug('clickoutHandlerForDropdown');
+
                 mousedownOn = null;
                 scope.hideResults(event);
                 document.body.removeEventListener('click', clickoutHandlerForDropdown);
+
+                if (in_debug)
+                    executeInDebug('clickoutHandlerForDropdown' + '_FIM');
             }
 
             // for IE8 quirkiness about event.which
             function ie8EventNormalizer(event)
             {
+                if (in_debug)
+                    executeInDebug('ie8EventNormalizer');
+
                 return event.which ? event.which : event.keyCode;
             }
 
             function callOrAssign(value)
             {
+                if (in_debug)
+                    executeInDebug('callOrAssign');
+
                 if (typeof scope.selectedObject === 'function') {
                     scope.selectedObject(value, scope.selectedObjectData);
                 }
@@ -189,10 +243,16 @@
                 else {
                     handleRequired(false);
                 }
+
+                if (in_debug)
+                    executeInDebug('callOrAssign' + '_FIM');
             }
 
             function callFunctionOrIdentity(fn)
             {
+                if (in_debug)
+                    executeInDebug('callFunctionOrIdentity');
+
                 return function (data)
                 {
                     return scope[fn] ? scope[fn](data) : data;
@@ -201,16 +261,25 @@
 
             function setInputString(str)
             {
+                if (in_debug)
+                    executeInDebug('setInputString');
+
                 callOrAssign({ originalObject: str });
 
                 if (scope.clearSelected) {
                     scope.searchStr = null;
                 }
                 clearResults();
+
+                if (in_debug)
+                    executeInDebug('setInputString' + '_FIM');
             }
 
             function extractTitle(data)
             {
+                if (in_debug)
+                    executeInDebug('extractTitle');
+
                 // split title fields and run extractValue for each and join with ' '
                 return scope.titleField.split(',')
                   .map(function (field)
@@ -222,6 +291,9 @@
 
             function extractValue(obj, key)
             {
+                if (in_debug)
+                    executeInDebug('extractValue');
+
                 var keys, result;
                 if (key) {
                     keys = key.split('.');
@@ -233,11 +305,18 @@
                 else {
                     result = obj;
                 }
+
+                if (in_debug)
+                    executeInDebug('extractValue' + '_FIM');
+
                 return result;
             }
 
             function findMatchString(target, str)
             {
+                if (in_debug)
+                    executeInDebug('findMatchString');
+
                 var result, matches, re;
                 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
                 // Escape user input to be treated as a literal string within a regular expression
@@ -252,20 +331,33 @@
                 else {
                     result = target;
                 }
+
+                if (in_debug)
+                    executeInDebug('findMatchString' + '_FIM');
+
                 return $sce.trustAsHtml(result);
             }
 
             function handleRequired(valid)
             {
+                if (in_debug)
+                    executeInDebug('handleRequired');
+
                 scope.notEmpty = valid;
                 validState = scope.searchStr;
                 if (scope.fieldRequired && ctrl && scope.inputName) {
                     ctrl[scope.inputName].$setValidity(requiredClassName, valid);
                 }
+
+                if (in_debug)
+                    executeInDebug('handleRequired' + '_FIM');
             }
 
             function keyupHandler(event)
             {
+                if (in_debug)
+                    executeInDebug('keyupHandler');
+
                 var which = ie8EventNormalizer(event);
                 if (which === KEY_LF || which === KEY_RT) {
                     // do nothing
@@ -319,10 +411,16 @@
                         });
                     }
                 }
+
+                if (in_debug)
+                    executeInDebug('keyupHandler' + '_FIM');
             }
 
             function handleOverrideSuggestions(event)
             {
+                if (in_debug)
+                    executeInDebug('handleOverrideSuggestions');
+
                 if (scope.overrideSuggestions &&
                     !(scope.selectedObject && scope.selectedObject.originalObject === scope.searchStr)) {
                     if (event) {
@@ -336,10 +434,16 @@
 
                     setInputString(scope.searchStr);
                 }
+
+                if (in_debug)
+                    executeInDebug('handleOverrideSuggestions' + '_FIM');
             }
 
             function dropdownRowOffsetHeight(row)
             {
+                if (in_debug)
+                    executeInDebug('dropdownRowOffsetHeight');
+
                 var css = getComputedStyle(row);
                 return row.offsetHeight +
                   parseInt(css.marginTop, 10) + parseInt(css.marginBottom, 10);
@@ -347,17 +451,26 @@
 
             function dropdownHeight()
             {
+                if (in_debug)
+                    executeInDebug('dropdownHeight');
+
                 return dd.getBoundingClientRect().top +
                   parseInt(getComputedStyle(dd).maxHeight, 10);
             }
 
             function dropdownRow()
             {
+                if (in_debug)
+                    executeInDebug('dropdownRow');
+
                 return elem[0].querySelectorAll('.angucomplete-row')[scope.currentIndex];
             }
 
             function dropdownRowTop()
             {
+                if (in_debug)
+                    executeInDebug('dropdownRowTop');
+
                 return dropdownRow().getBoundingClientRect().top -
                   (dd.getBoundingClientRect().top +
                    parseInt(getComputedStyle(dd).paddingTop, 10));
@@ -365,11 +478,17 @@
 
             function dropdownScrollTopTo(offset)
             {
+                if (in_debug)
+                    executeInDebug('dropdownScrollTopTo');
+
                 dd.scrollTop = dd.scrollTop + offset;
             }
 
             function updateInputField()
             {
+                if (in_debug)
+                    executeInDebug('updateInputField');
+
                 var current = scope.results[scope.currentIndex];
                 if (scope.matchClass) {
                     inputField.val(extractTitle(current.originalObject));
@@ -377,10 +496,16 @@
                 else {
                     inputField.val(current.title);
                 }
+
+                if (in_debug)
+                    executeInDebug('updateInputField' + '_FIM');
             }
 
             function keydownHandler(event)
             {
+                if (in_debug)
+                    executeInDebug('keydownHandler');
+
                 var which = ie8EventNormalizer(event);
                 var row = null;
                 var rowTop = null;
@@ -461,10 +586,16 @@
                     // without this, IE clears the input text
                     event.preventDefault();
                 }
+
+                if (in_debug)
+                    executeInDebug('keydownHandler' + '_FIM');
             }
 
             function httpSuccessCallbackGen(str)
             {
+                if (in_debug)
+                    executeInDebug('httpSuccessCallbackGen');
+
                 return function (responseData, status, headers, config)
                 {
                     // normalize return obejct from promise
@@ -472,14 +603,15 @@
                         responseData = responseData.data;
                     }
                     scope.searching = false;
-                    processResults(
-                      extractValue(responseFormatter(responseData), scope.remoteUrlDataField),
-                      str);
+                    processResults(extractValue(responseFormatter(responseData), scope.remoteUrlDataField), str);
                 };
             }
 
             function httpErrorCallback(errorRes, status, headers, config)
             {
+                if (in_debug)
+                    executeInDebug('httpErrorCallback');
+
                 scope.searching = httpCallInProgress;
 
                 // normalize return obejct from promise
@@ -497,17 +629,29 @@
                         console.error('http error');
                     }
                 }
+
+                if (in_debug)
+                    executeInDebug('httpErrorCallback' + '_FIM');
             }
 
             function cancelHttpRequest()
             {
+                if (in_debug)
+                    executeInDebug('cancelHttpRequest');
+
                 if (httpCanceller) {
                     httpCanceller.resolve();
                 }
+
+                if (in_debug)
+                    executeInDebug('cancelHttpRequest' + '_FIM');
             }
 
             function getRemoteResults(str)
             {
+                if (in_debug)
+                    executeInDebug('getRemoteResults');
+
                 var params = {},
                     url = scope.remoteUrl + encodeURIComponent(str);
                 if (scope.remoteUrlRequestFormatter) {
@@ -525,10 +669,16 @@
                   .then(httpSuccessCallbackGen(str))
                   .catch(httpErrorCallback)
                   .finally(function () { httpCallInProgress = false; });
+
+                if (in_debug)
+                    executeInDebug('getRemoteResults' + '_FIM');
             }
 
             function getRemoteResultsWithCustomHandler(str)
             {
+                if (in_debug)
+                    executeInDebug('getRemoteResultsWithCustomHandler');
+
                 cancelHttpRequest();
 
                 httpCanceller = $q.defer();
@@ -536,6 +686,9 @@
                 scope.remoteApiHandler(str, httpCanceller.promise)
                   .then(httpSuccessCallbackGen(str))
                   .catch(httpErrorCallback);
+
+                if (in_debug)
+                    executeInDebug('getRemoteResultsWithCustomHandler' + '_FIM');
 
                 /* IE8 compatible
                 scope.remoteApiHandler(str, httpCanceller.promise)
@@ -546,22 +699,37 @@
 
             function clearResults()
             {
+                if (in_debug)
+                    executeInDebug('clearResults');
+
                 scope.showDropdown = false;
                 scope.results = [];
                 if (dd) {
                     dd.scrollTop = 0;
                 }
+
+                if (in_debug)
+                    executeInDebug('clearResults' + '_FIM');
             }
 
             function initResults()
             {
+                if (in_debug)
+                    executeInDebug('initResults');
+
                 scope.showDropdown = displaySearching;
                 scope.currentIndex = scope.focusFirst ? 0 : -1;
                 scope.results = [];
+
+                if (in_debug)
+                    executeInDebug('initResults' + '_FIM');
             }
 
             function getLocalResults(str)
             {
+                if (in_debug)
+                    executeInDebug('getLocalResults');
+
                 var i, match, s, value,
                     searchFields = scope.searchFields.split(','),
                     matches = [];
@@ -580,11 +748,17 @@
                         matches[matches.length] = scope.localData[i];
                     }
                 }
+
+                if (in_debug)
+                    executeInDebug('getLocalResults' + '_FIM');
                 return matches;
             }
 
             function checkExactMatch(result, obj, str)
             {
+                if (in_debug)
+                    executeInDebug('checkExactMatch');
+
                 if (!str) { return false; }
                 for (var key in obj) {
                     if (obj[key].toLowerCase() === str.toLowerCase()) {
@@ -592,11 +766,17 @@
                         return true;
                     }
                 }
+
+                if (in_debug)
+                    executeInDebug('checkExactMatch' + '_FIM');
                 return false;
             }
 
             function searchTimerComplete(str)
             {
+                if (in_debug)
+                    executeInDebug('searchTimerComplete');
+
                 // Begin the search
                 if (!str || str.length < minlength) {
                     return;
@@ -619,10 +799,16 @@
                 } else {
                     getRemoteResults(str);
                 }
+
+                if (in_debug)
+                    executeInDebug('searchTimerComplete' + '_FIM');
             }
 
             function processResults(responseData, str)
             {
+                if (in_debug)
+                    executeInDebug('processResults');
+
                 var i, description, image, text, formattedText, formattedDesc;
 
                 if (responseData && responseData.length > 0) {
@@ -669,10 +855,16 @@
                 } else {
                     scope.showDropdown = true;
                 }
+
+                if (in_debug)
+                    executeInDebug('processResults' + '_FIM');
             }
 
             function showAll()
             {
+                if (in_debug)
+                    executeInDebug('showAll');
+
                 if (scope.localData) {
                     scope.searching = false;
                     processResults(scope.localData, '');
@@ -685,10 +877,16 @@
                     scope.searching = true;
                     getRemoteResults('');
                 }
+
+                if (in_debug)
+                    executeInDebug('showAll' + '_FIM');
             }
 
             scope.onFocusHandler = function ()
             {
+                if (in_debug)
+                    executeInDebug('onFocusHandler');
+
                 if (scope.focusIn) {
                     scope.focusIn();
                 }
@@ -697,10 +895,16 @@
                     scope.showDropdown = true;
                     showAll();
                 }
+
+                if (in_debug)
+                    executeInDebug('onFocusHandler' + '_FIM');
             };
 
             scope.hideResults = function ()
             {
+                if (in_debug)
+                    executeInDebug('hideResults');
+
                 if (mousedownOn &&
                     (mousedownOn === scope.id + '_dropdown' ||
                      mousedownOn.indexOf('angucomplete') >= 0)) {
@@ -729,22 +933,40 @@
                         }
                     }
                 }
+
+                if (in_debug)
+                    executeInDebug('hideResults' + '_FIM');
             };
 
             scope.resetHideResults = function ()
             {
+                if (in_debug)
+                    executeInDebug('resetHideResults');
+
                 if (hideTimer) {
                     $timeout.cancel(hideTimer);
                 }
+
+                if (in_debug)
+                    executeInDebug('resetHideResults' + '_FIM');
             };
 
             scope.hoverRow = function (index)
             {
+                if (in_debug)
+                    executeInDebug('hoverRow');
+
                 scope.currentIndex = index;
+
+                if (in_debug)
+                    executeInDebug('hoverRow' + '_FIM');
             };
 
             scope.selectResult = function (result)
             {
+                if (in_debug)
+                    executeInDebug('selectResult');
+
                 // Restore original values
                 if (scope.matchClass) {
                     result.title = extractTitle(result.originalObject);
@@ -759,10 +981,16 @@
                 }
                 callOrAssign(result);
                 clearResults();
+
+                if (in_debug)
+                    executeInDebug('selectResult' + '_FIM');
             };
 
             scope.inputChangeHandler = function (str)
             {
+                if (in_debug)
+                    executeInDebug('inputChangeHandler');
+
                 if (str.length < minlength) {
                     cancelHttpRequest();
                     clearResults();
@@ -774,6 +1002,9 @@
                 if (scope.inputChanged) {
                     str = scope.inputChanged(str);
                 }
+
+                if (in_debug)
+                    executeInDebug('inputChangeHandler' + '_FIM');
                 return str;
             };
 

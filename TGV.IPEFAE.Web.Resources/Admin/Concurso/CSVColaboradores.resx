@@ -237,4 +237,7 @@
   <data name="Headervalor_liquido" xml:space="preserve">
     <value>Valor Liquido</value>
   </data>
+  <data name="Headerlocal_concurso" xml:space="preserve">
+    <value>Local Prova</value>
+  </data>
 </root>

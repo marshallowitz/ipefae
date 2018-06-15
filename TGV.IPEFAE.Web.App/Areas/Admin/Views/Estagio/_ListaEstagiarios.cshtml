@@ -15,8 +15,8 @@
         <span>@TGV.IPEFAE.Web.App.Extensions.IPEFAEExtension.FormatarFone(ues.Value.Telefone, true)</span>
         <span>@ues.Value.DataUltimaAtualizacaoString</span>
         <span class="acao">
-            <div class="icons editar" style="margin-bottom: -10px;" title="@Index.TitleEditar" onclick="window.open(homePage + 'Admin/Estagio/Cadastro/' + @ues.Value.Id);"></div>
-            <div class="col-md-3" style="padding: 0px;" onclick="excluir('@ues.Value.Id')"><div class="icons excluir" title="Excluir"></div></div>
+            <div class="icons editar" style="float:left; margin-bottom: -10px;" title="@Index.TitleEditar" onclick="window.open(homePage + 'Admin/Estagio/Cadastro/' + @ues.Value.Id);"></div>
+            <div class="icons excluir" style="float:left; margin-bottom: -10px;" title="Excluir" onclick="excluir('@ues.Value.Id')"></div>
         </span>
     </li>
 }
