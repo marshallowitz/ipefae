@@ -19,7 +19,8 @@ namespace TGV.IPEFAE.Web.BL.Data
         public int colaborador_id { get; set; }
         public int funcao_id { get; set; }
         public decimal valor { get; set; }
-        public bool tem_empresa { get; set; }
+        public bool inss { get; set; }
+        public bool iss { get; set; }
         public bool ativo { get; set; }
     
         public virtual colaborador colaborador { get; set; }

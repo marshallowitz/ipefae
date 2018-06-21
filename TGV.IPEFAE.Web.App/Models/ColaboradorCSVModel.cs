@@ -31,8 +31,10 @@ namespace TGV.IPEFAE.Web.App.Models
             this.data_concurso = concurso.data.ToString("ddMMyyyy");
             this.local_concurso = clm != null ? clm.local : String.Empty;
             this.funcao_colaborador = cRPA != null ? cRPA.funcao_nome : String.Empty;
-            this.valor_bruto = cRPA != null ? String.Format("{0:N}", cRPA.valor) : String.Empty;
-            this.valor_liquido = cRPA != null ? String.Format("{0:N}", cRPA.valor_final) : String.Empty;
+            this.valor_bruto = cRPA != null ? String.Format("{0:N}", cRPA.valor_bruto_5c) : String.Empty;
+            this.valor_liquido = cRPA != null ? String.Format("{0:N}", cRPA.valor_liquido_5c) : String.Empty;
+            this.descontar_inss = cRPA != null && cRPA.descontar_inss ? "Sim" : "Não";
+            this.descontar_iss = cRPA != null && cRPA.descontar_iss ? "Sim" : "Não";
 
             this.codigo = colaborador.codigo;
             this.nome = colaborador.nome;
@@ -88,74 +90,78 @@ namespace TGV.IPEFAE.Web.App.Models
         [Order(5)]
         public string valor_liquido { get; set; }
         [Order(6)]
-        public string codigo { get; set; }
+        public string descontar_inss { get; set; }
         [Order(7)]
-        public string nome { get; set; }
+        public string descontar_iss { get; set; }
         [Order(8)]
-        public string cpf { get; set; }
+        public string codigo { get; set; }
         [Order(9)]
-        public string rg { get; set; }
+        public string nome { get; set; }
         [Order(10)]
-        public string carteira_trabalho_nro { get; set; }
+        public string cpf { get; set; }
         [Order(11)]
-        public string carteira_trabalho_serie { get; set; }
+        public string rg { get; set; }
         [Order(12)]
-        public string carteira_trabalho_estado { get; set; }
+        public string carteira_trabalho_nro { get; set; }
         [Order(13)]
-        public string titulo_eleitor_nro { get; set; }
+        public string carteira_trabalho_serie { get; set; }
         [Order(14)]
-        public string titulo_eleitor_zona { get; set; }
+        public string carteira_trabalho_estado { get; set; }
         [Order(15)]
-        public string titulo_eleitor_secao { get; set; }
+        public string titulo_eleitor_nro { get; set; }
         [Order(16)]
-        public string pis_pasep_net { get; set; }
+        public string titulo_eleitor_zona { get; set; }
         [Order(17)]
-        public string data_nascimento { get; set; }
+        public string titulo_eleitor_secao { get; set; }
         [Order(18)]
-        public string naturalidade_cidade { get; set; }
+        public string pis_pasep_net { get; set; }
         [Order(19)]
-        public string naturalidade_estado { get; set; }
+        public string data_nascimento { get; set; }
         [Order(20)]
-        public string nacionalidade { get; set; }
+        public string naturalidade_cidade { get; set; }
         [Order(21)]
-        public string nome_mae { get; set; }
+        public string naturalidade_estado { get; set; }
         [Order(22)]
-        public string nome_pai { get; set; }
+        public string nacionalidade { get; set; }
         [Order(23)]
-        public string sexo { get; set; }
+        public string nome_mae { get; set; }
         [Order(24)]
-        public string estado_civil { get; set; }
+        public string nome_pai { get; set; }
         [Order(25)]
-        public string grau_instrucao { get; set; }
+        public string sexo { get; set; }
         [Order(26)]
-        public string raca { get; set; }
+        public string estado_civil { get; set; }
         [Order(27)]
-        public string telefone_01 { get; set; }
+        public string grau_instrucao { get; set; }
         [Order(28)]
-        public string telefone_02 { get; set; }
+        public string raca { get; set; }
         [Order(29)]
-        public string email { get; set; }
+        public string telefone_01 { get; set; }
         [Order(30)]
-        public string banco { get; set; }
+        public string telefone_02 { get; set; }
         [Order(31)]
-        public string agencia { get; set; }
+        public string email { get; set; }
         [Order(32)]
-        public string agencia_digito { get; set; }
+        public string banco { get; set; }
         [Order(33)]
-        public string conta_corrente { get; set; }
+        public string agencia { get; set; }
         [Order(34)]
-        public string endereco_logradouro { get; set; }
+        public string agencia_digito { get; set; }
         [Order(35)]
-        public string endereco_nro { get; set; }
+        public string conta_corrente { get; set; }
         [Order(36)]
-        public string endereco_complemento { get; set; }
+        public string endereco_logradouro { get; set; }
         [Order(37)]
-        public string endereco_bairro { get; set; }
+        public string endereco_nro { get; set; }
         [Order(38)]
-        public string endereco_cidade { get; set; }
+        public string endereco_complemento { get; set; }
         [Order(39)]
-        public string endereco_estado { get; set; }
+        public string endereco_bairro { get; set; }
         [Order(40)]
+        public string endereco_cidade { get; set; }
+        [Order(41)]
+        public string endereco_estado { get; set; }
+        [Order(42)]
         public string endereco_cep { get; set; }
 
         #endregion [ FIM - Propriedades ]

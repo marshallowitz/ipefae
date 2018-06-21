@@ -112,7 +112,8 @@ namespace TGV.IPEFAE.Web.BL.Data
                 toUpdate.colaborador_id = clcM.colaborador_id;
                 toUpdate.concurso_local_id = clcM.concurso_local_id;
                 toUpdate.funcao_id = clcM.funcao_id;
-                toUpdate.tem_empresa = clcM.tem_empresa;
+                toUpdate.inss = clcM.inss;
+                toUpdate.iss = clcM.iss;
                 toUpdate.valor = clcM.valor;
 
                 db.SaveChangesWithErrors();
@@ -304,7 +305,8 @@ namespace TGV.IPEFAE.Web.BL.Data
         public int colaborador_id       { get; set; } = 0;
         public int funcao_id            { get; set; }
         public decimal valor            { get; set; }
-        public bool tem_empresa         { get; set; } = false;
+        public bool inss                { get; set; } = true;
+        public bool iss                 { get; set; } = true;
         public bool ativo               { get; set; }
 
         public bool modoEdicao          { get; set; } = false;

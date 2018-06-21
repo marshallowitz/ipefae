@@ -234,24 +234,33 @@ namespace TGV.IPEFAE.Web.BL.Data
         public string emitente_bairro           { get; set; }
         public string emitente_cidade           { get; set; }
 
-        public bool tem_empresa                 { get; set; } = false;
         public string funcao_nome               { get; set; }
         public decimal valor_sem_formatacao     { get; set; }
-        public string aliquota_inss             { get { return ConfigurationManager.AppSettings["Aliquota_INSS"]; } }
-        public string aliquota_iss              { get { return ConfigurationManager.AppSettings["Aliquota_ISS"]; } }
+        public string aliquota_inss             { get { return descontar_inss ? ConfigurationManager.AppSettings["Aliquota_INSS"] : "0"; } }
+        public string aliquota_iss              { get { return descontar_iss ? ConfigurationManager.AppSettings["Aliquota_ISS"] : "0"; } }
         public string aliquota_irpf             { get; set; }
         public string deducao_irpf              { get; set; }
+        public bool descontar_inss              { get; set; } = true;
+        public bool descontar_iss               { get; set; } = true;
         public decimal valor_irpf_sem_formatacao { get; set; }
 
         public string data_hoje_formatado       { get { return BaseData.DataAgora.ToString("dd/MM/yyyy"); } }
-        public string valor                     { get { return String.Format("{0:C2}", this.valor_sem_formatacao); } }
+        public string valor_bruto               { get { return String.Format("{0:C2}", this.valor_sem_formatacao); } }
         public string valor_inss                { get { return String.Format("{0:C2}", this.valor_inss_sem_formatacao); } }
         public string valor_iss                 { get { return String.Format("{0:C2}", this.valor_iss_sem_formatacao); } }
         public string valor_irpf                { get { return String.Format("{0:C2}", this.valor_irpf_sem_formatacao); } }
-        public string valor_final               { get { return String.Format("{0:C2}", this.valor_final_sem_formatacao); } }
+        public string valor_liquido             { get { return String.Format("{0:C2}", this.valor_liquido_sem_formatacao); } }
+
+        public string valor_bruto_5c            { get { return String.Format("{0:C5}", this.valor_sem_formatacao); } }
+        public string valor_inss_5c             { get { return String.Format("{0:C5}", this.valor_inss_sem_formatacao); } }
+        public string valor_iss_5c              { get { return String.Format("{0:C5}", this.valor_iss_sem_formatacao); } }
+        public string valor_irpf_5c             { get { return String.Format("{0:C5}", this.valor_irpf_sem_formatacao); } }
+        public string valor_liquido_5c          { get { return String.Format("{0:C5}", this.valor_liquido_sem_formatacao); } }
+
         private decimal valor_sem_inss          { get { return this.valor_sem_formatacao * this.valor_inss_sem_formatacao / 100; } }
-        public decimal valor_final_sem_formatacao   { get { return this.valor_sem_formatacao - this.valor_inss_sem_formatacao - this.valor_iss_sem_formatacao - valor_irpf_sem_formatacao; } }
-        public string valor_final_por_extenso   { get { return this.valor_final_sem_formatacao.EscreverExtenso(); } }
+        //public decimal valor_liquido_sem_formatacao   { get { return this.valor_sem_formatacao - this.valor_inss_sem_formatacao - this.valor_iss_sem_formatacao - valor_irpf_sem_formatacao; } }
+        public decimal valor_liquido_sem_formatacao { get; set; }
+        public string valor_liquido_por_extenso { get { return this.valor_liquido_sem_formatacao.EscreverExtenso(); } }
 
         public decimal valor_inss_sem_formatacao
         {
@@ -317,23 +326,37 @@ namespace TGV.IPEFAE.Web.BL.Data
 
                 if (localColaborador != null)
                 {
-
-                    colaborador.tem_empresa = localColaborador.tem_empresa;
+                    colaborador.descontar_inss = localColaborador.inss;
+                    colaborador.descontar_iss = localColaborador.iss;
                     colaborador.funcao_nome = localColaborador.funcao.funcao;
 
-                    if (!colaborador.tem_empresa)
-                        colaborador.valor_sem_formatacao = localColaborador.valor;
+                    decimal valor_bruto_sem_irpf = 0;
+
+                    if (colaborador.descontar_inss && colaborador.descontar_iss)
+                        valor_bruto_sem_irpf = localColaborador.valor * 1.1765m;
+                    else if (colaborador.descontar_inss)
+                        valor_bruto_sem_irpf = localColaborador.valor * 1.1236m;
+                    else if (colaborador.descontar_iss)
+                        valor_bruto_sem_irpf = localColaborador.valor * 1.0417m;
                     else
-                    {
-                        decimal inss = 0;
-                        Decimal.TryParse(colaborador.aliquota_inss, out inss);
+                        valor_bruto_sem_irpf = localColaborador.valor;
 
-                        decimal iss = 0;
-                        Decimal.TryParse(colaborador.aliquota_iss, out iss);
+                    colaborador.valor_sem_formatacao = valor_bruto_sem_irpf;
+                    colaborador.valor_liquido_sem_formatacao = localColaborador.valor;
 
-                        decimal valor_bruto_sem_irpf = localColaborador.valor / (1 - inss / 100 - iss / 100);
-                        colaborador.valor_sem_formatacao = valor_bruto_sem_irpf; // Define o valor temporário
-                    }
+                    //if (!colaborador.tem_empresa)
+                    //    colaborador.valor_sem_formatacao = localColaborador.valor;
+                    //else
+                    //{
+                    //    decimal inss = 0;
+                    //    Decimal.TryParse(colaborador.aliquota_inss, out inss);
+
+                    //    decimal iss = 0;
+                    //    Decimal.TryParse(colaborador.aliquota_iss, out iss);
+
+                    //    decimal valor_bruto_sem_irpf = localColaborador.valor / (1 - inss / 100 - iss / 100);
+                    //    colaborador.valor_sem_formatacao = valor_bruto_sem_irpf; // Define o valor temporário
+                    //}
                 }
             }
 
@@ -345,8 +368,8 @@ namespace TGV.IPEFAE.Web.BL.Data
                 colaborador.valor_irpf_sem_formatacao = sirpf.irpf_retido;
             }
 
-            if (colaborador.tem_empresa) // Se tiver empresa, continua ajustando o valor bruto - insere irpf
-                colaborador.valor_sem_formatacao += colaborador.valor_irpf_sem_formatacao;
+            //if (colaborador.tem_empresa) // Se tiver empresa, continua ajustando o valor bruto - insere irpf
+            //    colaborador.valor_sem_formatacao += colaborador.valor_irpf_sem_formatacao;
 
             if (emitente != null)
             {

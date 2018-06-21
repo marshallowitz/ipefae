@@ -576,7 +576,7 @@ function montarTabela()
 
                 var funcao = $filter('orderBy')($scope.concurso.funcoes, 'funcao')[0];
                 var colaborador = $filter('orderBy')(colaboradores, 'nome')[0];
-                var novo_colaborador = { id: 0, colaborador: undefined, funcao: funcao, valor: 0, tem_empresa: false, modoEdicao: false };
+                var novo_colaborador = { id: 0, colaborador: { originalObject: { title: '', description: '' } }, funcao: funcao, valor: 0, inss: true, iss: true, modoEdicao: false };
 
                 $scope.local_colaborador_mudar_funcao(novo_colaborador, funcao);
 
@@ -610,7 +610,7 @@ function montarTabela()
             $scope.local_colaborador_editar = function (i, local, colaborador, editar)
             {
                 if (editar)
-                    colaborador.old_values = { id: colaborador.id, colaborador: colaborador.colaborador, funcao: colaborador.funcao, valor: colaborador.valor, tem_empresa: colaborador.tem_empresa };
+                    colaborador.old_values = { id: colaborador.id, colaborador: colaborador.colaborador, funcao: colaborador.funcao, valor: colaborador.valor, inss: colaborador.inss, iss: colaborador.iss };
                 else {
                     var index = findInArrayIndex(local.Colaboradores, 'id', colaborador.old_values.id);
 
@@ -626,7 +626,8 @@ function montarTabela()
 
                         colaborador.funcao = colaborador.old_values.funcao;
                         colaborador.valor = colaborador.old_values.valor;
-                        colaborador.tem_empresa = colaborador.old_values.tem_empresa;
+                        colaborador.inss = colaborador.old_values.inss;
+                        colaborador.iss = colaborador.old_values.iss;
                     }
                 }
 

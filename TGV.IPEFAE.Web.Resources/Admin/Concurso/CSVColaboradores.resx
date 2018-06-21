@@ -240,4 +240,10 @@
   <data name="Headerlocal_concurso" xml:space="preserve">
     <value>Local Prova</value>
   </data>
+  <data name="Headerdescontar_inss" xml:space="preserve">
+    <value>Descontar INSS</value>
+  </data>
+  <data name="Headerdescontar_iss" xml:space="preserve">
+    <value>Descontar ISS</value>
+  </data>
 </root>

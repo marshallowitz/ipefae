@@ -160,6 +160,24 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Descontar INSS.
+        /// </summary>
+        public static string Headerdescontar_inss {
+            get {
+                return ResourceManager.GetString("Headerdescontar_inss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Descontar ISS.
+        /// </summary>
+        public static string Headerdescontar_iss {
+            get {
+                return ResourceManager.GetString("Headerdescontar_iss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-mail.
         /// </summary>
         public static string Headeremail {

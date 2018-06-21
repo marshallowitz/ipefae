@@ -14,7 +14,8 @@ CREATE TABLE [dbo].[concurso_local_colaborador](
 	[colaborador_id] [int] NOT NULL,
 	[funcao_id] [int] NOT NULL,
 	[valor] [numeric](9, 2) NOT NULL,
-	[tem_empresa] [bit] NOT NULL,
+	[inss] [bit] NOT NULL,
+	[iss] [bit] NOT NULL,
 	[ativo] [bit] NOT NULL,
  CONSTRAINT [PK_concurso_colaborador] PRIMARY KEY CLUSTERED 
 (
@@ -24,7 +25,10 @@ CREATE TABLE [dbo].[concurso_local_colaborador](
 
 GO
 
-ALTER TABLE [dbo].[concurso_local_colaborador] ADD  CONSTRAINT [DF_concurso_colaborador_tem_empresa]  DEFAULT ((0)) FOR [tem_empresa]
+ALTER TABLE [dbo].[concurso_local_colaborador] ADD  CONSTRAINT [DF_concurso_colaborador_inss]  DEFAULT ((1)) FOR [inss]
+GO
+
+ALTER TABLE [dbo].[concurso_local_colaborador] ADD  CONSTRAINT [DF_concurso_colaborador_iss]  DEFAULT ((1)) FOR [iss]
 GO
 
 ALTER TABLE [dbo].[concurso_local_colaborador] ADD  CONSTRAINT [DF_concurso_colaborador_ativo]  DEFAULT ((1)) FOR [ativo]

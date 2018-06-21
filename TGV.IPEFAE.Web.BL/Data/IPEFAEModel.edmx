@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="TGV.IPEFAE.Web.Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TGV.IPEFAE.Web.Data.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="banco">
           <Key>
             <PropertyRef Name="id" />
@@ -93,7 +93,8 @@
           <Property Name="colaborador_id" Type="int" Nullable="false" />
           <Property Name="funcao_id" Type="int" Nullable="false" />
           <Property Name="valor" Type="numeric" Precision="9" Scale="2" Nullable="false" />
-          <Property Name="tem_empresa" Type="bit" Nullable="false" />
+          <Property Name="inss" Type="bit" Nullable="false" />
+          <Property Name="iss" Type="bit" Nullable="false" />
           <Property Name="ativo" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="grau_instrucao">
@@ -185,7 +186,6 @@
           <Property Name="tlc_idt_tipo_layout_concurso" Type="int" Nullable="false" />
           <Property Name="con_nom_concurso" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="con_dat_concurso" Type="datetime" Nullable="false" />
-          <Property Name="con_dat_boleto" Type="datetime" Nullable="false" />
           <Property Name="con_dat_inicio_classificacao" Type="datetime" Nullable="false" />
           <Property Name="con_dat_inicio_comprovante" Type="datetime" Nullable="false" />
           <Property Name="con_dat_inicio_isento" Type="datetime" Nullable="false" />
@@ -196,6 +196,7 @@
           <Property Name="con_bit_encerrado" Type="bit" Nullable="false" />
           <Property Name="con_bit_inscricao_online" Type="bit" Nullable="false" />
           <Property Name="con_bit_ativo" Type="bit" Nullable="false" />
+          <Property Name="con_dat_boleto" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_ema_email">
           <Key>
@@ -263,7 +264,6 @@
           <Property Name="ico_des_cpf" Type="varchar" MaxLength="11" Nullable="false" />
           <Property Name="ico_des_rg" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ico_des_endereco" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="ico_des_nro_endereco" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="ico_des_complemento" Type="varchar" MaxLength="200" />
           <Property Name="ico_des_bairro" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ico_des_cep" Type="varchar" MaxLength="8" Nullable="false" />
@@ -272,6 +272,7 @@
           <Property Name="ico_des_email" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ico_des_outras_solicitacoes" Type="varchar" MaxLength="200" />
           <Property Name="ico_des_tratamento_especial_qual" Type="varchar" MaxLength="200" />
+          <Property Name="ico_des_nro_endereco" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="ico_num_filhos_menores" Type="int" Nullable="false" />
           <Property Name="ico_num_valor_pago" Type="numeric" Precision="9" Scale="2" />
           <Property Name="ico_flg_deficiencia" Type="char" MaxLength="1" />
@@ -441,8 +442,8 @@
           <Property Name="ues_des_rg" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="ues_des_email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ues_des_senha" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="ues_des_carteira_trabalho_numero" Type="varchar" MaxLength="20" />
-          <Property Name="ues_des_carteira_trabalho_serie" Type="varchar" MaxLength="20" />
+          <Property Name="ues_des_carteira_trabalho_numero" Type="varchar" MaxLength="30" />
+          <Property Name="ues_des_carteira_trabalho_serie" Type="varchar" MaxLength="30" />
           <Property Name="ues_des_endereco" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ues_des_numero_endereco" Type="int" Nullable="false" />
           <Property Name="ues_des_bairro" Type="varchar" MaxLength="100" Nullable="false" />
@@ -1226,6 +1227,7 @@
             <End Role="concurso" EntitySet="concurso" />
             <End Role="concurso_funcao" EntitySet="concurso_funcao" />
           </AssociationSet>
+          <EntitySet Name="irpf" EntityType="TGV.IPEFAE.Web.Data.irpf" />
           <EntitySet Name="concurso_local_colaborador" EntityType="TGV.IPEFAE.Web.Data.concurso_local_colaborador" />
           <AssociationSet Name="FK_concurso_local_colaborador_colaborador" Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_colaborador">
             <End Role="colaborador" EntitySet="colaborador" />
@@ -1239,7 +1241,6 @@
             <End Role="concurso_local" EntitySet="concurso_local" />
             <End Role="concurso_local_colaborador" EntitySet="concurso_local_colaborador" />
           </AssociationSet>
-          <EntitySet Name="irpf" EntityType="TGV.IPEFAE.Web.Data.irpf" />
           </EntityContainer>
         <EntityType Name="tb_usu_usuario">
           <Key>
@@ -1491,8 +1492,8 @@
           <Property Name="ues_des_rg" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="ues_des_email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="ues_des_senha" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="ues_des_carteira_trabalho_numero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="ues_des_carteira_trabalho_serie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ues_des_carteira_trabalho_numero" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ues_des_carteira_trabalho_serie" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="ues_des_endereco" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="ues_des_numero_endereco" Type="Int32" Nullable="false" />
           <Property Name="ues_des_bairro" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
@@ -2221,6 +2222,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="irpf">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="valor_min" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="valor_max" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="taxa" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="deducao" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="ativo" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="concurso_local_colaborador">
           <Key>
             <PropertyRef Name="id" />
@@ -2230,7 +2242,8 @@
           <Property Name="colaborador_id" Type="Int32" Nullable="false" />
           <Property Name="funcao_id" Type="Int32" Nullable="false" />
           <Property Name="valor" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="tem_empresa" Type="Boolean" Nullable="false" />
+          <Property Name="inss" Type="Boolean" Nullable="false" />
+          <Property Name="iss" Type="Boolean" Nullable="false" />
           <Property Name="ativo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="colaborador" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_colaborador" FromRole="concurso_local_colaborador" ToRole="colaborador" />
           <NavigationProperty Name="concurso_funcao" Relationship="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_funcao" FromRole="concurso_local_colaborador" ToRole="concurso_funcao" />
@@ -2272,17 +2285,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="irpf">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="valor_min" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="valor_max" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="taxa" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="deducao" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
-          <Property Name="ativo" Type="Boolean" Nullable="false" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2850,19 +2852,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="concurso_local_colaborador">
-            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.concurso_local_colaborador">
-              <MappingFragment StoreEntitySet="concurso_local_colaborador">
-                <ScalarProperty Name="ativo" ColumnName="ativo" />
-                <ScalarProperty Name="tem_empresa" ColumnName="tem_empresa" />
-                <ScalarProperty Name="valor" ColumnName="valor" />
-                <ScalarProperty Name="funcao_id" ColumnName="funcao_id" />
-                <ScalarProperty Name="colaborador_id" ColumnName="colaborador_id" />
-                <ScalarProperty Name="concurso_local_id" ColumnName="concurso_local_id" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="irpf">
             <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.irpf">
               <MappingFragment StoreEntitySet="irpf">
@@ -2871,6 +2860,20 @@
                 <ScalarProperty Name="taxa" ColumnName="taxa" />
                 <ScalarProperty Name="valor_max" ColumnName="valor_max" />
                 <ScalarProperty Name="valor_min" ColumnName="valor_min" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="concurso_local_colaborador">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.concurso_local_colaborador">
+              <MappingFragment StoreEntitySet="concurso_local_colaborador">
+                <ScalarProperty Name="ativo" ColumnName="ativo" />
+                <ScalarProperty Name="iss" ColumnName="iss" />
+                <ScalarProperty Name="inss" ColumnName="inss" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
+                <ScalarProperty Name="funcao_id" ColumnName="funcao_id" />
+                <ScalarProperty Name="colaborador_id" ColumnName="colaborador_id" />
+                <ScalarProperty Name="concurso_local_id" ColumnName="concurso_local_id" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
