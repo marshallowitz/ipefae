@@ -17,7 +17,7 @@
                     </div>
                 </td>
                 <td class="text-center" style="cursor: pointer; vertical-align: middle;">
-                    <div class="fas fa-lg fa-edit" title="Editar" ng-show="!local.modoEdicao" ng-click="local_editar(local, true)"></div>
+                    <div class="fas fa-lg fa-edit local_editar_{{local.id}}" title="Editar" ng-show="!local.modoEdicao" ng-click="local_editar(local, true)"></div>
                     <div class="fas fa-lg fa-trash-alt" title="Excluir" ng-show="!local.temAssociacao && !local.modoEdicao" ng-click="local_excluir(local.id)"></div>
                 </td>
             </tr>
@@ -28,7 +28,7 @@
 
     <div class="col-md-10 col-md-offset-1">
         <br />
-        <div ng-show="local.modoEdicao">
+        <div ng-show="local.modoEdicao" class="lista-colaboradores_{{local.id}}">
             <label>
                 Lista de Colaboradores
                 <a href="javascript:void(0)" ng-click="local_colaborador_adicionar(local)" style="font-size: 12px; font-weight: normal; margin-left: 10px;" ng-show="!local_colaborador_checkIfInEdicao(local) && local.id > 0 && (listas.colaboradores | notInLocais:concurso.locais:0).length > 0 && concurso.funcoes.length > 0">+ Adicionar</a><span style="color: red; font-size: 13px;" ng-show="concurso.funcoes.length <= 0">Não existem funções associadas ao concurso ou colaboradores cadastrados</span>
@@ -51,7 +51,7 @@
                             <div class="form-group tooltip-error">
                                 @*<select id="ddlColaborador" name="colaboradorSelecionado" class="form-control ipt-local_colaborador" ng-options="col as col.nome for col in listas.colaboradores | notInLocais:concurso.locais:colaborador.colaborador_id | orderBy: 'nome' track by col.id" ng-model="colaborador.colaborador" ng-class="colaborador.modoEdicao ? '' : 'select-as-span'" ng-disabled="!colaborador.modoEdicao"></select>*@
                                 <span ng-class="colaborador.colaborador_enabled ? 'tooltiptext2' : 'tooltiptext2 hidden'" style="top: -40px; width: 100%;">O colaborador é obrigatório</span>
-                                <angucomplete-alt id="ddlColaborador{{$index}}" pause="100" selected-object="colaborador.colaborador" initial-value="colaborador.colaborador" local-data="(listas.colaboradores)" local-colaborador-id="colaborador.colaborador_id" local-search="local_colaborador_filtrar" title-field="nome" minlength="1" maxlength="100" input-class="form-control ipt-local_colaborador" ng-class="colaborador.modoEdicao ? '' : 'input-as-span'" disable-input="!colaborador.modoEdicao" />
+                                <angucomplete-alt id="ddlColaborador_{{colaborador.id}}" pause="100" selected-object="colaborador.colaborador" initial-value="colaborador.colaborador" local-data="(listas.colaboradores)" local-colaborador-id="colaborador.colaborador_id" local-search="local_colaborador_filtrar" title-field="nome" minlength="1" maxlength="100" input-class="form-control ipt-local_colaborador" ng-class="colaborador.modoEdicao ? '' : 'input-as-span'" disable-input="!colaborador.modoEdicao" />
                             </div>
                         </td>
                         <td>
@@ -92,6 +92,7 @@
                     </tr>
                 </thead>
             </table>
+            <a href="javascript:void(0)" ng-click="local_colaborador_adicionar(local)" style="font-size: 12px; font-weight: normal; margin-left: 10px;" ng-show="!local_colaborador_checkIfInEdicao(local) && local.id > 0 && (listas.colaboradores | notInLocais:concurso.locais:0).length > 0 && concurso.funcoes.length > 0">+ Adicionar</a><span style="color: red; font-size: 13px;" ng-show="concurso.funcoes.length <= 0">Não existem funções associadas ao concurso ou colaboradores cadastrados</span>
 
             <br />
             <div class="row col-botoes text-center" ng-hide="local_colaborador_checkIfInEdicao(local)" style=" margin-bottom: 15px;">

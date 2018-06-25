@@ -138,7 +138,7 @@ function montarTabela()
 
         function _activate()
         {
-            $scope.buscarConcurso = function(id)
+            $scope.buscarConcurso = function(id, callback)
             {
                 $('.conCadastroForm').addClass('whirl');
                 var url = homePage + 'Admin/Concurso/Obter';
@@ -156,7 +156,7 @@ function montarTabela()
 
                             $scope.listas.colaboradores = retorno.Colaboradores;
                             
-                            $scope.carregarConcurso();
+                            $scope.carregarConcurso(callback);
                         }
                         else
                             $timeout(function () { $('.conCadastroForm').removeClass('whirl'); }, 500);
@@ -165,14 +165,17 @@ function montarTabela()
                 });
             }
 
-            $scope.carregarConcurso = function ()
+            $scope.carregarConcurso = function (callback)
             {
                 $scope.concurso.data = new Date(parseInt($scope.concurso.data.replace('/Date(', '').replace(')/', '')));
 
                 //$scope.colaborador.endereco_estado = findInArray($scope.listas.estados, 'Id', $scope.colaborador.endereco_estado_id);
                 //$scope.carregarCidadesEndereco($scope.colaborador.endereco_cidade_id);
 
-                $timeout(function () { $('.conCadastroForm').removeClass('whirl'); }, 500);
+                if (typeof callback === 'function')
+                    callback();
+                else
+                    $timeout(function () { $('.conCadastroForm').removeClass('whirl'); }, 500);
             }
 
             $scope.checkIfIsTooltipEnable = function(fieldName, outrasValidacoes, formName)
@@ -607,28 +610,37 @@ function montarTabela()
                 return inEdicao;
             }
 
+            $scope.local_colaborador_editar_false = function (i, local, colaborador)
+            {
+                var index = findInArrayIndex(local.Colaboradores, 'id', colaborador.old_values.id);
+
+                if (colaborador.old_values.id === 0) {
+                    local.Colaboradores.splice(index, 1);
+                }
+                else {
+                    colaborador.id = colaborador.old_values.id;
+
+                    var old_colaborador = colaborador.old_values.colaborador.originalObject || colaborador.old_values.colaborador;
+                    $scope.$broadcast('angucomplete-alt:changeInput', 'ddlColaborador_' + colaborador.id, old_colaborador);
+
+                    colaborador.funcao = colaborador.old_values.funcao;
+                    colaborador.valor = colaborador.old_values.valor;
+                    colaborador.inss = colaborador.old_values.inss;
+                    colaborador.iss = colaborador.old_values.iss;
+                }
+            }
+
+            $scope.local_colaborador_editar_true = function (i, local, colaborador)
+            {
+                colaborador.old_values = { id: colaborador.id, colaborador: colaborador.colaborador, funcao: colaborador.funcao, valor: colaborador.valor, inss: colaborador.inss, iss: colaborador.iss };
+            }
+
             $scope.local_colaborador_editar = function (i, local, colaborador, editar)
             {
                 if (editar)
-                    colaborador.old_values = { id: colaborador.id, colaborador: colaborador.colaborador, funcao: colaborador.funcao, valor: colaborador.valor, inss: colaborador.inss, iss: colaborador.iss };
+                    $scope.local_colaborador_editar_true(i, local, colaborador);
                 else {
-                    var index = findInArrayIndex(local.Colaboradores, 'id', colaborador.old_values.id);
-
-                    if (colaborador.old_values.id === 0)
-                    {
-                        local.Colaboradores.splice(index, 1);
-                    }
-                    else {
-                        colaborador.id = colaborador.old_values.id;
-                        
-                        var old_colaborador = colaborador.old_values.colaborador.originalObject || colaborador.old_values.colaborador;
-                        $scope.$broadcast('angucomplete-alt:changeInput', 'ddlColaborador' + i, old_colaborador);
-
-                        colaborador.funcao = colaborador.old_values.funcao;
-                        colaborador.valor = colaborador.old_values.valor;
-                        colaborador.inss = colaborador.old_values.inss;
-                        colaborador.iss = colaborador.old_values.iss;
-                    }
+                    $scope.local_colaborador_editar_false(i, local, colaborador);
                 }
 
                 colaborador.modoEdicao = !colaborador.modoEdicao;
@@ -644,8 +656,9 @@ function montarTabela()
                     return;
 
                 $scope.local_colaborador_changeIfInEdicao(colaborador, false);
-
-                $('.lista-colaboradores').addClass('whirl');
+                
+                
+                $('.lista-colaboradores_' + local.id).addClass('whirl');
 
                 $.ajax({
                     type: "POST",
@@ -655,12 +668,23 @@ function montarTabela()
                     {
                         if (retorno.Sucesso)
                         {
-                            $timeout(function () { $scope.$apply(function () { local.Colaboradores.splice(index, 1); }); $scope.funcao_atualizar_tem_associacao(); });
-
-                            alert('O Colaborador foi removido com sucesso do Local de Prova');
+                            var id = $('#hdnId').val();
+                            $timeout(function ()
+                            {
+                                $scope.$apply(function ()
+                                {
+                                    $scope.buscarConcurso(id, function ()
+                                    {
+                                        alert('O Colaborador foi removido com sucesso do Local de Prova');
+                                        $('.conCadastroForm').removeClass('whirl');
+                                        $('#btnCancelarLocal').trigger('click');
+                                        $('.local_editar_' + local.id).trigger('click');
+                                    });
+                                });
+                            });
                         }
 
-                        $('.lista-colaboradores').removeClass('whirl');
+                        $('.lista-colaboradores_' + local.id).removeClass('whirl');
                     },
                     error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'local_colaborador_excluir()', ResponseText: xhr.responseText }); }
                 });
