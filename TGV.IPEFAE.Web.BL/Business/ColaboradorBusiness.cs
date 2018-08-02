@@ -16,7 +16,7 @@ namespace TGV.IPEFAE.Web.BL.Business
             return ColaboradorData.Listar();
         }
 
-        public static List<ColaboradorModel> ListarPorConcurso(int idConcurso)
+        public static List<ColaboradorModel> ListarPorConcurso(int idConcurso, int inicio, int total)
         {
             ConcursoModel concurso = ConcursoBusiness.Obter(idConcurso, true);
 
@@ -33,7 +33,10 @@ namespace TGV.IPEFAE.Web.BL.Business
                 }
             }
 
-            return colaboradores;
+            if (inicio > 0)
+                inicio--;
+
+            return colaboradores.Skip(inicio).Take(total).ToList();
         }
 
         public static dynamic ListarPorConcursoV2(ConcursoModel concurso)

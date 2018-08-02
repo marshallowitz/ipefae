@@ -929,8 +929,8 @@ function montarTabela()
         $scope.PAGE_HEIGHT = 842;
         $scope.PAGE_WIDTH = 595;
         $scope.docDefinition = {};
-
-        $('.rpa-container').addClass('whirl');
+        $scope.total_rpa = 10;
+        $scope.inicio_rpa = 1;
 
         $scope.carregarDados = function ()
         {
@@ -939,7 +939,7 @@ function montarTabela()
             $.ajax({
                 type: "POST",
                 url: url,
-                data: { idConcurso: idConcurso },
+                data: { idConcurso: idConcurso, inicio: $scope.inicio_rpa, total: $scope.total_rpa },
                 success: function (result)
                 {
                     $scope.$apply(function ()
@@ -947,7 +947,7 @@ function montarTabela()
                         $scope.colaboradores = result.Colaboradores;
                     });
 
-                    $('.rpa-container').removeClass('whirl');
+                    setWhirl(false);
                 },
                 error: function (xhr, ajaxOptions, thrownError)
                 {
@@ -957,14 +957,12 @@ function montarTabela()
             });
         }
 
-        $timeout(function () { $scope.carregarDados(); }, 500);
-
         $scope.export = function ()
         {
             var exportthis = document.getElementById('exportthis');
             var imageWidth = exportthis.clientWidth;
 
-            $('.lista-colaboradores').addClass('whirl');
+            setWhirl(true);
 
             html2canvas(exportthis, {
                 useCORS: true,
@@ -974,6 +972,21 @@ function montarTabela()
                     addImage(data, imageWidth);
                 }
             });
+        }
+
+        $scope.gerar = function()
+        {
+            setWhirl(true);
+            $timeout(function () { $scope.carregarDados(); }, 500);
+        }
+
+        $scope.validarValores = function()
+        {
+            if ($scope.total_rpa === undefined || $scope.total_rpa < 1)
+                $scope.total_rpa = 10;
+
+            if ($scope.inicio_rpa === undefined || $scope.inicio_rpa < 1)
+                $scope.inicio_rpa = 1;
         }
 
         function getPngDimensions (base64)
@@ -1014,7 +1027,7 @@ function montarTabela()
 
         function next()
         {
-            pdfMake.createPdf($scope.docDefinition).download("RPA.pdf", function () { $('.lista-colaboradores').removeClass('whirl'); });
+            pdfMake.createPdf($scope.docDefinition).download("RPA.pdf", function () { setWhirl(false); });
         }
 
         function addImage(image, imageWidth)
@@ -1035,6 +1048,22 @@ function montarTabela()
 
             $scope.docDefinition.content = content;
             next();
+        }
+
+        function setWhirl(on)
+        {
+            if (on)
+            {
+                $('.lista-colaboradores > div').addClass("whirl");
+                $('.lista-colaboradores-vazio > div:first').addClass("whirl");
+                $('.vazio').addClass("whirl");
+            }
+            else
+            {
+                $('.lista-colaboradores > div').removeClass("whirl");
+                $('.lista-colaboradores-vazio > div:first').removeClass("whirl");
+                $('.vazio').removeClass("whirl");
+            }
         }
     }
 })();

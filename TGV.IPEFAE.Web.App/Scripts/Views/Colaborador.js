@@ -329,6 +329,14 @@ function reenviarSenha()
             $scope.errorList.telefone = { enable: false, ind: -1, validacoes: ['brPhoneNumber'] };
             $scope.errorList.celular = { enable: false, ind: -1, validacoes: ['brPhoneNumber'] };
             $scope.errorList.pisPasepNet = { enable: false, ind: -1, validacoes: ['minlength'] };
+
+            $scope.errorList.carteiraTrabalhoNumero = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.carteiraTrabalhoSerie = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.carteiraTrabalhoUF = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.tituloEleitorNumero = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.tituloEleitorZona = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.tituloEleitorSecao = { enable: false, ind: -1, validacoes: undefined };
+
             $scope.errorList.nacionalidade = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.naturalidadeEstado = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.naturalidadeCidade = { enable: false, ind: -1, validacoes: undefined };

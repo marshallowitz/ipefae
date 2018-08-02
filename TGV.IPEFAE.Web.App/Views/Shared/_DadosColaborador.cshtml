@@ -128,41 +128,41 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Nro Carteira Trabalho</label>
-                            <input type="text" class="form-control" maxlength="50" name="carteiraTrabalhoNumero" id="txtCarteiraTrabalhoNumero" ng-model="colaborador.carteira_trabalho_nro" />
+                        <div class="form-group" ng-class="{'has-error': errorList.carteiraTrabalhoNumero.enable}">
+                            <label>Nro Carteira Trabalho</label><em>*</em>
+                            <input type="text" class="form-control" maxlength="50" name="carteiraTrabalhoNumero" id="txtCarteiraTrabalhoNumero" ng-model="colaborador.carteira_trabalho_nro" required uib-tooltip="{{getErrorMessage('carteiraTrabalhoNumero', ['O número da carteira de trabalho é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.carteiraTrabalhoNumero.enable" />
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Série Carteira de Trabalho</label>
-                            <input type="text" class="form-control" name="carteiraTrabalhoSerie" id="txtCarteiraTrabalhoSerie" ng-model="colaborador.carteira_trabalho_serie" maxlength="50" />
+                        <div class="form-group" ng-class="{'has-error': errorList.carteiraTrabalhoSerie.enable}">
+                            <label>Série Carteira de Trabalho</label><em>*</em>
+                            <input type="text" class="form-control" name="carteiraTrabalhoSerie" id="txtCarteiraTrabalhoSerie" ng-model="colaborador.carteira_trabalho_serie" maxlength="50" required uib-tooltip="{{getErrorMessage('carteiraTrabalhoSerie', ['A série da carteira de trabalho é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.carteiraTrabalhoSerie.enable" />
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Estado Carteira de Trabalho</label>
-                            <select id="ddlCarteiraTrabalhoUF" name="carteiraTrabalhoUF" class="form-control" ng-options="estado as estado.Nome for estado in listas.estados track by estado.Id" ng-model="colaborador.carteira_trabalho_uf"></select>
+                        <div class="form-group" ng-class="{'has-error': errorList.carteiraTrabalhoUF.enable}">
+                            <label>Estado Carteira de Trabalho</label><em>*</em>
+                            <select id="ddlCarteiraTrabalhoUF" name="carteiraTrabalhoUF" class="form-control" ng-options="estado as estado.Nome for estado in listas.estados track by estado.Id" ng-model="colaborador.carteira_trabalho_uf" required uib-tooltip="{{getErrorMessage('carteiraTrabalhoUF', ['O estado da carteira de trabalho é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.carteiraTrabalhoUF.enable"></select>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Nro Título Eleitor</label>
-                            <input type="text" class="form-control" maxlength="50" name="tituloEleitorNumero" id="txtTituloEleitorNumero" ng-model="colaborador.titulo_eleitor_nro" />
+                        <div class="form-group" ng-class="{'has-error': errorList.tituloEleitorNumero.enable}">
+                            <label>Nro Título Eleitor</label><em>*</em>
+                            <input type="text" class="form-control" maxlength="50" name="tituloEleitorNumero" id="txtTituloEleitorNumero" ng-model="colaborador.titulo_eleitor_nro" required uib-tooltip="{{getErrorMessage('tituloEleitorNumero', ['O número do título de eleitor é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.tituloEleitorNumero.enable" />
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Zona Título Eleitor</label>
-                            <input type="text" class="form-control" name="tituloEleitorZona" id="txtTituloEleitorZona" ng-model="colaborador.titulo_eleitor_zona" maxlength="50" />
+                        <div class="form-group" ng-class="{'has-error': errorList.tituloEleitorZona.enable}">
+                            <label>Zona Título Eleitor</label><em>*</em>
+                            <input type="text" class="form-control" name="tituloEleitorZona" id="txtTituloEleitorZona" ng-model="colaborador.titulo_eleitor_zona" maxlength="50" required uib-tooltip="{{getErrorMessage('tituloEleitorZona', ['A zona do título de eleitor é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.tituloEleitorZona.enable" />
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label>Seção Título Eleitor</label>
-                            <input type="text" class="form-control" name="tituloEleitorSecao" id="txtTituloEleitorSecao" ng-model="colaborador.titulo_eleitor_secao" maxlength="50" />
+                        <div class="form-group" ng-class="{'has-error': errorList.tituloEleitorSecao.enable}">
+                            <label>Seção Título Eleitor</label><em>*</em>
+                            <input type="text" class="form-control" name="tituloEleitorSecao" id="txtTituloEleitorSecao" ng-model="colaborador.titulo_eleitor_secao" maxlength="50" required uib-tooltip="{{getErrorMessage('tituloEleitorSecao', ['A sessão do título de eleitor é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.tituloEleitorSecao.enable" />
                         </div>
                     </div>
                 </div>
