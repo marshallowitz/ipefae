@@ -7,6 +7,8 @@
 
 * { font-family: Verdana, Geneva, sans-serif; }
 
+.has-feedback label ~ .form-control-feedback { right: -10px; }
+
 input[type="text"], input[type="email"], input[type="tel"], input[type="search"], input[type="url"], input[type="password"], .ui-autocomplete-input, textarea, .uneditable-input { font-size: 14px; }
 
 .clearfix:before, .clearfix:after   { content: " "; display: table; }
@@ -58,7 +60,7 @@ input[type=email]           { max-width: none; }
 
 /* ----- Logomarca ----- */
 .logomarca                  { position: absolute; z-index: 1; }
-.logomarca.rodape           { bottom: 40px; }
+.logomarca.rodape           { bottom: 90px; }
 .logomarca.topo             { top: 20px; }
 .logomarca.rodape .logo     { width: 60%; }
 .logomarca.topo .logo       { width: 40%; }
