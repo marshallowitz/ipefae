@@ -34,6 +34,22 @@ namespace TGV.IPEFAE.Web.App.Controllers
             return BaseCadastro(idt);
         }
 
+        public ActionResult CarregarCidades(int est_idt_estado)
+        {
+            List<tb_cid_cidade> cidades = CidadeBusiness.Listar(est_idt_estado);
+            List<SelectListItem> cidadesLI = cidades.ConvertAll(cid => new SelectListItem() { Text = cid.cid_nom_cidade, Value = cid.cid_idt_cidade.ToString() });
+
+            return Json(cidadesLI, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CarregarEstados(bool exibirNome)
+        {
+            List<tb_est_estado> estados = EstadoBusiness.Listar();
+            List<SelectListItem> estadosLI = estados.ConvertAll(est => new SelectListItem() { Text = exibirNome ? est.est_nom_estado : est.est_sig_estado, Value = est.est_idt_estado.ToString() });
+
+            return Json(estadosLI, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult EnviarSenhaPorEmail(string cpf)
         {
             // Busca cpf nos usuários cadastrados

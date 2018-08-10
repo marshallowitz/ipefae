@@ -175,7 +175,7 @@ function carregarOutrosConhecimentos(idUsuarioEstagio)
 }
 
 function carregarEstados(ddl, idEstado, exibirNome, idCidade) {
-    var url = homePage + 'Inscrito/CarregarEstados';
+    var url = homePage + 'Estagio/CarregarEstados';
 
     $.ajax({
         type: "POST",
@@ -459,7 +459,7 @@ function iniciarTelaCadastroEstagio(idEstado, idCidade, idEstadoCarteiraTrabalho
 
     var paramsCidade = {};
     paramsCidade['est_idt_estado'] = idEstado;
-    $('#ddlEstado').cascade({ url: homePage + 'Inscrito/CarregarCidades', params: paramsCidade, paramName: 'est_idt_estado', childSelect: $('#ddlCidade'), dadosMinimo: 1, emptyText: 'Selecione uma cidade', carregando: "Carregando cidades...", async: false });
+    $('#ddlEstado').cascade({ url: homePage + 'Estagio/CarregarCidades', params: paramsCidade, paramName: 'est_idt_estado', childSelect: $('#ddlCidade'), dadosMinimo: 1, emptyText: 'Selecione uma cidade', carregando: "Carregando cidades...", async: false });
 
     $('#txtEmail').on('change', function () { verificarEmailExistente() });
 
