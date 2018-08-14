@@ -79,6 +79,15 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ativo.
+        /// </summary>
+        public static string Headerativo {
+            get {
+                return ResourceManager.GetString("Headerativo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Banco.
         /// </summary>
         public static string Headerbanco {
@@ -138,6 +147,15 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         public static string Headercpf {
             get {
                 return ResourceManager.GetString("Headercpf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dados OK.
+        /// </summary>
+        public static string Headerdados_ok {
+            get {
+                return ResourceManager.GetString("Headerdados_ok", resourceCulture);
             }
         }
         

@@ -1,7 +1,4 @@
-USE [tgv_prd_ipefae]
-GO
-
-/****** Object:  Table [dbo].[colaborador]    Script Date: 28/04/2018 16:59:48 ******/
+/****** Object:  Table [dbo].[colaborador]    Script Date: 13/08/2018 21:22:20 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -46,12 +43,13 @@ CREATE TABLE [dbo].[colaborador](
 	[endereco_nro] [varchar](10) NOT NULL,
 	[endereco_bairro] [varchar](100) NOT NULL,
 	[endereco_complemento] [varchar](100) NULL,
+	[dados_ok] [bit] NOT NULL,
 	[ativo] [bit] NOT NULL,
  CONSTRAINT [PK_colaborador] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+)
 
 GO
 
@@ -59,6 +57,9 @@ SET ANSI_PADDING OFF
 GO
 
 ALTER TABLE [dbo].[colaborador] ADD  CONSTRAINT [DF_colaborador_sexo_masculino]  DEFAULT ((1)) FOR [sexo_masculino]
+GO
+
+ALTER TABLE [dbo].[colaborador] ADD  CONSTRAINT [DF_colaborador_dados_ok]  DEFAULT ((0)) FOR [dados_ok]
 GO
 
 ALTER TABLE [dbo].[colaborador] ADD  CONSTRAINT [DF_colaborador_ativo]  DEFAULT ((1)) FOR [ativo]

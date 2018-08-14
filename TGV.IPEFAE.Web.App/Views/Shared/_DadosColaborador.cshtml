@@ -63,6 +63,7 @@
                         <div class="form-group" ng-class="{'has-error': errorList.dataNasc.enable}">
                             <label>Data Nascimento</label> <span id="idade" ng-model="colaborador.idade"></span><em>*</em>
                             <div class="form-group">
+                                <span style="display:none">{{colaborador.data_nascimento}}</span>
                                 <input type="text" class="form-control" name="dataNasc" id="txtDataNascimento" ng-model="colaborador.data_nascimento" ui-date-mask="DD/MM/YYYY" required uib-tooltip="{{getErrorMessage('dataNasc', ['A data de nascimento é obrigatória', 'Formato da data de nascimento inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.dataNasc.enable" />
                             </div>
                         </div>
@@ -282,7 +283,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="form-group" ng-class="{'has-error': errorList.contaCorrente.enable}">
-                            <label>Conta Corrente</label><em>*</em>
+                            <label style="white-space: nowrap;">Conta Corrente (com dígito)<em>*</em></label>
                             <input type="text" class="form-control" name="contaCorrente" id="txtContaCorrente" ng-model="colaborador.conta_corrente" maxlength="20" required uib-tooltip="{{getErrorMessage('contaCorrente', ['A conta corrente é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.contaCorrente.enable" />
                         </div>
                     </div>

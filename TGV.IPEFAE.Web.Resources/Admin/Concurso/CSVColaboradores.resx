@@ -246,4 +246,10 @@
   <data name="Headerdescontar_iss" xml:space="preserve">
     <value>Descontar ISS</value>
   </data>
+  <data name="Headerativo" xml:space="preserve">
+    <value>Ativo</value>
+  </data>
+  <data name="Headerdados_ok" xml:space="preserve">
+    <value>Dados OK</value>
+  </data>
 </root>

@@ -103,6 +103,37 @@ function iniciarTelaCadastroColaborador()
     });
 }
 
+function gerarCSVColaboradores()
+{
+    $.blockUI({ message: 'Gerando Lista de Colaboradores', css: cssCarregando });
+    var url = homePage + 'Admin/Colaborador/GerarCSV';
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        success: function (result)
+        {
+            if (result)
+            {
+                $('#iframeCSV').attr('src', homePage + 'Handlers/DownloadCSVHandler.ashx?tipo=col');
+                $('#iframeCSV').load();
+
+                setTimeout(function () { terminouDownload(homePage + 'Admin/Colaborador/GerarCSVConfirmacao'); }, 2000);
+            }
+            else
+            {
+                alert("Nenhum colaborador foi encontrado");
+                $.unblockUI();
+            }
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            alertaErroJS({ NomeFuncao: 'gerarCSVColaboradores()', ResponseText: xhr.responseText });
+            $.unblockUI();
+        }
+    });
+}
+
 function listarColaboradores()
 {
     $.blockUI({ message: 'Carregando Colaboradores', css: cssCarregando });
@@ -465,7 +496,11 @@ function reenviarSenha()
             $scope.carregarColaborador = function()
             {
                 $scope.colaborador.sexo_masculino = $scope.colaborador.sexo_masculino.toString();
-                $scope.colaborador.data_nascimento = new Date(parseInt($scope.colaborador.data_nascimento.replace('/Date(', '').replace(')/', '')));
+
+                var dataNasc = formatCSharpDateToDate($scope.colaborador.data_nascimento);
+                var timezone = new Date().getTimezoneOffset();
+                var dataNascLocal = dataNasc.setTime(dataNasc.getTime() + (timezone * 60 * 1000));
+                $scope.colaborador.data_nascimento = new Date(dataNascLocal);
                 $scope.colaborador.banco = findInArray($scope.listas.bancos, 'id', $scope.colaborador.banco_id);
                 $scope.colaborador.raca = findInArray($scope.listas.racas, 'id', $scope.colaborador.raca_id);
                 $scope.colaborador.grau_instrucao = findInArray($scope.listas.grausInstrucao, 'id', $scope.colaborador.grau_instrucao_id);
@@ -477,6 +512,9 @@ function reenviarSenha()
 
                 $scope.colaborador.naturalidade_estado = findInArray($scope.listas.estados, 'Id', $scope.colaborador.naturalidade_estado_id);
                 $scope.carregarCidadesNaturalidade($scope.colaborador.naturalidade_cidade_id);
+
+                $('#rdOK').prop("checked", $scope.colaborador.dados_ok);
+                $('#rdNaoOK').prop("checked", !$scope.colaborador.dados_ok);
 
                 $scope.bloquearDesbloquearEdicao(!$scope.editMode);
 
@@ -638,6 +676,8 @@ function reenviarSenha()
                 $scope.colaborador.endereco_cidade_id = $scope.colaborador.endereco_cidade.Id;
                 $scope.colaborador.grau_instrucao_id = $scope.colaborador.grau_instrucao.id;
                 $scope.colaborador.naturalidade_cidade_id = $scope.colaborador.naturalidade_cidade.Id;
+
+                $scope.colaborador.dados_ok = $('#rdOK').length > 0 ? $('#rdOK').is(":checked") : $scope.colaborador.dados_ok;
                 
                 var url = homePage + 'Colaborador/Salvar';
                 $.ajax({

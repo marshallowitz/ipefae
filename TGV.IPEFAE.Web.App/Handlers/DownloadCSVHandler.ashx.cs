@@ -24,6 +24,8 @@ namespace TGV.IPEFAE.Web.App.Handlers
 
                 if (!String.IsNullOrEmpty(tipo) && (tipo.Equals("est", StringComparison.InvariantCultureIgnoreCase)))
                     ProcessRequestForEstagio(context);
+                else if(!String.IsNullOrEmpty(tipo) && (tipo.Equals("col", StringComparison.InvariantCultureIgnoreCase)))
+                    ProcessRequestForColaborador(context);
                 else
                     ProcessRequestForConcurso(context, id);
             }
@@ -33,6 +35,37 @@ namespace TGV.IPEFAE.Web.App.Handlers
                 LogErroBusiness.Salvar(ex, idUsuario);
                 throw ex;
             }
+        }
+
+        private void ProcessRequestForColaborador(HttpContext context)
+        {
+            List<ColaboradorModel> colaboradores = ColaboradorBusiness.Listar();
+
+            string fileName = String.Format("lista_colaboradores_{0}.csv", BaseBusiness.DataAgora.ToString("yyyyMMdd"));
+            byte[] fileBytes = null;
+
+            List<tb_est_estado> estados = EstadoBusiness.Listar();
+            List<tb_cid_cidade> cidades = CidadeBusiness.ListarTodas();
+            List<GrauInstrucaoModel> grausInstrucao = GrauInstrucaoBusiness.Listar();
+            List<RacaModel> racas = RacaBusiness.Listar();
+            List<BancoModel> bancos = BancoBusiness.Listar();
+            List<IRPFModel> irpfs = IRPFBusiness.Listar();
+            tb_emp_empresa emitente = EmpresaBusiness.Obter(1);
+
+            List<ColaboradorCSVModel2> cCSVs = colaboradores.ConvertAll(c => new ColaboradorCSVModel2(c, estados, cidades, grausInstrucao, racas, bancos));
+            fileBytes = WriteCsvWithHeaderToMemory(cCSVs, true);
+
+            context.Session["GerouCSV"] = true;
+
+            context.Response.Clear();
+            MemoryStream ms = new MemoryStream(fileBytes);
+            context.Response.ContentType = "text/csv";
+            context.Response.AddHeader("content-disposition", String.Format("attachment;filename={0}", fileName));
+            context.Response.Buffer = true;
+            ms.WriteTo(context.Response.OutputStream);
+            context.Response.Flush(); // Sends all currently buffered output to the client.
+            context.Response.SuppressContent = true;  // Gets or sets a value indicating whether to send HTTP content to the client.
+            context.ApplicationInstance.CompleteRequest(); // Causes ASP.NET to bypass all events and filtering in the HTTP pipeline chain of execution and directly execute the EndRequest event.
         }
 
         private void ProcessRequestForConcurso(HttpContext context, int id)

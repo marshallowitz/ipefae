@@ -248,3 +248,6 @@ td.underline:hover div                      { text-decoration: underline; }
 .recursoForm .form-control-feedback.glyphicon[data-bv-icon-for="mensagem"] { top: -5px; }
 
 .recursos div.info-disabled span { border: solid 1px gray; border-radius: 4px; font-weight: bold; padding: 5px; }
+
+
+#tblColaboradores_filter.dataTables_filter .input-sm { height: 20px; }

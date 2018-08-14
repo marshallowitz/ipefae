@@ -18,7 +18,13 @@
             @foreach (TGV.IPEFAE.Web.BL.Data.ColaboradorModel colaborador in Model)
             {
                 <tr>
-                    <td><span>@colaborador.codigo</span></td>
+                    <td>
+                        <span>
+                            @colaborador.codigo
+                            @{ string alerta = !colaborador.dados_ok ? "" : "display: none;"; }
+                            <img src="@Url.Content("~/Content/imagens/alert.png")" style="@Html.Raw(String.Format("{0}float: left; position: relative; width: 16px; top: -5px;", alerta))" />
+                        </span>
+                    </td>
                     <td>@colaborador.nome</td>
                     <td>@colaborador.email</td>
                     <td>@colaborador.telefone_01_formatado</td>

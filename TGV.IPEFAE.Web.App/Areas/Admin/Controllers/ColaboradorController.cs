@@ -31,6 +31,23 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
             return View("Cadastro", cM);
         }
 
+        public ActionResult GerarCSV()
+        {
+            Session["GerouCSV"] = null;
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GerarCSVConfirmacao()
+        {
+            bool? gerou = Session["GerouCSV"] as Nullable<Boolean>;
+            bool retorno = gerou.HasValue && gerou.Value;
+
+            if (retorno)
+                Session["GerouCSV"] = null;
+
+            return Json(retorno, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult ListarColaboradores()
         {
             List<ColaboradorModel> colaboradores = ColaboradorBusiness.Listar();

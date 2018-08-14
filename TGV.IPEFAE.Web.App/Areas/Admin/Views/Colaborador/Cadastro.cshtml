@@ -17,6 +17,11 @@
             <input type="password" style="width: 50%;" readonly class="form-control" name="senhaAdmin" id="txtSenhaAdmin" ng-model="colaborador.senhaDescriptografada" />
             <input id="chkVer" type="checkbox" onclick="exibirSenha()" />Exibir Senha
         </div>
+        <div class="col-md-6">
+            <label>Dados OK</label><br />
+            <input type="radio" id="rdOK" name="dados_ok" value="S" /><label class="label-radio" for="rdOK">Sim</label>
+            <input type="radio" id="rdNaoOK" name="dados_ok" value="N" /><label class="label-radio" for="rdNaoOK">Não</label>
+        </div>
     </div>
 </fieldset>
 <br />

@@ -387,6 +387,12 @@ function getTodayDateDDMMYYYY() {
     return formatDateToDDMMYYYY(new Date());
 }
 
+function formatCSharpDateToDate(data)
+{
+    var stripedCsharpDate = data.toString().replace(/[^0-9 +]/g, '');
+    return new Date(parseInt(stripedCsharpDate));
+}
+
 function htmlDecode(value) { return $('<div/>').html(value).text(); }
 
 function htmlEncode(value) { return $('<div/>').text(value).html(); }

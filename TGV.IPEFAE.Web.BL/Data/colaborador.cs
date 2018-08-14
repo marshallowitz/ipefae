@@ -53,6 +53,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public string endereco_nro { get; set; }
         public string endereco_bairro { get; set; }
         public string endereco_complemento { get; set; }
+        public bool dados_ok { get; set; }
         public bool ativo { get; set; }
     
         public virtual banco banco { get; set; }

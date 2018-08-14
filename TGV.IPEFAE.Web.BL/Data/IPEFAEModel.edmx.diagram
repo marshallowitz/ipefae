@@ -58,6 +58,12 @@
         <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.concurso_local" Width="1.5" PointX="16.375" PointY="11.75" />
         <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.concurso" Width="1.5" PointX="5.125" PointY="12.75" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_concurso" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.concurso_funcao" Width="1.5" PointX="7.375" PointY="44.5" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.irpf" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.concurso_local_colaborador" Width="1.5" PointX="18.625" PointY="27.875" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_funcao" />
+        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_local" />
         <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.colaborador" Width="1.5" PointX="13.375" PointY="24.25" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_banco" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_grau_instrucao" />
@@ -65,13 +71,7 @@
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_tb_cid_cidade_endereco" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_tb_cid_cidade_naturalidade" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_tb_est_estado" />
-        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.concurso_funcao" Width="1.5" PointX="7.375" PointY="44.5" />
-        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_funcao_concurso" />
-        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.irpf" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.concurso_local_colaborador" Width="1.5" PointX="18.625" PointY="27.875" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_colaborador" />
-        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_funcao" />
-        <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_local" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -71,6 +71,7 @@ namespace TGV.IPEFAE.Web.BL.Data
                 toUpdate.carteira_trabalho_nro = cM.carteira_trabalho_nro?.FirstCharOfEachWordToUpper();
                 toUpdate.carteira_trabalho_serie = cM.carteira_trabalho_serie?.FirstCharOfEachWordToUpper();
                 toUpdate.conta_corrente = cM.conta_corrente?.FirstCharOfEachWordToUpper();
+                toUpdate.dados_ok = cM.dados_ok;
                 toUpdate.raca_id = cM.raca_id;
                 toUpdate.cpf = cM.cpf;
                 toUpdate.data_nascimento = cM.data_nascimento;
@@ -147,6 +148,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public string endereco_nro { get; set; }
         public string endereco_bairro { get; set; }
         public string endereco_complemento { get; set; }
+        public bool dados_ok { get; set; } = false;
         public bool ativo { get; set; }
 
         [ScriptIgnore]

@@ -68,7 +68,7 @@ namespace TGV.IPEFAE.Web.BL.Business
 
         public static tb_ues_usuario_estagio Salvar(tb_ues_usuario_estagio usuario, tb_ued_usuario_estagio_dados_escolares dadosEscolares, List<tb_uee_usuario_estagio_experiencia> exps, List<tb_ueo_usuario_estagio_outros> ccs, List<tb_ueo_usuario_estagio_outros> ocs, bool ehAdmin)
         {
-            if (!String.IsNullOrEmpty(usuario.ues_des_email))
+            if (String.IsNullOrEmpty(usuario.ues_des_email))
                 return null;
 
             var us = UsuarioEstagioData.ObterPorEmail(usuario.ues_des_email);

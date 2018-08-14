@@ -23,8 +23,8 @@ namespace TGV.IPEFAE.Web.BL.Data
         public bool iss { get; set; }
         public bool ativo { get; set; }
     
-        public virtual colaborador colaborador { get; set; }
         public virtual concurso_funcao concurso_funcao { get; set; }
         public virtual concurso_local concurso_local { get; set; }
+        public virtual colaborador colaborador { get; set; }
     }
 }

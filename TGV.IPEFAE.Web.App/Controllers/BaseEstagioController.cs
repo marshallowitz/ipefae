@@ -360,6 +360,9 @@ namespace TGV.IPEFAE.Web.App.Controllers
 
             ues = UsuarioEstagioBusiness.Salvar(ues, ued, exps, ccs, ocs, ehAdmin);
 
+            if (ues == null)
+                return Json(new { Status = false }, JsonRequestBehavior.AllowGet);
+
             // Verifica se tem foto para salvar (ou apagar)
             if (ues.ues_bit_tem_foto)
             {
