@@ -120,6 +120,7 @@ namespace TGV.IPEFAE.Web.App.Models
         [Order(18)]
         public string pis_pasep_net { get; set; }
         [Order(19)]
+        [IsText(true)]
         public string data_nascimento { get; set; }
         [Order(20)]
         public string naturalidade_cidade { get; set; }
@@ -303,6 +304,7 @@ namespace TGV.IPEFAE.Web.App.Models
         [Order(10)]
         public string pis_pasep_net { get; set; }
         [Order(11)]
+        [IsText(true)]
         public string data_nascimento { get; set; }
         [Order(12)]
         public string naturalidade_cidade { get; set; }

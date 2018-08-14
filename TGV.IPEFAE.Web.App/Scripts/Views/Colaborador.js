@@ -496,7 +496,6 @@ function reenviarSenha()
             $scope.carregarColaborador = function()
             {
                 $scope.colaborador.sexo_masculino = $scope.colaborador.sexo_masculino.toString();
-
                 var dataNasc = formatCSharpDateToDate($scope.colaborador.data_nascimento);
                 var timezone = new Date().getTimezoneOffset();
                 var dataNascLocal = dataNasc.setTime(dataNasc.getTime() + (timezone * 60 * 1000));

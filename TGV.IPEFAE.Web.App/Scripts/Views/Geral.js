@@ -389,7 +389,7 @@ function getTodayDateDDMMYYYY() {
 
 function formatCSharpDateToDate(data)
 {
-    var stripedCsharpDate = data.toString().replace(/[^0-9 +]/g, '');
+    var stripedCsharpDate = data.toString().replace(/[^0-9 +-]/g, '');
     return new Date(parseInt(stripedCsharpDate));
 }
 
