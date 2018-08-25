@@ -24,12 +24,12 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
         {
             int idt = id.HasValue && id.Value > 0 ? id.Value : 0;
 
-            ConcursoModel cM = ConcursoBusiness.Obter(idt);
+            //ConcursoModel cM = ConcursoBusiness.Obter(idt);
 
-            if (cM == null)
-                cM = new ConcursoModel();
+            //if (cM == null)
+            //    cM = new ConcursoModel();
 
-            return View("Cadastro", cM);
+            return View("Cadastro", new ConcursoModel() { id = idt });
         }
 
         public ActionResult Excluir(int id)

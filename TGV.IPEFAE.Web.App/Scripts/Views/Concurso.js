@@ -145,12 +145,14 @@ function montarTabela()
 
                 $.ajax({
                     type: "POST",
+                    dataType: 'JSON',
                     url: url,
                     data: { id: id },
                     success: function (retorno)
                     {
                         if (retorno.Sucesso)
                         {
+                            console.log(retorno);
                             $scope.concurso = retorno.Concurso;
                             $scope.id = $scope.concurso.id;
 

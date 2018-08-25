@@ -160,7 +160,7 @@ namespace TGV.IPEFAE.Web.BL.Data
             using (IPEFAEEntities db = BaseData.Contexto)
             {
                 if (!ate_colaborador)
-                    return ConcursoModel.Clone(db.concurso.Include("concurso_funcao.concurso_local_colaborador").Include("concurso_local.concurso_local_colaborador").SingleOrDefault(con => con.id == id));
+                    return ConcursoModel.Clone(db.concurso.Include("concurso_funcao.concurso_local_colaborador").Include("concurso_local.concurso_local_colaborador").SingleOrDefault(con => con.id == id), true);
                 else
                     return ConcursoModel.Clone(db.concurso.Include("concurso_funcao").Include("concurso_local.concurso_local_colaborador.colaborador").SingleOrDefault(con => con.id == id));
             }
@@ -210,7 +210,7 @@ namespace TGV.IPEFAE.Web.BL.Data
 
         #region [ Metodos ]
 
-        public static ConcursoModel Clone(concurso con)
+        public static ConcursoModel Clone(concurso con, bool miniColaborador = false)
         {
             if (con == null)
                 return null;
@@ -218,10 +218,10 @@ namespace TGV.IPEFAE.Web.BL.Data
             ConcursoModel c = con.CopyObject<ConcursoModel>();
 
             if (con.concurso_funcao != null)
-                c.funcoes = con.concurso_funcao.ToList().ConvertAll(cf => ConcursoFuncaoModel.Clone(cf));
+                c.funcoes = con.concurso_funcao.ToList().ConvertAll(cf => new ConcursoFuncaoModel(cf));
 
             if (con.concurso_local != null)
-                c.locais = con.concurso_local.ToList().ConvertAll(cl => ConcursoLocalModel.Clone(cl));
+                c.locais = con.concurso_local.ToList().ConvertAll(cl => new ConcursoLocalModel(cl, miniColaborador));
 
             return c;
         }
@@ -231,6 +231,24 @@ namespace TGV.IPEFAE.Web.BL.Data
 
     public class ConcursoFuncaoModel
     {
+        public ConcursoFuncaoModel() { }
+
+        public ConcursoFuncaoModel(concurso_funcao cf)
+        {
+            if (cf == null)
+                return;
+
+            this.id = cf.id;
+            this.concurso_id = cf.concurso_id;
+            this.funcao = cf.funcao;
+            this.valor_liquido = cf.valor_liquido;
+            this.sem_desconto = cf.sem_desconto;
+            this.ativo = cf.ativo;
+
+            if (cf.concurso_local_colaborador != null && cf.concurso_local_colaborador.Count > 0)
+                this.temAssociacao = true;
+        }
+
         #region [ Propriedades ]
 
         public int id                   { get; set; } = 0;
@@ -275,6 +293,22 @@ namespace TGV.IPEFAE.Web.BL.Data
 
     public class ConcursoLocalModel
     {
+        public ConcursoLocalModel() { }
+
+        public ConcursoLocalModel(concurso_local cl, bool miniColaborador = false)
+        {
+            if (cl == null)
+                return;
+
+            this.id = cl.id;
+            this.concurso_id = cl.concurso_id;
+            this.local = cl.local;
+            this.ativo = cl.ativo;
+
+            if (cl.concurso_local_colaborador != null)
+                this.Colaboradores = cl.concurso_local_colaborador.ToList().ConvertAll(clc => ConcursoLocalColaboradorModel.Clone(clc, miniColaborador));
+        }
+
         #region [ Propriedades ]
 
         public int id           { get; set; } = 0;
@@ -306,6 +340,23 @@ namespace TGV.IPEFAE.Web.BL.Data
 
     public class ConcursoLocalColaboradorModel
     {
+        public ConcursoLocalColaboradorModel() { }
+
+        public ConcursoLocalColaboradorModel(concurso_local_colaborador clc)
+        {
+            if (clc == null)
+                return;
+
+            this.id = clc.id;
+            this.concurso_local_id = clc.concurso_local_id;
+            this.colaborador_id = clc.colaborador_id;
+            this.funcao_id = clc.funcao_id;
+            this.valor = clc.valor;
+            this.inss = clc.inss;
+            this.iss = clc.iss;
+            this.ativo = clc.ativo;
+        }
+
         #region [ Propriedades ]
 
         public int id                   { get; set; } = 0;
@@ -326,18 +377,19 @@ namespace TGV.IPEFAE.Web.BL.Data
 
         #region [ Metodos ]
 
-        public static ConcursoLocalColaboradorModel Clone(concurso_local_colaborador clc)
+        public static ConcursoLocalColaboradorModel Clone(concurso_local_colaborador clc, bool mini = false)
         {
             if (clc == null)
                 return null;
 
-            ConcursoLocalColaboradorModel local_colaborador = clc.CopyObject<ConcursoLocalColaboradorModel>();
+            //ConcursoLocalColaboradorModel local_colaborador = clc.CopyObject<ConcursoLocalColaboradorModel>();
+            ConcursoLocalColaboradorModel local_colaborador = new ConcursoLocalColaboradorModel(clc);
 
             if (clc.colaborador != null)
-                local_colaborador.colaborador = clc.colaborador.CopyObject<ColaboradorModel>();
+                local_colaborador.colaborador = new ColaboradorModel(clc.colaborador, mini);
 
             if (clc.concurso_funcao != null)
-                local_colaborador.funcao = clc.concurso_funcao.CopyObject<ConcursoFuncaoModel>();
+                local_colaborador.funcao = new ConcursoFuncaoModel(clc.concurso_funcao);
 
             return local_colaborador;
         }

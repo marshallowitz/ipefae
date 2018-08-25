@@ -12,7 +12,8 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return db.colaborador.ToList().ConvertAll(c => c.CopyObject<ColaboradorModel>());
+                //return db.colaborador.ToList().ConvertAll(c => c.CopyObject<ColaboradorModel>());
+                return db.colaborador.ToList().ConvertAll(c => new ColaboradorModel(c));
             }
         }
 
@@ -110,6 +111,57 @@ namespace TGV.IPEFAE.Web.BL.Data
 
     public class ColaboradorModel
     {
+        public ColaboradorModel() { }
+
+        public ColaboradorModel(colaborador c, bool mini = false)
+        {
+            if (c == null)
+                return;
+
+            this.id = c.id;
+            this.nome = c.nome;
+            this.cpf = c.cpf;
+            this.email = c.email;
+            this.ativo = c.ativo;
+
+            if (!mini)
+            {
+                this.banco_id = c.banco_id;
+                this.carteira_trabalho_estado_id = c.carteira_trabalho_estado_id;
+                this.endereco_cidade_id = c.endereco_cidade_id;
+                this.endereco_estado_id = c.tb_cid_cidade != null ? c.tb_cid_cidade.est_idt_estado : 0;
+                this.naturalidade_cidade_id = c.naturalidade_cidade_id;
+                this.naturalidade_estado_id = c.tb_cid_cidade1 != null ? c.tb_cid_cidade1.est_idt_estado : 0;
+                this.rg = c.rg;
+                this.carteira_trabalho_nro = c.carteira_trabalho_nro;
+                this.carteira_trabalho_serie = c.carteira_trabalho_serie;
+                this.titulo_eleitor_nro = c.titulo_eleitor_nro;
+                this.titulo_eleitor_zona = c.titulo_eleitor_zona;
+                this.titulo_eleitor_secao = c.titulo_eleitor_secao;
+                this.pis_pasep_net = c.pis_pasep_net;
+                this.data_nascimento = c.data_nascimento;
+                this.nacionalidade = c.nacionalidade;
+                this.nome_mae = c.nome_mae;
+                this.nome_pai = c.nome_pai;
+                this.sexo_masculino = c.sexo_masculino;
+                this.estado_civil = c.estado_civil;
+                this.grau_instrucao_id = c.grau_instrucao_id;
+                this.raca_id = c.raca_id;
+                this.telefone_01 = c.telefone_01;
+                this.telefone_02 = c.telefone_02;
+                this.senha = c.senha;
+                this.agencia = c.agencia;
+                this.agencia_digito = c.agencia_digito;
+                this.conta_corrente = c.conta_corrente;
+                this.endereco_cep = c.endereco_cep;
+                this.endereco_logradouro = c.endereco_logradouro;
+                this.endereco_nro = c.endereco_nro;
+                this.endereco_bairro = c.endereco_bairro;
+                this.endereco_complemento = c.endereco_complemento;
+                this.dados_ok = c.dados_ok;
+            }
+        }
+
         #region [ Propriedades ]
 
         public int id { get; set; } = 0;
