@@ -36,7 +36,7 @@ namespace TGV.IPEFAE.Web.BL.Business
             return ConcursoData.Listar();
         }
 
-        public static List<ColaboradorModel> Local_Colaborador_Excluir(int idColaborador)
+        public static bool Local_Colaborador_Excluir(int idColaborador)
         {
             return ConcursoData.Local_Colaborador_Excluir(idColaborador);
         }

@@ -69,21 +69,13 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
-        internal static List<ColaboradorModel> Local_Colaborador_Excluir(int idColaborador)
+        internal static bool Local_Colaborador_Excluir(int idColaborador)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                // Seleciona todos os colaboradores que estejam no mesmo local
-                List<ColaboradorModel> colaboradores =
-                    (from col in db.concurso_local_colaborador
-                     join col2 in db.concurso_local_colaborador.Include("colaborador") on col.concurso_local_id equals col2.concurso_local_id
-                     where col.id == idColaborador
-                     && col2.id != idColaborador
-                     select col2).ToList().ConvertAll(c => ColaboradorModel.Clone(c.colaborador));
+               db.DeleteWhere<concurso_local_colaborador>(clc => clc.id == idColaborador);
 
-                db.DeleteWhere<concurso_local_colaborador>(clc => clc.id == idColaborador);
-
-                return colaboradores;
+                return true;
             }
         }
 
@@ -125,6 +117,8 @@ namespace TGV.IPEFAE.Web.BL.Data
                 toUpdate.valor = clcM.valor;
 
                 db.SaveChangesWithErrors();
+
+                clcM.id = toUpdate.id;
 
                 return clcM;
             }
@@ -180,7 +174,7 @@ namespace TGV.IPEFAE.Web.BL.Data
                 }
 
                 toUpdate.ativo = cM.ativo;
-                toUpdate.data = cM.data;
+                toUpdate.data = cM.data.ToUniversalTime().AddHours(12);
                 toUpdate.nome = cM.nome?.FirstCharOfEachWordToUpper();
 
                 db.SaveChangesWithErrors();

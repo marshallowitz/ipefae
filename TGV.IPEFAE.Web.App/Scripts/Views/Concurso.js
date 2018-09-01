@@ -152,7 +152,7 @@ function montarTabela()
                     {
                         if (retorno.Sucesso)
                         {
-                            console.log(retorno);
+                            //console.log(retorno);
                             $scope.concurso = retorno.Concurso;
                             $scope.id = $scope.concurso.id;
 
@@ -675,13 +675,13 @@ function montarTabela()
                             {
                                 $scope.$apply(function ()
                                 {
-                                    $scope.buscarConcurso(id, function ()
-                                    {
-                                        alert('O Colaborador foi removido com sucesso do Local de Prova');
-                                        $('.conCadastroForm').removeClass('whirl');
-                                        $('#btnCancelarLocal').trigger('click');
-                                        $('.local_editar_' + local.id).trigger('click');
-                                    });
+                                    local.Colaboradores.splice(index, 1);
+                                    $scope.$broadcast('angucomplete-alt:changeInput', 'ddlColaborador_' + idColaborador, colaborador);
+
+                                    alert('O Colaborador foi removido com sucesso do Local de Prova');
+                                    $('.conCadastroForm').removeClass('whirl');
+                                    $('#btnCancelarLocal').trigger('click');
+                                    $('.local_editar_' + local.id).trigger('click');
                                 });
                             });
                         }

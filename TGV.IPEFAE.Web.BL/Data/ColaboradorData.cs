@@ -220,7 +220,7 @@ namespace TGV.IPEFAE.Web.BL.Data
             if (col == null)
                 return null;
 
-            ColaboradorModel c = col.CopyObject<ColaboradorModel>();
+            ColaboradorModel c = new ColaboradorModel(col);
 
             if (col.tb_cid_cidade != null)
                 c.endereco_estado_id = col.tb_cid_cidade.est_idt_estado;

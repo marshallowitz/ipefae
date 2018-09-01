@@ -101,9 +101,9 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
 
         public ActionResult Local_Colaborador_Excluir(int idColaborador)
         {
-            List<ColaboradorModel> colaboradores = ConcursoBusiness.Local_Colaborador_Excluir(idColaborador);
+            bool sucesso = ConcursoBusiness.Local_Colaborador_Excluir(idColaborador);
 
-            return Json(new { Sucesso = true, Colaboradores = colaboradores }, JsonRequestBehavior.AllowGet);
+            return Json(new { Sucesso = sucesso }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Local_Excluir(int idLocal)
