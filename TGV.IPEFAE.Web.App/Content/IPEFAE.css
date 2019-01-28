@@ -54,6 +54,9 @@ input[type=email]           { max-width: none; }
 #footer a.facebook          { background: url(imagens/icone-facebook.png) no-repeat center; height: 20px; position: absolute; right: 10px; top: 3px; width: 20px; z-index:10; }
 #footer a.facebook:hover    { background-color: transparent; }
 
+.form-validade,
+.lista.table-responsive     { margin-bottom: 30px; }
+
 /* ----- BlockUI ----- */
 .blockOverlay               { z-index: 98 !important; }
 .blockElement               { z-index: 99 !important; }

@@ -695,7 +695,8 @@ function montarTabela()
             $scope.local_colaborador_filtrar = function (str, colaboradores, colaboradorId)
             {
                 var matches = [];
-                var listaColaboradores = $filter('notInLocais')(colaboradores, $scope.concurso.locais, colaboradorId);
+                //var listaColaboradores = $filter('notInLocais')(colaboradores, $scope.concurso.locais, colaboradorId);
+                var listaColaboradores = colaboradores;
 
                 listaColaboradores.forEach(function (colaborador)
                 {

@@ -71,7 +71,8 @@ namespace TGV.IPEFAE.Web.BL.Data
                 toUpdate.carteira_trabalho_estado_id = cM.carteira_trabalho_estado_id;
                 toUpdate.carteira_trabalho_nro = cM.carteira_trabalho_nro?.FirstCharOfEachWordToUpper();
                 toUpdate.carteira_trabalho_serie = cM.carteira_trabalho_serie?.FirstCharOfEachWordToUpper();
-                toUpdate.conta_corrente = cM.conta_corrente?.FirstCharOfEachWordToUpper();
+                toUpdate.conta_corrente = cM.conta_corrente;
+                toUpdate.conta_corrente_digito = cM.conta_corrente_digito;
                 toUpdate.dados_ok = cM.dados_ok;
                 toUpdate.raca_id = cM.raca_id;
                 toUpdate.cpf = cM.cpf;
@@ -95,6 +96,7 @@ namespace TGV.IPEFAE.Web.BL.Data
                 toUpdate.sexo_masculino = cM.sexo_masculino;
                 toUpdate.telefone_01 = cM.telefone_01;
                 toUpdate.telefone_02 = cM.telefone_02;
+                toUpdate.tipo_conta = cM.tipo_conta;
                 toUpdate.titulo_eleitor_nro = cM.titulo_eleitor_nro?.FirstCharOfEachWordToUpper();
                 toUpdate.titulo_eleitor_secao = cM.titulo_eleitor_secao?.FirstCharOfEachWordToUpper();
                 toUpdate.titulo_eleitor_zona = cM.titulo_eleitor_zona?.FirstCharOfEachWordToUpper();
@@ -150,9 +152,11 @@ namespace TGV.IPEFAE.Web.BL.Data
                 this.telefone_01 = c.telefone_01;
                 this.telefone_02 = c.telefone_02;
                 this.senha = c.senha;
+                this.tipo_conta = c.tipo_conta;
                 this.agencia = c.agencia;
                 this.agencia_digito = c.agencia_digito;
                 this.conta_corrente = c.conta_corrente;
+                this.conta_corrente_digito = c.conta_corrente_digito;
                 this.endereco_cep = c.endereco_cep;
                 this.endereco_logradouro = c.endereco_logradouro;
                 this.endereco_nro = c.endereco_nro;
@@ -164,44 +168,46 @@ namespace TGV.IPEFAE.Web.BL.Data
 
         #region [ Propriedades ]
 
-        public int id { get; set; } = 0;
-        public int banco_id { get; set; }
+        public int id                           { get; set; } = 0;
+        public int banco_id                     { get; set; }
         public int? carteira_trabalho_estado_id { get; set; }
-        public int endereco_cidade_id { get; set; }
-        public int endereco_estado_id { get; set; } = 0;
-        public int naturalidade_cidade_id { get; set; }
-        public int naturalidade_estado_id { get; set; } = 0;
-        public string nome { get; set; }
-        public string cpf { get; set; }
-        public string rg { get; set; }
-        public string carteira_trabalho_nro { get; set; }
-        public string carteira_trabalho_serie { get; set; }
-        public string titulo_eleitor_nro { get; set; }
-        public string titulo_eleitor_zona { get; set; }
-        public string titulo_eleitor_secao { get; set; }
-        public string pis_pasep_net { get; set; }
-        public DateTime data_nascimento { get; set; }
-        public string nacionalidade { get; set; }
-        public string nome_mae { get; set; }
-        public string nome_pai { get; set; }
-        public bool sexo_masculino { get; set; }
-        public string estado_civil { get; set; }
-        public int grau_instrucao_id { get; set; }
-        public int raca_id { get; set; }
-        public string telefone_01 { get; set; }
-        public string telefone_02 { get; set; }
-        public string email { get; set; }
-        public string senha { get; set; }
-        public int agencia { get; set; }
-        public string agencia_digito { get; set; }
-        public string conta_corrente { get; set; }
-        public string endereco_cep { get; set; }
-        public string endereco_logradouro { get; set; }
-        public string endereco_nro { get; set; }
-        public string endereco_bairro { get; set; }
-        public string endereco_complemento { get; set; }
-        public bool dados_ok { get; set; } = false;
-        public bool ativo { get; set; }
+        public int endereco_cidade_id           { get; set; }
+        public int endereco_estado_id           { get; set; } = 0;
+        public int naturalidade_cidade_id       { get; set; }
+        public int naturalidade_estado_id       { get; set; } = 0;
+        public string nome                      { get; set; }
+        public string cpf                       { get; set; }
+        public string rg                        { get; set; }
+        public string carteira_trabalho_nro     { get; set; }
+        public string carteira_trabalho_serie   { get; set; }
+        public string titulo_eleitor_nro        { get; set; }
+        public string titulo_eleitor_zona       { get; set; }
+        public string titulo_eleitor_secao      { get; set; }
+        public string pis_pasep_net             { get; set; }
+        public DateTime data_nascimento         { get; set; }
+        public string nacionalidade             { get; set; }
+        public string nome_mae                  { get; set; }
+        public string nome_pai                  { get; set; }
+        public bool sexo_masculino              { get; set; }
+        public string estado_civil              { get; set; }
+        public int grau_instrucao_id            { get; set; }
+        public int raca_id                      { get; set; }
+        public string telefone_01               { get; set; }
+        public string telefone_02               { get; set; }
+        public string email                     { get; set; }
+        public string senha                     { get; set; }
+        public int tipo_conta                   { get; set; }
+        public int agencia                      { get; set; }
+        public string agencia_digito            { get; set; }
+        public string conta_corrente            { get; set; }
+        public string conta_corrente_digito     { get; set; }
+        public string endereco_cep              { get; set; }
+        public string endereco_logradouro       { get; set; }
+        public string endereco_nro              { get; set; }
+        public string endereco_bairro           { get; set; }
+        public string endereco_complemento      { get; set; }
+        public bool dados_ok                    { get; set; } = false;
+        public bool ativo                       { get; set; }
 
         [ScriptIgnore]
         public string senhaDescriptografada { get; set; }
@@ -266,9 +272,11 @@ namespace TGV.IPEFAE.Web.BL.Data
         public string telefone_02               { get; set; }
         public string email                     { get; set; }
         public string senha                     { get; set; }
+        public int tipo_conta                   { get; set; }
         public int agencia                      { get; set; }
         public string agencia_digito            { get; set; }
         public string conta_corrente            { get; set; }
+        public string conta_corrente_digito     { get; set; }
         public string endereco_cep              { get; set; }
         public string endereco_logradouro       { get; set; }
         public string endereco_nro              { get; set; }
@@ -310,6 +318,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public string valor_iss_5c              { get { return String.Format("{0:C5}", this.valor_iss_sem_formatacao); } }
         public string valor_irpf_5c             { get { return String.Format("{0:C5}", this.valor_irpf_sem_formatacao); } }
         public string valor_liquido_5c          { get { return String.Format("{0:C5}", this.valor_liquido_sem_formatacao); } }
+        public string tipo_conta_texto          { get { return this.tipo_conta == 2 ? "Poupança" : "Corrente"; } }
 
         private decimal valor_sem_inss          { get { return this.valor_sem_formatacao * this.valor_inss_sem_formatacao / 100; } }
         //public decimal valor_liquido_sem_formatacao   { get { return this.valor_sem_formatacao - this.valor_inss_sem_formatacao - this.valor_iss_sem_formatacao - valor_irpf_sem_formatacao; } }

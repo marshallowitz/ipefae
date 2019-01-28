@@ -378,10 +378,12 @@ function reenviarSenha()
             $scope.errorList.cep = { enable: false, ind: -1, validacoes: ['cep'] };
             $scope.errorList.estado = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.cidade = { enable: false, ind: -1, validacoes: undefined };
+
             $scope.errorList.banco = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.tipoConta = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.agencia = { enable: false, ind: -1, validacoes: undefined };
-            $scope.errorList.agenciaDigito = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.contaCorrente = { enable: false, ind: -1, validacoes: undefined };
+            $scope.errorList.contaCorrenteDigito = { enable: false, ind: -1, validacoes: undefined };
 
             $scope.errorList.senha = { enable: false, ind: -1, validacoes: undefined };
             $scope.errorList.confirmacaoSenha = { enable: false, ind: -1, validacoes: ['senhaIgualConfirmacao'] };
@@ -511,6 +513,8 @@ function reenviarSenha()
 
                 $scope.colaborador.naturalidade_estado = findInArray($scope.listas.estados, 'Id', $scope.colaborador.naturalidade_estado_id);
                 $scope.carregarCidadesNaturalidade($scope.colaborador.naturalidade_cidade_id);
+
+                $('#ddlTipoConta option[value="' + $scope.colaborador.tipo_conta.toString() + '"]').prop('selected', true);
 
                 $('#rdOK').prop("checked", $scope.colaborador.dados_ok);
                 $('#rdNaoOK').prop("checked", !$scope.colaborador.dados_ok);
@@ -675,6 +679,8 @@ function reenviarSenha()
                 $scope.colaborador.endereco_cidade_id = $scope.colaborador.endereco_cidade.Id;
                 $scope.colaborador.grau_instrucao_id = $scope.colaborador.grau_instrucao.id;
                 $scope.colaborador.naturalidade_cidade_id = $scope.colaborador.naturalidade_cidade.Id;
+
+                $scope.colaborador.tipo_conta = $('#ddlTipoConta').val();
 
                 $scope.colaborador.dados_ok = $('#rdOK').length > 0 ? $('#rdOK').is(":checked") : $scope.colaborador.dados_ok;
                 

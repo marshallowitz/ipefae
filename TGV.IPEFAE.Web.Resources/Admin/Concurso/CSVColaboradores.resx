@@ -199,7 +199,7 @@
     <value>PIS PASEP NET</value>
   </data>
   <data name="HeaderRaca" xml:space="preserve">
-    <value>raca</value>
+    <value>Raca</value>
   </data>
   <data name="Headerrg" xml:space="preserve">
     <value>RG</value>
@@ -251,5 +251,11 @@
   </data>
   <data name="Headerdados_ok" xml:space="preserve">
     <value>Dados OK</value>
+  </data>
+  <data name="Headerconta_corrente_digito" xml:space="preserve">
+    <value>Digito</value>
+  </data>
+  <data name="Headertipo_conta" xml:space="preserve">
+    <value>Tipo Conta</value>
   </data>
 </root>

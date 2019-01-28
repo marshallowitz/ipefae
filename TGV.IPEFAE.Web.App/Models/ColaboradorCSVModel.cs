@@ -258,9 +258,11 @@ namespace TGV.IPEFAE.Web.App.Models
             this.telefone_02 = BaseBusiness.FormatarFone(colaborador.telefone_02, true);
             this.email = colaborador.email;
             this.banco = ba == null ? String.Empty : ba.nome;
+            this.tipo_conta_texto = colaborador.tipo_conta == 2 ? "Poupança" : "Corrente";
             this.agencia = colaborador.agencia.ToString();
             this.agencia_digito = colaborador.agencia_digito;
             this.conta_corrente = colaborador.conta_corrente;
+            this.conta_corrente_digito = colaborador.conta_corrente_digito;
             this.endereco_logradouro = colaborador.endereco_logradouro;
             this.endereco_nro = colaborador.endereco_nro;
             this.endereco_complemento = String.IsNullOrEmpty(colaborador.endereco_complemento) ? String.Empty : colaborador.endereco_complemento;
@@ -334,31 +336,37 @@ namespace TGV.IPEFAE.Web.App.Models
         public string banco { get; set; }
         [Order(25)]
         [IsText(true)]
-        public string agencia { get; set; }
+        public string tipo_conta_texto { get; set; }
         [Order(26)]
         [IsText(true)]
-        public string agencia_digito { get; set; }
+        public string agencia { get; set; }
         [Order(27)]
         [IsText(true)]
-        public string conta_corrente { get; set; }
+        public string agencia_digito { get; set; }
         [Order(28)]
-        public string endereco_logradouro { get; set; }
+        [IsText(true)]
+        public string conta_corrente { get; set; }
         [Order(29)]
         [IsText(true)]
-        public string endereco_nro { get; set; }
+        public string conta_corrente_digito { get; set; }
         [Order(30)]
-        public string endereco_complemento { get; set; }
+        public string endereco_logradouro { get; set; }
         [Order(31)]
-        public string endereco_bairro { get; set; }
+        [IsText(true)]
+        public string endereco_nro { get; set; }
         [Order(32)]
-        public string endereco_cidade { get; set; }
+        public string endereco_complemento { get; set; }
         [Order(33)]
-        public string endereco_estado { get; set; }
+        public string endereco_bairro { get; set; }
         [Order(34)]
-        public string endereco_cep { get; set; }
+        public string endereco_cidade { get; set; }
         [Order(35)]
-        public string dados_ok { get; set; }
+        public string endereco_estado { get; set; }
         [Order(36)]
+        public string endereco_cep { get; set; }
+        [Order(37)]
+        public string dados_ok { get; set; }
+        [Order(38)]
         public string ativo { get; set; }
 
         #endregion [ FIM - Propriedades ]

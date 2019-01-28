@@ -1,11 +1,8 @@
-/****** Object:  Table [dbo].[colaborador]    Script Date: 13/08/2018 21:22:20 ******/
+/****** Object:  Table [dbo].[colaborador]    Script Date: 27/01/2019 20:48:38 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
-GO
-
-SET ANSI_PADDING ON
 GO
 
 CREATE TABLE [dbo].[colaborador](
@@ -35,9 +32,11 @@ CREATE TABLE [dbo].[colaborador](
 	[telefone_02] [varchar](11) NULL,
 	[email] [varchar](100) NOT NULL,
 	[senha] [varchar](100) NOT NULL,
+	[tipo_conta] [int] NOT NULL,
 	[agencia] [int] NOT NULL,
 	[agencia_digito] [varchar](1) NULL,
 	[conta_corrente] [varchar](20) NOT NULL,
+	[conta_corrente_digito] [varchar](1) NOT NULL,
 	[endereco_cep] [varchar](8) NOT NULL,
 	[endereco_logradouro] [varchar](500) NOT NULL,
 	[endereco_nro] [varchar](10) NOT NULL,
@@ -48,15 +47,17 @@ CREATE TABLE [dbo].[colaborador](
  CONSTRAINT [PK_colaborador] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
-)
-
-GO
-
-SET ANSI_PADDING OFF
+)WITH (STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 ALTER TABLE [dbo].[colaborador] ADD  CONSTRAINT [DF_colaborador_sexo_masculino]  DEFAULT ((1)) FOR [sexo_masculino]
+GO
+
+ALTER TABLE [dbo].[colaborador] ADD  CONSTRAINT [DF_colaborador_tipo_conta]  DEFAULT ((1)) FOR [tipo_conta]
+GO
+
+ALTER TABLE [dbo].[colaborador] ADD  CONSTRAINT [DF_colaborador_conta_corrente_digito]  DEFAULT ('x') FOR [conta_corrente_digito]
 GO
 
 ALTER TABLE [dbo].[colaborador] ADD  CONSTRAINT [DF_colaborador_dados_ok]  DEFAULT ((0)) FOR [dados_ok]

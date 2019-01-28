@@ -142,6 +142,15 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Digito.
+        /// </summary>
+        public static string Headerconta_corrente_digito {
+            get {
+                return ResourceManager.GetString("Headerconta_corrente_digito", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CPF.
         /// </summary>
         public static string Headercpf {
@@ -376,7 +385,7 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to raca.
+        ///   Looks up a localized string similar to Raca.
         /// </summary>
         public static string HeaderRaca {
             get {
@@ -417,6 +426,15 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         public static string Headertelefone_02 {
             get {
                 return ResourceManager.GetString("Headertelefone_02", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo Conta.
+        /// </summary>
+        public static string Headertipo_conta {
+            get {
+                return ResourceManager.GetString("Headertipo_conta", resourceCulture);
             }
         }
         

@@ -45,9 +45,11 @@
           <Property Name="telefone_02" Type="varchar" MaxLength="11" />
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="senha" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="tipo_conta" Type="int" Nullable="false" />
           <Property Name="agencia" Type="int" Nullable="false" />
           <Property Name="agencia_digito" Type="varchar" MaxLength="1" />
           <Property Name="conta_corrente" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="conta_corrente_digito" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="endereco_cep" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="endereco_logradouro" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="endereco_nro" Type="varchar" MaxLength="10" Nullable="false" />
@@ -2185,9 +2187,11 @@
           <Property Name="telefone_02" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
           <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="senha" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_conta" Type="Int32" Nullable="false" />
           <Property Name="agencia" Type="Int32" Nullable="false" />
           <Property Name="agencia_digito" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="conta_corrente" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="conta_corrente_digito" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="endereco_cep" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="endereco_logradouro" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="endereco_nro" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -2849,9 +2853,11 @@
                 <ScalarProperty Name="endereco_nro" ColumnName="endereco_nro" />
                 <ScalarProperty Name="endereco_logradouro" ColumnName="endereco_logradouro" />
                 <ScalarProperty Name="endereco_cep" ColumnName="endereco_cep" />
+                <ScalarProperty Name="conta_corrente_digito" ColumnName="conta_corrente_digito" />
                 <ScalarProperty Name="conta_corrente" ColumnName="conta_corrente" />
                 <ScalarProperty Name="agencia_digito" ColumnName="agencia_digito" />
                 <ScalarProperty Name="agencia" ColumnName="agencia" />
+                <ScalarProperty Name="tipo_conta" ColumnName="tipo_conta" />
                 <ScalarProperty Name="senha" ColumnName="senha" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="telefone_02" ColumnName="telefone_02" />

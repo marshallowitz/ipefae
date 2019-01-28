@@ -64,7 +64,7 @@
         <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.concurso_local_colaborador" Width="1.5" PointX="18.625" PointY="27.875" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_funcao" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_concurso_local" />
-        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.colaborador" Width="1.5" PointX="13.375" PointY="24.25" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.colaborador" Width="1.5" PointX="13.375" PointY="24" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_banco" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_grau_instrucao" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_raca" />

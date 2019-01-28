@@ -45,9 +45,11 @@ namespace TGV.IPEFAE.Web.BL.Data
         public string telefone_02 { get; set; }
         public string email { get; set; }
         public string senha { get; set; }
+        public int tipo_conta { get; set; }
         public int agencia { get; set; }
         public string agencia_digito { get; set; }
         public string conta_corrente { get; set; }
+        public string conta_corrente_digito { get; set; }
         public string endereco_cep { get; set; }
         public string endereco_logradouro { get; set; }
         public string endereco_nro { get; set; }

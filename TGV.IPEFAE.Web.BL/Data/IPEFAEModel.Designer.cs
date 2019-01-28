@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'Z:\Projetos\TGV\IPEFAE\TGV.IPEFAE.Web\TGV.IPEFAE.Web.BL\Data\IPEFAEModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Projetos\Ipefae\TGV.IPEFAE.Web.BL\Data\IPEFAEModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

@@ -263,28 +263,45 @@
             <fieldset>
                 <legend>Dados Bancários</legend>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group" ng-class="{'has-error': errorList.banco.enable}">
                             <label>Banco</label><em>*</em>
                             <select id="ddlBanco" name="banco" class="form-control" ng-options="banco as banco.nome for banco in listas.bancos track by banco.id" ng-model="colaborador.banco" required uib-tooltip="{{getErrorMessage('banco', ['O banco é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.banco.enable"></select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group" ng-class="{'has-error': errorList.agencia.enable}">
                             <label>Agência</label><em>*</em>
                             <input type="text" class="form-control" name="agencia" id="txtAgencia" ng-model="colaborador.agencia" maxlength="4" required uib-tooltip="{{getErrorMessage('agencia', ['A agência bancária é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.agencia.enable" />
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <div class="form-group" ng-class="{'has-error': errorList.agenciaDigito.enable}">
-                            <label>Dígito</label><em>*</em>
-                            <input type="text" class="form-control" name="agenciaDigito" id="txtAgenciaDigito" ng-model="colaborador.agencia_digito" maxlength="1" required uib-tooltip="{{getErrorMessage('agenciaDigito', ['O dígito da agência bancária é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.agenciaDigito.enable" />
+                        <div class="form-group">
+                            <label>Dígito</label><small> (Se houver)</small>
+                            <input type="text" class="form-control" name="agenciaDigito" id="txtAgenciaDigito" ng-model="colaborador.agencia_digito" maxlength="1" />
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group" ng-class="{'has-error': errorList.contaCorrente.enable}">
-                            <label style="white-space: nowrap;">Conta Corrente (com dígito)<em>*</em></label>
+                            <label style="white-space: nowrap;">Nro da Conta<em>*</em></label>
                             <input type="text" class="form-control" name="contaCorrente" id="txtContaCorrente" ng-model="colaborador.conta_corrente" maxlength="20" required uib-tooltip="{{getErrorMessage('contaCorrente', ['A conta corrente é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.contaCorrente.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error': errorList.contaCorrenteDigito.enable}">
+                            <label>Dígito</label><em>*</em>
+                            <input type="text" class="form-control" name="contaCorrenteDigito" id="txtContaCorrenteDigito" ng-model="colaborador.conta_corrente_digito" maxlength="1" required uib-tooltip="{{getErrorMessage('contaCorrenteDigito', ['O dígito da conta é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.contaCorrenteDigito.enable" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error': errorList.tipoConta.enable}">
+                            <label>Tipo de Conta</label><em>*</em>
+                            <select id="ddlTipoConta" name="tipoConta" class="form-control" required uib-tooltip="{{getErrorMessage('tipoConta', ['O tipo de conta é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.tipoConta.enable">
+                                <option value="1">Corrente</option>
+                                <option value="2">Poupança</option>
+                            </select>
                         </div>
                     </div>
                 </div>
