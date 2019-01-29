@@ -387,9 +387,9 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         /// <summary>
         ///   Looks up a localized string similar to Raca.
         /// </summary>
-        public static string HeaderRaca {
+        public static string Headerraca {
             get {
-                return ResourceManager.GetString("HeaderRaca", resourceCulture);
+                return ResourceManager.GetString("Headerraca", resourceCulture);
             }
         }
         
@@ -435,6 +435,15 @@ namespace TGV.IPEFAE.Web.Resources.Admin.Concurso {
         public static string Headertipo_conta {
             get {
                 return ResourceManager.GetString("Headertipo_conta", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tipo Conta.
+        /// </summary>
+        public static string Headertipo_conta_texto {
+            get {
+                return ResourceManager.GetString("Headertipo_conta_texto", resourceCulture);
             }
         }
         

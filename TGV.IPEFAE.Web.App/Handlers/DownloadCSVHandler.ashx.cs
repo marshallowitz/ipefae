@@ -39,20 +39,12 @@ namespace TGV.IPEFAE.Web.App.Handlers
 
         private void ProcessRequestForColaborador(HttpContext context)
         {
-            List<ColaboradorModel> colaboradores = ColaboradorBusiness.Listar();
+            var colaboradores = ColaboradorBusiness.ListarCSV();
 
             string fileName = String.Format("lista_colaboradores_{0}.csv", BaseBusiness.DataAgora.ToString("yyyyMMdd"));
             byte[] fileBytes = null;
 
-            List<tb_est_estado> estados = EstadoBusiness.Listar();
-            List<tb_cid_cidade> cidades = CidadeBusiness.ListarTodas();
-            List<GrauInstrucaoModel> grausInstrucao = GrauInstrucaoBusiness.Listar();
-            List<RacaModel> racas = RacaBusiness.Listar();
-            List<BancoModel> bancos = BancoBusiness.Listar();
-            List<IRPFModel> irpfs = IRPFBusiness.Listar();
-            tb_emp_empresa emitente = EmpresaBusiness.Obter(1);
-
-            List<ColaboradorCSVModel2> cCSVs = colaboradores.ConvertAll(c => new ColaboradorCSVModel2(c, estados, cidades, grausInstrucao, racas, bancos));
+            List<ColaboradorCSVModel2> cCSVs = colaboradores.ConvertAll(c => new ColaboradorCSVModel2(c));
             fileBytes = WriteCsvWithHeaderToMemory(cCSVs, true);
 
             context.Session["GerouCSV"] = true;
@@ -82,17 +74,12 @@ namespace TGV.IPEFAE.Web.App.Handlers
             string fileName = String.Format("{1}_{0}.csv", BaseBusiness.RemoverCaracteresEspeciais(concurso.nome), BaseBusiness.DataAgora.ToString("yyyyMMdd"));
             byte[] fileBytes = null;
 
-            List<tb_est_estado> estados = EstadoBusiness.Listar();
-            List<tb_cid_cidade> cidades = CidadeBusiness.ListarTodas();
-            List<GrauInstrucaoModel> grausInstrucao = GrauInstrucaoBusiness.Listar();
-            List<RacaModel> racas = RacaBusiness.Listar();
-            List<BancoModel> bancos = BancoBusiness.Listar();
             List<IRPFModel> irpfs = IRPFBusiness.Listar();
             tb_emp_empresa emitente = EmpresaBusiness.Obter(1);
 
-            List<ColaboradorRPAModel> colaboradoresRPA = colaboradores.ConvertAll(c => ColaboradorRPAModel.Clone(c, cidades, estados, cLocaisColaboradores, irpfs, emitente));
+            List<ColaboradorRPAModel> colaboradoresRPA = colaboradores.ConvertAll(c => ColaboradorRPAModel.Clone(c, cLocaisColaboradores, irpfs, emitente));
 
-            List<ColaboradorCSVModel> cCSVs = colaboradores.ConvertAll(c => new ColaboradorCSVModel(concurso, c, colaboradoresRPA, estados, cidades, grausInstrucao, racas, bancos));
+            List<ColaboradorCSVModel> cCSVs = colaboradores.ConvertAll(c => new ColaboradorCSVModel(concurso, c, colaboradoresRPA));
             fileBytes = WriteCsvWithHeaderToMemory(cCSVs, true);
 
             context.Session["GerouCSV"] = true;

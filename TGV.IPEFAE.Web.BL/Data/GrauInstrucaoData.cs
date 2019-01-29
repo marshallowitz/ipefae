@@ -17,6 +17,18 @@ namespace TGV.IPEFAE.Web.BL.Data
 
     public class GrauInstrucaoModel
     {
+        public GrauInstrucaoModel() { }
+
+        public GrauInstrucaoModel(grau_instrucao grau_instrucao)
+        {
+            if (grau_instrucao == null)
+                return;
+
+            this.id = grau_instrucao.id;
+            this.nome = grau_instrucao.nome;
+            this.ativo = grau_instrucao.ativo;
+        }
+
         #region [ Propriedades ]
 
         public int id       { get; set; }

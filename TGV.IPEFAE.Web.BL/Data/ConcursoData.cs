@@ -367,6 +367,8 @@ namespace TGV.IPEFAE.Web.BL.Data
         public ColaboradorModel colaborador { get; set; } = new ColaboradorModel();
         public ConcursoFuncaoModel funcao { get; set; } = new ConcursoFuncaoModel();
 
+        public ConcursoLocalModel concurso_local { get; set; } = new ConcursoLocalModel();
+
         #endregion [ FIM - Propriedades ]
 
         #region [ Metodos ]

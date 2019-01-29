@@ -17,6 +17,15 @@ namespace TGV.IPEFAE.Web.BL.Data
 
     public class BancoModel
     {
+        public BancoModel() { }
+
+        public BancoModel(banco banco)
+        {
+            this.id = banco.id;
+            this.nome = banco.nome;
+            this.ativo = banco.ativo;
+        }
+
         #region [ Propriedades ]
 
         public int id       { get; set; }

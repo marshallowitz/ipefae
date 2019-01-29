@@ -16,6 +16,11 @@ namespace TGV.IPEFAE.Web.BL.Business
             return ColaboradorData.Listar();
         }
 
+        public static List<ColaboradorModel> ListarCSV()
+        {
+            return ColaboradorData.ListarCSV();
+        }
+
         public static List<ColaboradorModel> ListarPorConcurso(int idConcurso, int inicio, int total)
         {
             ConcursoModel concurso = ConcursoBusiness.Obter(idConcurso, true);
@@ -25,12 +30,117 @@ namespace TGV.IPEFAE.Web.BL.Business
 
             List<ColaboradorModel> colaboradores = new List<ColaboradorModel>();
 
-            foreach (var local in concurso.locais)
+            using (IPEFAEEntities db = BaseData.Contexto)
             {
-                foreach (var col in local.Colaboradores)
-                {
-                    colaboradores.Add(col.colaborador);
-                }
+                colaboradores = (from c in db.colaborador
+                                 where c.concurso_local_colaborador.Any(clc => clc.concurso_local.concurso_id == concurso.id)
+                                 select new ColaboradorModel()
+                                 {
+                                     #region [ Dados Colaborador ]
+                                     id = c.id,
+                                     nome = c.nome,
+                                     cpf = c.cpf,
+                                     email = c.email,
+                                     ativo = c.ativo,
+
+                                     banco_id = c.banco_id,
+                                     banco = new BancoModel()
+                                     {
+                                         id = c.banco.id,
+                                         nome = c.banco.nome,
+                                         ativo = c.banco.ativo
+                                     },
+
+                                     carteira_trabalho_estado_id = c.carteira_trabalho_estado_id,
+                                     carteira_trabalho_estado = new EstadoModel()
+                                     {
+                                         Id = c.tb_est_estado.est_idt_estado,
+                                         Nome = c.tb_est_estado.est_nom_estado,
+                                         Sigla = c.tb_est_estado.est_sig_estado,
+                                         Ativo = c.tb_est_estado.est_bit_ativo
+                                     },
+
+                                     endereco_cidade_id = c.endereco_cidade_id,
+                                     endereco_estado_id = c.tb_cid_cidade != null ? c.tb_cid_cidade.est_idt_estado : 0,
+                                     endereco_cidade = new CidadeModel()
+                                     {
+                                         Id = c.tb_cid_cidade.cid_idt_cidade,
+                                         IdEstado = c.tb_cid_cidade.est_idt_estado,
+                                         Nome = c.tb_cid_cidade.cid_nom_cidade,
+                                         Ativo = c.tb_cid_cidade.cid_bit_ativo,
+
+                                         Estado = new EstadoModel()
+                                         {
+                                             Id = c.tb_cid_cidade.tb_est_estado.est_idt_estado,
+                                             Nome = c.tb_cid_cidade.tb_est_estado.est_nom_estado,
+                                             Sigla = c.tb_cid_cidade.tb_est_estado.est_sig_estado,
+                                             Ativo = c.tb_cid_cidade.tb_est_estado.est_bit_ativo
+                                         }
+                                     },
+
+                                     naturalidade_cidade_id = c.naturalidade_cidade_id,
+                                     naturalidade_estado_id = c.tb_cid_cidade1 != null ? c.tb_cid_cidade1.est_idt_estado : 0,
+                                     naturalidade_cidade = new CidadeModel()
+                                     {
+                                         Id = c.tb_cid_cidade1.cid_idt_cidade,
+                                         IdEstado = c.tb_cid_cidade1.est_idt_estado,
+                                         Nome = c.tb_cid_cidade1.cid_nom_cidade,
+                                         Ativo = c.tb_cid_cidade1.cid_bit_ativo,
+
+                                         Estado = new EstadoModel()
+                                         {
+                                             Id = c.tb_cid_cidade1.tb_est_estado.est_idt_estado,
+                                             Nome = c.tb_cid_cidade1.tb_est_estado.est_nom_estado,
+                                             Sigla = c.tb_cid_cidade1.tb_est_estado.est_sig_estado,
+                                             Ativo = c.tb_cid_cidade1.tb_est_estado.est_bit_ativo
+                                         }
+                                     },
+
+                                     grau_instrucao_id = c.grau_instrucao_id,
+                                     grau_instrucao = new GrauInstrucaoModel()
+                                     {
+                                         id = c.grau_instrucao.id,
+                                         nome = c.grau_instrucao.nome,
+                                         ativo = c.grau_instrucao.ativo
+                                     },
+
+                                     raca_id = c.raca_id,
+                                     raca = new RacaModel()
+                                     {
+                                         id = c.raca.id,
+                                         nome = c.raca.nome,
+                                         ativo = c.raca.ativo
+                                     },
+
+                                     rg = c.rg,
+                                     carteira_trabalho_nro = c.carteira_trabalho_nro,
+                                     carteira_trabalho_serie = c.carteira_trabalho_serie,
+                                     titulo_eleitor_nro = c.titulo_eleitor_nro,
+                                     titulo_eleitor_zona = c.titulo_eleitor_zona,
+                                     titulo_eleitor_secao = c.titulo_eleitor_secao,
+                                     pis_pasep_net = c.pis_pasep_net,
+                                     data_nascimento = c.data_nascimento,
+                                     nacionalidade = c.nacionalidade,
+                                     nome_mae = c.nome_mae,
+                                     nome_pai = c.nome_pai,
+                                     sexo_masculino = c.sexo_masculino,
+                                     estado_civil = c.estado_civil,
+                                     telefone_01 = c.telefone_01,
+                                     telefone_02 = c.telefone_02,
+                                     senha = c.senha,
+                                     tipo_conta = c.tipo_conta,
+                                     agencia = c.agencia,
+                                     agencia_digito = c.agencia_digito,
+                                     conta_corrente = c.conta_corrente,
+                                     conta_corrente_digito = c.conta_corrente_digito,
+                                     endereco_cep = c.endereco_cep,
+                                     endereco_logradouro = c.endereco_logradouro,
+                                     endereco_nro = c.endereco_nro,
+                                     endereco_bairro = c.endereco_bairro,
+                                     endereco_complemento = c.endereco_complemento,
+                                     dados_ok = c.dados_ok
+                                     #endregion [ FIM - Dados Colaborador ]
+                                 }).ToList();
             }
 
             if (inicio > 0)
@@ -47,13 +157,154 @@ namespace TGV.IPEFAE.Web.BL.Business
             List<ColaboradorModel> colaboradores = new List<ColaboradorModel>();
             List<ConcursoLocalColaboradorModel> cLocaisColaboradores = new List<ConcursoLocalColaboradorModel>();
 
-            foreach (var local in concurso.locais)
+            using (IPEFAEEntities db = BaseData.Contexto)
             {
-                foreach (var col in local.Colaboradores)
-                {
-                    cLocaisColaboradores.Add(col);
-                    colaboradores.Add(col.colaborador);
-                }
+                colaboradores = (from c in db.colaborador
+                                 where c.concurso_local_colaborador.Any(clc => clc.concurso_local.concurso_id == concurso.id)
+                                 select new ColaboradorModel()
+                                 {
+                                     #region [ Dados Colaborador ]
+                                     id = c.id,
+                                     nome = c.nome,
+                                     cpf = c.cpf,
+                                     email = c.email,
+                                     ativo = c.ativo,
+
+                                     banco_id = c.banco_id,
+                                     banco = new BancoModel()
+                                     {
+                                         id = c.banco.id,
+                                         nome = c.banco.nome,
+                                         ativo = c.banco.ativo
+                                     },
+
+                                     carteira_trabalho_estado_id = c.carteira_trabalho_estado_id,
+                                     carteira_trabalho_estado = new EstadoModel()
+                                     {
+                                         Id = c.tb_est_estado.est_idt_estado,
+                                         Nome = c.tb_est_estado.est_nom_estado,
+                                         Sigla = c.tb_est_estado.est_sig_estado,
+                                         Ativo = c.tb_est_estado.est_bit_ativo
+                                     },
+
+                                     endereco_cidade_id = c.endereco_cidade_id,
+                                     endereco_estado_id = c.tb_cid_cidade != null ? c.tb_cid_cidade.est_idt_estado : 0,
+                                     endereco_cidade = new CidadeModel()
+                                     {
+                                         Id = c.tb_cid_cidade.cid_idt_cidade,
+                                         IdEstado = c.tb_cid_cidade.est_idt_estado,
+                                         Nome = c.tb_cid_cidade.cid_nom_cidade,
+                                         Ativo = c.tb_cid_cidade.cid_bit_ativo,
+
+                                         Estado = new EstadoModel()
+                                         {
+                                             Id = c.tb_cid_cidade.tb_est_estado.est_idt_estado,
+                                             Nome = c.tb_cid_cidade.tb_est_estado.est_nom_estado,
+                                             Sigla = c.tb_cid_cidade.tb_est_estado.est_sig_estado,
+                                             Ativo = c.tb_cid_cidade.tb_est_estado.est_bit_ativo
+                                         }
+                                     },
+
+                                     naturalidade_cidade_id = c.naturalidade_cidade_id,
+                                     naturalidade_estado_id = c.tb_cid_cidade1 != null ? c.tb_cid_cidade1.est_idt_estado : 0,
+                                     naturalidade_cidade = new CidadeModel()
+                                     {
+                                         Id = c.tb_cid_cidade1.cid_idt_cidade,
+                                         IdEstado = c.tb_cid_cidade1.est_idt_estado,
+                                         Nome = c.tb_cid_cidade1.cid_nom_cidade,
+                                         Ativo = c.tb_cid_cidade1.cid_bit_ativo,
+
+                                         Estado = new EstadoModel()
+                                         {
+                                             Id = c.tb_cid_cidade1.tb_est_estado.est_idt_estado,
+                                             Nome = c.tb_cid_cidade1.tb_est_estado.est_nom_estado,
+                                             Sigla = c.tb_cid_cidade1.tb_est_estado.est_sig_estado,
+                                             Ativo = c.tb_cid_cidade1.tb_est_estado.est_bit_ativo
+                                         }
+                                     },
+
+                                     grau_instrucao_id = c.grau_instrucao_id,
+                                     grau_instrucao = new GrauInstrucaoModel()
+                                     {
+                                         id = c.grau_instrucao.id,
+                                         nome = c.grau_instrucao.nome,
+                                         ativo = c.grau_instrucao.ativo
+                                     },
+
+                                     raca_id = c.raca_id,
+                                     raca = new RacaModel()
+                                     {
+                                         id = c.raca.id,
+                                         nome = c.raca.nome,
+                                         ativo = c.raca.ativo
+                                     },
+
+                                     rg = c.rg,
+                                     carteira_trabalho_nro = c.carteira_trabalho_nro,
+                                     carteira_trabalho_serie = c.carteira_trabalho_serie,
+                                     titulo_eleitor_nro = c.titulo_eleitor_nro,
+                                     titulo_eleitor_zona = c.titulo_eleitor_zona,
+                                     titulo_eleitor_secao = c.titulo_eleitor_secao,
+                                     pis_pasep_net = c.pis_pasep_net,
+                                     data_nascimento = c.data_nascimento,
+                                     nacionalidade = c.nacionalidade,
+                                     nome_mae = c.nome_mae,
+                                     nome_pai = c.nome_pai,
+                                     sexo_masculino = c.sexo_masculino,
+                                     estado_civil = c.estado_civil,
+                                     telefone_01 = c.telefone_01,
+                                     telefone_02 = c.telefone_02,
+                                     senha = c.senha,
+                                     tipo_conta = c.tipo_conta,
+                                     agencia = c.agencia,
+                                     agencia_digito = c.agencia_digito,
+                                     conta_corrente = c.conta_corrente,
+                                     conta_corrente_digito = c.conta_corrente_digito,
+                                     endereco_cep = c.endereco_cep,
+                                     endereco_logradouro = c.endereco_logradouro,
+                                     endereco_nro = c.endereco_nro,
+                                     endereco_bairro = c.endereco_bairro,
+                                     endereco_complemento = c.endereco_complemento,
+                                     dados_ok = c.dados_ok
+                                     #endregion [ FIM - Dados Colaborador ]
+                                 }).ToList();
+
+                cLocaisColaboradores = (from clc in db.concurso_local_colaborador
+                                        where clc.concurso_local.concurso_id == concurso.id
+                                        select new ConcursoLocalColaboradorModel()
+                                        {
+                                            #region [ Dados ConcursoLocalColaborador]
+
+                                            id = clc.id,
+                                            concurso_local_id = clc.concurso_local_id,
+                                            concurso_local = new ConcursoLocalModel()
+                                            {
+                                                id = clc.concurso_local.id,
+                                                concurso_id = clc.concurso_local.concurso_id,
+                                                ativo = clc.concurso_local.ativo,
+                                                local = clc.concurso_local.local
+                                            },
+
+                                            colaborador_id = clc.colaborador_id,
+
+                                            funcao_id = clc.funcao_id,
+                                            funcao = new ConcursoFuncaoModel()
+                                            {
+                                                ativo = clc.concurso_funcao.ativo,
+                                                concurso_id = clc.concurso_funcao.concurso_id,
+                                                funcao = clc.concurso_funcao.funcao,
+                                                id = clc.concurso_funcao.id,
+                                                sem_desconto = clc.concurso_funcao.sem_desconto,
+                                                valor_liquido = clc.concurso_funcao.valor_liquido
+                                            },
+
+                                            valor = clc.valor,
+                                            inss = clc.inss,
+                                            iss = clc.iss,
+                                            ativo = clc.ativo
+
+                                            #endregion [ FIM - Dados ConcursoLocalColaborador]
+                                        }).ToList();
             }
 
             dynamic result = new ExpandoObject();

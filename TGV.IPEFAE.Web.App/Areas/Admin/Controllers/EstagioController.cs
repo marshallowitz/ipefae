@@ -25,7 +25,7 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
 
         public ActionResult BuscarCidadesCadastradas()
         {
-            List<AutoCompleteItem> cidades = CidadeBusiness.ListarCidadesComEstagiario().ConvertAll(cid => new AutoCompleteItem(new CidadeModel(cid)));
+            List<AutoCompleteItem> cidades = CidadeBusiness.ListarCidadesComEstagiario().ConvertAll(cid => new AutoCompleteItem(new TGV.IPEFAE.Web.App.Models.CidadeModel(cid)));
             return Json(cidades, JsonRequestBehavior.AllowGet);
         }
 
@@ -120,7 +120,7 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
 
         public class AutoCompleteItem
         {
-            public AutoCompleteItem(CidadeModel cidade)
+            public AutoCompleteItem(TGV.IPEFAE.Web.App.Models.CidadeModel cidade)
             {
                 this.label = cidade.CidadeEstado;
                 this.value = cidade.Id.ToString();

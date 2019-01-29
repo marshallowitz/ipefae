@@ -43,4 +43,28 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
     }
+
+    public class CidadeModel
+    {
+        public CidadeModel() { }
+        
+        public CidadeModel(tb_cid_cidade cidade)
+        {
+            if (cidade == null)
+                return;
+
+            this.Id = cidade.cid_idt_cidade;
+            this.IdEstado = cidade.est_idt_estado;
+            this.Estado = new EstadoModel(cidade.tb_est_estado);
+            this.Nome = cidade.cid_nom_cidade;
+            this.Ativo = cidade.cid_bit_ativo;
+        }
+
+        public int Id               { get; set; }
+        public int IdEstado         { get; set; }
+        public string Nome          { get; set; }
+        public bool Ativo           { get; set; }
+
+        public EstadoModel Estado   { get; set; } = new EstadoModel();
+    }
 }

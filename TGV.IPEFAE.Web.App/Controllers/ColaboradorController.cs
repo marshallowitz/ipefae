@@ -51,7 +51,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
         public ActionResult ListarCidades(int estado_id)
         {
             List<tb_cid_cidade> cs = CidadeBusiness.Listar(estado_id);
-            List<CidadeModel> cidades = cs.ConvertAll(c => CidadeModel.Clone(c));
+            List<TGV.IPEFAE.Web.App.Models.CidadeModel> cidades = cs.ConvertAll(c => TGV.IPEFAE.Web.App.Models.CidadeModel.Clone(c));
 
             return Json(new { Cidades = cidades }, JsonRequestBehavior.AllowGet);
         }
@@ -59,7 +59,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
         public ActionResult ListarDadosTela()
         {
             List<BancoModel> bancos = BancoBusiness.Listar();
-            List<EstadoModel> estados = EstadoBusiness.Listar().ConvertAll(e => new EstadoModel(e));
+            List<TGV.IPEFAE.Web.App.Models.EstadoModel> estados = EstadoBusiness.Listar().ConvertAll(e => new TGV.IPEFAE.Web.App.Models.EstadoModel(e));
             List<GrauInstrucaoModel> grausInstrucao = GrauInstrucaoBusiness.Listar();
             List<RacaModel> racas = RacaBusiness.Listar();
 

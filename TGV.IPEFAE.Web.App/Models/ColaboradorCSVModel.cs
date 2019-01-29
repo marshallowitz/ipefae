@@ -10,19 +10,19 @@ namespace TGV.IPEFAE.Web.App.Models
 {
     public class ColaboradorCSVModel
     {
-        public ColaboradorCSVModel(ConcursoModel concurso, ColaboradorModel colaborador, List<ColaboradorRPAModel> colaboradoresRPA, List<tb_est_estado> Estados, List<tb_cid_cidade> Cidades, List<GrauInstrucaoModel> grausInstrucao, List<RacaModel> racas, List<BancoModel> bancos)
+        public ColaboradorCSVModel(ConcursoModel concurso, ColaboradorModel colaborador, List<ColaboradorRPAModel> colaboradoresRPA)
         {
             if (colaborador == null)
                 return;
 
-            var estado_ct = Estados.FirstOrDefault(e => e.est_idt_estado == colaborador.carteira_trabalho_estado_id);
-            var cidade_nat = Cidades.FirstOrDefault(c => c.cid_idt_cidade == colaborador.naturalidade_cidade_id);
-            var estado_nat = cidade_nat == null ? null : Estados.FirstOrDefault(e => e.est_idt_estado == cidade_nat.est_idt_estado);
-            var grin = grausInstrucao.FirstOrDefault(gi => gi.id == colaborador.grau_instrucao_id);
-            var ra = racas.FirstOrDefault(r => r.id == colaborador.raca_id);
-            var ba = bancos.FirstOrDefault(b => b.id == colaborador.banco_id);
-            var cidade_end = Cidades.FirstOrDefault(c => c.cid_idt_cidade == colaborador.endereco_cidade_id);
-            var estado_end = cidade_end == null ? null : Estados.FirstOrDefault(e => e.est_idt_estado == cidade_end.est_idt_estado);
+            var estado_ct = colaborador.carteira_trabalho_estado;
+            var cidade_nat = colaborador.naturalidade_cidade;
+            var estado_nat = cidade_nat == null ? null : colaborador.naturalidade_cidade.Estado;
+            var grin = colaborador.grau_instrucao;
+            var ra = colaborador.raca;
+            var ba = colaborador.banco;
+            var cidade_end = colaborador.endereco_cidade;
+            var estado_end = cidade_end == null ? null : colaborador.endereco_cidade.Estado;
 
             ColaboradorRPAModel cRPA = colaboradoresRPA.FirstOrDefault(cr => cr.id == colaborador.id);
             ConcursoLocalModel clm = concurso.locais.FirstOrDefault(c => c.Colaboradores.Any(co => co.colaborador_id == colaborador.id));
@@ -42,14 +42,14 @@ namespace TGV.IPEFAE.Web.App.Models
             this.rg = colaborador.rg;
             this.carteira_trabalho_nro = String.IsNullOrEmpty(colaborador.carteira_trabalho_nro) ? String.Empty : colaborador.carteira_trabalho_nro;
             this.carteira_trabalho_serie = String.IsNullOrEmpty(colaborador.carteira_trabalho_serie) ? String.Empty : colaborador.carteira_trabalho_serie;
-            this.carteira_trabalho_estado = estado_ct == null ? String.Empty : estado_ct.est_sig_estado;
+            this.carteira_trabalho_estado = estado_ct == null ? String.Empty : estado_ct.Sigla;
             this.titulo_eleitor_nro = String.IsNullOrEmpty(colaborador.titulo_eleitor_nro) ? String.Empty : colaborador.titulo_eleitor_nro;
             this.titulo_eleitor_zona = String.IsNullOrEmpty(colaborador.titulo_eleitor_zona) ? String.Empty : colaborador.titulo_eleitor_zona;
             this.titulo_eleitor_secao = String.IsNullOrEmpty(colaborador.titulo_eleitor_secao) ? String.Empty : colaborador.titulo_eleitor_secao;
             this.pis_pasep_net = colaborador.pis_pasep_net;
             this.data_nascimento = colaborador.data_nascimento.ToString("ddMMyyyy");
-            this.naturalidade_cidade = cidade_nat == null ? String.Empty : cidade_nat.cid_nom_cidade;
-            this.naturalidade_estado = estado_nat == null ? String.Empty : estado_nat.est_sig_estado;
+            this.naturalidade_cidade = cidade_nat == null ? String.Empty : cidade_nat.Nome;
+            this.naturalidade_estado = estado_nat == null ? String.Empty : estado_nat.Sigla;
             this.nacionalidade = colaborador.nacionalidade;
             this.nome_mae = colaborador.nome_mae;
             this.nome_pai = String.IsNullOrEmpty(colaborador.nome_pai) ? String.Empty : colaborador.nome_pai;
@@ -60,16 +60,20 @@ namespace TGV.IPEFAE.Web.App.Models
             this.telefone_01 = BaseBusiness.FormatarFone(colaborador.telefone_01);
             this.telefone_02 = BaseBusiness.FormatarFone(colaborador.telefone_02, true);
             this.email = colaborador.email;
+
             this.banco = ba == null ? String.Empty : ba.nome;
+            this.tipo_conta_texto = colaborador.tipo_conta == 2 ? "Poupança" : "Corrente";
             this.agencia = colaborador.agencia.ToString();
             this.agencia_digito = colaborador.agencia_digito;
             this.conta_corrente = colaborador.conta_corrente;
+            this.conta_corrente_digito = colaborador.conta_corrente_digito;
+
             this.endereco_logradouro = colaborador.endereco_logradouro;
             this.endereco_nro = colaborador.endereco_nro;
             this.endereco_complemento = String.IsNullOrEmpty(colaborador.endereco_complemento) ? String.Empty : colaborador.endereco_complemento;
             this.endereco_bairro = colaborador.endereco_bairro;
-            this.endereco_cidade = cidade_end == null ? String.Empty : cidade_end.cid_nom_cidade;
-            this.endereco_estado = estado_end == null ? String.Empty : estado_end.est_sig_estado;
+            this.endereco_cidade = cidade_end == null ? String.Empty : cidade_end.Nome;
+            this.endereco_estado = estado_end == null ? String.Empty : estado_end.Sigla;
             this.endereco_cep = colaborador.endereco_cep;
 
             RemoverPontoVirgula();
@@ -139,6 +143,7 @@ namespace TGV.IPEFAE.Web.App.Models
         [Order(27)]
         public string grau_instrucao { get; set; }
         [Order(28)]
+        [IsText(true)]
         public string raca { get; set; }
         [Order(29)]
         public string telefone_01 { get; set; }
@@ -150,27 +155,33 @@ namespace TGV.IPEFAE.Web.App.Models
         public string banco { get; set; }
         [Order(33)]
         [IsText(true)]
-        public string agencia { get; set; }
+        public string tipo_conta_texto { get; set; }
         [Order(34)]
         [IsText(true)]
-        public string agencia_digito { get; set; }
+        public string agencia { get; set; }
         [Order(35)]
         [IsText(true)]
-        public string conta_corrente { get; set; }
+        public string agencia_digito { get; set; }
         [Order(36)]
-        public string endereco_logradouro { get; set; }
+        [IsText(true)]
+        public string conta_corrente { get; set; }
         [Order(37)]
         [IsText(true)]
-        public string endereco_nro { get; set; }
+        public string conta_corrente_digito { get; set; }
         [Order(38)]
-        public string endereco_complemento { get; set; }
+        public string endereco_logradouro { get; set; }
         [Order(39)]
-        public string endereco_bairro { get; set; }
+        [IsText(true)]
+        public string endereco_nro { get; set; }
         [Order(40)]
-        public string endereco_cidade { get; set; }
+        public string endereco_complemento { get; set; }
         [Order(41)]
-        public string endereco_estado { get; set; }
+        public string endereco_bairro { get; set; }
         [Order(42)]
+        public string endereco_cidade { get; set; }
+        [Order(43)]
+        public string endereco_estado { get; set; }
+        [Order(44)]
         public string endereco_cep { get; set; }
 
         #endregion [ FIM - Propriedades ]
@@ -194,31 +205,97 @@ namespace TGV.IPEFAE.Web.App.Models
 
         internal void RemoverPontoVirgula()
         {
-            this.banco = this.banco.Replace(";", "");
-            this.rg = this.rg.Replace(";", "");
-            this.carteira_trabalho_nro = this.carteira_trabalho_nro.Replace(";", "");
-            this.carteira_trabalho_serie = this.carteira_trabalho_serie.Replace(";", "");
-            this.titulo_eleitor_nro = this.titulo_eleitor_nro.Replace(";", "");
-            this.titulo_eleitor_zona = this.titulo_eleitor_zona.Replace(";", "");
-            this.titulo_eleitor_secao = this.titulo_eleitor_secao.Replace(";", "");
-            this.pis_pasep_net = this.pis_pasep_net.Replace(";", "");
-            this.nacionalidade = this.nacionalidade.Replace(";", "");
-            this.nome_mae = this.nome_mae.Replace(";", "");
-            this.nome_pai = this.nome_pai.Replace(";", "");
-            this.nome = this.nome.Replace(";", "");
-            this.email = this.email.Replace(";", "");
-            this.agencia = this.agencia.Replace(";", "");
-            this.agencia_digito = this.agencia_digito.Replace(";", "");
-            this.conta_corrente = this.conta_corrente.Replace(";", "");
-            this.endereco_logradouro = this.endereco_logradouro.Replace(";", "");
-            this.endereco_nro = this.endereco_nro.Replace(";", "");
-            this.endereco_complemento = this.endereco_complemento.Replace(";", "");
-            this.endereco_bairro = this.endereco_bairro.Replace(";", "");
+            this.banco = this.banco?.Replace(";", "");
+            this.rg = this.rg?.Replace(";", "");
+            this.carteira_trabalho_nro = this.carteira_trabalho_nro?.Replace(";", "");
+            this.carteira_trabalho_serie = this.carteira_trabalho_serie?.Replace(";", "");
+            this.titulo_eleitor_nro = this.titulo_eleitor_nro?.Replace(";", "");
+            this.titulo_eleitor_zona = this.titulo_eleitor_zona?.Replace(";", "");
+            this.titulo_eleitor_secao = this.titulo_eleitor_secao?.Replace(";", "");
+            this.pis_pasep_net = this.pis_pasep_net?.Replace(";", "");
+            this.nacionalidade = this.nacionalidade?.Replace(";", "");
+            this.nome_mae = this.nome_mae?.Replace(";", "");
+            this.nome_pai = this.nome_pai?.Replace(";", "");
+            this.nome = this.nome?.Replace(";", "");
+            this.email = this.email?.Replace(";", "");
+            this.tipo_conta_texto = this.tipo_conta_texto?.Replace(";", "");
+            this.agencia = this.agencia?.Replace(";", "");
+            this.agencia_digito = this.agencia_digito?.Replace(";", "");
+            this.conta_corrente = this.conta_corrente?.Replace(";", "");
+            this.conta_corrente_digito = this.conta_corrente_digito?.Replace(";", "");
+            this.endereco_logradouro = this.endereco_logradouro?.Replace(";", "");
+            this.endereco_nro = this.endereco_nro?.Replace(";", "");
+            this.endereco_complemento = this.endereco_complemento?.Replace(";", "");
+            this.endereco_bairro = this.endereco_bairro?.Replace(";", "");
         }
     }
 
     public class ColaboradorCSVModel2
     {
+        public ColaboradorCSVModel2(ColaboradorModel colaborador)
+        {
+            if (colaborador == null)
+                return;
+
+            try
+            {
+                var estado_ct = colaborador.carteira_trabalho_estado;
+                var cidade_nat = colaborador.naturalidade_cidade;
+                var estado_nat = cidade_nat == null ? null : colaborador.naturalidade_cidade.Estado;
+                var grin = colaborador.grau_instrucao;
+                var ra = colaborador.raca;
+                var ba = colaborador.banco;
+                var cidade_end = colaborador.endereco_cidade;
+                var estado_end = cidade_end == null ? null : colaborador.endereco_cidade.Estado;
+
+                this.codigo = colaborador.codigo;
+                this.nome = colaborador.nome;
+                this.cpf = BaseBusiness.FormatarCPF(colaborador.cpf);
+                this.rg = colaborador.rg;
+                this.carteira_trabalho_nro = String.IsNullOrEmpty(colaborador.carteira_trabalho_nro) ? String.Empty : colaborador.carteira_trabalho_nro;
+                this.carteira_trabalho_serie = String.IsNullOrEmpty(colaborador.carteira_trabalho_serie) ? String.Empty : colaborador.carteira_trabalho_serie;
+                this.carteira_trabalho_estado = estado_ct == null ? String.Empty : estado_ct.Sigla;
+                this.titulo_eleitor_nro = String.IsNullOrEmpty(colaborador.titulo_eleitor_nro) ? String.Empty : colaborador.titulo_eleitor_nro;
+                this.titulo_eleitor_zona = String.IsNullOrEmpty(colaborador.titulo_eleitor_zona) ? String.Empty : colaborador.titulo_eleitor_zona;
+                this.titulo_eleitor_secao = String.IsNullOrEmpty(colaborador.titulo_eleitor_secao) ? String.Empty : colaborador.titulo_eleitor_secao;
+                this.pis_pasep_net = colaborador.pis_pasep_net;
+                this.data_nascimento = colaborador.data_nascimento.ToString("ddMMyyyy");
+                this.naturalidade_cidade = cidade_nat == null ? String.Empty : cidade_nat.Nome;
+                this.naturalidade_estado = estado_nat == null ? String.Empty : estado_nat.Sigla;
+                this.nacionalidade = colaborador.nacionalidade;
+                this.nome_mae = colaborador.nome_mae;
+                this.nome_pai = String.IsNullOrEmpty(colaborador.nome_pai) ? String.Empty : colaborador.nome_pai;
+                this.sexo = colaborador.sexo_masculino ? "Masculino" : "Feminino";
+                this.estado_civil = ObterEstadoCivil(colaborador.estado_civil);
+                this.grau_instrucao = grin == null ? String.Empty : grin.nome;
+                this.raca = ra == null ? String.Empty : ra.nome;
+                this.telefone_01 = BaseBusiness.FormatarFone(colaborador.telefone_01);
+                this.telefone_02 = BaseBusiness.FormatarFone(colaborador.telefone_02, true);
+                this.email = colaborador.email;
+                this.banco = ba == null ? String.Empty : ba.nome;
+                this.tipo_conta_texto = colaborador.tipo_conta == 2 ? "Poupança" : "Corrente";
+                this.agencia = colaborador.agencia.ToString();
+                this.agencia_digito = colaborador.agencia_digito;
+                this.conta_corrente = colaborador.conta_corrente;
+                this.conta_corrente_digito = colaborador.conta_corrente_digito;
+                this.endereco_logradouro = colaborador.endereco_logradouro;
+                this.endereco_nro = colaborador.endereco_nro;
+                this.endereco_complemento = String.IsNullOrEmpty(colaborador.endereco_complemento) ? String.Empty : colaborador.endereco_complemento;
+                this.endereco_bairro = colaborador.endereco_bairro;
+                this.endereco_cidade = cidade_end == null ? String.Empty : cidade_end.Nome;
+                this.endereco_estado = estado_end == null ? String.Empty : estado_end.Sigla;
+                this.endereco_cep = colaborador.endereco_cep;
+                this.dados_ok = colaborador.dados_ok ? "Sim" : "Não";
+                this.ativo = colaborador.ativo ? "Sim" : "Não";
+
+                RemoverPontoVirgula();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public ColaboradorCSVModel2(ColaboradorModel colaborador, List<tb_est_estado> Estados, List<tb_cid_cidade> Cidades, List<GrauInstrucaoModel> grausInstrucao, List<RacaModel> racas, List<BancoModel> bancos)
         {
             if (colaborador == null)
@@ -390,26 +467,28 @@ namespace TGV.IPEFAE.Web.App.Models
 
         internal void RemoverPontoVirgula()
         {
-            this.banco = this.banco.Replace(";", "");
-            this.rg = this.rg.Replace(";", "");
-            this.carteira_trabalho_nro = this.carteira_trabalho_nro.Replace(";", "");
-            this.carteira_trabalho_serie = this.carteira_trabalho_serie.Replace(";", "");
-            this.titulo_eleitor_nro = this.titulo_eleitor_nro.Replace(";", "");
-            this.titulo_eleitor_zona = this.titulo_eleitor_zona.Replace(";", "");
-            this.titulo_eleitor_secao = this.titulo_eleitor_secao.Replace(";", "");
-            this.pis_pasep_net = this.pis_pasep_net.Replace(";", "");
-            this.nacionalidade = this.nacionalidade.Replace(";", "");
-            this.nome_mae = this.nome_mae.Replace(";", "");
-            this.nome_pai = this.nome_pai.Replace(";", "");
-            this.nome = this.nome.Replace(";", "");
-            this.email = this.email.Replace(";", "");
-            this.agencia = this.agencia.Replace(";", "");
-            this.agencia_digito = this.agencia_digito.Replace(";", "");
-            this.conta_corrente = this.conta_corrente.Replace(";", "");
-            this.endereco_logradouro = this.endereco_logradouro.Replace(";", "");
-            this.endereco_nro = this.endereco_nro.Replace(";", "");
-            this.endereco_complemento = this.endereco_complemento.Replace(";", "");
-            this.endereco_bairro = this.endereco_bairro.Replace(";", "");
+            this.banco = this.banco?.Replace(";", "");
+            this.rg = this.rg?.Replace(";", "");
+            this.carteira_trabalho_nro = this.carteira_trabalho_nro?.Replace(";", "");
+            this.carteira_trabalho_serie = this.carteira_trabalho_serie?.Replace(";", "");
+            this.titulo_eleitor_nro = this.titulo_eleitor_nro?.Replace(";", "");
+            this.titulo_eleitor_zona = this.titulo_eleitor_zona?.Replace(";", "");
+            this.titulo_eleitor_secao = this.titulo_eleitor_secao?.Replace(";", "");
+            this.pis_pasep_net = this.pis_pasep_net?.Replace(";", "");
+            this.nacionalidade = this.nacionalidade?.Replace(";", "");
+            this.nome_mae = this.nome_mae?.Replace(";", "");
+            this.nome_pai = this.nome_pai?.Replace(";", "");
+            this.nome = this.nome?.Replace(";", "");
+            this.email = this.email?.Replace(";", "");
+            this.tipo_conta_texto = this.tipo_conta_texto?.Replace(";", "");
+            this.agencia = this.agencia?.Replace(";", "");
+            this.agencia_digito = this.agencia_digito?.Replace(";", "");
+            this.conta_corrente = this.conta_corrente?.Replace(";", "");
+            this.conta_corrente_digito = this.conta_corrente_digito?.Replace(";", "");
+            this.endereco_logradouro = this.endereco_logradouro?.Replace(";", "");
+            this.endereco_nro = this.endereco_nro?.Replace(";", "");
+            this.endereco_complemento = this.endereco_complemento?.Replace(";", "");
+            this.endereco_bairro = this.endereco_bairro?.Replace(";", "");
         }
     }
 }

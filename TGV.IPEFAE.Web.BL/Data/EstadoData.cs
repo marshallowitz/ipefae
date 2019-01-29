@@ -19,4 +19,25 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
     }
+
+    public class EstadoModel
+    {
+        public EstadoModel() { }
+
+        public EstadoModel(tb_est_estado estado)
+        {
+            if (estado == null)
+                return;
+
+            this.Id = estado.est_idt_estado;
+            this.Nome = estado.est_nom_estado;
+            this.Sigla = estado.est_sig_estado;
+            this.Ativo = estado.est_bit_ativo;
+        }
+
+        public int Id       { get; set; }
+        public string Nome  { get; set; }
+        public string Sigla { get; set; }
+        public bool Ativo   { get; set; }
+    }
 }

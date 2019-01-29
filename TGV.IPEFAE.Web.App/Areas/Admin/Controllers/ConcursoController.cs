@@ -82,14 +82,12 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
 
         public ActionResult ListarColaboradores(int idConcurso, int inicio, int total)
         {
-            List<tb_cid_cidade> cidades = CidadeBusiness.ListarTodas();
-            List<tb_est_estado> estados = EstadoBusiness.Listar();
             List<IRPFModel> irpfs = IRPFBusiness.Listar();
             List<ConcursoLocalColaboradorModel> locaisColaboradores = ConcursoLocalColaboradorModel.Listar(idConcurso);
             tb_emp_empresa emitente = EmpresaBusiness.Obter(1);
 
             List<ColaboradorModel> cs = ColaboradorBusiness.ListarPorConcurso(idConcurso, inicio, total);
-            List<ColaboradorRPAModel> colaboradores = cs.ConvertAll(c => ColaboradorRPAModel.Clone(c, cidades, estados, locaisColaboradores, irpfs, emitente));
+            List<ColaboradorRPAModel> colaboradores = cs.ConvertAll(c => ColaboradorRPAModel.Clone(c, locaisColaboradores, irpfs, emitente));
             return Json(new { Colaboradores = colaboradores }, JsonRequestBehavior.AllowGet);
         }
 

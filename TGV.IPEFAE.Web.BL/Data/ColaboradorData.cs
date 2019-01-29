@@ -17,6 +17,123 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
+        internal static List<ColaboradorModel> ListarCSV()
+        {
+            using (IPEFAEEntities db = BaseData.Contexto)
+            {
+                return (
+                        from c in db.colaborador
+                        select new ColaboradorModel()
+                        {
+                            #region [ Dados Colaborador ]
+                            id = c.id,
+                            nome = c.nome,
+                            cpf = c.cpf,
+                            email = c.email,
+                            ativo = c.ativo,
+
+                            banco_id = c.banco_id,
+                            banco = new BancoModel()
+                            {
+                                id = c.banco.id,
+                                nome = c.banco.nome,
+                                ativo = c.banco.ativo
+                            },
+
+                            carteira_trabalho_estado_id = c.carteira_trabalho_estado_id,
+                            carteira_trabalho_estado = new EstadoModel()
+                            {
+                                Id = c.tb_est_estado.est_idt_estado,
+                                Nome = c.tb_est_estado.est_nom_estado,
+                                Sigla = c.tb_est_estado.est_sig_estado,
+                                Ativo = c.tb_est_estado.est_bit_ativo
+                            },
+
+                            endereco_cidade_id = c.endereco_cidade_id,
+                            endereco_estado_id = c.tb_cid_cidade != null ? c.tb_cid_cidade.est_idt_estado : 0,
+                            endereco_cidade = new CidadeModel()
+                            {
+                                Id = c.tb_cid_cidade.cid_idt_cidade,
+                                IdEstado = c.tb_cid_cidade.est_idt_estado,
+                                Nome = c.tb_cid_cidade.cid_nom_cidade,
+                                Ativo = c.tb_cid_cidade.cid_bit_ativo,
+
+                                Estado = new EstadoModel()
+                                {
+                                    Id = c.tb_cid_cidade.tb_est_estado.est_idt_estado,
+                                    Nome = c.tb_cid_cidade.tb_est_estado.est_nom_estado,
+                                    Sigla = c.tb_cid_cidade.tb_est_estado.est_sig_estado,
+                                    Ativo = c.tb_cid_cidade.tb_est_estado.est_bit_ativo
+                                }
+                            },
+
+                            naturalidade_cidade_id = c.naturalidade_cidade_id,
+                            naturalidade_estado_id = c.tb_cid_cidade1 != null ? c.tb_cid_cidade1.est_idt_estado : 0,
+                            naturalidade_cidade = new CidadeModel()
+                            {
+                                Id = c.tb_cid_cidade1.cid_idt_cidade,
+                                IdEstado = c.tb_cid_cidade1.est_idt_estado,
+                                Nome = c.tb_cid_cidade1.cid_nom_cidade,
+                                Ativo = c.tb_cid_cidade1.cid_bit_ativo,
+
+                                Estado = new EstadoModel()
+                                {
+                                    Id = c.tb_cid_cidade1.tb_est_estado.est_idt_estado,
+                                    Nome = c.tb_cid_cidade1.tb_est_estado.est_nom_estado,
+                                    Sigla = c.tb_cid_cidade1.tb_est_estado.est_sig_estado,
+                                    Ativo = c.tb_cid_cidade1.tb_est_estado.est_bit_ativo
+                                }
+                            },
+
+                            grau_instrucao_id = c.grau_instrucao_id,
+                            grau_instrucao = new GrauInstrucaoModel()
+                            {
+                                id = c.grau_instrucao.id,
+                                nome = c.grau_instrucao.nome,
+                                ativo = c.grau_instrucao.ativo
+                            },
+
+                            raca_id = c.raca_id,
+                            raca = new RacaModel()
+                            {
+                                id = c.raca.id,
+                                nome = c.raca.nome,
+                                ativo = c.raca.ativo
+                            },
+
+                            rg = c.rg,
+                            carteira_trabalho_nro = c.carteira_trabalho_nro,
+                            carteira_trabalho_serie = c.carteira_trabalho_serie,
+                            titulo_eleitor_nro = c.titulo_eleitor_nro,
+                            titulo_eleitor_zona = c.titulo_eleitor_zona,
+                            titulo_eleitor_secao = c.titulo_eleitor_secao,
+                            pis_pasep_net = c.pis_pasep_net,
+                            data_nascimento = c.data_nascimento,
+                            nacionalidade = c.nacionalidade,
+                            nome_mae = c.nome_mae,
+                            nome_pai = c.nome_pai,
+                            sexo_masculino = c.sexo_masculino,
+                            estado_civil = c.estado_civil,
+                            telefone_01 = c.telefone_01,
+                            telefone_02 = c.telefone_02,
+                            senha = c.senha,
+                            tipo_conta = c.tipo_conta,
+                            agencia = c.agencia,
+                            agencia_digito = c.agencia_digito,
+                            conta_corrente = c.conta_corrente,
+                            conta_corrente_digito = c.conta_corrente_digito,
+                            endereco_cep = c.endereco_cep,
+                            endereco_logradouro = c.endereco_logradouro,
+                            endereco_nro = c.endereco_nro,
+                            endereco_bairro = c.endereco_bairro,
+                            endereco_complemento = c.endereco_complemento,
+                            dados_ok = c.dados_ok
+                            #endregion [ FIM - Dados Colaborador ]
+                        }
+                        ).ToList();
+            }
+        }
+
         internal static ColaboradorModel Obter(int id)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
@@ -209,6 +326,13 @@ namespace TGV.IPEFAE.Web.BL.Data
         public bool dados_ok                    { get; set; } = false;
         public bool ativo                       { get; set; }
 
+        public BancoModel banco                     { get; set; } = new BancoModel();
+        public EstadoModel carteira_trabalho_estado { get; set; } = new EstadoModel();
+        public CidadeModel endereco_cidade          { get; set; } = new CidadeModel();
+        public CidadeModel naturalidade_cidade      { get; set; } = new CidadeModel();
+        public GrauInstrucaoModel grau_instrucao    { get; set; } = new GrauInstrucaoModel();
+        public RacaModel raca                       { get; set; } = new RacaModel();
+
         [ScriptIgnore]
         public string senhaDescriptografada { get; set; }
 
@@ -360,28 +484,15 @@ namespace TGV.IPEFAE.Web.BL.Data
 
         #region [ Metodos ]
 
-        public static ColaboradorRPAModel Clone(ColaboradorModel col, List<tb_cid_cidade> cidades, List<tb_est_estado> estados, List<ConcursoLocalColaboradorModel> locaisColaboradores, List<IRPFModel> irpfs, tb_emp_empresa emitente)
+        public static ColaboradorRPAModel Clone(ColaboradorModel col, List<ConcursoLocalColaboradorModel> locaisColaboradores, List<IRPFModel> irpfs, tb_emp_empresa emitente)
         {
             if (col == null)
                 return null;
 
             ColaboradorRPAModel colaborador = col.CopyObject<ColaboradorRPAModel>();
 
-            if (cidades.Count > 0 && estados.Count > 0)
-            {
-                var cid = cidades.FirstOrDefault(c => c.cid_idt_cidade == colaborador.endereco_cidade_id);
-
-                if (cid != null)
-                {
-                    var est = estados.FirstOrDefault(e => e.est_idt_estado == cid.est_idt_estado);
-                    var siglaEstado = String.Empty;
-
-                    if (est != null)
-                        siglaEstado = $"/{est.est_sig_estado}";
-
-                    colaborador.endereco_cidade_uf_nome = $"{cid.cid_nom_cidade}{siglaEstado}";
-                }
-            }
+            if (col.endereco_cidade != null && col.endereco_cidade.Estado != null)
+                colaborador.endereco_cidade_uf_nome = $"{col.endereco_cidade.Nome}{col.endereco_cidade.Estado.Sigla}";
 
             if (locaisColaboradores.Count > 0)
             {
@@ -406,20 +517,6 @@ namespace TGV.IPEFAE.Web.BL.Data
 
                     colaborador.valor_sem_formatacao = valor_bruto_sem_irpf;
                     colaborador.valor_liquido_sem_formatacao = localColaborador.valor;
-
-                    //if (!colaborador.tem_empresa)
-                    //    colaborador.valor_sem_formatacao = localColaborador.valor;
-                    //else
-                    //{
-                    //    decimal inss = 0;
-                    //    Decimal.TryParse(colaborador.aliquota_inss, out inss);
-
-                    //    decimal iss = 0;
-                    //    Decimal.TryParse(colaborador.aliquota_iss, out iss);
-
-                    //    decimal valor_bruto_sem_irpf = localColaborador.valor / (1 - inss / 100 - iss / 100);
-                    //    colaborador.valor_sem_formatacao = valor_bruto_sem_irpf; // Define o valor temporário
-                    //}
                 }
             }
 
@@ -430,9 +527,6 @@ namespace TGV.IPEFAE.Web.BL.Data
                 colaborador.deducao_irpf = sirpf.deducao.ToString();
                 colaborador.valor_irpf_sem_formatacao = sirpf.irpf_retido;
             }
-
-            //if (colaborador.tem_empresa) // Se tiver empresa, continua ajustando o valor bruto - insere irpf
-            //    colaborador.valor_sem_formatacao += colaborador.valor_irpf_sem_formatacao;
 
             if (emitente != null)
             {
