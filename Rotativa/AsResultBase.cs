@@ -11,6 +11,8 @@ using System.Web.Security;
 using Rotativa.Options;
 using System.Collections.Specialized;
 using System.Configuration;
+using System.Data.OleDb;
+using System.Data.SqlClient;
 
 namespace Rotativa
 {
@@ -221,11 +223,32 @@ namespace Rotativa
 
         public override void ExecuteResult(ControllerContext context)
         {
+            int id = ObterIdChave();
             //var fileContent = BuildFile(context);
-            string apiKey = String.IsNullOrEmpty(this.ApiKey) ? ConfigurationManager.AppSettings["apiKeyPDF05"] : this.ApiKey;
+            string apiKey = String.IsNullOrEmpty(this.ApiKey) ? ConfigurationManager.AppSettings[$"apiKeyPDF0{id}"] : this.ApiKey;
             var fileContent = NewBuildFile(context, apiKey);
             var response = PrepareResponse(context.HttpContext.Response);
             response.OutputStream.Write(fileContent, 0, fileContent.Length);
+        }
+
+        internal static int ObterIdChave()
+        {
+            int id = 5;
+            String cString = ConfigurationManager.ConnectionStrings["IPEFAEEntities_"].ConnectionString;
+            using (SqlConnection cnn = new SqlConnection(cString))
+            {
+                cnn.Open();
+                string sql = "SELECT TOP 1 id FROM relatorio_pdf WHERE quantidade < 200";
+                SqlCommand command = new SqlCommand(sql, cnn);
+                SqlDataReader dr = command.ExecuteReader();
+
+                while(dr.Read())
+                {
+                    id = (int)dr.GetValue(0);
+                }
+            }
+
+            return id;
         }
 
         public byte[] NewBuildFile(ControllerContext context, string apiKey)

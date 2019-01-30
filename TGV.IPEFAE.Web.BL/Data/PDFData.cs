@@ -68,11 +68,11 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
-        internal static void Atualizar5Chave()
+        internal static void Atualizar5Chave(int ctrRelatorio = 1)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                relatorio_pdf relatorio = db.relatorio_pdf.FirstOrDefault(pdf => pdf.id == 5);
+                relatorio_pdf relatorio = db.relatorio_pdf.FirstOrDefault(pdf => pdf.id == ctrRelatorio);
 
                 if (relatorio == null) // Se não achou ninguém
                     return;
@@ -82,7 +82,15 @@ namespace TGV.IPEFAE.Web.BL.Data
 
                 // Verifica se mudou de mês
                 if (relatorio.data.Month == mesAtual && relatorio.data.Year == anoAtual) // Se não mudou, adiciona 1
+                {
+                    if (relatorio.quantidade >= 200)
+                    {
+                        Atualizar5Chave(++ctrRelatorio);
+                        return;
+                    }
+
                     relatorio.quantidade++;
+                }
                 else // Se mudou, zera, atualiza a data e adiciona 1
                 {
                     relatorio.data = new DateTime(anoAtual, mesAtual, 1);
