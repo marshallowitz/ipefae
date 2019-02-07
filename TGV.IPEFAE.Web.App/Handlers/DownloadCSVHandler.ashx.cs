@@ -69,7 +69,9 @@ namespace TGV.IPEFAE.Web.App.Handlers
 
             dynamic result = ColaboradorBusiness.ListarPorConcursoV2(concurso);
             List<ColaboradorModel> colaboradores = (List<ColaboradorModel>)result.Colaboradores;
-            List<ConcursoLocalColaboradorModel> cLocaisColaboradores = (List<ConcursoLocalColaboradorModel>)result.LocaisColaboradores;
+            List<ConcursoLocalColaboradorModel> cLocaisColaboradoresOriginal = (List<ConcursoLocalColaboradorModel>)result.LocaisColaboradores;
+            List<ConcursoLocalColaboradorModel> cLocaisColaboradores = new List<ConcursoLocalColaboradorModel>();
+            cLocaisColaboradores.AddRange(cLocaisColaboradoresOriginal);
 
             string fileName = String.Format("{1}_{0}.csv", BaseBusiness.RemoverCaracteresEspeciais(concurso.nome), BaseBusiness.DataAgora.ToString("yyyyMMdd"));
             byte[] fileBytes = null;
@@ -77,9 +79,37 @@ namespace TGV.IPEFAE.Web.App.Handlers
             List<IRPFModel> irpfs = IRPFBusiness.Listar();
             tb_emp_empresa emitente = EmpresaBusiness.Obter(1);
 
-            List<ColaboradorRPAModel> colaboradoresRPA = colaboradores.ConvertAll(c => ColaboradorRPAModel.Clone(c, cLocaisColaboradores, irpfs, emitente));
+            List<ColaboradorRPAModel> colaboradoresRPA = new List<ColaboradorRPAModel>();
+            var totalLocais = cLocaisColaboradores.Count;
 
-            List<ColaboradorCSVModel> cCSVs = colaboradores.ConvertAll(c => new ColaboradorCSVModel(concurso, c, colaboradoresRPA));
+            for (int i = 0; i < totalLocais; i++)
+            {
+                var colaborador = colaboradores.SingleOrDefault(c => cLocaisColaboradoresOriginal[i].colaborador_id == c.id);
+
+                if (colaborador == null)
+                    continue;
+
+                colaboradoresRPA.Add(ColaboradorRPAModel.Clone(colaborador, cLocaisColaboradores, irpfs, emitente));
+
+                cLocaisColaboradores.RemoveAt(0);
+            }
+
+            List<ColaboradorCSVModel> cCSVs = new List<ColaboradorCSVModel>();
+            List<ColaboradorRPAModel> colaboradoresRPACopia = new List<ColaboradorRPAModel>();
+            colaboradoresRPACopia.AddRange(colaboradoresRPA);
+
+            for (int i = 0; i < colaboradoresRPA.Count; i++)
+            {
+                var colaborador = colaboradores.SingleOrDefault(c => colaboradoresRPACopia[0].id == c.id);
+
+                if (colaborador == null)
+                    continue;
+
+                cCSVs.Add(new ColaboradorCSVModel(concurso, colaborador, colaboradoresRPACopia));
+
+                colaboradoresRPACopia.RemoveAt(0);
+            }
+
             fileBytes = WriteCsvWithHeaderToMemory(cCSVs, true);
 
             context.Session["GerouCSV"] = true;

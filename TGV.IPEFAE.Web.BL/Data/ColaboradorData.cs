@@ -193,7 +193,7 @@ namespace TGV.IPEFAE.Web.BL.Data
                 toUpdate.dados_ok = cM.dados_ok;
                 toUpdate.raca_id = cM.raca_id;
                 toUpdate.cpf = cM.cpf;
-                toUpdate.data_nascimento = cM.data_nascimento;
+                toUpdate.data_nascimento = cM.data_nascimento.AddHours(4);
                 toUpdate.email = cM.email;
                 toUpdate.endereco_bairro = cM.endereco_bairro?.FirstCharOfEachWordToUpper();
                 toUpdate.endereco_cep = cM.endereco_cep;
