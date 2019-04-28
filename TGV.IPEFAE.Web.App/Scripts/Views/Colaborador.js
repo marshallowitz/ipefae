@@ -304,6 +304,13 @@ function reenviarSenha()
 
         function carregarDados(id)
         {
+            $('#ddlGrauInstrucao').parent().addClass('whirl');
+            $('#ddlCarteiraTrabalhoUF').parent().addClass('whirl');
+            $('#ddlNaturalidadeUF').parent().addClass('whirl');
+            $('#ddlEstado').parent().addClass('whirl');
+            $('#ddlRaca').parent().addClass('whirl');
+            $('#ddlBanco').parent().addClass('whirl');
+
             var url = homePage + 'Colaborador/ListarDadosTela';
 
             $.ajax({
@@ -315,6 +322,13 @@ function reenviarSenha()
                     $scope.listas.estados = retorno.Estados;
                     $scope.listas.grausInstrucao = retorno.GrausInstrucao;
                     $scope.listas.racas = retorno.Racas;
+
+                    $('#ddlGrauInstrucao').parent().removeClass('whirl');
+                    $('#ddlCarteiraTrabalhoUF').parent().removeClass('whirl');
+                    $('#ddlNaturalidadeUF').parent().removeClass('whirl');
+                    $('#ddlEstado').parent().removeClass('whirl');
+                    $('#ddlRaca').parent().removeClass('whirl');
+                    $('#ddlBanco').parent().removeClass('whirl');
 
                     if (id !== undefined && id > 0)
                     {
