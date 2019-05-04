@@ -13,5 +13,10 @@ namespace TGV.IPEFAE.Web.BL.Business
         {
             return EstadoData.Listar();
         }
+
+        public static List<EstadoModel> ListarModel()
+        {
+            return EstadoData.ListarModel();
+        }
     }
 }

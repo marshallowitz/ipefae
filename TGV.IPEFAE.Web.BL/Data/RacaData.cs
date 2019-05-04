@@ -10,7 +10,13 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return db.raca.ToList().ConvertAll(r => r.CopyObject<RacaModel>());
+                return (from r in db.raca
+                        select new RacaModel()
+                        {
+                            id = r.id,
+                            nome = r.nome,
+                            ativo = r.ativo
+                        }).ToList();
             }
         }
     }

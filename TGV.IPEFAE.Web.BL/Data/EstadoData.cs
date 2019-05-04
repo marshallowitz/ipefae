@@ -18,6 +18,23 @@ namespace TGV.IPEFAE.Web.BL.Data
                         select est).ToList();
             }
         }
+
+        internal static List<EstadoModel> ListarModel()
+        {
+            using (IPEFAEEntities db = BaseData.Contexto)
+            {
+                return (from est in db.tb_est_estado
+                        where est.est_bit_ativo
+                        orderby est.est_nom_estado
+                        select new EstadoModel()
+                        {
+                            Id = est.est_idt_estado,
+                            Nome = est.est_nom_estado,
+                            Sigla = est.est_sig_estado,
+                            Ativo = est.est_bit_ativo
+                        }).ToList();
+            }
+        }
     }
 
     public class EstadoModel

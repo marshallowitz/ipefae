@@ -10,7 +10,15 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return db.banco.ToList().ConvertAll(r => r.CopyObject<BancoModel>());
+                return (from b in db.banco
+                        orderby b.ordem
+                        select new BancoModel()
+                        {
+                            id = b.id,
+                            nome = b.nome,
+                            ordem = b.ordem,
+                            ativo = b.ativo
+                        }).ToList();
             }
         }
     }
@@ -30,6 +38,7 @@ namespace TGV.IPEFAE.Web.BL.Data
 
         public int id       { get; set; }
         public string nome  { get; set; }
+        public int ordem    { get; set; }
         public bool ativo   { get; set; }
 
         #endregion [ FIM - Propriedades ]

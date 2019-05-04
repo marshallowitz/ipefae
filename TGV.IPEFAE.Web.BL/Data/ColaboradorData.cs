@@ -12,8 +12,53 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                //return db.colaborador.ToList().ConvertAll(c => c.CopyObject<ColaboradorModel>());
-                return db.colaborador.ToList().ConvertAll(c => new ColaboradorModel(c));
+                var cols = (from c in db.colaborador
+                           select new ColaboradorModel()
+                           {
+                               id = c.id,
+                               nome = c.nome,
+                               cpf = c.cpf,
+                               email = c.email,
+                               ativo = c.ativo,
+
+                               banco_id = c.banco_id,
+                               carteira_trabalho_estado_id = c.carteira_trabalho_estado_id,
+                               endereco_cidade_id = c.endereco_cidade_id,
+                               endereco_estado_id = c.tb_cid_cidade != null ? c.tb_cid_cidade.est_idt_estado : 0,
+                               naturalidade_cidade_id = c.naturalidade_cidade_id,
+                               naturalidade_estado_id = c.tb_cid_cidade1 != null ? c.tb_cid_cidade1.est_idt_estado : 0,
+                               rg = c.rg,
+                               carteira_trabalho_nro = c.carteira_trabalho_nro,
+                               carteira_trabalho_serie = c.carteira_trabalho_serie,
+                               titulo_eleitor_nro = c.titulo_eleitor_nro,
+                               titulo_eleitor_zona = c.titulo_eleitor_zona,
+                               titulo_eleitor_secao = c.titulo_eleitor_secao,
+                               pis_pasep_net = c.pis_pasep_net,
+                               data_nascimento = c.data_nascimento,
+                               nacionalidade = c.nacionalidade,
+                               nome_mae = c.nome_mae,
+                               nome_pai = c.nome_pai,
+                               sexo_masculino = c.sexo_masculino,
+                               estado_civil = c.estado_civil,
+                               grau_instrucao_id = c.grau_instrucao_id,
+                               raca_id = c.raca_id,
+                               telefone_01 = c.telefone_01,
+                               telefone_02 = c.telefone_02,
+                               senha = c.senha,
+                               tipo_conta = c.tipo_conta,
+                               agencia = c.agencia,
+                               agencia_digito = c.agencia_digito,
+                               conta_corrente = c.conta_corrente,
+                               conta_corrente_digito = c.conta_corrente_digito,
+                               endereco_cep = c.endereco_cep,
+                               endereco_logradouro = c.endereco_logradouro,
+                               endereco_nro = c.endereco_nro,
+                               endereco_bairro = c.endereco_bairro,
+                               endereco_complemento = c.endereco_complemento,
+                               dados_ok = c.dados_ok
+                           });
+
+                return cols.ToList();
             }
         }
 
@@ -138,7 +183,54 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return ColaboradorModel.Clone(db.colaborador.Include("tb_cid_cidade").Include("tb_cid_cidade1").SingleOrDefault(col => col.id == id));
+                var col = (from c in db.colaborador
+                           where c.id == id
+                           select new ColaboradorModel()
+                           {
+                               id = c.id,
+                               nome = c.nome,
+                               cpf = c.cpf,
+                               email = c.email,
+                               ativo = c.ativo,
+
+                               banco_id = c.banco_id,
+                               carteira_trabalho_estado_id = c.carteira_trabalho_estado_id,
+                               endereco_cidade_id = c.endereco_cidade_id,
+                               endereco_estado_id = c.tb_cid_cidade != null ? c.tb_cid_cidade.est_idt_estado : 0,
+                               naturalidade_cidade_id = c.naturalidade_cidade_id,
+                               naturalidade_estado_id = c.tb_cid_cidade1 != null ? c.tb_cid_cidade1.est_idt_estado : 0,
+                               rg = c.rg,
+                               carteira_trabalho_nro = c.carteira_trabalho_nro,
+                               carteira_trabalho_serie = c.carteira_trabalho_serie,
+                               titulo_eleitor_nro = c.titulo_eleitor_nro,
+                               titulo_eleitor_zona = c.titulo_eleitor_zona,
+                               titulo_eleitor_secao = c.titulo_eleitor_secao,
+                               pis_pasep_net = c.pis_pasep_net,
+                               data_nascimento = c.data_nascimento,
+                               nacionalidade = c.nacionalidade,
+                               nome_mae = c.nome_mae,
+                               nome_pai = c.nome_pai,
+                               sexo_masculino = c.sexo_masculino,
+                               estado_civil = c.estado_civil,
+                               grau_instrucao_id = c.grau_instrucao_id,
+                               raca_id = c.raca_id,
+                               telefone_01 = c.telefone_01,
+                               telefone_02 = c.telefone_02,
+                               senha = c.senha,
+                               tipo_conta = c.tipo_conta,
+                               agencia = c.agencia,
+                               agencia_digito = c.agencia_digito,
+                               conta_corrente = c.conta_corrente,
+                               conta_corrente_digito = c.conta_corrente_digito,
+                               endereco_cep = c.endereco_cep,
+                               endereco_logradouro = c.endereco_logradouro,
+                               endereco_nro = c.endereco_nro,
+                               endereco_bairro = c.endereco_bairro,
+                               endereco_complemento = c.endereco_complemento,
+                               dados_ok = c.dados_ok
+                           });
+
+                return col.SingleOrDefault();
             }
         }
 
@@ -146,7 +238,54 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return db.colaborador.SingleOrDefault(col => col.cpf == cpf).CopyObject<ColaboradorModel>();
+                var col = (from c in db.colaborador
+                           where c.cpf == cpf
+                           select new ColaboradorModel()
+                           {
+                               id = c.id,
+                               nome = c.nome,
+                               cpf = c.cpf,
+                               email = c.email,
+                               ativo = c.ativo,
+
+                               banco_id = c.banco_id,
+                               carteira_trabalho_estado_id = c.carteira_trabalho_estado_id,
+                               endereco_cidade_id = c.endereco_cidade_id,
+                               endereco_estado_id = c.tb_cid_cidade != null ? c.tb_cid_cidade.est_idt_estado : 0,
+                               naturalidade_cidade_id = c.naturalidade_cidade_id,
+                               naturalidade_estado_id = c.tb_cid_cidade1 != null ? c.tb_cid_cidade1.est_idt_estado : 0,
+                               rg = c.rg,
+                               carteira_trabalho_nro = c.carteira_trabalho_nro,
+                               carteira_trabalho_serie = c.carteira_trabalho_serie,
+                               titulo_eleitor_nro = c.titulo_eleitor_nro,
+                               titulo_eleitor_zona = c.titulo_eleitor_zona,
+                               titulo_eleitor_secao = c.titulo_eleitor_secao,
+                               pis_pasep_net = c.pis_pasep_net,
+                               data_nascimento = c.data_nascimento,
+                               nacionalidade = c.nacionalidade,
+                               nome_mae = c.nome_mae,
+                               nome_pai = c.nome_pai,
+                               sexo_masculino = c.sexo_masculino,
+                               estado_civil = c.estado_civil,
+                               grau_instrucao_id = c.grau_instrucao_id,
+                               raca_id = c.raca_id,
+                               telefone_01 = c.telefone_01,
+                               telefone_02 = c.telefone_02,
+                               senha = c.senha,
+                               tipo_conta = c.tipo_conta,
+                               agencia = c.agencia,
+                               agencia_digito = c.agencia_digito,
+                               conta_corrente = c.conta_corrente,
+                               conta_corrente_digito = c.conta_corrente_digito,
+                               endereco_cep = c.endereco_cep,
+                               endereco_logradouro = c.endereco_logradouro,
+                               endereco_nro = c.endereco_nro,
+                               endereco_bairro = c.endereco_bairro,
+                               endereco_complemento = c.endereco_complemento,
+                               dados_ok = c.dados_ok
+                           });
+
+                return col.SingleOrDefault();
             }
         }
 
@@ -154,7 +293,54 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return db.colaborador.SingleOrDefault(col => col.email.Equals(email, StringComparison.InvariantCultureIgnoreCase)).CopyObject<ColaboradorModel>();
+                var col = (from c in db.colaborador
+                           where c.email.Equals(email, StringComparison.InvariantCultureIgnoreCase)
+                           select new ColaboradorModel()
+                           {
+                               id = c.id,
+                               nome = c.nome,
+                               cpf = c.cpf,
+                               email = c.email,
+                               ativo = c.ativo,
+
+                               banco_id = c.banco_id,
+                               carteira_trabalho_estado_id = c.carteira_trabalho_estado_id,
+                               endereco_cidade_id = c.endereco_cidade_id,
+                               endereco_estado_id = c.tb_cid_cidade != null ? c.tb_cid_cidade.est_idt_estado : 0,
+                               naturalidade_cidade_id = c.naturalidade_cidade_id,
+                               naturalidade_estado_id = c.tb_cid_cidade1 != null ? c.tb_cid_cidade1.est_idt_estado : 0,
+                               rg = c.rg,
+                               carteira_trabalho_nro = c.carteira_trabalho_nro,
+                               carteira_trabalho_serie = c.carteira_trabalho_serie,
+                               titulo_eleitor_nro = c.titulo_eleitor_nro,
+                               titulo_eleitor_zona = c.titulo_eleitor_zona,
+                               titulo_eleitor_secao = c.titulo_eleitor_secao,
+                               pis_pasep_net = c.pis_pasep_net,
+                               data_nascimento = c.data_nascimento,
+                               nacionalidade = c.nacionalidade,
+                               nome_mae = c.nome_mae,
+                               nome_pai = c.nome_pai,
+                               sexo_masculino = c.sexo_masculino,
+                               estado_civil = c.estado_civil,
+                               grau_instrucao_id = c.grau_instrucao_id,
+                               raca_id = c.raca_id,
+                               telefone_01 = c.telefone_01,
+                               telefone_02 = c.telefone_02,
+                               senha = c.senha,
+                               tipo_conta = c.tipo_conta,
+                               agencia = c.agencia,
+                               agencia_digito = c.agencia_digito,
+                               conta_corrente = c.conta_corrente,
+                               conta_corrente_digito = c.conta_corrente_digito,
+                               endereco_cep = c.endereco_cep,
+                               endereco_logradouro = c.endereco_logradouro,
+                               endereco_nro = c.endereco_nro,
+                               endereco_bairro = c.endereco_bairro,
+                               endereco_complemento = c.endereco_complemento,
+                               dados_ok = c.dados_ok
+                           });
+
+                return col.SingleOrDefault();
             }
         }
 
@@ -162,7 +348,55 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return db.colaborador.SingleOrDefault(col => col.email.Equals(email, StringComparison.InvariantCultureIgnoreCase) && col.senha == senhaCriptografada).CopyObject<ColaboradorModel>();
+                var col = (from c in db.colaborador
+                           where c.email.Equals(email, StringComparison.InvariantCultureIgnoreCase)
+                           && c.senha == senhaCriptografada
+                           select new ColaboradorModel()
+                           {
+                               id = c.id,
+                               nome = c.nome,
+                               cpf = c.cpf,
+                               email = c.email,
+                               ativo = c.ativo,
+
+                               banco_id = c.banco_id,
+                               carteira_trabalho_estado_id = c.carteira_trabalho_estado_id,
+                               endereco_cidade_id = c.endereco_cidade_id,
+                               endereco_estado_id = c.tb_cid_cidade != null ? c.tb_cid_cidade.est_idt_estado : 0,
+                               naturalidade_cidade_id = c.naturalidade_cidade_id,
+                               naturalidade_estado_id = c.tb_cid_cidade1 != null ? c.tb_cid_cidade1.est_idt_estado : 0,
+                               rg = c.rg,
+                               carteira_trabalho_nro = c.carteira_trabalho_nro,
+                               carteira_trabalho_serie = c.carteira_trabalho_serie,
+                               titulo_eleitor_nro = c.titulo_eleitor_nro,
+                               titulo_eleitor_zona = c.titulo_eleitor_zona,
+                               titulo_eleitor_secao = c.titulo_eleitor_secao,
+                               pis_pasep_net = c.pis_pasep_net,
+                               data_nascimento = c.data_nascimento,
+                               nacionalidade = c.nacionalidade,
+                               nome_mae = c.nome_mae,
+                               nome_pai = c.nome_pai,
+                               sexo_masculino = c.sexo_masculino,
+                               estado_civil = c.estado_civil,
+                               grau_instrucao_id = c.grau_instrucao_id,
+                               raca_id = c.raca_id,
+                               telefone_01 = c.telefone_01,
+                               telefone_02 = c.telefone_02,
+                               senha = c.senha,
+                               tipo_conta = c.tipo_conta,
+                               agencia = c.agencia,
+                               agencia_digito = c.agencia_digito,
+                               conta_corrente = c.conta_corrente,
+                               conta_corrente_digito = c.conta_corrente_digito,
+                               endereco_cep = c.endereco_cep,
+                               endereco_logradouro = c.endereco_logradouro,
+                               endereco_nro = c.endereco_nro,
+                               endereco_bairro = c.endereco_bairro,
+                               endereco_complemento = c.endereco_complemento,
+                               dados_ok = c.dados_ok
+                           });
+
+                return col.SingleOrDefault();
             }
         }
 

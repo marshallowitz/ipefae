@@ -10,7 +10,13 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return db.grau_instrucao.ToList().ConvertAll(gi => gi.CopyObject<GrauInstrucaoModel>());
+                return (from gi in db.grau_instrucao
+                        select new GrauInstrucaoModel()
+                        {
+                            id = gi.id,
+                            nome = gi.nome,
+                            ativo = gi.ativo
+                        }).ToList();
             }
         }
     }

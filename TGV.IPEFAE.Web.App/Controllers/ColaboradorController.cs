@@ -59,7 +59,7 @@ namespace TGV.IPEFAE.Web.App.Controllers
         public ActionResult ListarDadosTela()
         {
             List<BancoModel> bancos = BancoBusiness.Listar();
-            List<TGV.IPEFAE.Web.App.Models.EstadoModel> estados = EstadoBusiness.Listar().ConvertAll(e => new TGV.IPEFAE.Web.App.Models.EstadoModel(e));
+            List<BL.Data.EstadoModel> estados = EstadoBusiness.ListarModel();
             List<GrauInstrucaoModel> grausInstrucao = GrauInstrucaoBusiness.Listar();
             List<RacaModel> racas = RacaBusiness.Listar();
 
