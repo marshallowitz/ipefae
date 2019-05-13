@@ -72,6 +72,7 @@
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_tb_cid_cidade_naturalidade" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_colaborador_tb_est_estado" />
         <AssociationConnector Association="TGV.IPEFAE.Web.Data.FK_concurso_local_colaborador_colaborador" />
+        <EntityTypeShape EntityType="TGV.IPEFAE.Web.Data.neotrading" Width="1.5" PointX="0.75" PointY="11.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

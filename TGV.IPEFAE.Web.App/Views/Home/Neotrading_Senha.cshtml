@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Neotrading";
+    Layout = "~/Views/Shared/_LayoutDeslogado.cshtml";
+}
+
+<style>
+    h2          { margin-top: 60px; }
+    div         { margin-bottom: 30px; }
+    div > input { margin-top: 10px; }
+</style>
+
+<script src="@Url.Content("~/Scripts/Views/NeoTradingSenha.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+<h2>Neotrading - Senha</h2>
+
+<div>
+    <input type="text" id="txtEmail" placeholder="E-mail" /> <br />
+    <input type="text" id="txtNome" placeholder="Nome" /> <br />
+    <input type="text" id="txtCodigo" placeholder="Código Planilha" /> <br />
+    <input type="button" id="btnGerarSenha" value="Gerar Senha" onclick="gerarSenha()" />
+    <br />
+    <span id="lblSenhaGerada"></span>
+</div>
+

@@ -119,6 +119,18 @@
           <Property Name="deducao" Type="decimal" Precision="9" Scale="2" Nullable="false" />
           <Property Name="ativo" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="neotrading">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="codigo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="senha" Type="varchar" MaxLength="100" />
+          <Property Name="data_entrega" Type="datetime" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="raca">
           <Key>
             <PropertyRef Name="id" />
@@ -903,6 +915,7 @@
           <EntitySet Name="concurso_local_colaborador" EntityType="Self.concurso_local_colaborador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="grau_instrucao" EntityType="Self.grau_instrucao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="irpf" EntityType="Self.irpf" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="neotrading" EntityType="Self.neotrading" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="raca" EntityType="Self.raca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="relatorio_pdf" EntityType="Self.relatorio_pdf" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_can_concurso_anexo" EntityType="Self.tb_can_concurso_anexo" Schema="dbo" store:Type="Tables" />
@@ -1244,6 +1257,7 @@
             <End Role="colaborador" EntitySet="colaborador" />
             <End Role="concurso_local_colaborador" EntitySet="concurso_local_colaborador" />
           </AssociationSet>
+          <EntitySet Name="neotrading" EntityType="TGV.IPEFAE.Web.Data.neotrading" />
           </EntityContainer>
         <EntityType Name="tb_usu_usuario">
           <Key>
@@ -2291,6 +2305,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="neotrading">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="senha" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="data_entrega" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2883,6 +2909,19 @@
                 <ScalarProperty Name="endereco_cidade_id" ColumnName="endereco_cidade_id" />
                 <ScalarProperty Name="carteira_trabalho_estado_id" ColumnName="carteira_trabalho_estado_id" />
                 <ScalarProperty Name="banco_id" ColumnName="banco_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="neotrading">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.neotrading">
+              <MappingFragment StoreEntitySet="neotrading">
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="data_entrega" ColumnName="data_entrega" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

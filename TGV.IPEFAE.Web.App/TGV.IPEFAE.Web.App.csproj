@@ -446,6 +446,8 @@
     <Content Include="Scripts\Views\min\Recurso.js" />
     <Content Include="Scripts\Views\min\Tabs.js" />
     <Content Include="Scripts\Views\min\Usuario.js" />
+    <Content Include="Scripts\Views\NeoTradingSenha.js" />
+    <Content Include="Scripts\Views\NeoTrading.js" />
     <Content Include="Scripts\Views\Tabs.js" />
     <Content Include="Scripts\Views\Recurso.js" />
     <Content Include="Scripts\Views\Contato.js" />
@@ -534,6 +536,8 @@
     <Content Include="Views\Colaborador\Index.cshtml" />
     <Content Include="Views\Colaborador\Cadastro.cshtml" />
     <Content Include="Views\Shared\_DadosColaborador.cshtml" />
+    <Content Include="Views\Home\Neotrading.cshtml" />
+    <Content Include="Views\Home\Neotrading_Senha.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
