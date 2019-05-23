@@ -438,7 +438,7 @@ function iniciarTelaCadastroEstagio(idEstado, idCidade, idEstadoCarteiraTrabalho
     $('.remover-foto').on('click', function () { removerFoto() });
 
     carregarEstados($('#ddlEstado'), idEstado, true, idCidade);
-    carregarEstados($('#ddlCarteiraTrabalhoUF'), idEstadoCarteiraTrabalho, false);
+    //carregarEstados($('#ddlCarteiraTrabalhoUF'), idEstadoCarteiraTrabalho, false);
 
     $('#txtCPF').mask('999.999.999-99');
 
@@ -1226,7 +1226,7 @@ function salvarUsuarioExistente(id)
         observacoesAdmin = $('#txtObsAdmin').val();
     }
 
-    $.blockUI({ message: mensagemBlockUISalvar, css: cssCarregando, timeout: 2000 });
+    $('.container.marginBottom-30').addClass('whirl');
     var url = homePage + 'Estagio/Salvar';
 
     $.ajax({
@@ -1239,18 +1239,24 @@ function salvarUsuarioExistente(id)
         success: function (retorno) {
             // Exibe mensagem na tela
             alert(curriculoSalvoSucesso);
-            $('#hdnId').val(retorno.Id);
-            $('#hdnIdDadosEstagio').val(retorno.IdDadosEscolares);
+            window.location.href = '/Estagio/Cadastro/' + retorno.Id;
 
-            var href = $('#btnPreview').attr('href');
-            $('#btnPreview').attr('href', href.replace('/0', '/' + retorno.Id));
+            //$('#hdnId').val(retorno.Id);
+            //$('#hdnIdDadosEstagio').val(retorno.IdDadosEscolares);
 
-            href = $('#btnPDF').attr('href');
-            $('#btnPDF').attr('href', href.replace('/0', '/' + retorno.Id));
+            //var href = $('#btnPreview').attr('href');
 
-            $('#btnPreview').show();
-            $('#btnPDF').show();
-            $.unblockUI();
+            //if (href !== undefined)
+            //    $('#btnPreview').attr('href', href.replace('/0', '/' + retorno.Id));
+
+            //href = $('#btnPDF').attr('href');
+
+            //if (href !== undefined)
+            //    $('#btnPDF').attr('href', href.replace('/0', '/' + retorno.Id));
+
+            //$('#btnPreview').show();
+            //$('#btnPDF').show();
+            //$.unblockUI();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             $.unblockUI();
