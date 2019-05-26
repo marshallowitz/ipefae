@@ -86,7 +86,7 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
             List<ConcursoLocalColaboradorModel> locaisColaboradores = ConcursoLocalColaboradorModel.Listar(idConcurso);
             tb_emp_empresa emitente = EmpresaBusiness.Obter(1);
 
-            List<ColaboradorModel> cs = ColaboradorBusiness.ListarPorConcurso(idConcurso, inicio, total);
+            List<ColaboradorModel> cs = locaisColaboradores.Skip(inicio - 1).Take(total).Select(clc => clc.colaborador).OrderBy(c => c.nome).ToList();
             List<ColaboradorRPAModel> colaboradores = cs.ConvertAll(c => ColaboradorRPAModel.Clone(c, locaisColaboradores, irpfs, emitente));
             return Json(new { Colaboradores = colaboradores }, JsonRequestBehavior.AllowGet);
         }

@@ -394,7 +394,93 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return db.concurso_local_colaborador.Include("concurso_funcao").Where(clc => clc.concurso_local.concurso_id == idConcurso).ToList().ConvertAll(clc => ConcursoLocalColaboradorModel.Clone(clc));
+                var lista = (from clc in db.concurso_local_colaborador
+                             where clc.concurso_local.concurso_id == idConcurso
+                             select new ConcursoLocalColaboradorModel()
+                             {
+                                 id = clc.id,
+                                 concurso_local_id = clc.concurso_local_id,
+                                 colaborador_id = clc.colaborador_id,
+                                 funcao_id = clc.funcao_id,
+                                 valor = clc.valor,
+                                 inss = clc.inss,
+                                 iss = clc.iss,
+                                 ativo = clc.ativo,
+
+                                 colaborador = new ColaboradorModel()
+                                 {
+                                     id = clc.colaborador.id,
+                                     nome = clc.colaborador.nome,
+                                     cpf = clc.colaborador.cpf,
+                                     email = clc.colaborador.email,
+                                     ativo = clc.colaborador.ativo,
+
+                                     banco_id = clc.colaborador.banco_id,
+                                     carteira_trabalho_estado_id = clc.colaborador.carteira_trabalho_estado_id,
+                                     endereco_cidade_id = clc.colaborador.endereco_cidade_id,
+                                     endereco_estado_id = clc.colaborador.tb_cid_cidade != null ? clc.colaborador.tb_cid_cidade.est_idt_estado : 0,
+                                     endereco_cidade = clc.colaborador.tb_cid_cidade != null && clc.colaborador.tb_cid_cidade.tb_est_estado != null ? new CidadeModel()
+                                     {
+                                         Id = clc.colaborador.tb_cid_cidade.cid_idt_cidade,
+                                         IdEstado = clc.colaborador.tb_cid_cidade.est_idt_estado,
+                                         Nome = clc.colaborador.tb_cid_cidade.cid_nom_cidade,
+                                         Ativo = clc.colaborador.tb_cid_cidade.cid_bit_ativo,
+
+                                         Estado = new EstadoModel()
+                                         {
+                                             Id = clc.colaborador.tb_cid_cidade.tb_est_estado.est_idt_estado,
+                                             Nome = clc.colaborador.tb_cid_cidade.tb_est_estado.est_nom_estado,
+                                             Sigla = clc.colaborador.tb_cid_cidade.tb_est_estado.est_sig_estado,
+                                             Ativo = clc.colaborador.tb_cid_cidade.tb_est_estado.est_bit_ativo
+                                         }
+                                     } : null,
+                                     naturalidade_cidade_id = clc.colaborador.naturalidade_cidade_id,
+                                     naturalidade_estado_id = clc.colaborador.tb_cid_cidade1 != null ? clc.colaborador.tb_cid_cidade1.est_idt_estado : 0,
+                                     rg = clc.colaborador.rg,
+                                     carteira_trabalho_nro = clc.colaborador.carteira_trabalho_nro,
+                                     carteira_trabalho_serie = clc.colaborador.carteira_trabalho_serie,
+                                     titulo_eleitor_nro = clc.colaborador.titulo_eleitor_nro,
+                                     titulo_eleitor_zona = clc.colaborador.titulo_eleitor_zona,
+                                     titulo_eleitor_secao = clc.colaborador.titulo_eleitor_secao,
+                                     pis_pasep_net = clc.colaborador.pis_pasep_net,
+                                     data_nascimento = clc.colaborador.data_nascimento,
+                                     nacionalidade = clc.colaborador.nacionalidade,
+                                     nome_mae = clc.colaborador.nome_mae,
+                                     nome_pai = clc.colaborador.nome_pai,
+                                     sexo_masculino = clc.colaborador.sexo_masculino,
+                                     estado_civil = clc.colaborador.estado_civil,
+                                     grau_instrucao_id = clc.colaborador.grau_instrucao_id,
+                                     raca_id = clc.colaborador.raca_id,
+                                     telefone_01 = clc.colaborador.telefone_01,
+                                     telefone_02 = clc.colaborador.telefone_02,
+                                     senha = clc.colaborador.senha,
+                                     tipo_conta = clc.colaborador.tipo_conta,
+                                     agencia = clc.colaborador.agencia,
+                                     agencia_digito = clc.colaborador.agencia_digito,
+                                     conta_corrente = clc.colaborador.conta_corrente,
+                                     conta_corrente_digito = clc.colaborador.conta_corrente_digito,
+                                     endereco_cep = clc.colaborador.endereco_cep,
+                                     endereco_logradouro = clc.colaborador.endereco_logradouro,
+                                     endereco_nro = clc.colaborador.endereco_nro,
+                                     endereco_bairro = clc.colaborador.endereco_bairro,
+                                     endereco_complemento = clc.colaborador.endereco_complemento,
+                                     dados_ok = clc.colaborador.dados_ok
+                                 },
+
+                                 funcao = new ConcursoFuncaoModel()
+                                 {
+                                     id = clc.concurso_funcao.id,
+                                     concurso_id = clc.concurso_funcao.concurso_id,
+                                     funcao = clc.concurso_funcao.funcao,
+                                     valor_liquido = clc.concurso_funcao.valor_liquido,
+                                     sem_desconto = clc.concurso_funcao.sem_desconto,
+                                     ativo = clc.concurso_funcao.ativo,
+
+                                     temAssociacao = clc.concurso_funcao.concurso_local_colaborador.Count > 0
+                                 }
+                             });
+
+                return lista.ToList();
             }
         }
 

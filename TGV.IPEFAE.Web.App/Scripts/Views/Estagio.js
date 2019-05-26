@@ -174,30 +174,29 @@ function carregarOutrosConhecimentos(idUsuarioEstagio)
     });
 }
 
-function carregarEstados(ddl, idEstado, exibirNome, idCidade) {
-    var url = homePage + 'Estagio/CarregarEstados';
+function carregarCidades(idEstado, idCidade)
+{
+    var ddl = $('#ddlCidade');
+    var url = homePage + 'Estagio/CarregarCidades';
 
     $.ajax({
         type: "POST",
         url: url,
-        data: { exibirNome: exibirNome },
-        success: function (items) {
+        data: { est_idt_estado: idEstado },
+        success: function (items)
+        {
             ddl.empty();
             var data = items.data ? items.data : items;
 
-            if (data.length > 0) {
+            if (data.length > 0)
+            {
                 ddl.addItems({ data: data, valueName: 'Value', textName: 'Text' });
-                ddl.val(idEstado);
-
-                if (ddl.attr('id') == 'ddlEstado' && idEstado > 0 && idCidade > 0) {
-                    $('#ddlEstado').trigger('change');
-                    $('#ddlCidade').val(idCidade);
-                }
+                ddl.val(idCidade);
+                ddl.removeAttr('disabled');
             }
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alertaErroJS({ NomeFuncao: 'carregarEstados()', ResponseText: xhr.responseText });
-            $.unblockUI();
+            alertaErroJS({ NomeFuncao: 'carregarCidades()', ResponseText: xhr.responseText });
         }
     });
 }
@@ -437,8 +436,16 @@ function iniciarTelaCadastroEstagio(idEstado, idCidade, idEstadoCarteiraTrabalho
     var id = $('#hdnId').val();
     $('.remover-foto').on('click', function () { removerFoto() });
 
-    carregarEstados($('#ddlEstado'), idEstado, true, idCidade);
+    //carregarEstados($('#ddlEstado'), idEstado, true, idCidade);
     //carregarEstados($('#ddlCarteiraTrabalhoUF'), idEstadoCarteiraTrabalho, false);
+    $('#ddlEstado').val(idEstado);
+
+    if (idEstado > 0 && idCidade > 0)
+    {
+        carregarCidades(idEstado, idCidade);
+    }
+
+    $('#ddlCarteiraTrabalhoUF').val(idEstadoCarteiraTrabalho);
 
     $('#txtCPF').mask('999.999.999-99');
 

@@ -726,7 +726,7 @@ namespace TGV.IPEFAE.Web.BL.Data
             ColaboradorRPAModel colaborador = col.CopyObject<ColaboradorRPAModel>();
 
             if (col.endereco_cidade != null && col.endereco_cidade.Estado != null)
-                colaborador.endereco_cidade_uf_nome = $"{col.endereco_cidade.Nome}{col.endereco_cidade.Estado.Sigla}";
+                colaborador.endereco_cidade_uf_nome = $"{col.endereco_cidade.Nome}/{col.endereco_cidade.Estado.Sigla}";
 
             if (locaisColaboradores.Count > 0)
             {
