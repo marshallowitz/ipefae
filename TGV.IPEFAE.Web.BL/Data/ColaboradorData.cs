@@ -412,8 +412,6 @@ namespace TGV.IPEFAE.Web.BL.Data
                     db.colaborador.Add(toUpdate);
                     cM.ativo = true;
                 }
-                else
-                    cM.senha = null;
 
                 toUpdate.agencia = cM.agencia;
                 toUpdate.agencia_digito = cM.agencia_digito;

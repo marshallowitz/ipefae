@@ -358,7 +358,7 @@ namespace TGV.IPEFAE.Web.BL.Business
             return ColaboradorData.ObterPorEmailSenha(email, senhaCriptografada);
         }
 
-        public static ColaboradorModel Salvar(ColaboradorModel cM)
+        public static ColaboradorModel Salvar(ColaboradorModel cM, bool novaSenha = false)
         {
             // Valida salvar por e-mail
             if (String.IsNullOrEmpty(cM.email))
@@ -379,8 +379,10 @@ namespace TGV.IPEFAE.Web.BL.Business
                 return null;
 
             // Se for criação, criptografa a senha
-            if (!String.IsNullOrEmpty(cM.senha))
+            if (!novaSenha && !String.IsNullOrEmpty(cM.senha))
                 cM.senha = cM.senha.Criptografar(BaseBusiness.ParametroSistema);
+            else if (novaSenha)
+                cM.senha = cM.senhaDescriptografada.Criptografar(BaseBusiness.ParametroSistema);
 
             ColaboradorModel retorno = ColaboradorData.Salvar(cM);
             retorno.senhaDescriptografada = retorno.senha.Descriptografar(BaseBusiness.ParametroSistema);

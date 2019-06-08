@@ -7,9 +7,17 @@
 function exibirSenha()
 {
     if ($('#chkVer').is(':checked'))
+    {
         $('#txtSenhaAdmin').attr('type', 'text');
+        $('#txtSenhaAdmin').removeAttr('readonly');
+        $('#spnVer').text('Esconder');
+    }
     else
+    {
         $('#txtSenhaAdmin').attr('type', 'password');
+        $('#txtSenhaAdmin').attr('readonly', true);
+        $('#spnVer').text('Alterar Senha');
+    }
 }
 
 function iniciarTelaListaColaboradores()
@@ -96,7 +104,7 @@ function iniciarTelaCadastroColaborador()
         }
     });
 
-    $("input").on('blur', function (e)
+    $("input:not('#txtSenhaAdmin')").on('blur', function (e)
     {
         var valor = $.trim(firstLetterCapitalized($(this).val()));
         $(this).val(valor);
@@ -405,6 +413,33 @@ function reenviarSenha()
 
         function _activate()
         {
+            $('.modal-senha').on('show.bs.modal', function ()
+            {
+                $scope.senhaAnterior = $scope.colaborador.senha;
+                $scope.colaborador.senha = '';
+                $scope.colaborador.confirmacaoSenha = '';
+                //console.log('show', $scope.colaborador.senha, $scope.senhaAnterior);
+            });
+
+            $('.modal-senha').on('hidden.bs.modal', function ()
+            {
+                $scope.colaborador.senha = $scope.senhaAnterior;
+                //console.log('hidden', $scope.colaborador.senha, $scope.senhaAnterior);
+            });
+
+            $scope.alterarSenha = function ()
+            {
+                $('.modal-senha').modal('show');
+            }
+
+            $scope.alterarSenhaSalvar = function (id)
+            {
+                var existente = id > 0;
+                $scope.colaborador.senhaDescriptografada = $scope.colaborador.senha;
+                $scope.salvarComSenha(existente);
+                //console.log('alterarSenhaSalvar', existente, $scope.colaborador.senha, $scope.colaborador.confirmacaoSenha, $scope.senhaAnterior)
+            }
+
             $scope.bloquearDesbloquearEdicao = function (bloquear)
             {
                 $("#colCadastroForm :input:not(':button')").prop("disabled", bloquear);
@@ -624,6 +659,14 @@ function reenviarSenha()
                 return result;
             }
 
+            $scope.limparCamposSenha = function ()
+            {
+                angular.forEach($scope.frmSenha.$$controls, function (field)
+                {
+                    field.$dirty = false;
+                });
+            }
+
             $scope.salvar = function()
             {
                 var firstErrorField = undefined;
@@ -697,12 +740,12 @@ function reenviarSenha()
                 $scope.colaborador.tipo_conta = $('#ddlTipoConta').val();
 
                 $scope.colaborador.dados_ok = $('#rdOK').length > 0 ? $('#rdOK').is(":checked") : $scope.colaborador.dados_ok;
-                
+
                 var url = homePage + 'Colaborador/Salvar';
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: { cM: $scope.colaborador },
+                    data: { cM: $scope.colaborador, novaSenha: existente },
                     success: function (retorno)
                     {
                         if (retorno.Sucesso)
@@ -712,10 +755,17 @@ function reenviarSenha()
                             $scope.colaborador = retorno.Colaborador;
 
                             if (isAdmin)
+                            {
                                 $scope.colaborador.senhaDescriptografada = retorno.SD;
+                                $('#chkVer').attr('checked', false);
+                                exibirSenha();
+                            }
 
-                            $scope.editarDados(false);
+                            $scope.editarDados($scope.editMode);
+                            $scope.editMode = false;
                             $scope.carregarColaborador();
+                            
+                            $scope.limparCamposSenha();
                             alert('Dados salvos com sucesso');
                         }
                     },

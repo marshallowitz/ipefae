@@ -88,10 +88,10 @@ namespace TGV.IPEFAE.Web.App.Controllers
             return Json(new { Sucesso = sucesso, IdColaborador = UsuarioLogado.Id, Url = UsuarioLogado.UrlAcessoInicial }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Salvar(ColaboradorModel cM)
+        public ActionResult Salvar(ColaboradorModel cM, bool novaSenha)
         {
             int id = cM.id;
-            ColaboradorModel colaborador = ColaboradorBusiness.Salvar(cM);
+            ColaboradorModel colaborador = ColaboradorBusiness.Salvar(cM, novaSenha);
 
             if (colaborador != null)
             {

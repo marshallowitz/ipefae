@@ -10,9 +10,8 @@
     $(function () { iniciarTelaCadastroColaborador(); });
 </script>
 
-<h2 class="titulo" style="margin-top: 30px;">Cadastro de Colaborador <a href="javascript:void(0)" ng-if="id > 0">Alterar Senha</a></h2> 
-
 <div class="container marginBottom-30" ng-controller="colaboradorController">
+    <h2 class="titulo" style="margin-top: 60px;">Cadastro de Colaborador <a href="javascript:void(0)" ng-if="@Model.id > 0 && !isAdmin" ng-click="alterarSenha()">Alterar Senha</a></h2> 
     <input type="hidden" id="hdnId" value="@Model.id" />
     <div class="row centro">
         <form id="colCadastroForm" name="colCadastroForm" class="colCadastroForm form-validate" novalidate="">
@@ -365,7 +364,7 @@
                                 <div class="row">
                                     <div class="col-md-12 text-center">
                                         <input type="button" name="btnCancelar" id="btnCancelar" class="btn btn-personal1 btn-lg" value="Cancelar" onclick="$('.modal-senha').modal('hide');" />
-                                        <input type="button" name="btnConfirmar" id="btnConfirmar" class="btn btn-success btn-lg" value="Confirmar" ng-click="salvarComSenha(false)" />
+                                        <input type="button" name="btnConfirmar" id="btnConfirmar" class="btn btn-success btn-lg" value="Confirmar" ng-click="alterarSenhaSalvar(@Model.id)" />
                                     </div>
                                 </div>
                             </form>
