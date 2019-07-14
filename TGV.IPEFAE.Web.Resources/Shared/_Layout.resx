@@ -132,6 +132,9 @@
   <data name="MenuAreasItemEstagios" xml:space="preserve">
     <value>Estágio</value>
   </data>
+  <data name="MenuAreasItemEstagiosTransparencia" xml:space="preserve">
+    <value>Estágio Transparência</value>
+  </data>
   <data name="MenuAreasItemUsuario" xml:space="preserve">
     <value>Usuários</value>
   </data>

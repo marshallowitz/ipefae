@@ -499,7 +499,7 @@
     <value>Foto</value>
   </data>
   <data name="LabelInfoFoto" xml:space="preserve">
-    <value>Somente arquivos de imagem</value>
+    <value>Somente arquivos de imagem (png ou jpg)</value>
   </data>
   <data name="MensagemRealizandoUpload" xml:space="preserve">
     <value>Carregando foto...</value>

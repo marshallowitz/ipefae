@@ -1,0 +1,88 @@
+﻿@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+<link href="@Url.Content("~/Content/Estagio.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<script src="@Url.Content("~/Scripts/Views/EstagioTransparencia.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+<style>
+    body                    { overflow: hidden; }
+    h2.titulo               { margin-top: 65px !important; }
+    .logomarca.rodape       { width: 180px !important; }
+    .logomarca.rodape .logo { width: 90% !important; }
+</style>
+
+<h2 class="titulo">Estágio - Transparência</h2>
+
+<div class="container estagio-transparencia" ng-controller="estagioTransparenciaController as ctrl">
+    
+    <div class="input-group pesquisa" ng-if="exibir">
+        <span class="input-group-addon"><em class="fa fa-search"></em></span>
+        <input type="text" placeholder="Pesquise Aqui!" class="form-control" ng-model="ctrl.filtro" />
+    </div>
+
+    <div class="row principal">
+
+        <div class="botoes">
+
+            <div class="col-md-2 col-md-offset-1 text-center" ng-click="listar(1)">
+                <div class="botao" ng-class="id_tipo_selecionado === 1 ? 'selecionado' : ''">
+                    <span class="title">
+                        Atas
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-2 text-center" ng-click="listar(2)">
+                <div class="botao" ng-class="id_tipo_selecionado === 2 ? 'selecionado' : ''">
+                    <span class="title">
+                        CNPJ
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-2 text-center" ng-click="listar(3)">
+                <div class="botao" ng-class="id_tipo_selecionado === 3 ? 'selecionado' : ''">
+                    <span class="title">
+                        DREs
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-2 text-center" ng-click="listar(4)">
+                <div class="botao" ng-class="id_tipo_selecionado === 4 ? 'selecionado' : ''">
+                    <span class="title">
+                        Estatuto
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-md-2 text-center" ng-click="listar(5)">
+                <div class="botao" ng-class="id_tipo_selecionado === 5 ? 'selecionado' : ''">
+                    <span class="title">
+                        Remuneração
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tabela col-md-12" ng-if="exibir">
+
+            <div class="emptyTable" ng-show="(arquivos | filter: filtrar).length <= 0"> Não foi encontrado nenhum documento na lista de {{tipo_selecionado}}</div>
+
+            <table class="table-responsive table-striped table-hover" ng-show="(arquivos | filter: filtrar).length > 0">
+                <thead>
+                    <tr>
+                        <th>{{tipo_selecionado}}</th>
+                        <th class="text-center">Baixar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="arquivo in arquivos | filter: filtrar">
+                        <td style="width: 80%">{{arquivo.nome}}</td>
+                        <td class="text-center"><a href="{{arquivo.url}}" target="_blank"><em class="fa fa-2x fa-download"></em></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

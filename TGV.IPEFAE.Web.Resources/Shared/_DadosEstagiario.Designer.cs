@@ -376,7 +376,7 @@ namespace TGV.IPEFAE.Web.Resources.Shared {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Somente arquivos de imagem.
+        ///   Looks up a localized string similar to Somente arquivos de imagem (png ou jpg).
         /// </summary>
         public static string LabelInfoFoto {
             get {

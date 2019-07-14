@@ -48,6 +48,51 @@ div.mensagem.sucesso        { background-color: #92D050; border-color: #00B050; 
 .est-botoes input[type=submit],
 .est-botoes a                           { width: 123px; }
 
+/********************************
+/**** ESTAGIO TRANSPARENCIA *****
+*********************************/
+.estagio-transparencia                      { height: calc(100vh - 190px); }
+.estagio-transparencia .principal           { overflow-y: auto; overflow-x: hidden; }
+
+.estagio-transparencia .botao               { background-color: rgba(102, 101, 254, 0.8); border-radius: 4px; color: #fff; cursor: pointer; height: 60px; line-height: 60px; width: 120px; }
+.estagio-transparencia .botao:hover         { background-color: rgba(102, 101, 254, 1); box-shadow: 2px 2px 5px #888888; }
+.estagio-transparencia .botao.selecionado   { background-color: rgba(255, 102, 52, 1); }
+
+.estagio-transparencia .tabela                                  { height: calc(100vh - 300px); margin-top: 30px; overflow-y: auto; }
+.estagio-transparencia .tabela table                            { margin: 0 auto; width: 80%; }
+.estagio-transparencia .tabela table thead tr                   { background-color: lightgray; line-height: 40px; }
+.estagio-transparencia .tabela table thead tr th:first-child    { padding-left: 10px; }
+.estagio-transparencia .tabela table tbody tr                   { line-height: 30px; }
+.estagio-transparencia .tabela table tbody tr td:first-child    { padding-left: 20px; }
+.estagio-transparencia .tabela table tbody tr td em.fa-2x       { font-size: 1.5em; vertical-align: middle; }
+
+.estagio-transparencia .pesquisa            { position: absolute; right: 10%; top: 50px; width: 20%; }
+.estagio-transparencia .pesquisa .fa        { color: #ccc; }
+
+.estagio-transparencia .emptyTable,
+.estagio-transparencia-cadastro .emptyTable { background-color: whitesmoke; border: solid 1px #CCC; border-radius: 4px; line-height: 40px; margin-bottom: 30px; margin-top: 30px; text-align: center; }
+
+.estagio-transparencia-cadastro             { height: calc(100vh - 90px); }
+
+.estagio-transparencia-cadastro .adicionar          { margin-top: 30px; }
+.estagio-transparencia-cadastro .adicionar .botoes  { line-height: 80px; }
+
+.estagio-transparencia-cadastro .tabela                                 { height: calc(100vh - 230px); margin-top: 30px; overflow-y: auto; }
+.estagio-transparencia-cadastro .tabela table                           { margin: 0 auto; width: 80%; }
+.estagio-transparencia-cadastro .tabela table thead tr                  { background-color: lightgray; line-height: 40px; }
+.estagio-transparencia-cadastro .tabela table thead tr th:first-child   { padding-left: 10px; }
+.estagio-transparencia-cadastro .tabela table tbody tr                  { line-height: 30px; }
+.estagio-transparencia-cadastro .tabela table tbody tr td:first-child   { padding-left: 20px; }
+.estagio-transparencia-cadastro .tabela table tbody tr td em.fa-2x      { font-size: 1.5em; vertical-align: middle; }
+
+.estagio-transparencia-cadastro small.aviso     { color: red; font-size: 10px; font-weight: normal; }
+.estagio-transparencia-cadastro .remover-pdf    { cursor: pointer; vertical-align: top; }
+
+.estagio-transparencia-cadastro .pesquisa       { position: absolute; right: 10%; top: 65px; width: 20%; }
+.estagio-transparencia-cadastro .pesquisa .fa   { color: #ccc; }
+
+.estagio-transparencia-cadastro .emptyTable     { margin-top: 0px; }
+
 @media (max-width: 1025px)
 {
     .deficienciaQual li:nth-child(4):after { content: "\A"; white-space: pre; }
@@ -81,3 +126,6 @@ div.mensagem.sucesso        { background-color: #92D050; border-color: #00B050; 
     fieldset .row                       { margin-right: 0px; }
     .link_exp, .link_cca, .link_oco     { font-size: 12px; }
 }
+
+
+

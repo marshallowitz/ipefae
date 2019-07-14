@@ -77,6 +77,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -117,9 +120,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=9.3.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.9.3.3\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NReco.PdfGenerator, Version=1.1.12.0, Culture=neutral, PublicKeyToken=231663d50a41b451, processorArchitecture=MSIL">
       <HintPath>..\packages\Boleto.Net.2.1.0.458\lib\NReco.PdfGenerator.dll</HintPath>
@@ -213,6 +221,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\ConcursoController.cs" />
+    <Compile Include="Areas\Admin\Controllers\EstagioTransparenciaController.cs" />
     <Compile Include="Areas\Admin\Controllers\oldConcursoController.cs" />
     <Compile Include="Areas\Admin\Controllers\ErrorController.cs" />
     <Compile Include="Areas\Admin\Controllers\EstagioController.cs" />
@@ -221,6 +230,7 @@
     <Compile Include="Areas\Admin\Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\BaseEstagioController.cs" />
     <Compile Include="Controllers\ColaboradorController.cs" />
+    <Compile Include="Controllers\EstagioTransparenciaController.cs" />
     <Compile Include="Controllers\EstagioController.cs" />
     <Compile Include="Controllers\StatusController.cs" />
     <Compile Include="Controllers\WebmailController.cs" />
@@ -243,6 +253,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper\AzureBlobHelper.cs" />
     <Compile Include="Models\AnexoModel.cs" />
     <Compile Include="Models\BancoBrasil\PagamentoModel.cs" />
     <Compile Include="Models\Bradesco\Comprador.cs" />
@@ -260,6 +271,7 @@
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\EstadoModel.cs" />
     <Compile Include="Models\PermissaoModel.cs" />
+    <Compile Include="Models\TransparenciaFilesAzure.cs" />
     <Compile Include="Models\UsuarioEstagioModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -312,6 +324,7 @@
     <Content Include="Content\imagens\notfound.jpg" />
     <Content Include="Content\imagens\notfound_mobile.jpg" />
     <Content Include="Content\imagens\PDF-icon.png" />
+    <Content Include="Content\imagens\pdf.png" />
     <Content Include="Content\imagens\remessa_upload.png" />
     <Content Include="Content\imagens\site-em-construcao.png" />
     <Content Include="Content\imagens\sliderArrow.png" />
@@ -397,6 +410,7 @@
     <Content Include="Areas\Admin\Views\Concurso\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Concurso\_ListaFuncoes.cshtml" />
     <Content Include="Areas\Admin\Views\Concurso\_ListaLocaisProva.cshtml" />
+    <Content Include="Areas\Admin\Views\EstagioTransparencia\Index.cshtml" />
     <None Include="Properties\PublishProfiles\ipefae - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ipefae - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
@@ -433,6 +447,7 @@
     <Content Include="Scripts\Views\Colaborador.js" />
     <Content Include="Scripts\Views\CursosScript.js" />
     <Content Include="Scripts\Views\Estagio.js" />
+    <Content Include="Scripts\Views\EstagioTransparencia.js" />
     <Content Include="Scripts\Views\Inscrito.js" />
     <Content Include="Scripts\Views\min\Concurso.js" />
     <Content Include="Scripts\Views\min\Contato.js" />
@@ -538,6 +553,7 @@
     <Content Include="Views\Shared\_DadosColaborador.cshtml" />
     <Content Include="Views\Home\Neotrading.cshtml" />
     <Content Include="Views\Home\Neotrading_Senha.cshtml" />
+    <Content Include="Views\EstagioTransparencia\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

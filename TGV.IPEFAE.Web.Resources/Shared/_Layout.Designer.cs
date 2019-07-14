@@ -106,6 +106,15 @@ namespace TGV.IPEFAE.Web.Resources.Shared {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Estágio Transparência.
+        /// </summary>
+        public static string MenuAreasItemEstagiosTransparencia {
+            get {
+                return ResourceManager.GetString("MenuAreasItemEstagiosTransparencia", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Usuários.
         /// </summary>
         public static string MenuAreasItemUsuario {
