@@ -51,13 +51,18 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
                 if (metadata != null && metadata.Count > 0)
                     metadata.TryGetValue("Nome", out nomeArquivo);
 
-                if (!nomeArquivo.Contains(nome))
+                if (!nomeArquivo.ToLower().Contains(nome.ToLower()))
                     continue;
+
+                string pasta = AzureBlobHelper.ObterPasta((TransparenciaTipo)tipo);
+
+                if (pasta == "Ata")
+                    pasta = "Ata / CNPJ / Estatuto";
 
                 arquivos.Add(new TransparenciaFilesAzure()
                 {
                     tipo_id = tipo,
-                    tipo_nome = AzureBlobHelper.ObterPasta((TransparenciaTipo)tipo),
+                    tipo_nome = pasta,
                     nome = nomeArquivo,
                     url = azureFile.Uri.ToString()
                 });

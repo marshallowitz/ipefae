@@ -41,14 +41,14 @@ namespace TGV.IPEFAE.Web.App.Helper
             {
                 case TransparenciaTipo.Atas:
                     return "Ata";
-                case TransparenciaTipo.CNPJ:
-                    return "CNPJ";
-                case TransparenciaTipo.DREs:
-                    return "DRE";
-                case TransparenciaTipo.Estatuto:
-                    return "Estatuto";
-                case TransparenciaTipo.Remuneracoes:
-                    return "Remuneracao";
+                case TransparenciaTipo.Contabil:
+                    return "Contabil";
+                case TransparenciaTipo.Termo_Remuneracao:
+                    return "Termo_Remuneracao";
+                //case TransparenciaTipo.Estatuto:
+                //    return "Estatuto";
+                //case TransparenciaTipo.Remuneracoes:
+                //    return "Remuneracao";
                 default:
                     return "Ata";
             }
@@ -101,9 +101,7 @@ namespace TGV.IPEFAE.Web.App.Helper
     public enum TransparenciaTipo
     {
         Atas = 1,
-        CNPJ = 2,
-        DREs = 3,
-        Estatuto = 4,
-        Remuneracoes = 5
+        Contabil = 2,
+        Termo_Remuneracao = 3
     }
 }

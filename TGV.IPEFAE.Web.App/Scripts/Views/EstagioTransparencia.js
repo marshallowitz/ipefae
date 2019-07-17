@@ -41,20 +41,20 @@
                 switch (tipo)
                 {
                     case 1:
-                        $scope.tipo_selecionado = "Atas";
+                        $scope.tipo_selecionado = "Atas / CNPJ / Estatuto";
                         break;
                     case 2:
-                        $scope.tipo_selecionado = "CNPJ";
+                        $scope.tipo_selecionado = "Contábil";
                         break;
                     case 3:
-                        $scope.tipo_selecionado = "DREs";
+                        $scope.tipo_selecionado = "Termo de Colaboração";
                         break;
-                    case 4:
-                        $scope.tipo_selecionado = "Estatuto";
-                        break;
-                    case 5:
-                        $scope.tipo_selecionado = "Remuneração";
-                        break;
+                    //case 4:
+                    //    $scope.tipo_selecionado = "Estatuto";
+                    //    break;
+                    //case 5:
+                    //    $scope.tipo_selecionado = "Remuneração";
+                    //    break;
                     default:
                         inicializarTela();
                         break;
@@ -178,7 +178,7 @@
             {
                 $('.adicionar').addClass('whirl');
                 var tipo = $scope.novoArquivo.tipo;
-                var nome = $scope.novoArquivo.nome;
+                var nome = $scope.novoArquivo.nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
                 $.ajax({
                     type: "POST",

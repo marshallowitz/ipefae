@@ -54,7 +54,7 @@ div.mensagem.sucesso        { background-color: #92D050; border-color: #00B050; 
 .estagio-transparencia                      { height: calc(100vh - 190px); }
 .estagio-transparencia .principal           { overflow-y: auto; overflow-x: hidden; }
 
-.estagio-transparencia .botao               { background-color: rgba(102, 101, 254, 0.8); border-radius: 4px; color: #fff; cursor: pointer; height: 60px; line-height: 60px; width: 120px; }
+.estagio-transparencia .botao               { background-color: rgba(102, 101, 254, 0.8); border-radius: 4px; color: #fff; cursor: pointer; height: 60px; line-height: 60px; }
 .estagio-transparencia .botao:hover         { background-color: rgba(102, 101, 254, 1); box-shadow: 2px 2px 5px #888888; }
 .estagio-transparencia .botao.selecionado   { background-color: rgba(255, 102, 52, 1); }
 
