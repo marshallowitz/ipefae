@@ -255,9 +255,9 @@ function reenviarSenha()
     'use strict';
 
     angular.module('ipefae').controller('colaboradorController', colaboradorController);
-    colaboradorController.$inject = ['$scope', '$rootScope', '$http', '$q', '$timeout'];
+    colaboradorController.$inject = ['$scope', '$rootScope', '$http', '$injector', '$q', '$timeout'];
 
-    function colaboradorController($scope, $rootScope, $http, $q, $timeout)
+    function colaboradorController($scope, $rootScope, $http, $injector, $q, $timeout)
     {
         var vm = this;
         vm.activate = _activate;
@@ -313,41 +313,31 @@ function reenviarSenha()
         function carregarDados(id)
         {
             $('#ddlGrauInstrucao').parent().addClass('whirl');
+            $('#ddlRaca').parent().addClass('whirl');
+            $('#ddlBanco').parent().addClass('whirl');
             $('#ddlCarteiraTrabalhoUF').parent().addClass('whirl');
             $('#ddlNaturalidadeUF').parent().addClass('whirl');
             $('#ddlEstado').parent().addClass('whirl');
-            $('#ddlRaca').parent().addClass('whirl');
-            $('#ddlBanco').parent().addClass('whirl');
 
-            var url = homePage + 'Colaborador/ListarDadosTela';
+            if (DadosGerais && DadosGerais.hasOwnProperty('Bancos'))
+            {
+                $scope.listas.bancos = DadosGerais.Bancos;
+                $scope.listas.grausInstrucao = DadosGerais.GrausInstrucao;
+                $scope.listas.racas = DadosGerais.Racas;
+                $scope.listas.estados = DadosGerais.Estados;
 
-            $.ajax({
-                type: "POST",
-                url: url,
-                success: function (retorno)
-                {
-                    $scope.listas.bancos = retorno.Bancos;
-                    $scope.listas.estados = retorno.Estados;
-                    $scope.listas.grausInstrucao = retorno.GrausInstrucao;
-                    $scope.listas.racas = retorno.Racas;
-
-                    $('#ddlGrauInstrucao').parent().removeClass('whirl');
-                    $('#ddlCarteiraTrabalhoUF').parent().removeClass('whirl');
-                    $('#ddlNaturalidadeUF').parent().removeClass('whirl');
-                    $('#ddlEstado').parent().removeClass('whirl');
-                    $('#ddlRaca').parent().removeClass('whirl');
-                    $('#ddlBanco').parent().removeClass('whirl');
-
-                    if (id !== undefined && id > 0)
-                    {
-                        $scope.buscarColaborador(id);
-                    }
-                },
-                error: function (xhr, ajaxOptions, thrownError)
-                {
-                    alertaErroJS({ NomeFuncao: 'carregarDados()', ResponseText: xhr.responseText });
-                }
-            });
+                $('#ddlGrauInstrucao').parent().removeClass('whirl');
+                $('#ddlRaca').parent().removeClass('whirl');
+                $('#ddlBanco').parent().removeClass('whirl');
+                $('#ddlCarteiraTrabalhoUF').parent().removeClass('whirl');
+                $('#ddlNaturalidadeUF').parent().removeClass('whirl');
+                $('#ddlEstado').parent().removeClass('whirl');
+            }
+            else
+            {
+                timerDadosGerais.callback = function () { carregarDados(id); }
+                carregarDadosGerais();
+            }
         }
 
         function inicializar()
@@ -531,7 +521,7 @@ function reenviarSenha()
 
                 if (estado !== undefined && estado.Id > 0)
                     carregarCidades(estado.Id, false, idCidade, callback);
-            }
+            };
 
             $scope.carregarCidadesNaturalidade = function (idCidade)
             {
@@ -542,9 +532,9 @@ function reenviarSenha()
 
                 if (estado !== undefined && estado.Id > 0)
                     carregarCidades(estado.Id, true, idCidade);
-            }
+            };
 
-            $scope.carregarColaborador = function()
+            $scope.carregarColaborador = function ()
             {
                 $scope.colaborador.sexo_masculino = $scope.colaborador.sexo_masculino.toString();
                 var dataNasc = formatCSharpDateToDate($scope.colaborador.data_nascimento);
@@ -571,7 +561,7 @@ function reenviarSenha()
                 $scope.bloquearDesbloquearEdicao(!$scope.editMode);
 
                 $timeout(function () { $('.container.body-content').removeClass('whirl'); }, 500);
-            }
+            };
 
             $scope.checkIfIsTooltipEnable = function(fieldName, outrasValidacoes, formName)
             {
@@ -665,7 +655,7 @@ function reenviarSenha()
                 {
                     field.$dirty = false;
                 });
-            }
+            };
 
             $scope.salvar = function()
             {

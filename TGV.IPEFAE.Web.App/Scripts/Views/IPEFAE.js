@@ -265,6 +265,54 @@ function setTabsContentHeight(func, ctl, cnt)
             setTimeout(function () { setTabsContentHeight(func, ctl, cnt++); }, 500);
 }
 
+var DadosGerais = {};
+var timerDadosGerais = {};
+timerDadosGerais.time = 3000;
+timerDadosGerais.timer = {};
+timerDadosGerais.callback = null;
+
+function endAndStartTimerDadosGerais(func)
+{
+    window.clearTimeout(timerDadosGerais.timer);
+    timerDadosGerais.timer = window.setTimeout(func, timerDadosGerais.time);
+}
+
+function carregarDadosGerais()
+{
+    var strDadosGerais = localStorage.getItem("DadosGerais");
+
+    if (strDadosGerais)
+    {
+        var retorno = JSON.parse(strDadosGerais);
+        DadosGerais = retorno;
+
+        if (typeof timerDadosGerais.callback === 'function')
+            timerDadosGerais.callback();
+
+        return;
+    }
+
+    var url = homePage + 'Colaborador/ListarDadosTela';
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        success: function (retorno)
+        {
+            DadosGerais = retorno;
+            window.localStorage.setItem("DadosGerais", JSON.stringify(retorno));
+
+            if (typeof timerDadosGerais.callback === 'function')
+                timerDadosGerais.callback();
+        },
+        error: function (xhr, ajaxOptions, thrownError)
+        {
+            console.log('carregarDadosGerais()', xhr, ajaxOptions, thrownError);
+
+            endAndStartTimerDadosGerais(function () { carregarDadosGerais(); }, 3000);
+        }
+    });
+}
 
 (function ()
 {
@@ -273,39 +321,48 @@ function setTabsContentHeight(func, ctl, cnt)
     angular.module('ipefae', ["angucomplete-alt", 'ngAnimate', 'ngRoute', 'ui.bootstrap', 'ui.utils.masks', 'ui.validate']);
 
     angular.module('ipefae').controller('ipefaeController', ipefaeController);
-    ipefaeController.$inject = ['$scope', '$rootScope', '$q', '$state', '$log', '$filter', '$location', '$timeout', '$window'];
+    ipefaeController.$inject = ['$scope', '$rootScope'];
 
-    function ipefaeController($scope, $rootScope, $q, $state, $log, $filter, $location, $timeout, $window)
+    function ipefaeController($scope, $rootScope)
     {
+        function ativar()
+        {
+            carregarDadosGerais();
+        }
+
         $rootScope.hasError = function (e, d)
         {
             if (angular.isDefined(e))
                 return e && d;
 
             return false;
-        }
+        };
 
         $rootScope.hasError2 = function (element, errorName)
         {
             return (!angular.equals({}, element.$error) && element.$error[errorName] && element.$dirty);
-        }
+        };
 
         $rootScope.hasErrorMultiple = function (errors, d)
         {
             if (errors === undefined)
                 return { hasError: false, message: '' };
 
-            for (var i = 0; i <= errors.length - 1; i++) {
+            for (var i = 0; i <= errors.length - 1; i++)
+            {
                 var e = errors[i].error;
                 var message = errors[i].message;
 
-                if (angular.isDefined(e) && e && d) {
+                if (angular.isDefined(e) && e && d)
+                {
                     return { hasError: true, message: message };
                 }
             }
 
             return { hasError: false, message: '' };
-        }
+        };
+
+        ativar();
     }
 })();
 
