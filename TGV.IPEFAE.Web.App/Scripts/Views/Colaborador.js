@@ -332,10 +332,13 @@ function reenviarSenha()
                 $('#ddlCarteiraTrabalhoUF').parent().removeClass('whirl');
                 $('#ddlNaturalidadeUF').parent().removeClass('whirl');
                 $('#ddlEstado').parent().removeClass('whirl');
+
+                if (id > 0)
+                    $scope.buscarColaborador(id);
             }
             else
             {
-                timerDadosGerais.callback = function () { carregarDados(id); }
+                timerDadosGerais.callback = function () { carregarDados(id); };
                 carregarDadosGerais();
             }
         }
@@ -435,9 +438,9 @@ function reenviarSenha()
                 $("#colCadastroForm :input:not(':button')").prop("disabled", bloquear);
                 $("#colCadastroForm #btnBuscarCEP").prop("disabled", bloquear);
                 $("#colCadastroForm select").prop("disabled", bloquear);
-            }
+            };
 
-            $scope.buscarColaborador = function(id)
+            $scope.buscarColaborador = function (id)
             {
                 var url = homePage + 'Colaborador/Obter';
                 var isAdmin = $scope.isAdmin || false;
@@ -452,7 +455,7 @@ function reenviarSenha()
                         {
                             $scope.colaborador = retorno.Colaborador;
                             $scope.id = $scope.colaborador.id;
-                            
+
                             if (isAdmin)
                                 $scope.colaborador.senhaDescriptografada = retorno.SD;
 
@@ -463,7 +466,7 @@ function reenviarSenha()
                     },
                     error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'buscarColaborador()', ResponseText: xhr.responseText }); }
                 });
-            }
+            };
 
             $scope.buscarCEP = function ()
             {
@@ -479,7 +482,7 @@ function reenviarSenha()
                     return;
                 }
 
-                $('.fsEndereco').addClass('whirl'); 
+                $('.fsEndereco').addClass('whirl');
 
                 var cep = $scope.colaborador.endereco_cep;
                 cep = cep.replace(/\./g, "");
@@ -510,7 +513,7 @@ function reenviarSenha()
 
                     //console.log(response.data);
                 });
-            }
+            };
 
             $scope.carregarCidadesEndereco = function (idCidade, callback)
             {
