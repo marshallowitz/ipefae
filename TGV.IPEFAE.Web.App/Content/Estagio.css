@@ -66,7 +66,7 @@ div.mensagem.sucesso        { background-color: #92D050; border-color: #00B050; 
 .estagio-transparencia .tabela table tbody tr td:first-child    { padding-left: 20px; }
 .estagio-transparencia .tabela table tbody tr td em.fa-2x       { font-size: 1.5em; vertical-align: middle; }
 
-.estagio-transparencia .pesquisa            { position: absolute; right: 10%; top: 50px; width: 20%; }
+.estagio-transparencia .pesquisa            { position: absolute; left: calc(100vw - 400px); top: 50px; width: 20%; }
 .estagio-transparencia .pesquisa .fa        { color: #ccc; }
 
 .estagio-transparencia .emptyTable,

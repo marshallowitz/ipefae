@@ -13,54 +13,47 @@
 
 <div class="container estagio-transparencia" ng-controller="estagioTransparenciaController as ctrl">
     
-    <div class="input-group pesquisa" ng-if="exibir">
+    @*<div class="input-group pesquisa" ng-if="exibir">
         <span class="input-group-addon"><em class="fa fa-search"></em></span>
         <input type="text" placeholder="Pesquise Aqui!" class="form-control" ng-model="ctrl.filtro" />
-    </div>
+    </div>*@
 
     <div class="row principal">
 
         <div class="botoes">
 
-            <div class="col-md-4 col-md-offset-1 text-center" ng-click="listar(1)">
-                <div class="botao" ng-class="id_tipo_selecionado === 1 ? 'selecionado' : ''">
-                    <span class="title">
-                        Atas / Estatuto / CNPJ
-                    </span>
+            <a href="https://www.lei13019.com.br/parcerias-celebradas.php?orgao_id=41&orgao_nome=Prefeitura+Municipal+de+São+João+da+Boa+Vista&orgao_estado=SP&orgao_logomarca=jpg&entidade_id=204&entidade_nome=Instituto+de+Pesquisas+Econômicas+-+IPEFAE" target="_blank">
+                @*<div class="col-md-4 col-md-offset-1 text-center" ng-click="listar(1)">*@
+                <div class="col-md-4 col-md-offset-1 text-center">
+                    <div class="botao" ng-class="id_tipo_selecionado === 1 ? 'selecionado' : ''">
+                        <span class="title">
+                            Extrato Parcerias Celebradas
+                        </span>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="col-md-3 text-center" ng-click="listar(2)">
-                <div class="botao" ng-class="id_tipo_selecionado === 2 ? 'selecionado' : ''">
-                    <span class="title">
-                        Contábil
-                    </span>
+            <a href="https://www.lei13019.com.br/prestacao-de-contas-propostas-menu.php?orgao_id=41&orgao_nome=Prefeitura+Municipal+de+S%C3%A3o+Jo%C3%A3o+da+Boa+Vista&orgao_estado=SP&orgao_logomarca=jpg&id_entidades=204%20&entidade_nome=Instituto+de+Pesquisas+Econ%C3%B4micas+-+IPEFAE&id_plano_de_trabalho=1601&proposta=0005%2F2018&instrumento=TERMO+DE+COLABORA%C3%87%C3%83O&numero_do_instrumento=2&serie=&ano_instrumento=2018&inicio=2018-06-01&termino=2020-05-31" target="_blank">
+                @*<div class="col-md-3 text-center" ng-click="listar(2)">*@
+                <div class="col-md-3 text-center">
+                    <div class="botao" ng-class="id_tipo_selecionado === 2 ? 'selecionado' : ''">
+                        <span class="title">
+                            Prestação de Contas
+                        </span>
+                    </div>
                 </div>
-            </div>
+            </a>
 
-            <div class="col-md-4 text-center" ng-click="listar(3)">
-                <div class="botao" ng-class="id_tipo_selecionado === 3 ? 'selecionado' : ''">
-                    <span class="title">
-                        Termo de Colaboração
-                    </span>
+            <a href="https://www.lei13019.com.br/publicidade-anexos.php?orgao_id=41&orgao_nome=Prefeitura+Municipal+de+S%C3%A3o+Jo%C3%A3o+da+Boa+Vista&orgao_estado=SP&orgao_logomarca=jpg&entidade_id=204&entidade_nome=Instituto+de+Pesquisas+Econ%C3%B4micas+-+IPEFAE" target="_blank">
+                @*<div class="col-md-4 text-center" ng-click="listar(3)">*@
+                <div class="col-md-4 text-center">
+                    <div class="botao" ng-class="id_tipo_selecionado === 3 ? 'selecionado' : ''">
+                        <span class="title">
+                            Publicidade OSC
+                        </span>
+                    </div>
                 </div>
-            </div>
-
-            @*<div class="col-md-2 text-center" ng-click="listar(4)">
-                <div class="botao" ng-class="id_tipo_selecionado === 4 ? 'selecionado' : ''">
-                    <span class="title">
-                        Estatuto
-                    </span>
-                </div>
-            </div>
-
-            <div class="col-md-2 text-center" ng-click="listar(5)">
-                <div class="botao" ng-class="id_tipo_selecionado === 5 ? 'selecionado' : ''">
-                    <span class="title">
-                        Remuneração
-                    </span>
-                </div>
-            </div>*@
+            </a>
 
         </div>
 

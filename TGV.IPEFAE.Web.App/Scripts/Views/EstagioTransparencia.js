@@ -41,13 +41,13 @@
                 switch (tipo)
                 {
                     case 1:
-                        $scope.tipo_selecionado = "Atas / CNPJ / Estatuto";
+                        $scope.tipo_selecionado = "Extrato Parcerias Celebradas";
                         break;
                     case 2:
-                        $scope.tipo_selecionado = "Contábil";
+                        $scope.tipo_selecionado = "Prestação de Contas";
                         break;
                     case 3:
-                        $scope.tipo_selecionado = "Termo de Colaboração";
+                        $scope.tipo_selecionado = "Publicidade OSC";
                         break;
                     //case 4:
                     //    $scope.tipo_selecionado = "Estatuto";

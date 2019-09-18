@@ -57,7 +57,11 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
                 string pasta = AzureBlobHelper.ObterPasta((TransparenciaTipo)tipo);
 
                 if (pasta == "Ata")
-                    pasta = "Ata / CNPJ / Estatuto";
+                    pasta = "Extrato Parcerias Celebradas";
+                else if (pasta == "Contabil")
+                    pasta = "Prestação de Contas";
+                else if (pasta == "Termo_Remuneracao")
+                    pasta = "Publicidade OSC";
 
                 arquivos.Add(new TransparenciaFilesAzure()
                 {
