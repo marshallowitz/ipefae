@@ -262,7 +262,7 @@ namespace Rotativa
                 options.Add("apikey", apiKey);
                 options.Add("value", value);
 
-                byte[] result = client.UploadValues("http://api.html2pdfrocket.com/pdf", options);
+                byte[] result = client.UploadValues("https://api.html2pdfrocket.com/pdf", options);
 
                 return result;
             }
