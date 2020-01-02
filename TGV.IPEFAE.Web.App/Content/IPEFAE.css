@@ -118,6 +118,10 @@ input[type=email]           { max-width: none; }
 .comprovante-inscricao .principal .corpo        { margin-bottom: 40px; margin-left: 40px; margin-top: 40px; }
 .comprovante-inscricao .botoes-comprovante      { display: none; margin-bottom: 30px; }
 
+/* lista colaboradores */
+.ajax-file-upload           { background-color: transparent !important; border: 0 !important; box-shadow: none !important; color: #337ab7 !important; font-size: 15px !important; font-weight: normal !important; text-decoration: none !important; }
+.ajax-file-upload-container { display: none !important; margin: 0 !important; }
+
 
 @media (min-width: 481px) and (max-width:767px) {
     .login .form-group input[type=text],

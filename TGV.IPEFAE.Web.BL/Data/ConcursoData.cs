@@ -278,7 +278,43 @@ namespace TGV.IPEFAE.Web.BL.Data
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                return db.concurso_funcao.Include("concurso_local_colaborador").Where(cf => cf.concurso_id == idConcurso).ToList().ConvertAll(cf => ConcursoFuncaoModel.Clone(cf));
+                //return db.concurso_funcao
+                //    .Include("concurso_local_colaborador")
+                //    .Where(cf => cf.concurso_id == idConcurso)
+                //    .ToList()
+                //    .ConvertAll(cf => ConcursoFuncaoModel.Clone(cf));
+
+                return (from cf in db.concurso_funcao
+                        where cf.concurso_id == idConcurso
+                        select new ConcursoFuncaoModel()
+                        {
+                            ativo = cf.ativo,
+                            concurso_id = cf.concurso_id,
+                            funcao = cf.funcao,
+                            id = cf.id,
+                            sem_desconto = cf.sem_desconto,
+                            temAssociacao = cf.concurso_local_colaborador.Any(),
+                            valor_liquido = cf.valor_liquido
+                        }).ToList();
+            }
+        }
+
+        public static List<ConcursoFuncaoModel> ListarTodas()
+        {
+            using (IPEFAEEntities db = BaseData.Contexto)
+            {
+                var funcoes = (from cf in db.concurso_funcao
+                               select new ConcursoFuncaoModel()
+                               {
+                                   ativo = cf.ativo,
+                                   concurso_id = cf.concurso_id,
+                                   funcao = cf.funcao,
+                                   id = cf.id,
+                                   sem_desconto = cf.sem_desconto,
+                                   valor_liquido = cf.valor_liquido
+                               }).ToList();
+
+                return funcoes;
             }
         }
 

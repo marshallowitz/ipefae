@@ -254,6 +254,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\AzureBlobHelper.cs" />
+    <Compile Include="Helper\ValidacaoPlanilhaContadorHelper.cs" />
     <Compile Include="Models\AnexoModel.cs" />
     <Compile Include="Models\BancoBrasil\PagamentoModel.cs" />
     <Compile Include="Models\Bradesco\Comprador.cs" />
@@ -338,6 +339,7 @@
     <Content Include="Content\rpa.css" />
     <Content Include="Content\simple-line-icons.css" />
     <Content Include="Content\Tabs.css" />
+    <Content Include="Content\uploadfile.css" />
     <Content Include="Content\whirl.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -421,6 +423,7 @@
     <Content Include="Scripts\jquery.addItems.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.cascade.js" />
+    <Content Include="Scripts\jquery.fileupload.js" />
     <Content Include="Scripts\jquery.jscroll.js" />
     <Content Include="Scripts\jquery.jscroll.min.js" />
     <Content Include="Scripts\jquery.mask.js" />
@@ -430,6 +433,7 @@
     <Content Include="Scripts\jquery.slideUnlock.js" />
     <Content Include="Scripts\jquery.slideUnlock.min.js" />
     <Content Include="Scripts\jquery.ui.touch.js" />
+    <Content Include="Scripts\jquery.uploadfile.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />

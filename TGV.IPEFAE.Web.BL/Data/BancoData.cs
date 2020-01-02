@@ -15,6 +15,7 @@ namespace TGV.IPEFAE.Web.BL.Data
                         select new BancoModel()
                         {
                             id = b.id,
+                            codigo = b.codigo,
                             nome = b.nome,
                             ordem = b.ordem,
                             ativo = b.ativo
@@ -30,16 +31,18 @@ namespace TGV.IPEFAE.Web.BL.Data
         public BancoModel(banco banco)
         {
             this.id = banco.id;
+            this.codigo = banco.codigo;
             this.nome = banco.nome;
             this.ativo = banco.ativo;
         }
 
         #region [ Propriedades ]
 
-        public int id       { get; set; }
-        public string nome  { get; set; }
-        public int ordem    { get; set; }
-        public bool ativo   { get; set; }
+        public int id           { get; set; }
+        public string codigo    { get; set; }
+        public string nome      { get; set; }
+        public int ordem        { get; set; }
+        public bool ativo       { get; set; }
 
         #endregion [ FIM - Propriedades ]
     }

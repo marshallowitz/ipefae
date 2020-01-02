@@ -22,6 +22,30 @@ function exibirSenha()
 
 function iniciarTelaListaColaboradores()
 {
+    $("#fileuploader").uploadFile({
+        url: homePage + 'Admin/Colaborador/UploadPlanilha',
+        fileName: "myfile",
+        allowedTypes: "csv",
+        acceptFiles: ".csv",
+        dragDrop: false,
+        uploadStr: "Upload Planilha",
+        onSubmit: function (files)
+        {
+            $.blockUI({ message: 'Gerando Arquivo TXT...', css: cssCarregando });
+        },
+        onSuccess: function (files, data, xhr, pd)
+        {
+            var filename = formatDateToYYYYMMDDHHmmSS(new Date()) + '.txt';
+
+            if (data.Sucesso)
+                download(filename, data.Arquivo);
+            else
+                alert('Ocorreu uma falha ao tentar realizar essa ação');
+
+            $.unblockUI();
+        }
+    });
+
     listarColaboradores();
 }
 

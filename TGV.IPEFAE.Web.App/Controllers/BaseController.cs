@@ -262,6 +262,19 @@ namespace TGV.IPEFAE.Web.App.Controllers
             return html;
         }
 
+        public static IEnumerable<string> ReadLines(Func<Stream> streamProvider, System.Text.Encoding encoding)
+        {
+            using (var stream = streamProvider())
+                using (var reader = new StreamReader(stream, encoding))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        yield return line;
+                    }
+                }
+        }
+
         public ActionResult RemoverArquivo(string pathArquivo)
         {
             if (System.IO.File.Exists(pathArquivo))

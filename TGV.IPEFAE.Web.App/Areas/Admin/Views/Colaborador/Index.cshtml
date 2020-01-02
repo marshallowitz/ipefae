@@ -1,10 +1,20 @@
 ﻿@{ Layout = "~/Views/Shared/_LayoutList.cshtml"; }
-<script src="@Url.Content("~/Scripts/Views/Colaborador.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <link href="@Url.Content("~/Content/uploadfile.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet">
+
+    <script src="@Url.Content("~/Scripts/jquery.uploadfile.min.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/Views/Colaborador.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
 <script>
     var urlDataTable = '@Url.Content(String.Format("~/Scripts/language/dataTables.{0}.txt", TGV.IPEFAE.Web.Resources.Shared.Listas.IdiomaDataTable))';
 
     $(function () { iniciarTelaListaColaboradores(); });
 </script>
+
 <iframe id="iframeCSV" style="display:none;"></iframe>
-<h2 class="titulo">Lista Colaboradores Cadastrados <a href="@Url.Content("~/Admin/Colaborador/Cadastro")">+ Adicionar Colaborador</a> <a href="javascript:void(0)" onclick="gerarCSVColaboradores()">Download CSV</a> </h2>
+<h2 class="titulo">
+    Colaboradores
+    <a href="@Url.Content("~/Admin/Colaborador/Cadastro")">+ Adicionar Colaborador</a>
+    <a href="javascript:void(0)" onclick="gerarCSVColaboradores()">Download CSV</a>
+    <a href="javascript:void(0)" id="fileuploader" style="display: inline;">Upload Planilha</a>
+</h2>
 <div class="lista table-responsive"></div>
