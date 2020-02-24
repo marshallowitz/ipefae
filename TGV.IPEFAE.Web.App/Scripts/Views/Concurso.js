@@ -167,6 +167,40 @@ function montarTabela()
                 });
             }
 
+            $scope.buscarFuncoes = function ()
+            {
+                var url = homePage + 'Admin/Concurso/ListarFuncoes';
+
+                $.ajax({
+                    type: "POST",
+                    dataType: 'JSON',
+                    url: url,
+                    success: function (retorno)
+                    {
+                        //console.log(retorno);
+                        if (retorno.Sucesso)
+                        {
+                            $scope.listas.funcoes = retorno.Funcoes;
+
+                            $.each($scope.concurso.funcoes, function (i, funcao)
+                            {
+                                $.each($scope.listas.funcoes, function (j, func)
+                                {
+                                    if (func.nome.toLowerCase() === funcao.funcao.toLowerCase())
+                                    {
+                                        funcao.funcao = func;
+                                        return false;
+                                    }
+                                });
+                            });
+
+                            $timeout(function () { $('.conCadastroForm').removeClass('whirl'); }, 500);
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) { alertaErroJS({ NomeFuncao: 'buscarFuncoes()', ResponseText: xhr.responseText }); }
+                });
+            }
+
             $scope.carregarConcurso = function (callback)
             {
                 $scope.concurso.data = new Date(parseInt($scope.concurso.data.replace('/Date(', '').replace(')/', '')));
@@ -367,7 +401,7 @@ function montarTabela()
                 var firstErrorField = undefined;
                 var index = findInArrayIndex($scope.concurso.funcoes, 'id', funcao.id);
 
-                if (funcao.funcao === undefined || $.trim(funcao.funcao) === '')
+                if (funcao.funcao === undefined || $.trim(funcao.funcao.nome) === '')
                 {
                     $('.ipt-funcao:eq(' + index + ')').parent().addClass('has-error');
                     funcao.funcao_enabled = true;
@@ -383,6 +417,7 @@ function montarTabela()
                 }
 
                 var idConcurso = $scope.concurso.id;
+                var func_salvar = { id: 0, funcao: funcao.funcao.nome, valor_liquido: funcao.valor_liquido, concurso_id: idConcurso, sem_desconto: false, ativo: true };
 
                 $('.lista-funcoes').addClass('whirl');
                 var url = homePage + 'Admin/Concurso/Funcao_Salvar';
@@ -390,12 +425,12 @@ function montarTabela()
                 $.ajax({
                     type: "POST",
                     url: url,
-                    data: { idConcurso: idConcurso, cfM: funcao },
+                    data: { idConcurso: idConcurso, cfM: func_salvar },
                     success: function (retorno)
                     {
                         if (retorno.Sucesso)
                         {
-                            $timeout(function () { $scope.$apply(function () { funcao.modoEdicao = false; funcao.id = retorno.Funcao.id }); });
+                            $timeout(function () { $scope.$apply(function () { funcao.modoEdicao = false; funcao.id = retorno.Funcao.id; funcao.valor_liquido_formatado = retorno.Funcao.valor_liquido_formatado; }); });
  
                             alert('Dados da função gravados com sucesso');
                         }
@@ -659,7 +694,6 @@ function montarTabela()
 
                 $scope.local_colaborador_changeIfInEdicao(colaborador, false);
                 
-                
                 $('.lista-colaboradores_' + local.id).addClass('whirl');
 
                 $.ajax({
@@ -670,18 +704,19 @@ function montarTabela()
                     {
                         if (retorno.Sucesso)
                         {
-                            var id = $('#hdnId').val();
                             $timeout(function ()
                             {
                                 $scope.$apply(function ()
                                 {
-                                    local.Colaboradores.splice(index, 1);
-                                    $scope.$broadcast('angucomplete-alt:changeInput', 'ddlColaborador_' + idColaborador, colaborador);
+                                    //$scope.$broadcast('angucomplete-alt:changeInput', 'ddlColaborador_' + idColaborador, colaborador);
 
-                                    alert('O Colaborador foi removido com sucesso do Local de Prova');
                                     $('.conCadastroForm').removeClass('whirl');
-                                    $('#btnCancelarLocal').trigger('click');
-                                    $('.local_editar_' + local.id).trigger('click');
+                                    //$('#btnCancelarLocal').trigger('click');
+                                    //$('.local_editar_' + local.id).trigger('click');
+
+                                    $('#linha_colaborador_' + local.id + '_' + colaborador.id).remove();
+                                    //local.Colaboradores.splice(index, 1);
+                                    alert('O Colaborador foi removido com sucesso do Local de Prova');
                                 });
                             });
                         }
@@ -712,8 +747,8 @@ function montarTabela()
             $scope.local_colaborador_mudar_funcao = function(colaborador, funcao)
             {
                 funcao = funcao || colaborador.funcao;
-
-                if (funcao !== undefined)
+ 
+                if (funcao !== undefined && funcao !== null)
                     colaborador.valor = funcao.valor_liquido;
             }
 
@@ -815,7 +850,7 @@ function montarTabela()
                 $scope.concurso.locais = [];
                 $scope.listas = {};
 
-                $scope.buscarConcurso(id);
+                $scope.buscarConcurso(id, $scope.buscarFuncoes);
 
                 $scope.errorListConcurso = {};
                 $scope.errorListConcurso.nome = { enable: false, ind: -1, tipo: 'salvar', validacoes: undefined };

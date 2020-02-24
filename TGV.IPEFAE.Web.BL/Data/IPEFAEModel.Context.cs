@@ -60,6 +60,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public virtual DbSet<concurso_local_colaborador> concurso_local_colaborador { get; set; }
         public virtual DbSet<colaborador> colaborador { get; set; }
         public virtual DbSet<neotrading> neotrading { get; set; }
+        public virtual DbSet<funcao> funcao { get; set; }
     
         public virtual ObjectResult<spr_tgv_gerar_lista_inscritos_Result> spr_tgv_gerar_lista_inscritos(Nullable<int> con_idt_concurso)
         {

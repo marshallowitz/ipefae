@@ -11,9 +11,9 @@ namespace TGV.IPEFAE.Web.BL.Business
 {
     public class ColaboradorBusiness
     {
-        public static List<ColaboradorModel> Listar()
+        public static List<ColaboradorModel> Listar(bool mini = false)
         {
-            return ColaboradorData.Listar();
+            return ColaboradorData.Listar(mini);
         }
 
         public static List<ColaboradorModel> ListarCSV()

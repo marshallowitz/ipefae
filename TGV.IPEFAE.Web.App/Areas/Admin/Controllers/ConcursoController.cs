@@ -97,6 +97,12 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
             return PartialView("_ListaConcursos", concursos);
         }
 
+        public ActionResult ListarFuncoes()
+        {
+            List<FuncaoModel> funcoes = FuncaoBusiness.Listar();
+            return Json(new { Sucesso = funcoes.Count > 0, Funcoes = funcoes }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult Local_Colaborador_Excluir(int idColaborador)
         {
             bool sucesso = ConcursoBusiness.Local_Colaborador_Excluir(idColaborador);
@@ -128,7 +134,7 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
         public ActionResult Obter(int id)
         {
             ConcursoModel cM = ConcursoBusiness.Obter(id);
-            List<ColaboradorModel> colaboradores = ColaboradorBusiness.Listar(); 
+            List<ColaboradorModel> colaboradores = ColaboradorBusiness.Listar(true); 
             bool sucesso = (cM != null);
 
             return Json(new { Sucesso = sucesso, Concurso = cM, Colaboradores = colaboradores }, JsonRequestBehavior.AllowGet);

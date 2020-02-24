@@ -10,10 +10,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="funcao in concurso.funcoes">
+        <tr ng-repeat="funcao in concurso.funcoes | orderBy:['ordernar_por']">
             <td>
                 <div class="tooltip-error">
-                    <input type="text" ng-model="funcao.funcao" class="form-control ipt-funcao" ng-class="funcao.modoEdicao ? '' : 'input-as-span'" maxlength="100" ng-readonly="!funcao.modoEdicao" required />
+                    <select name="funcao" class="form-control" ng-class="funcao.modoEdicao ? '' : 'select-as-span'" ng-options="func as func.nome for func in listas.funcoes | orderBy:['nome'] track by func.id" required ng-model="funcao.funcao" ng-disabled="!funcao.modoEdicao"></select>
+                    @*<input type="text" ng-model="funcao.funcao" class="form-control ipt-funcao" ng-class="funcao.modoEdicao ? '' : 'input-as-span'" maxlength="100" ng-readonly="!funcao.modoEdicao" required />*@
                     <span class="tooltiptext" ng-class="funcao.funcao_enabled ? '' : 'hidden'">O nome da função é obrigatório</span>
                 </div>
             </td>

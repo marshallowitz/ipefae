@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Transactions;
 using System.Web.Script.Serialization;
@@ -154,7 +155,133 @@ namespace TGV.IPEFAE.Web.BL.Data
             using (IPEFAEEntities db = BaseData.Contexto)
             {
                 if (!ate_colaborador)
-                    return ConcursoModel.Clone(db.concurso.Include("concurso_funcao.concurso_local_colaborador").Include("concurso_local.concurso_local_colaborador").SingleOrDefault(con => con.id == id), true);
+                {
+                    var query = @"
+                                SELECT	DISTINCT
+		                                c.id AS concurso_id,
+		                                c.nome AS concurso_nome,
+		                                c.[data] AS concurso_data,
+		                                c.ativo AS concurso_ativo,
+		                                cf.id AS concurso_funcao_id,
+		                                cf.funcao AS concurso_funcao_funcao,
+		                                cf.valor_liquido AS concurso_funcao_valor_liquido,
+		                                cf.sem_desconto AS concurso_funcao_sem_desconto,
+		                                cf.ativo AS concurso_funcao_ativo,
+		                                CAST((CASE WHEN clc.id IS NOT NULL THEN 1 ELSE 0 END) AS BIT) AS concurso_funcao_tem_associacao,
+		                                cl.id AS concurso_local_id,
+		                                cl.[local] AS concurso_local_local,
+		                                cl.ativo AS concurso_local_ativo,
+		                                clc.id AS concurso_local_colaborador_id,
+		                                clc.colaborador_id AS concurso_local_colaborador_colaborador_id,
+		                                clc.funcao_id AS concurso_local_colaborador_funcao_id,
+		                                clc.valor AS concurso_local_colaborador_valor,
+		                                clc.inss AS concurso_local_colaborador_inss,
+		                                clc.iss AS concurso_local_colaborador_iss,
+		                                clc.ativo AS concurso_local_colaborador_ativo,
+		                                co.id AS colaborador_id,
+		                                co.nome AS colaborador_nome,
+		                                co.cpf AS colaborador_cpf,
+		                                co.email AS colaborador_email,
+		                                co.ativo AS colaborador_ativo
+                                FROM	concurso c
+                                INNER JOIN concurso_funcao cf ON c.id = cf.concurso_id
+                                INNER JOIN concurso_local cl ON c.id = cl.concurso_id
+                                INNER JOIN concurso_local_colaborador clc ON cl.id = clc.concurso_local_id AND cf.id = clc.funcao_id
+                                INNER JOIN colaborador co ON clc.colaborador_id = co.id
+                                WHERE	c.id = @concurso_id
+                                AND		(c.ativo = 1 AND cf.ativo = 1 AND cl.ativo = 1 AND clc.ativo = 1 AND co.ativo = 1)
+                                ORDER BY c.nome, cl.[local], co.nome;";
+
+                    // Lista as funções do concurso
+                    var funcoes = db.concurso_funcao.Include("concurso_local_colaborador").Where(cf => cf.concurso_id == id && cf.ativo);
+
+                    using (SqlConnection connection = new SqlConnection(BaseData.ConnectionString))
+                    {
+                        SqlCommand command = new SqlCommand(query, connection);
+                        command.Parameters.AddWithValue("@concurso_id", id);
+
+                        try
+                        {
+                            connection.Open();
+                            SqlDataReader reader = command.ExecuteReader();
+
+                            var ctrLinhas = 0;
+                            ConcursoModel concurso = new ConcursoModel();
+
+                            while (reader.Read())
+                            {
+                                if (ctrLinhas == 0)
+                                {
+                                    // Inicializa o concurso
+                                    concurso = new ConcursoModel()
+                                    {
+                                        id = Convert.ToInt32(reader["concurso_id"]),
+                                        nome = reader["concurso_nome"].ToString(),
+                                        data = Convert.ToDateTime(reader["concurso_data"]),
+                                        ativo = Convert.ToBoolean(reader["concurso_ativo"]),
+                                        funcoes = funcoes.ToList().ConvertAll(cf => new ConcursoFuncaoModel(cf)).OrderBy(cf => cf.funcao).ThenBy(cf => cf.valor_liquido).ToList()
+                                    };
+                                }
+
+                                // Monta os locais e colaboradores
+                                // Se não existir esse local, adiciona ao concurso
+                                if (!concurso.locais.Any(cl => cl.id == Convert.ToInt32(reader["concurso_local_id"])))
+                                {
+                                    var local = new ConcursoLocalModel()
+                                    {
+                                        id = Convert.ToInt32(reader["concurso_local_id"]),
+                                        concurso_id = id,
+                                        local = reader["concurso_local_local"].ToString(),
+                                        ativo = Convert.ToBoolean(reader["concurso_local_ativo"])
+                                    };
+
+                                    concurso.locais.Add(local);
+                                }
+
+                                var concurso_local = concurso.locais.FirstOrDefault(cl => cl.id == Convert.ToInt32(reader["concurso_local_id"]));
+
+                                // Se não existir esse concurso_local_colaborador, adiciona ao local
+                                if (!concurso_local.Colaboradores.Any(clc => clc.id == Convert.ToInt32(reader["concurso_local_colaborador_id"])))
+                                {
+                                    var local_colaborador = new ConcursoLocalColaboradorModel()
+                                    {
+                                        id = Convert.ToInt32(reader["concurso_local_colaborador_id"]),
+                                        colaborador_id = Convert.ToInt32(reader["concurso_local_colaborador_colaborador_id"]),
+                                        funcao_id = Convert.ToInt32(reader["concurso_local_colaborador_funcao_id"]),
+                                        valor = Convert.ToDecimal(reader["concurso_local_colaborador_valor"]),
+                                        inss = Convert.ToBoolean(reader["concurso_local_colaborador_inss"]),
+                                        iss = Convert.ToBoolean(reader["concurso_local_colaborador_iss"]),
+                                        ativo = Convert.ToBoolean(reader["concurso_local_colaborador_ativo"])
+                                    };
+
+                                    concurso_local.Colaboradores.Add(local_colaborador);
+                                }
+
+                                // Adiciona o colaborador
+                                var concurso_local_colaborador = concurso_local.Colaboradores.FirstOrDefault(clc => clc.id == Convert.ToInt32(reader["concurso_local_colaborador_id"]));
+
+                                concurso_local_colaborador.colaborador = new ColaboradorModel()
+                                {
+                                    id = Convert.ToInt32(reader["colaborador_id"]),
+                                    nome = reader["colaborador_nome"].ToString(),
+                                    cpf = reader["colaborador_cpf"].ToString(),
+                                    email = reader["colaborador_email"].ToString(),
+                                    ativo = Convert.ToBoolean(reader["colaborador_ativo"])
+                                };
+
+                                ctrLinhas++;
+                            }
+
+                            reader.Close();
+
+                            return ctrLinhas > 0 ? concurso : null;
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ex;
+                        }
+                    }
+                }
                 else
                     return ConcursoModel.Clone(db.concurso.Include("concurso_funcao").Include("concurso_local.concurso_local_colaborador.colaborador").SingleOrDefault(con => con.id == id));
             }
@@ -256,6 +383,8 @@ namespace TGV.IPEFAE.Web.BL.Data
         public bool temAssociacao       { get; set; } = false;
 
         public string valor_liquido_formatado   { get { return String.Format("{0:C2}", this.valor_liquido); } }
+
+        public string ordernar_por      { get { return $"{this.funcao}_{this.valor_liquido.ToString().PadLeft(10, '0')}"; } }
 
         #endregion [ FIM - Propriedades ]
 

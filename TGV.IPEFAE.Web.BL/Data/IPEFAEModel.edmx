@@ -100,6 +100,16 @@
           <Property Name="iss" Type="bit" Nullable="false" />
           <Property Name="ativo" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="funcao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="codigo" Type="int" Nullable="false" />
+          <Property Name="cbo" Type="int" Nullable="false" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="grau_instrucao">
           <Key>
             <PropertyRef Name="id" />
@@ -127,7 +137,7 @@
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="nome" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="codigo" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="senha" Type="varchar" MaxLength="100" />
+          <Property Name="senha" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="data_entrega" Type="datetime" Nullable="false" />
           <Property Name="is_active" Type="bit" Nullable="false" />
         </EntityType>
@@ -913,6 +923,7 @@
           <EntitySet Name="concurso_funcao" EntityType="Self.concurso_funcao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="concurso_local" EntityType="Self.concurso_local" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="concurso_local_colaborador" EntityType="Self.concurso_local_colaborador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="funcao" EntityType="Self.funcao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="grau_instrucao" EntityType="Self.grau_instrucao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="irpf" EntityType="Self.irpf" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="neotrading" EntityType="Self.neotrading" Schema="dbo" store:Type="Tables" />
@@ -1258,6 +1269,7 @@
             <End Role="concurso_local_colaborador" EntitySet="concurso_local_colaborador" />
           </AssociationSet>
           <EntitySet Name="neotrading" EntityType="TGV.IPEFAE.Web.Data.neotrading" />
+          <EntitySet Name="funcao" EntityType="TGV.IPEFAE.Web.Data.funcao" />
           </EntityContainer>
         <EntityType Name="tb_usu_usuario">
           <Key>
@@ -2313,8 +2325,18 @@
           <Property Name="email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="codigo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="senha" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="senha" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="data_entrega" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="funcao">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Guid" Nullable="false" />
+          <Property Name="nome" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="codigo" Type="Int32" Nullable="false" />
+          <Property Name="cbo" Type="Int32" Nullable="false" />
           <Property Name="is_active" Type="Boolean" Nullable="false" />
         </EntityType>
         </Schema>
@@ -2922,6 +2944,17 @@
                 <ScalarProperty Name="codigo" ColumnName="codigo" />
                 <ScalarProperty Name="nome" ColumnName="nome" />
                 <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="funcao">
+            <EntityTypeMapping TypeName="TGV.IPEFAE.Web.Data.funcao">
+              <MappingFragment StoreEntitySet="funcao">
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="cbo" ColumnName="cbo" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

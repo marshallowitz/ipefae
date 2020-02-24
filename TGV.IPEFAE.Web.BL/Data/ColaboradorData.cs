@@ -8,12 +8,30 @@ namespace TGV.IPEFAE.Web.BL.Data
 {
     public class ColaboradorData
     {
-        internal static List<ColaboradorModel> Listar()
+        internal static List<ColaboradorModel> Listar(bool mini = false)
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
+                if (mini)
+                {
+                    var colaboradores = (from c in db.colaborador
+                                         where c.ativo
+                                         orderby c.nome
+                                         select new ColaboradorModel()
+                                         {
+                                             id = c.id,
+                                             nome = c.nome,
+                                             cpf = c.cpf,
+                                             email = c.email,
+                                             ativo = c.ativo
+                                         }).ToList();
+
+                    return colaboradores;
+                }
+
                 var cols = (from c in db.colaborador
-                           select new ColaboradorModel()
+                            orderby c.nome
+                            select new ColaboradorModel()
                            {
                                id = c.id,
                                nome = c.nome,

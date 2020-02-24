@@ -31,6 +31,11 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
+        public static string ConnectionString
+        {
+            get { return ConfigurationManager.ConnectionStrings["IPEFAEEntities_"].ConnectionString; }
+        }
+
         private static bool CriptografarConnString = false;
 
         public static DateTime DataAgora { get { return TimeZoneInfo.ConvertTimeFromUtc(DateTime.Now.ToUniversalTime(), TimeZoneInfo.FindSystemTimeZoneById("E. South America Standard Time")); } }

@@ -46,7 +46,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="colaborador in local.Colaboradores track by $index">
+                    <tr ng-repeat="colaborador in local.Colaboradores track by $index" id="linha_colaborador_{{local.id}}_{{colaborador.id}}">
                         <td>
                             <div class="form-group tooltip-error">
                                 @*<select id="ddlColaborador" name="colaboradorSelecionado" class="form-control ipt-local_colaborador" ng-options="col as col.nome for col in listas.colaboradores | notInLocais:concurso.locais:colaborador.colaborador_id | orderBy: 'nome' track by col.id" ng-model="colaborador.colaborador" ng-class="colaborador.modoEdicao ? '' : 'select-as-span'" ng-disabled="!colaborador.modoEdicao"></select>*@
@@ -56,7 +56,7 @@
                         </td>
                         <td>
                             <div class="form-group">
-                                <select id="ddlFuncao" name="funcaoSelecionada" class="form-control" ng-change="local_colaborador_mudar_funcao(colaborador)" ng-options="fun as fun.funcao for fun in concurso.funcoes | orderBy: 'funcao' track by fun.id" ng-model="colaborador.funcao" ng-class="colaborador.modoEdicao ? '' : 'select-as-span'" ng-disabled="!colaborador.modoEdicao"></select>
+                                <select name="funcaoSelecionada" class="form-control" ng-change="local_colaborador_mudar_funcao(colaborador)" ng-options="fun as (fun.funcao.nome + ' (' + fun.valor_liquido_formatado + ')') for fun in concurso.funcoes | orderBy: 'ordernar_por' track by fun.id" ng-model="colaborador.funcao" ng-class="colaborador.modoEdicao ? '' : 'select-as-span'" ng-disabled="!colaborador.modoEdicao"></select>
                             </div>
                         </td>
                         <td>
