@@ -17,6 +17,8 @@ namespace TGV.IPEFAE.Web.BL.Data
 
     public class FuncaoModel
     {
+        public FuncaoModel() { }
+
         public FuncaoModel(Guid id, string nome, int codigo, int cbo, bool is_active)
         {
             this.id = id;

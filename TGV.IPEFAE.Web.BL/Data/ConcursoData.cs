@@ -428,19 +428,18 @@ namespace TGV.IPEFAE.Web.BL.Data
             }
         }
 
-        public static List<ConcursoFuncaoModel> ListarTodas()
+        public static List<FuncaoModel> ListarTodas()
         {
             using (IPEFAEEntities db = BaseData.Contexto)
             {
-                var funcoes = (from cf in db.concurso_funcao
-                               select new ConcursoFuncaoModel()
+                var funcoes = (from f in db.funcao
+                               select new FuncaoModel()
                                {
-                                   ativo = cf.ativo,
-                                   concurso_id = cf.concurso_id,
-                                   funcao = cf.funcao,
-                                   id = cf.id,
-                                   sem_desconto = cf.sem_desconto,
-                                   valor_liquido = cf.valor_liquido
+                                   is_active = f.is_active,
+                                   nome = f.nome,
+                                   cbo = f.cbo,
+                                   codigo = f.codigo,
+                                   id = f.id
                                }).ToList();
 
                 return funcoes;

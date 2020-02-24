@@ -23,20 +23,17 @@ namespace TGV.IPEFAE.Web.App.Helper
             return new Tuple<bool, string>(true, banco.codigo.PadLeft(6, '0'));
         }
 
-        public static Tuple<bool, string> ObterCodigoCargo(string valor, List<ConcursoFuncaoModel> listaFuncoes)
+        public static Tuple<bool, string> ObterCodigoCargo(string valor, List<FuncaoModel> listaFuncoes)
         {
             if (String.IsNullOrEmpty(valor))
                 return new Tuple<bool, string>(false, "Cargo está em branco");
 
-            var cargo = listaFuncoes.FirstOrDefault(c => c.funcao.Equals(valor.Trim(), StringComparison.InvariantCultureIgnoreCase));
+            var cargo = listaFuncoes.FirstOrDefault(c => c.nome.Equals(valor.Trim(), StringComparison.InvariantCultureIgnoreCase));
 
             if (cargo == null)
                 return new Tuple<bool, string>(false, "Função não cadastrada no sistema");
 
-            if (cargo.id.ToString().Length > 10)
-                return new Tuple<bool, string>(false, "Código da Função inválido");
-
-            return new Tuple<bool, string>(true, cargo.id.ToString().PadLeft(10, '0'));
+            return new Tuple<bool, string>(true, cargo.codigo.ToString().PadLeft(10, '0'));
         }
 
         public static Tuple<bool, string> ObterCPF(string valor)

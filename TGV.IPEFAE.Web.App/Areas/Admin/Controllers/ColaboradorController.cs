@@ -84,7 +84,7 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
             return Json(new { Sucesso = true, Arquivo = txt }, JsonRequestBehavior.AllowGet);
         }
 
-        private string GerarArquivoContadorTXT(string[] linhasCSV, List<BancoModel> listaBancos, List<ConcursoFuncaoModel> listaFuncoes)
+        private string GerarArquivoContadorTXT(string[] linhasCSV, List<BancoModel> listaBancos, List<FuncaoModel> listaFuncoes)
         {
             StringBuilder sb = new StringBuilder();
             StringBuilder sbErros = new StringBuilder();
