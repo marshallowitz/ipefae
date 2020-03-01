@@ -243,7 +243,7 @@ namespace TGV.IPEFAE.Web.BL.Data
                                 if (concurso_local != null)
                                 {
                                     // Se não existir esse concurso_local_colaborador, adiciona ao local
-                                    if (!concurso_local.Colaboradores.Any(clc => clc.id == Convert.ToInt32(reader["concurso_local_colaborador_id"])))
+                                    if (!String.IsNullOrEmpty(reader["concurso_local_colaborador_id"].ToString()) && !concurso_local.Colaboradores.Any(clc => clc.id == Convert.ToInt32(reader["concurso_local_colaborador_id"])))
                                     {
                                         var local_colaborador = new ConcursoLocalColaboradorModel()
                                         {
@@ -262,14 +262,17 @@ namespace TGV.IPEFAE.Web.BL.Data
                                     // Adiciona o colaborador
                                     var concurso_local_colaborador = concurso_local.Colaboradores.FirstOrDefault(clc => clc.id == Convert.ToInt32(reader["concurso_local_colaborador_id"]));
 
-                                    concurso_local_colaborador.colaborador = new ColaboradorModel()
+                                    if (concurso_local_colaborador != null)
                                     {
-                                        id = Convert.ToInt32(reader["colaborador_id"]),
-                                        nome = reader["colaborador_nome"].ToString(),
-                                        cpf = reader["colaborador_cpf"].ToString(),
-                                        email = reader["colaborador_email"].ToString(),
-                                        ativo = Convert.ToBoolean(reader["colaborador_ativo"])
-                                    };
+                                        concurso_local_colaborador.colaborador = new ColaboradorModel()
+                                        {
+                                            id = Convert.ToInt32(reader["colaborador_id"]),
+                                            nome = reader["colaborador_nome"].ToString(),
+                                            cpf = reader["colaborador_cpf"].ToString(),
+                                            email = reader["colaborador_email"].ToString(),
+                                            ativo = Convert.ToBoolean(reader["colaborador_ativo"])
+                                        };
+                                    }
                                 }
 
                                 ctrLinhas++;
