@@ -110,15 +110,21 @@ function listarConcursos()
 function montarTabela()
 {
     oTable = $('#tblConcursos').dataTable(
-            {
-                "bLengthChange": false,
-                "order": [[1, "asc"]],
-                "aoColumnDefs": [{ "bSortable": false, "aTargets": [2,3] }],
-                "language": {
-                    "url": urlDataTable
-                }
+        {
+            "columns": [
+                null,
+                null,
+                { "type": "date-eu" },
+                null
+            ],
+            "bLengthChange": false,
+            "order": [[2, "desc"]],
+            "aoColumnDefs": [{ "bSortable": false, "aTargets": [3] }],
+            "language": {
+                "url": urlDataTable
             }
-        );
+        }
+    );
 
     $('#tblConcursos_filter').parent().removeClass('col-sm-6').addClass('col-sm-10');
     $('#tblConcursos_filter input').focus();
@@ -899,7 +905,7 @@ function montarTabela()
                             //$scope.concurso = retorno.Concurso;
                             //$scope.carregarConcurso();
                             alert('Dados salvos com sucesso');
-
+                            console.log(retorno);
                             window.location.href = homePage + 'Admin/Concurso/Cadastro/' + retorno.Concurso.id;
                         }
                     },

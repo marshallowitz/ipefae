@@ -184,12 +184,12 @@ namespace TGV.IPEFAE.Web.BL.Data
 		                                co.email AS colaborador_email,
 		                                co.ativo AS colaborador_ativo
                                 FROM	concurso c
-                                INNER JOIN concurso_funcao cf ON c.id = cf.concurso_id
-                                INNER JOIN concurso_local cl ON c.id = cl.concurso_id
-                                INNER JOIN concurso_local_colaborador clc ON cl.id = clc.concurso_local_id AND cf.id = clc.funcao_id
-                                INNER JOIN colaborador co ON clc.colaborador_id = co.id
+                                LEFT JOIN concurso_funcao cf ON c.id = cf.concurso_id AND cf.ativo = 1
+                                LEFT JOIN concurso_local cl ON c.id = cl.concurso_id AND cl.ativo = 1
+                                LEFT JOIN concurso_local_colaborador clc ON cl.id = clc.concurso_local_id AND cf.id = clc.funcao_id AND clc.ativo = 1
+                                LEFT JOIN colaborador co ON clc.colaborador_id = co.id AND co.ativo = 1
                                 WHERE	c.id = @concurso_id
-                                AND		(c.ativo = 1 AND cf.ativo = 1 AND cl.ativo = 1 AND clc.ativo = 1 AND co.ativo = 1)
+                                AND		c.ativo = 1
                                 ORDER BY c.nome, cl.[local], co.nome;";
 
                     // Lista as funções do concurso
@@ -225,7 +225,7 @@ namespace TGV.IPEFAE.Web.BL.Data
 
                                 // Monta os locais e colaboradores
                                 // Se não existir esse local, adiciona ao concurso
-                                if (!concurso.locais.Any(cl => cl.id == Convert.ToInt32(reader["concurso_local_id"])))
+                                if (!String.IsNullOrEmpty(reader["concurso_local_id"].ToString()) && !concurso.locais.Any(cl => cl.id == Convert.ToInt32(reader["concurso_local_id"])))
                                 {
                                     var local = new ConcursoLocalModel()
                                     {
@@ -240,34 +240,37 @@ namespace TGV.IPEFAE.Web.BL.Data
 
                                 var concurso_local = concurso.locais.FirstOrDefault(cl => cl.id == Convert.ToInt32(reader["concurso_local_id"]));
 
-                                // Se não existir esse concurso_local_colaborador, adiciona ao local
-                                if (!concurso_local.Colaboradores.Any(clc => clc.id == Convert.ToInt32(reader["concurso_local_colaborador_id"])))
+                                if (concurso_local != null)
                                 {
-                                    var local_colaborador = new ConcursoLocalColaboradorModel()
+                                    // Se não existir esse concurso_local_colaborador, adiciona ao local
+                                    if (!concurso_local.Colaboradores.Any(clc => clc.id == Convert.ToInt32(reader["concurso_local_colaborador_id"])))
                                     {
-                                        id = Convert.ToInt32(reader["concurso_local_colaborador_id"]),
-                                        colaborador_id = Convert.ToInt32(reader["concurso_local_colaborador_colaborador_id"]),
-                                        funcao_id = Convert.ToInt32(reader["concurso_local_colaborador_funcao_id"]),
-                                        valor = Convert.ToDecimal(reader["concurso_local_colaborador_valor"]),
-                                        inss = Convert.ToBoolean(reader["concurso_local_colaborador_inss"]),
-                                        iss = Convert.ToBoolean(reader["concurso_local_colaborador_iss"]),
-                                        ativo = Convert.ToBoolean(reader["concurso_local_colaborador_ativo"])
+                                        var local_colaborador = new ConcursoLocalColaboradorModel()
+                                        {
+                                            id = Convert.ToInt32(reader["concurso_local_colaborador_id"]),
+                                            colaborador_id = Convert.ToInt32(reader["concurso_local_colaborador_colaborador_id"]),
+                                            funcao_id = Convert.ToInt32(reader["concurso_local_colaborador_funcao_id"]),
+                                            valor = Convert.ToDecimal(reader["concurso_local_colaborador_valor"]),
+                                            inss = Convert.ToBoolean(reader["concurso_local_colaborador_inss"]),
+                                            iss = Convert.ToBoolean(reader["concurso_local_colaborador_iss"]),
+                                            ativo = Convert.ToBoolean(reader["concurso_local_colaborador_ativo"])
+                                        };
+
+                                        concurso_local.Colaboradores.Add(local_colaborador);
+                                    }
+
+                                    // Adiciona o colaborador
+                                    var concurso_local_colaborador = concurso_local.Colaboradores.FirstOrDefault(clc => clc.id == Convert.ToInt32(reader["concurso_local_colaborador_id"]));
+
+                                    concurso_local_colaborador.colaborador = new ColaboradorModel()
+                                    {
+                                        id = Convert.ToInt32(reader["colaborador_id"]),
+                                        nome = reader["colaborador_nome"].ToString(),
+                                        cpf = reader["colaborador_cpf"].ToString(),
+                                        email = reader["colaborador_email"].ToString(),
+                                        ativo = Convert.ToBoolean(reader["colaborador_ativo"])
                                     };
-
-                                    concurso_local.Colaboradores.Add(local_colaborador);
                                 }
-
-                                // Adiciona o colaborador
-                                var concurso_local_colaborador = concurso_local.Colaboradores.FirstOrDefault(clc => clc.id == Convert.ToInt32(reader["concurso_local_colaborador_id"]));
-
-                                concurso_local_colaborador.colaborador = new ColaboradorModel()
-                                {
-                                    id = Convert.ToInt32(reader["colaborador_id"]),
-                                    nome = reader["colaborador_nome"].ToString(),
-                                    cpf = reader["colaborador_cpf"].ToString(),
-                                    email = reader["colaborador_email"].ToString(),
-                                    ativo = Convert.ToBoolean(reader["colaborador_ativo"])
-                                };
 
                                 ctrLinhas++;
                             }
@@ -472,7 +475,7 @@ namespace TGV.IPEFAE.Web.BL.Data
         public int id           { get; set; } = 0;
         public int concurso_id  { get; set; } = 0;
         public string local     { get; set; }
-        public bool ativo       { get; set; }
+        public bool ativo       { get; set; } = true;
 
         public List<ConcursoLocalColaboradorModel> Colaboradores { get; set; } = new List<ConcursoLocalColaboradorModel>();
 

@@ -93,7 +93,7 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
 
         public ActionResult ListarConcursos()
         {
-            List<ConcursoModel> concursos = ConcursoBusiness.Listar();
+            List<ConcursoModel> concursos = ConcursoBusiness.Listar().OrderByDescending(c => c.data).ToList();
             return PartialView("_ListaConcursos", concursos);
         }
 
