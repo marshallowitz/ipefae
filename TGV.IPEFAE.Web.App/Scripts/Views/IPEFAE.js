@@ -266,52 +266,85 @@ function setTabsContentHeight(func, ctl, cnt)
 }
 
 var DadosGerais = {};
-var timerDadosGerais = {};
-timerDadosGerais.time = 3000;
-timerDadosGerais.timer = {};
-timerDadosGerais.callback = null;
-
-function endAndStartTimerDadosGerais(func)
-{
-    window.clearTimeout(timerDadosGerais.timer);
-    timerDadosGerais.timer = window.setTimeout(func, timerDadosGerais.time);
-}
 
 function carregarDadosGerais()
 {
-    var strDadosGerais = localStorage.getItem("DadosGerais");
+    var bancos = [
+        { id: 1, codigo: '001', nome: 'Banco do Brasil S.A.', ordem: 1 },
+        { id: 2, codigo: '341', nome: 'Banco Itaú S.A.', ordem: 2 },
+        { id: 3, codigo: '033', nome: 'Banco Santander(Brasil) S.A.', ordem: 3 },
+        { id: 4, codigo: '237', nome: 'Banco Bradesco S.A.', ordem: 4 },
+        { id: 5, codigo: '745', nome: 'Banco Citibank S.A.', ordem: 5 },
+        { id: 6, codigo: '399', nome: 'HSBC Bank Brasil S.A.', ordem: 6 },
+        { id: 7, codigo: '104', nome: 'Caixa Econômica Federal', ordem: 7 },
+        { id: 8, codigo: '389', nome: 'Banco Mercantil do Brasil S.A.', ordem: 8 },
+        { id: 9, codigo: '453', nome: 'Banco Rural S.A.', ordem: 9 },
+        { id: 10, codigo: '422', nome: 'Banco Safra S.A.', ordem: 10 },
+        { id: 11, codigo: '318', nome: 'Banco BMG S.A', ordem: 11 },
+        { id: 12, codigo: '748', nome: 'Banco Cooperativo Sicred', ordem: 12 },
+        { id: 13, codigo: '756', nome: 'Banco Cooperativo do Brasil S.A. (Bancoob – Sicoob)', ordem: 13 },
+        { id: 14, codigo: '260', nome: 'Nubank', ordem: 14 }
+    ];
 
-    if (strDadosGerais)
-    {
-        var retorno = JSON.parse(strDadosGerais);
-        DadosGerais = retorno;
+    var estados = [
+        { Id: 1, Sigla: 'AC', Nome: 'Acre' },
+        { Id: 2, Sigla: 'AL', Nome: 'Alagoas' },
+        { Id: 3, Sigla: 'AM', Nome: 'Amazonas' },
+        { Id: 4, Sigla: 'AP', Nome: 'Amapá' },
+        { Id: 5, Sigla: 'BA', Nome: 'Bahia' },
+        { Id: 6, Sigla: 'CE', Nome: 'Ceará' },
+        { Id: 7, Sigla: 'DF', Nome: 'Distrito Federal' },
+        { Id: 8, Sigla: 'ES', Nome: 'Espírito Santo' },
+        { Id: 9, Sigla: 'GO', Nome: 'Goiás' },
+        { Id: 10, Sigla: 'MA', Nome: 'Maranhão' },
+        { Id: 11, Sigla: 'MG', Nome: 'Minas Gerais' },
+        { Id: 12, Sigla: 'MS', Nome: 'Mato Grosso do Sul' },
+        { Id: 13, Sigla: 'MT', Nome: 'Mato Grosso' },
+        { Id: 14, Sigla: 'PA', Nome: 'Pará' },
+        { Id: 15, Sigla: 'PB', Nome: 'Paraíba' },
+        { Id: 16, Sigla: 'PE', Nome: 'Pernambuco' },
+        { Id: 17, Sigla: 'PI', Nome: 'Piauí' },
+        { Id: 18, Sigla: 'PR', Nome: 'Paraná' },
+        { Id: 19, Sigla: 'RJ', Nome: 'Rio de Janeiro' },
+        { Id: 20, Sigla: 'RN', Nome: 'Rio Grande do Norte' },
+        { Id: 21, Sigla: 'RO', Nome: 'Rondônia' },
+        { Id: 22, Sigla: 'RR', Nome: 'Roraima' },
+        { Id: 23, Sigla: 'RS', Nome: 'Rio Grande do Sul' },
+        { Id: 24, Sigla: 'SC', Nome: 'Santa Catarina' },
+        { Id: 25, Sigla: 'SE', Nome: 'Sergipe' },
+        { Id: 26, Sigla: 'SP', Nome: 'São Paulo' },
+        { Id: 27, Sigla: 'TO', Nome: 'Tocantins' }
+    ];
 
-        if (typeof timerDadosGerais.callback === 'function')
-            timerDadosGerais.callback();
+    var grausInstrucao = [
+        { id: 1, nome: 'Analfabeto' },
+        { id: 2, nome: 'Primário Incompleto(até quarta série)' },
+        { id: 3, nome: 'Primário Completo(quarta série completa)' },
+        { id: 4, nome: 'Primeiro Grau(ginásio) incompleto' },
+        { id: 5, nome: 'Primeiro Grau(ginásio) completo' },
+        { id: 6, nome: 'Segundo Grau(colegial) incompleto' },
+        { id: 7, nome: 'Segundo Grau(colegial) completo' },
+        { id: 8, nome: 'Superior incompleto' },
+        { id: 9, nome: 'Superior completo' },
+        { id: 10, nome: 'Mestrado completo' },
+        { id: 11, nome: 'Doutorado completo' },
+        { id: 12, nome: 'Pós graduação / Especialização completo' },
+        { id: 13, nome: 'Pós Doutorado completo' }
+    ];
 
-        return;
-    }
+    var racas = [
+        { id: 1, nome: 'Amarela' },
+        { id: 2, nome: 'Branca' },
+        { id: 3, nome: 'Indígena' },
+        { id: 4, nome: 'Parda' },
+        { id: 5, nome: 'Negra' },
+        { id: 6, nome: 'Não Informado' }
+    ];
 
-    var url = homePage + 'Colaborador/ListarDadosTela';
-
-    $.ajax({
-        type: "POST",
-        url: url,
-        success: function (retorno)
-        {
-            DadosGerais = retorno;
-            window.localStorage.setItem("DadosGerais", JSON.stringify(retorno));
-
-            if (typeof timerDadosGerais.callback === 'function')
-                timerDadosGerais.callback();
-        },
-        error: function (xhr, ajaxOptions, thrownError)
-        {
-            console.log('carregarDadosGerais()', xhr, ajaxOptions, thrownError);
-
-            endAndStartTimerDadosGerais(function () { carregarDadosGerais(); }, 3000);
-        }
-    });
+    DadosGerais.Bancos = bancos;
+    DadosGerais.Estados = estados;
+    DadosGerais.GrausInstrucao = grausInstrucao;
+    DadosGerais.Racas = racas;
 }
 
 (function ()

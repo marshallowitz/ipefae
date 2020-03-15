@@ -362,8 +362,8 @@ function reenviarSenha()
             }
             else
             {
-                timerDadosGerais.callback = function () { carregarDados(id); };
                 carregarDadosGerais();
+                setTimeout(() => carregarDados(id), 500);
             }
         }
 
