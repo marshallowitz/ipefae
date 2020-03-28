@@ -1,0 +1,43 @@
+﻿@using TGV.IPEFAE.Web.Resources.Recurso;
+
+<div class="row">
+    <div class="mensagem-aviso col-md-12">
+        @_Recurso.LabelMensagemAviso
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <span class="bold" style="display: table-cell; padding-right: 5px; text-transform: uppercase; ">@_Recurso.LabelInscricao</span><span style="display: table-cell;" class="inscricao-requerente"></span>
+                    <span class="bold" style="padding-right: 5px; text-transform: uppercase;">@_Recurso.LabelRequerente</span><span class="nome-requerente"></span><br />
+                    <span class="bold" style="padding-right: 5px; text-transform: uppercase;">@_Recurso.LabelCargo</span><span class="cargo-requerente"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 15px;">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label style="display: table-cell; text-transform: uppercase; ">@_Recurso.LabelAnexosRequerente</label>
+                    <label style="font-size: 10px; font-weight: normal;">@_Recurso.LabelSomentePDF</label>
+                    <div class="upload-file">
+                        <input type="file" name="UploadFile" id="txtUploadFile" class="form-control" accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/msword" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>@_Recurso.LabelMensagem</label>
+            <textarea id="txtMensagem" name="mensagem" class="form-control" style="height: 120px; max-width: 800px;"></textarea>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row" style="margin-top: -20px;">
+    <div class="col-md-12" style="font-size: 12px; margin-bottom: 5px; text-align: center;">
+        @_Recurso.LabelMensagemAvisoJulgamento
+    </div>
+</div>

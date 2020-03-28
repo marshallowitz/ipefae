@@ -77,7 +77,8 @@ namespace TGV.IPEFAE.Web.App.Areas.Admin.Controllers
                 string fileName = file.FileName;
                 string mimeType = file.ContentType;
 
-                var lines = ReadLines(() => file.InputStream, System.Text.Encoding.UTF8).ToArray();
+                var lines = ReadLines(() => file.InputStream, System.Text.Encoding.GetEncoding("iso-8859-1")).ToArray();
+
                 txt += GerarArquivoContadorTXT(lines, listaBancos, listaFuncoes);
             }
 

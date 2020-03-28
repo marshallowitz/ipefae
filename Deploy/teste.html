@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+        $(function ()
+        {
+            $("button").click(function ()
+            {
+                var url = 'http://localhost:52918/Concurso/ListarConcursos';
+      
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    success: function (retorno)
+                    {
+                        console.log(retorno);
+                        alert('sucesso');
+                    },
+                    error: function (xhr, ajaxOptions, thrownError)
+                    {
+                        console.log(xhr);
+                        alert('erro');
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
+
+    <button>Get External Content</button>
+</body>
+</html>

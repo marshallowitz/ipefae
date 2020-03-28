@@ -1,0 +1,260 @@
+﻿@font-face {
+    font-family: 'IPEFAE';
+    src: url('fonts/ipefae/FUTRFW.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* { font-family: Verdana, Geneva, sans-serif; }
+
+.has-feedback label ~ .form-control-feedback { right: -10px; }
+
+input[type="text"], input[type="email"], input[type="tel"], input[type="search"], input[type="url"], input[type="password"], .ui-autocomplete-input, textarea, .uneditable-input { font-size: 14px; }
+
+.clearfix:before, .clearfix:after   { content: " "; display: table; }
+.clearfix:after                     { clear: both; }
+.clearfix                           { *zoom: 1; }
+
+*, *:before, *:after { box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; }
+
+body                                { background-color: #ffffff; color: rgb(97, 97, 97); font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif; overflow-x: hidden; }
+body::-webkit-scrollbar             { background-color:#cccccc; width:10px; }
+body::-webkit-scrollbar-thumb       { background-color:#333333; border-top-left-radius:10px; border-top-right-radius:10px; }
+body::-webkit-scrollbar-thumb:hover { background-color:#666666; border:1px solid #333333; }
+body::-webkit-scrollbar-track       { border:1px gray solid; border-top-left-radius:10px; border-top-right-radius:10px; -webkit-box-shadow:0 0 6px gray inset; }
+
+.btn                        { font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif; font-weight: 400; text-transform: uppercase; transition: all .3s ease-in-out; -moz-transition: all .3s ease-in-out; -webkit-transition: all .3s ease-in-out; }
+
+em                          { color: red; }
+
+hr                          { margin: 0px; }
+h2.titulo                   { border-bottom: solid 1px rgb(210, 210, 210); color: rgb(82, 82, 82); font-size: 20px; font-weight: 400; margin-bottom: 30px; margin-left: 10px; margin-top: 80px; position: relative; z-index: 1; }
+h2.titulo a                 { font-size: 14px; margin-left: 10px; }
+h2.titulo span              { font-size: 16px; }
+
+ul                          { list-style-type: none; }
+
+input[type=text],
+input[type=email]           { max-width: none; }
+
+.size-2                     { height: 15px; width: 15px; }
+.size-3                     { height: 17px; width: 17px; }
+.size-4                     { height: 20px; margin-left: 4px!important; width: 20px; }
+.size-5                     { height: 30px; margin-left: 4px!important; margin-right: 4px!important; position: relative; top: 10px; width: 30px; }
+
+.subtitulo                  { color: #000;  display: table; font-family: IPEFAE; font-size: 16px; font-weight: 600; margin: 0 auto; text-transform: none; }
+
+.login-partial,
+.navbar-custom.logado       { z-index: 1071; }
+#footer                     { bottom:0px; height: 30px; left:0px; position:fixed; width:100%; z-index: 1071; }
+#footer-outer               { background-color: #C70303; border-color: #d35400; color: #fff; height: 30px; position: relative; z-index: 10; }
+#footer-outer .row          { margin-bottom: 0px; padding: 10px; }
+#footer p.footer            { font-size: 10px; line-height: 30px; position: absolute; text-align: center; top: 0; width: 100%; }
+
+#footer a.facebook          { background: url(imagens/icone-facebook.png) no-repeat center; height: 20px; position: absolute; right: 10px; top: 3px; width: 20px; z-index:10; }
+#footer a.facebook:hover    { background-color: transparent; }
+
+.form-validade,
+.lista.table-responsive     { margin-bottom: 30px; }
+
+/* ----- BlockUI ----- */
+.blockOverlay               { z-index: 98 !important; }
+.blockElement               { z-index: 99 !important; }
+
+/* ----- Logomarca ----- */
+.logomarca                  { position: absolute; z-index: 1; }
+.logomarca.rodape           { bottom: 90px; }
+.logomarca.topo             { top: 20px; }
+.logomarca.rodape .logo     { width: 60%; }
+.logomarca.topo .logo       { width: 40%; }
+.logomarca.logado           { cursor: pointer; position: fixed; z-index: 1072; }
+
+/* ----- Login ----- */
+.modal-open                                     { overflow-y: auto; padding-right: 0px !important; }
+.modal-login                                    { overflow: hidden; }
+.modal-login .modal-content                     { background-color: transparent; border: none; box-shadow: none; -webkit-box-shadow: none; }
+
+.login                                          { margin: 0 auto; margin-top: 20%; max-width: 100%; position: relative; width: 550px; }
+.login .modal-login-white                       { background-color: rgba(255, 255, 255, 0.6); border: solid 1px rgba(66, 139, 202, 0.3); border-radius: 4px; height: 170px; text-align: left; }
+.login .form-control-feedback.glyphicon         { right: 45px; }
+.login .form-control-feedback.glyphicon-ok      { color: #3c763d; }
+.reenviar-senha .form-control-feedback.glyphicon{ right: 30px; top: 3px; }
+.login .linhaForm                               { position: relative; transform: translateY(20%); }
+.login .linhas                                  { margin: 10px 0 5px 0; padding: 0px; }
+.login .confirmar                               { top: 5px; }
+
+.login .form-group label                        { color: #fff; font-family: 'Varela Round', sans-serif; font-size: 18px; font-weight: normal; }
+.login .form-group input[type=text],
+.login .form-group input[type=password]         { display: table-cell; height: 40px; max-width: none; width: 90%; }
+.login div.confirmar input[type=submit]         { height: 100px; width: 100%; }
+.login .form-group input[type=text]:focus,
+.login .form-group input[type=password]:focus   { box-shadow: none; }
+
+.label-radio                                    { font-weight: normal; margin-left: 5px; margin-right: 5px; }
+
+.menu-principal                                 { border-bottom: solid 1px lightgray; margin-top: 52px; }
+
+/* ************ INSCRIÇÃO **************** */
+.tem-deficiencia                                { border: solid 1px #ccc; border-radius: 4px; display: none; height: 90px; margin-left: 15px; margin-top: 30px; }
+
+/* ************ CONFIRMAÇÃO INSCRIÇÃO **************** */
+.confirmacao-inscricao .row             { line-height: 30px; }
+.confirmacao-inscricao .bold            { font-weight: bold; text-transform: uppercase; }
+.confirmacao-inscricao h2.titulo        { margin-bottom: 10px; text-align: center; }
+.confirmacao-inscricao h3               { color: red; font-size: 18px; margin-top: 40px; text-align: center; text-transform: uppercase; }
+.confirmacao-inscricao h4               { color: red; font-size: 14px; margin-top: 10px; text-align: center; text-transform: uppercase; }
+.confirmacao-inscricao .col-md-9        { text-transform: uppercase; }
+
+.confirmacao-inscricao .tituloTR        { color: black; font-weight: bold; }
+.confirmacao-inscricao h1.tituloTR      { font-size: 14px; text-transform: uppercase; text-align: center; }
+.confirmacao-inscricao label.tituloTR   { font-size: 12px; margin-bottom: 20px; text-align: justify; width: 90%; }
+
+.confirmacao-inscricao .container-inscricao { border: solid 1px lightgray; border-radius: 4px; padding: 10px; }
+
+/* ************ COMPROVANTE INSCRIÇÃO **************** */
+.comprovante-inscricao h2.titulo                { margin-bottom: 10px; text-align: center; }
+.comprovante-inscricao .nome-concurso           { text-align: center }
+.comprovante-inscricao .principal .titulo-tela  { font-size: 18px; text-align: center; }
+.comprovante-inscricao .principal .corpo        { margin-bottom: 40px; margin-left: 40px; margin-top: 40px; }
+.comprovante-inscricao .botoes-comprovante      { display: none; margin-bottom: 30px; }
+
+/* lista colaboradores */
+.ajax-file-upload           { background-color: transparent !important; border: 0 !important; box-shadow: none !important; color: #337ab7 !important; font-size: 15px !important; font-weight: normal !important; text-decoration: none !important; }
+.ajax-file-upload-container { display: none !important; margin: 0 !important; }
+
+
+@media (min-width: 481px) and (max-width:767px) {
+    .login .form-group input[type=text],
+    .login .form-group input[type=password]         { position: absolute; }
+    .login div.confirmar input[type=submit]         { height: 40px !important; }
+    .login .linhas                                  { min-height: 40px; }
+    
+    .login .linhaForm                               { transform: inherit; top: 10px; }
+    .linhaForm > div                                { margin-bottom: 0px; }
+}
+
+@media (max-width: 767px)
+{
+    .logomarca.logado                               { background-color: white; left: 50%; transform: translateX(-50%); width: 200px; }
+    .logomarca.topo.deslogado                       { top: 55px; width: 250px; }
+
+    .navbar.logado                                  { height: 70px; }
+    .menu-principal                                 { background-color: white; }
+
+    #footer                                         { height: 15px; }
+    #footer p.footer                                { font-size: 8px; line-height: 15px; }
+    #footer a.facebook                              { background-size: 70%; height: 10px; }
+
+    .tem-deficiencia                                { border: none; height: 210px; }
+
+    .confirmacao-inscricao h2.titulo                { border: none; margin-top: 10px; }
+    .confirmacao-inscricao h3                       { font-size: 16px; }
+    .confirmacao-inscricao h4                       { font-size: 12px; }
+    .confirmacao-inscricao .container-inscricao .col-md-9 { font-size: 12px; line-height: 20px; }
+    .confirmacao-inscricao input[type=button],
+    .confirmacao-inscricao input[type=submit]       { font-size: 10px; }
+
+    .comprovante-inscricao h2.titulo                { border: none; margin-top: 10px; }
+    .comprovante-inscricao .principal               { width: 100%; }
+    .comprovante-inscricao .principal .titulo-tela  { font-size: 16px; }
+    .comprovante-inscricao .principal .corpo        { font-size: 12px; margin-bottom: 20px; margin-left: 0px; margin-top: 20px; }
+    .comprovante-inscricao .botoes-comprovante      { font-size: 10px; }
+
+    .modal-dialog                                   { left: 50% !important; transform: translateX(-55%) !important; width: 80% !important; }
+    .modal-dialog .botoes                           { margin-top: -10px; }
+    .modal-dialog input[type=button],
+    .modal-dialog input[type=submit]                { font-size: 10px; }
+}
+
+@media (max-width:480px)
+{
+    .modal-dialog                                   { margin-top: 40%; }
+
+    .login                                          { margin-top: 0; }
+    .login .form-group                              { width: 100%; }
+    .login .form-group div                          { margin-top: 5px; }
+    .login .form-group label                        { font-size: 14px; }
+    .login .form-group input[type=text],
+    .login .form-group input[type=password]         { height: 40px; }
+    .login div.confirmar input[type=submit]         { height: auto; }
+    .login .linhaForm                               { transform: inherit; top: 10px; }
+
+    .modal-login .form-control-feedback.glyphicon   { right: 55px; top: 10px; }
+}
+
+@media(max-height:800px)
+{
+    .logomarca.logado                               { width: 200px; }
+    .logomarca.topo .logo                           { width: 65%; }
+
+    .has-feedback .form-control                     { padding-right: 12.5px !important; }
+}
+
+
+/* ----- Icones ----- */
+.acao           { display: table-cell; margin: 0 auto; width: 35px; }
+.icons          { background-image: url(imagens/icons.png?v1); background-repeat: no-repeat; cursor: pointer; height: 30px; margin: auto; width: 30px; }
+.unchecked      { background-position: 1px 0px; }
+.checked        { background-position: -28px 0px; }
+.editar         { background-position: -55px 0px; height: 27px; width: 27px; }
+.executar       { background-position: -82px 0px; cursor: pointer; }
+.incluir        { background-position: -109px 0px; display: table-cell; }
+.excluir        { background-position: -137px 0px; cursor: pointer; display: table-cell; }
+.ok             { background-position: -166px 0px; }
+.search         { background-position: -194px 0px; display: table-cell; }
+.baixo          { background-position: -220px 0px; display: table-cell; height: 27px; width: 27px; }
+.cima           { background-position: -248px 0px; display: table-cell; height: 27px; width: 21px; }
+.play           { background-position: -269px 0px; height: 27px; width: 27px; }
+.email          { background-position: -297px 0px; height: 27px; width: 39px; }
+.save           { background-position: -336px 0px; height: 27px; width: 27px; }
+.editar-preto   { background-position: -363px 0px; height: 27px; width: 27px; }
+.excel          { background-position: -387px 0px; height: 27px; width: 27px; }
+.excel-preto    { background-position: -413px 0px; cursor: default; height: 27px; width: 27px; }
+.recurso        { background-position: -441px 0px; height: 27px; width: 27px; }
+.inscrito       { background-position: -468px 0px; cursor: pointer; }
+.lixeira        { background-position: -498px 0px; width: 26px; }
+.boleto         { background-position: -523px 0px; height: 27px; width: 27px; }
+.download-remessa { background-position: -550px 0px; cursor: pointer; height: 27px; width: 27px; }
+
+.back           { background-image: url(imagens/back.png); background-repeat: no-repeat; background-size: 80%; cursor: pointer; height: 40px; position: absolute; top: 70px; width: 40px; z-index: 3; }
+.estatisticas   { background-image: url(imagens/estatisticas.png); background-repeat: no-repeat; background-size: 80%; cursor: pointer; height: 40px; position: absolute; right: 20%; top: 135px; width: 40px; z-index: 2; }
+.adicionarEmpresa   { background-image: url(imagens/bank_add.png); background-repeat: no-repeat; background-size: 80%; cursor: pointer; display: none; height: 40px; position: absolute; top: 115px; width: 40px; z-index: 2; }
+.remessa        { background-image: url(imagens/remessa_upload.png); background-repeat: no-repeat; background-size: 80%; cursor: pointer; display: none; height: 40px; position: absolute; top: 115px; width: 40px; z-index: 2; }
+.updateConcurso { background-image: url(imagens/upload_concurso.png); background-repeat: no-repeat; background-size: 80%; cursor: pointer; display: none; height: 40px; position: absolute; top: 115px; width: 40px; z-index: 2; }
+.pdf_icon       { background-image: url(imagens/PDF-icon.png); background-repeat: no-repeat; background-size: 60%; cursor: pointer; height: 40px; width: 40px; }
+.remover-foto   { cursor:pointer; display:none; float: left; left: 90px; position: relative; width: 16px; top: -5px; }
+.remover-anexo  { cursor:pointer; display:none; float: right; position: relative; width: 16px; top: -5px; }
+
+.banco-brasil   { background-image: url(imagens/logo_BB.png); background-position-x: 10px; background-repeat: no-repeat; cursor: pointer; }
+.bradesco       { background-image: url(imagens/logo_Bradesco.png); background-position-x: 10px; background-repeat: no-repeat; cursor: pointer; }
+
+/* ----- Cadastro Usuários ----- */
+.cadastro-usuario .row                      { height: 80px; }
+.cadastro-usuario .senha                    { height: 50px; }
+.cadastro-usuario .trocarsenha label        { cursor:pointer; height: 20px; font-weight: normal; padding: 15px 15px; }
+.cadastro-usuario .trocarsenha label:hover  { text-decoration: underline; }
+.cadastro-usuario .progress                 { margin-top: 5px; }
+.cadastro-usuario .label-checkbox           { font-weight: normal; margin-left: 5px; position: relative; top: -5px; }
+.cadastro-usuario .permissao ul             { padding:0; margin:0; list-style:none; border:0; float:left;}
+.cadastro-usuario .permissao ul li          { float:left; margin:0; margin-right: 5px; padding:0; }
+.cadastro-usuario .has-feedback label ~ .form-control-feedback { right: 10px; }
+
+.cadastro-empresa .glyphicon                { right: 10px; }
+
+.truncate                                   { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+td.underline:hover div                      { text-decoration: underline; }
+
+/* ----- Spinning Loading ----- */
+.loading { animation:spin 2s linear infinite; -moz-animation:spin 2s linear infinite; -webkit-animation:spin 2s linear infinite; }
+@-moz-keyframes spin { 100% { -moz-transform:rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform:rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform:rotate(360deg); transform:rotate(360deg); } }
+
+
+.recursoForm .form-control-feedback.glyphicon[data-bv-icon-for="mensagem"] { top: -5px; }
+
+.recursos div.info-disabled span { border: solid 1px gray; border-radius: 4px; font-weight: bold; padding: 5px; }
+
+
+#tblColaboradores_filter.dataTables_filter .input-sm { height: 20px; }

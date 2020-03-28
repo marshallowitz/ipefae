@@ -1,0 +1,69 @@
+﻿@model TGV.IPEFAE.Web.BL.Data.ConcursoModel
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+<script src="@Url.Content("~/Scripts/Views/Concurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<link rel="stylesheet" href="@Url.Content("~/Content/Concurso.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)">
+
+<script>
+    var urlVoltar = '@Url.Content("~/Admin/Concurso")';
+
+    $(function () { iniciarTelaCadastroConcurso(); });
+</script>
+
+<h2 class="titulo" style="margin-top: 30px;">Cadastro de Concurso</h2>
+
+<div class="container marginBottom-30" ng-controller="concursoController">
+    <input type="hidden" id="hdnId" value="@Model.id" />
+    <div class="row centro">
+        <form id="conCadastroForm" name="conCadastroForm" class="conCadastroForm form-validate" novalidate="">
+            <fieldset>
+                <legend>Dados Concurso</legend>
+                <div class="row" ng-show="concurso.id > 0">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Código</label>
+                            <input type="text" class="form-control" name="codigo" id="txtCodigo" ng-model="concurso.codigo" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': errorListConcurso.nome.enable}">
+                            <label>Nome</label><em>*</em>
+                            <input type="text" class="form-control" name="nome" id="txtNome" ng-model="concurso.nome" maxlength="100" required uib-tooltip="{{getErrorMessage('nome', ['O nome é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorListConcurso.nome.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorListConcurso.data.enable}">
+                            <label>Data</label><em>*</em>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="data" id="txtData" ng-model="concurso.data" ui-date-mask="DD/MM/YYYY" required uib-tooltip="{{getErrorMessage('data', ['A data é obrigatória', 'Formato da data inválido'])}}" tooltip-placement="top" tooltip-is-open="errorListConcurso.data.enable" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <fieldset class="lista-funcoes">
+                <legend>Lista de Funções <a href="javascript:void(0)" ng-click="funcao_adicionar()" style="font-size: 12px;" ng-show="concurso.id > 0 && !funcao_checkIfInEdicao()">+ Adicionar</a> <em style="cursor: pointer; float: right;" class="fas" ng-class="funcao_opened ? 'fa-minus' : 'fa-plus'" ng-click="funcao_opened = !funcao_opened"></em></legend>
+                <div ng-hide="!funcao_opened" class="cssSlideUp">
+                    @Html.Partial("_ListaFuncoes", Model.funcoes)
+                </div>
+            </fieldset>
+            <br />
+            <fieldset class="lista-locais">
+                <legend>Lista de Locais de Prova<a href="javascript:void(0)" ng-click="local_adicionar()" style="font-size: 12px; margin-left: 10px;" ng-show="concurso.id > 0 && !local_checkIfInEdicao() && concurso.funcoes.length > 0">+ Adicionar</a> <span style="color: red; font-size: 13px;" ng-show="concurso.funcoes.length <= 0">Não existem funções associadas ao concurso ou colaboradores cadastrados</span> <em style="cursor: pointer; float: right;" class="fas" ng-class="local_opened ? 'fa-minus' : 'fa-plus'" ng-click="local_opened = !local_opened"></em></legend>
+                <div ng-hide="!local_opened" class="cssSlideUp">
+                    @Html.Partial("_ListaLocaisProva", Model.locais)
+                </div>
+            </fieldset>
+            <br />
+            <hr />
+            <br />
+            <div class="row col-botoes text-center" ng-hide="funcao_checkIfInEdicao() || local_checkIfInEdicao()">
+                <input type="button" name="btnVoltar" id="btnVoltar" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
+                <input type="button" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />
+            </div>
+            <br /><br />
+        </form>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+﻿@using TGV.IPEFAE.Web.Resources.Home;
+<div class="row login">
+    <div class="col-md-12">
+        <div class="form-group">
+            <label class="l01">@_Login.L01</label><br />
+            <label class="l02">@_Login.L02</label>
+            <form class="frmLogin" method="post">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="col-md-12">
+                            <input type="text" id="txtEmail" name="email" placeholder="@_Login.EmailPlaceHolder" class="form-control" data-bv-emailaddress="true" autofocus />
+                        </div>
+                        <div class="col-md-12">
+                            <div class="senha">
+                                <br />
+                                <input type="password" id="txtSenha" name="senha" placeholder="@_Login.SenhaPlaceHolder" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 confirmar">
+                        <input type="submit" class="btn btn-warning" value="@_Login.BotaoConfirmarValue" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

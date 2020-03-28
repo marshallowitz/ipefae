@@ -1,0 +1,82 @@
+﻿@using TGV.IPEFAE.Web.Resources.Shared;
+<link href="@Url.Content("~/Content/Contato.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<script src="@Url.Content("~/Scripts/Views/Contato.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+<script>
+    var spanInitialValue = '@_Contato.ContatoUnlockInicial';
+
+    $(function () {
+        iniciarTelaContato(
+            {
+                spanInitialValue: spanInitialValue,
+                spanEndValue: '@_Contato.ContatoUnlockFinal',
+                nomeContatoObrigatorio: '@_Contato.ContatoNomeObrigatorio',
+                emailContatoObrigatorio: '@_Contato.ContatoEmailObrigatorio',
+                formatoInvalidoEmailContato: '@_Contato.ContatoFormatoInvalidoEmail',
+                telefoneContatoObrigatorio: '@_Contato.ContatoTelefoneObrigatorio',
+                formatoInvalidoTelefoneContato: '@_Contato.ContatoFormatoInvalidoTelefone',
+                mensagemContatoObrigatoria: '@_Contato.ContatoMensagemObrigatoria'
+            });
+    });
+</script>
+<div class="container">
+    <div class="row contact-title">
+        <div class="col-lg-12 text-center">
+            <h2 class="section-heading">@_Contato.Contato</h2>
+            <h3 class="section-subheading text-muted">@_Contato.ContatoMensagem</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <form id="contactForm" class="contactForm">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="@_Contato.ContatoNomePlaceHolder" id="txtNome" name="nomeContato" required data-validation-required-message="@_Contato.ContatoNomeObrigatorio">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="@_Contato.ContatoEmailPlaceHolder" id="txtEmail" name="emailContato" required data-validation-required-message="@_Contato.ContatoEmailObrigatorio">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="@_Contato.ContatoTelefonePlaceHolder" id="txtTelefone" name="telefoneContato" required data-validation-required-message="@_Contato.ContatoTelefoneObrigatorio">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group mensagem">
+                            <textarea class="form-control" placeholder="@_Contato.ContatoMensagemPlaceHolder" id="txtMensagem" name="mensagemContato" required data-validation-required-message="@_Contato.ContatoMensagemObrigatoria"></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                        <div class="sliderContent">
+                            <h2><strong class="slider" title="@_Contato.ContatoCaptchaObrigatorio"></strong> <span></span></h2>
+                            <div class="tooltip fade top in sliderTooltip" style="top: 152px; left: 11.5px; display: none;">
+                                <div class="tooltip-arrow" style="border-top-color: #555;"></div>
+                                <div class="tooltip-inner" style="background-color: #555;">@_Contato.ContatoCaptchaObrigatorio</div>
+                            </div>
+                            <input type="hidden" value="" />
+                        </div>
+                        <div class="mensagemEnviada" style="display: none;">
+                            <div class="icons ok"></div><span>@_Contato.ContatoSucesso</span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-lg-12 text-center botao">
+                        <div id="success"></div>
+                        <input type="submit" class="btn btn-xl btn-warning" value="@_Contato.ContatoBotaoEnviar" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row contact-footer" style="margin-left: 0px;">
+        <div class="col-lg-12 text-center">
+            <h3 class="endereco text-muted">@_Contato.NomeIPEFAE</h3>
+            <h3 class="endereco text-muted">@_Contato.CNPJIPEFAE</h3>
+            <h3 class="endereco text-muted">@_Contato.ContatoEnderecoIPEFAE</h3>
+            <h3 class="telefone text-muted">@_Contato.ContatoTelefoneIPEFAE</h3>
+        </div>
+    </div>
+</div>
+

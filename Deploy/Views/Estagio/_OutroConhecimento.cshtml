@@ -1,0 +1,27 @@
+﻿@using TGV.IPEFAE.Web.Resources.Estagio
+@using TGV.IPEFAE.Web.App.Models
+@model UsuarioEstagioModel.CursosCapacitacoesModel
+
+<div class="container_outro_conhecimento_@Model.Posicao" style="@Html.Raw(Model.Visivel || Model.Posicao == 1 ? String.Empty : "display: none;") @Html.Raw(Model.Posicao > 1 ? "border-top: 0;" : "")">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-md-12">
+            <div class="form-group">
+                <input type="hidden" name="hdnId" value="@Model.Id" />
+                <input type="text" class="form-control" placeholder="Adicione aqui os conhecimentos práticos, outros conhecimentos e informações adicionais" name="nomeCurso" value="@Model.NomeCurso" maxlength="100" />
+                <br />
+                @if (Model.Posicao < 5)
+                {
+                    <a href="javascript:void(0)" onclick="alterarAdicionarRemover($(this), true, '.container_outro_conhecimento_@Model.Posicao', '.link_oco', 'nomeCurso');" class="link_oco adicionar-oco">@_OutroConhecimento.LabelAdicionarOutroConhecimento</a>
+                    if (Model.Posicao >= 2 && Model.Posicao <= 4)
+                    {
+                        <label class="link_oco"> | </label>
+                    }
+                }
+                @if (Model.Posicao > 1)
+                {
+                    <a href="javascript:void(0)" onclick="alterarAdicionarRemover($(this), false, '.container_outro_conhecimento_@Model.Posicao', '.link_oco', 'nomeCurso');" class="link_oco remover-oco">@_OutroConhecimento.LabelRemoverConhecimento</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

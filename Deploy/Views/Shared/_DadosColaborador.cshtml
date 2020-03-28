@@ -1,0 +1,377 @@
+﻿@using TGV.IPEFAE.Web.Resources.Shared
+@model TGV.IPEFAE.Web.BL.Data.ColaboradorModel
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+<link href="@Url.Content("~/Content/Colaborador.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<script src="@Url.Content("~/Scripts/Views/Colaborador.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+<script>
+    var urlVoltar = '@Url.Content("~/Colaborador")';
+    
+    $(function () { iniciarTelaCadastroColaborador(); });
+</script>
+
+<div class="container marginBottom-30" ng-controller="colaboradorController">
+    <h2 class="titulo" style="margin-top: 60px;">Cadastro de Colaborador <a href="javascript:void(0)" ng-if="@Model.id > 0 && !isAdmin" ng-click="alterarSenha()">Alterar Senha</a></h2> 
+    <input type="hidden" id="hdnId" value="@Model.id" />
+    <div class="row centro">
+        <form id="colCadastroForm" name="colCadastroForm" class="colCadastroForm form-validate" novalidate="">
+            <div class="row col-botoes text-center">
+                <input type="button" name="btnVoltar" id="btnVoltar2" ng-show="isAdmin" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
+                <input type="button" name="btnEditar" ng-if="!editMode" id="btnEditar2" class="btn btn-success btn-lg" value="Editar Dados" ng-click="editarDados(true)" />
+                <input type="button" name="btnSalvar" ng-if="editMode" id="btnSalvar2" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />
+            </div>
+            <br />
+            <fieldset>
+                <legend>Dados Pessoais</legend>
+                <div class="row" ng-show="colaborador.id > 0">
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error': errorList.nroEndereco.enable}">
+                            <label>Código</label>
+                            <input type="text" class="form-control" name="codigo" id="txtCodigo" ng-model="colaborador.codigo" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': errorList.nome.enable}">
+                            <label>Nome Completo</label><em>*</em>
+                            <input type="text" class="form-control" name="nome" id="txtNomeCompleto" ng-model="colaborador.nome" maxlength="100" required uib-tooltip="{{getErrorMessage('nome', ['O nome é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.nome.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': errorList.email.enable}">
+                            <label>E-mail</label><em>*</em>
+                            <input type="email" class="form-control text-lowercase" name="email" id="txtEmail" ng-model="colaborador.email" ui-validate="{emailJaExiste:'verificarEmailJaExiste($value)'}" maxlength="100" required uib-tooltip="{{getErrorMessage('email', ['O e-mail é obrigatório', 'Formato do e-mail inválido', 'Este e-mail já está vinculado a outro usuário'])}}" tooltip-placement="top" tooltip-is-open="errorList.email.enable" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.cpf.enable}">
+                            <label>CPF</label><em>*</em>
+                            <input type="text" class="form-control" name="cpf" id="txtCPF" ui-br-cpf-mask ui-validate="{cpfJaExiste:'verificarCPFJaExiste($value)'}" ng-model="colaborador.cpf" maxlength="14" required uib-tooltip="{{getErrorMessage('cpf', ['O CPF é obrigatório', 'Formato do CPF inválido', 'Este CPF já está vinculado a outro usuário'])}}" tooltip-placement="top" tooltip-is-open="errorList.cpf.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.rg.enable}">
+                            <label>RG</label><em>*</em>
+                            <input type="text" class="form-control" name="rg" id="txtRG" ng-model="colaborador.rg" maxlength="20" required uib-tooltip="{{getErrorMessage('rg', ['O RG é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.rg.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.dataNasc.enable}">
+                            <label>Data Nascimento</label> <span id="idade" ng-model="colaborador.idade"></span><em>*</em>
+                            <div class="form-group">
+                                <span style="display:none">{{colaborador.data_nascimento}}</span>
+                                <input type="text" class="form-control" name="dataNasc" id="txtDataNascimento" ng-model="colaborador.data_nascimento" ui-date-mask="DD/MM/YYYY" required uib-tooltip="{{getErrorMessage('dataNasc', ['A data de nascimento é obrigatória', 'Formato da data de nascimento inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.dataNasc.enable" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.estadocivil.enable}">
+                            <label>Estado Civil</label><em>*</em>
+                            <select id="ddlEstadoCivil" name="estadocivil" class="form-control" ng-model="colaborador.estado_civil" required uib-tooltip="{{getErrorMessage('estadocivil', ['O estado civil é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.estado_civil.enable">
+                                <option value="C">Casado</option>
+                                <option value="D">Divorciado</option>
+                                <option value="S" selected>Solteiro</option>
+                                <option value="V">Viuvo</option>
+                                <option value="O">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.sexo.enable}">
+                            <label>Sexo</label><em>*</em>
+                            <select id="ddlSexo" name="sexo" class="form-control" ng-model="colaborador.sexo_masculino" required uib-tooltip="{{getErrorMessage('sexo', ['O gênero é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.sexo.enable">
+                                <option value=""></option>
+                                <option value="false">Feminino</option>
+                                <option value="true">Masculino</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.grau_instrucao.enable}">
+                            <label>Grau Instrução</label><em>*</em>
+                            <select id="ddlGrauInstrucao" name="grau_instrucao" class="form-control" ng-options="grauinstrucao as grauinstrucao.nome for grauinstrucao in listas.grausInstrucao track by grauinstrucao.id" ng-model="colaborador.grau_instrucao" required uib-tooltip="{{getErrorMessage('grau_instrucao', ['O grau de instrução é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.grau_instrucao.enable"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.raca.enable}">
+                            <label>Raça</label><em>*</em>
+                            <select id="ddlRaca" name="raca" class="form-control" ng-options="raca as raca.nome for raca in listas.racas track by raca.id" ng-model="colaborador.raca" required uib-tooltip="{{getErrorMessage('raca', ['A raça é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.raca.enable"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.telefone.enable}">
+                            <label>Telefone</label><em>*</em>
+                            <input type="text" class="form-control" name="telefone" id="txtTelefone" ng-model="colaborador.telefone_01" required ui-br-phone-number-mask uib-tooltip="{{getErrorMessage('telefone', ['O telefone é obrigatório', 'Formato do telefone inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.telefone.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.celular.enable}">
+                            <label>Outro Telefone</label>
+                            <input type="text" class="form-control" name="celular" id="txtCelular" ng-model="colaborador.telefone_02" ui-br-phone-number-mask uib-tooltip="{{getErrorMessage('celular', ['Formato do telefone inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.celular.enable" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.pisPasepNet.enable}">
+                            <label>PIS, PASEP ou NIT</label><em>*</em>
+                            <input type="text" class="form-control" name="pisPasepNet" id="txtPisPasepNet" ng-model="colaborador.pis_pasep_net" ui-number-mask="0" ui-hide-group-sep ng-minlength="11" maxlength="11" required uib-tooltip="{{getErrorMessage('pisPasepNet', ['O PIS, PASEP ou NET é obrigatório', 'O tamanho mínimo é de 11 caracteres'])}}" tooltip-placement="top" tooltip-is-open="errorList.pisPasepNet.enable" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.carteiraTrabalhoNumero.enable}">
+                            <label>Nro Carteira Trabalho</label><em>*</em>
+                            <input type="text" class="form-control" maxlength="50" name="carteiraTrabalhoNumero" id="txtCarteiraTrabalhoNumero" ng-model="colaborador.carteira_trabalho_nro" required uib-tooltip="{{getErrorMessage('carteiraTrabalhoNumero', ['O número da carteira de trabalho é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.carteiraTrabalhoNumero.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.carteiraTrabalhoSerie.enable}">
+                            <label>Série Carteira de Trabalho</label><em>*</em>
+                            <input type="text" class="form-control" name="carteiraTrabalhoSerie" id="txtCarteiraTrabalhoSerie" ng-model="colaborador.carteira_trabalho_serie" maxlength="50" required uib-tooltip="{{getErrorMessage('carteiraTrabalhoSerie', ['A série da carteira de trabalho é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.carteiraTrabalhoSerie.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.carteiraTrabalhoUF.enable}">
+                            <label>Estado Carteira de Trabalho</label><em>*</em>
+                            <select id="ddlCarteiraTrabalhoUF" name="carteiraTrabalhoUF" class="form-control" ng-options="estado as estado.Nome for estado in listas.estados track by estado.Id" ng-model="colaborador.carteira_trabalho_uf" required uib-tooltip="{{getErrorMessage('carteiraTrabalhoUF', ['O estado da carteira de trabalho é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.carteiraTrabalhoUF.enable"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.tituloEleitorNumero.enable}">
+                            <label>Nro Título Eleitor</label><em>*</em>
+                            <input type="text" class="form-control" maxlength="50" name="tituloEleitorNumero" id="txtTituloEleitorNumero" ng-model="colaborador.titulo_eleitor_nro" required uib-tooltip="{{getErrorMessage('tituloEleitorNumero', ['O número do título de eleitor é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.tituloEleitorNumero.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.tituloEleitorZona.enable}">
+                            <label>Zona Título Eleitor</label><em>*</em>
+                            <input type="text" class="form-control" name="tituloEleitorZona" id="txtTituloEleitorZona" ng-model="colaborador.titulo_eleitor_zona" maxlength="50" required uib-tooltip="{{getErrorMessage('tituloEleitorZona', ['A zona do título de eleitor é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.tituloEleitorZona.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.tituloEleitorSecao.enable}">
+                            <label>Seção Título Eleitor</label><em>*</em>
+                            <input type="text" class="form-control" name="tituloEleitorSecao" id="txtTituloEleitorSecao" ng-model="colaborador.titulo_eleitor_secao" maxlength="50" required uib-tooltip="{{getErrorMessage('tituloEleitorSecao', ['A sessão do título de eleitor é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.tituloEleitorSecao.enable" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.nacionalidade.enable}">
+                            <label>Nacionalidade</label><em>*</em>
+                            <input type="text" class="form-control" name="nacionalidade" id="txtNacionalidade" onkeyup="this.value=this.value.replace(/[^a-zA-Z]/g,'');" ng-model="colaborador.nacionalidade" maxlength="50" required uib-tooltip="{{getErrorMessage('nacionalidade', ['A nacionalidade é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.nacionalidade.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.naturalidadeEstado.enable}">
+                            <label>Naturalidade - Estado</label><em>*</em>
+                            <select id="ddlNaturalidadeUF" name="naturalidadeEstado" class="form-control" ng-options="estado as estado.Nome for estado in listas.estados track by estado.Id" ng-change="carregarCidadesNaturalidade()" ng-model="colaborador.naturalidade_estado" required uib-tooltip="{{getErrorMessage('naturalidadeEstado', ['O estado de naturalidade é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.naturalidadeEstado.enable"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.naturalidadeCidade.enable}">
+                            <label>Naturalidade - Cidade</label><em>*</em>
+                            <select id="ddlNaturalidadeCidade" name="naturalidadeCidade" class="form-control" ng-disabled="colaborador.naturalidade_estado === undefined || colaborador.naturalidade_estado.Id <= 0 || listas.naturalidadeCidades.length <= 0 || !editMode" ng-options="cidade as cidade.Nome for cidade in listas.naturalidadeCidades track by cidade.Id" ng-model="colaborador.naturalidade_cidade" required uib-tooltip="{{getErrorMessage('naturalidadeCidade', ['A cidade de naturalidade é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.naturalidadeCidade.enable"></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group" ng-class="{'has-error': errorList.nome_mae.enable}">
+                            <label>Nome Mãe</label><em>*</em>
+                            <input type="text" class="form-control" name="nome_mae" id="txtNomeMae" ng-model="colaborador.nome_mae" maxlength="100" required uib-tooltip="{{getErrorMessage('nome_mae', ['O nome da mãe é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.nome_mae.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nome Pai</label>
+                            <input type="text" class="form-control" name="nome_pai" id="txtNomePai" ng-model="colaborador.nome_pai" maxlength="100" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <fieldset class="fsEndereco">
+                <legend>Dados Endereço</legend>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error': errorList.cep.enable}">
+                            <label>CEP</label><em>*</em>
+                            <input type="text" class="form-control" name="cep" id="txtCEP" ng-model="colaborador.endereco_cep" maxlength="9" required ui-br-cep-mask uib-tooltip="{{getErrorMessage('cep', ['O CEP é obrigatório', 'Formato do CEP inválido'])}}" tooltip-placement="top" tooltip-is-open="errorList.cep.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-2" style="line-height: 74px;">
+                        <input type="button" name="btnBuscarCEP" id="btnBuscarCEP" class="btn btn-personal1 btn-md" value="Buscar" ng-click="buscarCEP()" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">
+                        <div class="form-group" ng-class="{'has-error': errorList.logradouro.enable}">
+                            <label>Logradouro</label><em>*</em>
+                            <input type="text" class="form-control" name="logradouro" id="txtLogradouro" ng-model="colaborador.endereco_logradouro" maxlength="500" required uib-tooltip="{{getErrorMessage('logradouro', ['O logradouro é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.logradouro.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error': errorList.nroEndereco.enable}">
+                            <label>Número</label><em>*</em>
+                            <input type="text" class="form-control" name="nroEndereco" id="txtNroEndereco" ng-model="colaborador.endereco_nro" maxlength="10" required uib-tooltip="{{getErrorMessage('nroEndereco', ['O número do endereço é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.nroEndereco.enable" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>Complemento</label>
+                            <input type="text" class="form-control" name="complemento" id="txtComplemento" ng-model="colaborador.endereco_complemento" maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.bairro.enable}">
+                            <label>Bairro</label><em>*</em>
+                            <input type="text" class="form-control" name="bairro" id="txtBairro" ng-model="colaborador.endereco_bairro" maxlength="100" required uib-tooltip="{{getErrorMessage('bairro', ['O bairro é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.bairro.enable" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.estado.enable}">
+                            <label>Estado</label><em>*</em>
+                            <select id="ddlEstado" name="estado" class="form-control" ng-options="estado as estado.Nome for estado in listas.estados track by estado.Id" ng-model="colaborador.endereco_estado" ng-change="carregarCidadesEndereco()" required uib-tooltip="{{getErrorMessage('estado', ['O Estado é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.estado.enable"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group" ng-class="{'has-error': errorList.cidade.enable}">
+                            <label>Cidade</label><em>*</em>
+                            <select id="ddlCidade" name="cidade" class="form-control" ng-disabled="colaborador.endereco_estado === undefined || colaborador.endereco_estado.Id <= 0 || listas.enderecoCidades.length <= 0 || !editMode" ng-options="cidade as cidade.Nome for cidade in listas.enderecoCidades track by cidade.Id" ng-model="colaborador.endereco_cidade" required uib-tooltip="{{getErrorMessage('cidade', ['A cidade é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.cidade.enable"></select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <fieldset>
+                <legend>Dados Bancários</legend>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error': errorList.banco.enable}">
+                            <label>Banco</label><em>*</em>
+                            <select id="ddlBanco" name="banco" class="form-control" ng-options="banco as banco.nome for banco in listas.bancos track by banco.id" ng-model="colaborador.banco" required uib-tooltip="{{getErrorMessage('banco', ['O banco é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.banco.enable"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error': errorList.agencia.enable}">
+                            <label>Agência</label><em>*</em>
+                            <input type="text" class="form-control" name="agencia" id="txtAgencia" ng-model="colaborador.agencia" maxlength="4" required uib-tooltip="{{getErrorMessage('agencia', ['A agência bancária é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.agencia.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>Dígito</label><small> (Se houver)</small>
+                            <input type="text" class="form-control" name="agenciaDigito" id="txtAgenciaDigito" ng-model="colaborador.agencia_digito" maxlength="1" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error': errorList.contaCorrente.enable}">
+                            <label style="white-space: nowrap;">Nro da Conta<em>*</em></label>
+                            <input type="text" class="form-control" name="contaCorrente" id="txtContaCorrente" ng-model="colaborador.conta_corrente" maxlength="20" required uib-tooltip="{{getErrorMessage('contaCorrente', ['A conta corrente é obrigatória'])}}" tooltip-placement="top" tooltip-is-open="errorList.contaCorrente.enable" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group" ng-class="{'has-error': errorList.contaCorrenteDigito.enable}">
+                            <label>Dígito</label><em>*</em>
+                            <input type="text" class="form-control" name="contaCorrenteDigito" id="txtContaCorrenteDigito" ng-model="colaborador.conta_corrente_digito" maxlength="1" required uib-tooltip="{{getErrorMessage('contaCorrenteDigito', ['O dígito da conta é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.contaCorrenteDigito.enable" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group" ng-class="{'has-error': errorList.tipoConta.enable}">
+                            <label>Tipo de Conta</label><em>*</em>
+                            <select id="ddlTipoConta" name="tipoConta" class="form-control" required uib-tooltip="{{getErrorMessage('tipoConta', ['O tipo de conta é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.tipoConta.enable">
+                                <option value="1">Corrente</option>
+                                <option value="2">Poupança</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <div class="row"ng-show="!isAdmin" >
+                <div class="col-md-8 col-md-offset-2" style="text-align: justify;">
+                    <span style="color:red;">
+                        O IPEFAE atua na organização de Concursos Públicos e Processos Seletivos e conta com a participação de Colaboradores na aplicação das provas e diversos outros serviços de certame público.
+                    </span><br />
+                    <span style="color:red;">
+                        Para ser um colaborador, é necessário se cadastrar em nosso site. O cadastro no Ipefae é necessário para agilizar a organização dos trabalhos, providenciar o pagamento dos serviços prestados e recolhimento dos impostos.
+                    </span><br /><br />
+                    <span style="color:red;">
+                        O fato de se cadastrar em nosso site não garante ao colaborador a obrigatoriedade da prestação de serviços. Conforme a necessidade e/ou dimensão do Concurso, o colaborador pode ser convidado a prestar os serviços.
+                    </span><br /><br />
+                    <span style="color:red;">
+                        O IPEFAE, inicialmente, agradece seu dispor para colaborar quando necessário!
+                    </span><br />
+                    <span style="color:red;">
+                        O sucesso de nossas atividades estão intimamente ligadas a disposição e comprometimento de todos.
+                    </span>
+                </div>
+            </div>
+            <br />
+            @RenderBody()
+            <div class="row col-botoes text-center">
+                <input type="button" name="btnVoltar" id="btnVoltar" ng-show="isAdmin" class="btn btn-personal1 btn-lg" value="Voltar" onclick="window.location.href = urlVoltar;" />
+                <input type="button" name="btnEditar" ng-if="!editMode" id="btnEditar" class="btn btn-success btn-lg" value="Editar Dados" ng-click="editarDados(true)" />
+                <input type="button" name="btnSalvar" ng-if="editMode" id="btnSalvar" class="btn btn-success btn-lg" value="Salvar" ng-click="salvar()" />
+            </div>
+            <br />
+        </form>
+    </div>
+
+    <section>
+        <div class="modal fade modal-senha" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog" style="transform: translateY(50%);">
+                <div class="modal-content">
+                    <div class="row senha" style="padding: 10px; margin: 0px;">
+                        <div class="col-md-12 modal-senha-white">
+                            <form id="frmSenha" name="frmSenha" class="frmSenha form-validate" novalidate="">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label style="font-size: 12px;">Digite sua senha para realizar seu cadastro</label>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px;">
+                                    <div class="col-md-6">
+                                        <div class="form-group" ng-class="{'has-error': errorList.senha.enable}">
+                                            <input type="password" class="form-control" name="senha" ng-model="colaborador.senha" id="txtSenha" maxlength="10" placeholder="Digite sua senha aqui" required uib-tooltip="{{getErrorMessage('senha', ['A senha é obrigatória'], 'frmSenha')}}" tooltip-placement="top" tooltip-is-open="errorList.senha.enable" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" ng-class="{'has-error': errorList.confirmacaoSenha.enable}">
+                                            <input type="password" class="form-control" name="confirmacaoSenha" ui-validate="{senhaIgualConfirmacao:'$value==colaborador.senha'}" ui-validate-watch="'colaborador.senha'" ng-model="colaborador.confirmacaoSenha" id="txtConfirmacaoSenha" placeholder="Confirme sua senha" required uib-tooltip="{{getErrorMessage('confirmacaoSenha', ['A confirmação de senha é obrigatória', 'A confirmação precisa ser igual a senha'], 'frmSenha')}}" tooltip-placement="top" tooltip-is-open="errorList.confirmacaoSenha.enable" />
+                                        </div>
+                                    </div>
+                                </div> 
+                                <br />
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <input type="button" name="btnCancelar" id="btnCancelar" class="btn btn-personal1 btn-lg" value="Cancelar" onclick="$('.modal-senha').modal('hide');" />
+                                        <input type="button" name="btnConfirmar" id="btnConfirmar" class="btn btn-success btn-lg" value="Confirmar" ng-click="alterarSenhaSalvar(@Model.id)" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

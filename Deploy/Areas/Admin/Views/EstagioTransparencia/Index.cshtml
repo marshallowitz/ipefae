@@ -1,0 +1,113 @@
+﻿@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+<link href="@Url.Content("~/Content/Estagio.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<script src="@Url.Content("~/Scripts/Views/EstagioTransparencia.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+<style>
+    body        { overflow: hidden; }
+    h2.titulo   { margin-bottom: 0px !important; }
+</style>
+
+<div class="container estagio-transparencia-cadastro" ng-controller="estagioTransparenciaCadastroController as ctrl">
+
+    <h2 class="titulo">Estágio - Transparência <a href="javascription:void(0)" ng-click="exibir_visao_adicionar = true" ng-show="!exibir_visao_adicionar">+ Novo Documento</a> </h2>
+
+    <div class="row principal">
+
+        <div class="adicionar col-md-12 ng-hide" ng-show="exibir_visao_adicionar">
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label>Tipo Arquivo</label>
+                    <select class="form-control" ng-model="novoArquivo.tipo">
+                        <option value="1">Extrato Parcerias Celebradas</option>
+                        <option value="2">Prestação de Contas</option>
+                        <option value="3">Publicidade OSC</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>Nome Arquivo</label>
+                    <input type="text" placeholder="Digite o nome do arquivo" class="form-control" ng-model="novoArquivo.nome" />
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="col-md-12">Upload <small class="aviso">(Somente arquivos PDF)</small></label>
+                <div class="col-md-6" ng-show="!ctrl.tem_arquivo">
+                    <div class="form-group">
+                        <div class="upload-file">
+                            <input type="file" name="UploadFile" id="txtUploadPDF" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 ng-hide" ng-show="ctrl.tem_arquivo">
+                    <img height="36" width="36" src="@Url.Content("~/Content/imagens/pdf.png")" />
+                    <img class="remover-pdf" src="@Url.Content("~/Content/imagens/delete.png")" ng-click="ctrl.tem_arquivo = false" style="cursor: pointer;" />
+                </div>
+            </div>
+
+            <div class="col-md-3 botoes">
+                <div class="form-group">
+                    <button type="button" class="btn btn-primary" ng-click="salvar()">Salvar</button>
+                    &nbsp;
+                    <button type="button" class="btn btn-default" ng-click="cancelar()">Voltar</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tabela col-md-12" ng-if="!exibir_visao_adicionar">
+
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Tipo Arquivo</label>
+                        <select class="form-control" ng-model="filtro.tipo">
+                            <option value="1">Extrato Parcerias Celebradas</option>
+                            <option value="2">Prestação de Contas</option>
+                            <option value="3">Publicidade OSC</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Nome Arquivo</label>
+                        <input type="text" class="form-control" ng-model="filtro.nome" />
+                    </div>
+                </div>
+                <div class="col-md-4" style="line-height: 80px;">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary" ng-click="listar()">Listar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="emptyTable col-md-12" ng-show="arquivos.length <= 0"> Não há nenhum documento na lista </div>
+
+            <table class="table-responsive table-striped table-hover" ng-show="arquivos.length > 0">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Nome</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="arquivo in arquivos | orderBy: ['tipo', 'nome']  track by $index">
+                        <td style="width: 20%">{{arquivo.tipo_nome}}</td>
+                        <td style="width: 60%">{{arquivo.nome}}</td>
+                        <td class="text-center">
+                            <a href="{{arquivo.url}}" target="_blank" title="Baixar o Arquivo"><em class="fa fa-2x fa-download"></em></a>
+                            &nbsp;
+                            <a href="javascript:void(0)" ng-click="apagar($index)" title="Apagar o Arquivo"><em class="fa fa-2x fa-times"></em></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>

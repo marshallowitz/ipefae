@@ -1,0 +1,117 @@
+﻿@using TGV.IPEFAE.Web.Resources.Shared;
+
+<!DOCTYPE html>
+<!--[if IE 7]>	<html class="no-js  lt-ie10 lt-ie9 lt-ie8 ie7" lang="pt-br"> <![endif]-->
+<!--[if IE 8]>	<html class="no-js lt-ie10 lt-ie9 ie8" lang="pt-br"> <![endif]-->
+<!--[if IE 9]>	<html class="no-js lt-ie10 ie9" lang="pt-br"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="pt-br" data-ng-app="ipefae">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="@_Layout.MetaContent">
+    <meta name="author" content="Thiago Valente - thiago.valente@fitideias.com.br">
+    <meta content="@_Layout.MetaContent" name="description" />
+    <link rel="shortcut icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon">
+    <link rel="icon" href="@Url.Content("~/favicon.ico")" type="image/x-icon">
+    <title>.:: @_Layout.Titulo ::.</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/fonts/font-awesome-4.1.0/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+
+    <link href="https://jquery-ui-bootstrap.github.io/jquery-ui-bootstrap/css/custom-theme/jquery-ui-1.10.3.custom.css" rel="stylesheet" type="text/css">
+    
+    <link href="@Url.Content("~/Content/bootstrap.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/jquery.slideUnlock.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/site.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+    <link href="@Url.Content("~/Content/angucomplete.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+
+    <script src="@Url.Content("~/Scripts/jquery-2.1.3.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+    @*<script src="@Url.Content("~/Scripts/Angular/angular.min.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.min.js"></script>
+    <script src="@Url.Content("~/Scripts/Angular/angular-locale_pt-br.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-touch.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-validate/1.2.3/validate.min.js"></script>
+    <script src="@Url.Content("~/Scripts/Angular/ui-bootstrap-tpls-2.5.0.min.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/Angular/input-mask.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+    <script src="@Url.Content("~/Scripts/jquery.blockUI.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/jquery.mask.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/jquery.slideUnlock.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/jquery.addItems.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/jquery.cascade.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/jquery.jscroll.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/jquery.ui.touch.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+   
+    <script src="@Url.Content("~/Scripts/respond.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+    <link href="@Url.Content("~/Content/IPEFAE.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/menu.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/Content/whirl.min.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+
+    <script src="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap-dialog.min.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/Angular/angucomplete.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+    @RenderSection("scripts", required: false)
+    <script src="@Url.Content("~/Scripts/Views/Geral.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/Views/IPEFAE.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+    <script src="@Url.Content("~/Scripts/Views/Login.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+    <script>
+        var urlSite = '@System.Web.Configuration.WebConfigurationManager.AppSettings["URLAmbiente"]';
+        var emailObrigatorio = encodeConversion('@_ModalLogin.ObrigatorioEmail', 'num', 'hex');
+        var formatoInvalidoEmail = encodeConversion('@_ModalLogin.ObrigatorioFormatoEmail', 'num', 'hex');
+        var senhaObrigatoria = encodeConversion('@_ModalLogin.ObrigatorioSenha', 'num', 'hex');
+        var mensagemBlockUILogin = encodeConversion('@_ModalLogin.MensagemBlockUILogin', 'num', 'hex');
+        var mensagemBlockUILogoff = encodeConversion('@_ModalLogin.MensagemBlockUILogoff', 'num', 'hex');
+        var erroLogin = encodeConversion('@_ModalLogin.ErroLogin', 'num', 'hex');
+        var homePage = urlSite;
+
+        var cssCarregando = { border: 'none', padding: '5px', backgroundColor: '#000', '-webkit-border-radius': '5px', '-moz-border-radius': '5px', opacity: .5, color: '#fff', zIndex: 2001 };
+        
+        $(function ()
+        {
+            $.unblockUI();
+
+            iniciarTelaLogin();
+
+            $('.menu-com-sub').hover(function () { $(this).find('.decor3_2').stop().slideDown(100); }, function () { $(this).find('.decor3_2').stop().slideUp(10); });
+
+            $('a[href*=#]:not([href=#])').click(function () {
+                $('.navbar-collapse').addClass('collapse').removeClass('in');
+
+                if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') || location.hostname == this.hostname) {
+                    var target = $(this.hash);
+                    target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+                    if (target.length) {
+                        $('html,body').animate({ scrollTop: target.offset().top }, 1000).promise()
+                            .then(function () {
+                                if (target.selector == '#contato')
+                                    $('section#contato').find('#txtNome').focus();
+                            });
+
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    @RenderBody()
+
+    <div ng-controller="ipefaeController"></div>
+</body>
+</html>

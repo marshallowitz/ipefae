@@ -1,0 +1,21 @@
+﻿@model TGV.IPEFAE.Web.App.Models.ConcursoModel
+@using TGV.IPEFAE.Web.Resources.Admin.Recurso;
+@{ Layout = "~/Views/Shared/_LayoutList.cshtml"; }
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/f2c75b7247b/sorting/datetime-moment.js"></script>
+<script src="@Url.Content("~/Scripts/Views/Recurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script>
+    var urlDataTable = '@Url.Content(String.Format("~/Scripts/language/dataTables.{0}.txt", TGV.IPEFAE.Web.Resources.Shared.Listas.IdiomaDataTable))';
+    var mensagemCarregando = encodeConversion('@Index.MensagemCarregando', 'num', 'hex');
+    var naoEncontrado = encodeConversion('@Index.NenhumRecursoEncontrado', 'num', 'hex');
+
+    $(function () { iniciarTelaListaRecursos(); });
+</script>
+
+<h2 class="titulo">
+    @Index.TituloTela <a href="@Url.Content("~/Admin/Concurso/")">@Index.LinkVoltar</a>
+    <br />
+    <span>@Html.Raw(String.Format("#{0} - {1}", Model.Id, Model.Nome))</span>
+</h2>
+<div class="lista table-responsive"></div>

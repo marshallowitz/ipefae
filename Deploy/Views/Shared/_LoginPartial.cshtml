@@ -1,0 +1,15 @@
+﻿@using TGV.IPEFAE.Web.Resources.Shared;
+<ul class="nav navbar-nav navbar-right ulLogado" style="display: none">
+    <li class="dropdown-submenu menu-usuario">
+        <span class="spanOla"></span>
+    </li>
+    <li>
+        <a href="javascript:void(0)" class="menu-usuario-sair" onclick="realizarLogOff();">@_LoginPartial.LabelSair</a>
+    </li>
+</ul>
+<ul class="nav navbar-nav navbar-right ulDeslogado" style="display: none">
+    <li class="menu-login-li" style="cursor: pointer;" onclick="abrirModalLogin();">
+        <span class="menu-login-entrar text-uppercase">@_LoginPartial.LabelEntrar</span>
+        <div class="menu-login"></div>
+    </li>
+</ul>

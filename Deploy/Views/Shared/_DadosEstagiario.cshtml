@@ -1,0 +1,574 @@
+﻿@using TGV.IPEFAE.Web.Resources.Shared
+@model TGV.IPEFAE.Web.App.Models.UsuarioEstagioModel
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+<link href="@Url.Content("~/Content/Estagio.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<script src="@Url.Content("~/Scripts/Views/CursosScript.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script src="@Url.Content("~/Scripts/Views/Estagio.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<style>
+    .modal-dialog .modal-content    { margin-top: 150px; }
+    .marginBottom-30                { margin-bottom: 60px; }
+</style>
+<script>
+    var urlVoltar = '@Url.Content("~/Estagio")';
+    var mensagemBlockUISalvar = encodeConversion('@_DadosEstagiario.MensagemBlockUISalvar', 'num', 'hex');
+    var mensagemRealizandoUpload = encodeConversion('@_DadosEstagiario.MensagemRealizandoUpload', 'num', 'hex');
+    var mensagemValidandoEmail = encodeConversion('@_DadosEstagiario.MensagemValidandoEmail', 'num', 'hex');
+    var mensagemEmailExistente = encodeConversion('@_DadosEstagiario.MensagemEmailExistente', 'num', 'hex');
+    var labelEM01 = encodeConversion('@_DadosEstagiario.LabelEM01', 'num', 'hex');
+    var labelET01 = encodeConversion('@_DadosEstagiario.LabelET01', 'num', 'hex');
+    var labelSelecioneET01 = encodeConversion('@_DadosEstagiario.LabelSelecioneET01', 'num', 'hex');
+    var labelES01 = encodeConversion('@_DadosEstagiario.LabelES01', 'num', 'hex');
+    var labelES02 = encodeConversion('@_DadosEstagiario.LabelES02', 'num', 'hex');
+    var labelPeriodo = encodeConversion('@_DadosEstagiario.LabelPeriodo', 'num', 'hex');
+    var labelEJA01 = encodeConversion('@_DadosEstagiario.LabelEJA01', 'num', 'hex');
+    var labelEJA02 = encodeConversion('@_DadosEstagiario.LabelEJA02', 'num', 'hex');
+    var optionManha = encodeConversion('@_DadosEstagiario.OptionManha', 'num', 'hex');
+    var optionTarde = encodeConversion('@_DadosEstagiario.OptionTarde', 'num', 'hex');
+    var optionNoite = encodeConversion('@_DadosEstagiario.OptionNoite', 'num', 'hex');
+    var optionIntegral = encodeConversion('@_DadosEstagiario.OptionIntegral', 'num', 'hex');
+    var optionTipoModulo = encodeConversion('@_DadosEstagiario.OptionTipoModulo', 'num', 'hex');
+    var optionTipoTermo = encodeConversion('@_DadosEstagiario.OptionTipoTermo', 'num', 'hex');
+    var optionTipoSemestre = encodeConversion('@_DadosEstagiario.OptionTipoSemestre', 'num', 'hex');
+    var optionEJAEM = encodeConversion('@_DadosEstagiario.OptionEJAEM', 'num', 'hex');
+    var optionEJAEF = encodeConversion('@_DadosEstagiario.OptionEJAEF', 'num', 'hex');
+    var optionModalidadePresencial = encodeConversion('@_DadosEstagiario.OptionModalidadePresencial', 'num', 'hex');
+    var optionModalidadeEAD = encodeConversion('@_DadosEstagiario.OptionModalidadeEAD', 'num', 'hex');
+    var nomeObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoNomeObrigatorio', 'num', 'hex');
+    var emailObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoEmailObrigatorio', 'num', 'hex');
+    var formatoEmailInvalido = encodeConversion('@_DadosEstagiario.ValidacaoFormatoEmailInvalido', 'num', 'hex');
+    var cpfObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoCPFObrigatorio', 'num', 'hex');
+    var rgObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoRGObrigatorio', 'num', 'hex');
+    var dataExpedicaoObrigatoria = encodeConversion('@_DadosEstagiario.ValidacaoDataExpedicaoObrigatoria', 'num', 'hex');
+    var dataExpedicaoFormatoInvalido = encodeConversion('@_DadosEstagiario.ValidacaoFormatoDataExpedicaoInvalido', 'num', 'hex');
+    var carteiraTrabalhoNumeroObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoCarteiraTrabalhoNumeroObrigatorio', 'num', 'hex');
+    var carteiraTrabalhoSerieObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoCarteiraTrabalhoSerieObrigatorio', 'num', 'hex');
+    var carteiraTrabalhoUFObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoCarteiraTrabalhoUFObrigatorio', 'num', 'hex');
+    var sexoObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoSexoObrigatorio', 'num', 'hex');
+    var dataNascObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoDataNascObrigatorio', 'num', 'hex');
+    var dataNascFormatoInvalido = encodeConversion('@_DadosEstagiario.ValidacaoDataNascFormatoInvalido', 'num', 'hex');
+    var telefoneObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoTelefoneObrigatorio', 'num', 'hex');
+    var enderecoObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoEnderecoObrigatorio', 'num', 'hex');
+    var nroEnderecoObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoNroEnderecoObrigatorioObrigatorio', 'num', 'hex');
+    var bairroObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoBairroObrigatorio', 'num', 'hex');
+    var cepObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoCEPObrigatorio', 'num', 'hex');
+    var estadoObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoEstadoObrigatorio', 'num', 'hex');
+    var cidadeObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoCidadeObrigatorio', 'num', 'hex');
+    var qtdadeFilhosObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoQtdadeFilhosObrigatorio', 'num', 'hex');
+    var deficiencia_qualObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoDeficienciaQualObrigatorio', 'num', 'hex');
+    var tipo_ensinoObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoTipoEnsinoObrigatorio', 'num', 'hex');
+    var nomeEscolaObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoNomeEscolaObrigatorio', 'num', 'hex');
+    var de01Obrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoDe01Obrigatorio', 'num', 'hex');
+    var de02Obrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoDe02Obrigatorio', 'num', 'hex');
+    var periodoObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoPeriodoObrigatorio', 'num', 'hex');
+    var nomeCursoObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoNomeCursoObrigatorio', 'num', 'hex');
+    var dataInicioDEObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoDataInicioDEObrigatorio', 'num', 'hex');
+    var dataInicioDEFormatoInvalido = encodeConversion('@_DadosEstagiario.ValidacaoDataInicioDEFormatoInvalido', 'num', 'hex');
+    var dataTerminoDEObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoDataTerminoDEObrigatorio', 'num', 'hex');
+    var dataTerminoDEFormatoInvalido = encodeConversion('@_DadosEstagiario.ValidacaoDataTerminoDEFormatoInvalido', 'num', 'hex');
+    var dataTerminoMaiorDataInicio = encodeConversion('@_DadosEstagiario.ValidacaoDataTerminoMaiorDataInicio', 'num', 'hex');
+    var senhaObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoSenhaObrigatorio', 'num', 'hex');
+    var confirmacaoSenhaObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoConfirmacaSenhaObrigatorio', 'num', 'hex');
+    var senhaConfirmacaoDiferente = encodeConversion('@_DadosEstagiario.ValidacaoSenhaConfirmacaoDiferente', 'num', 'hex');
+    var curriculoSalvoSucesso = encodeConversion('@_DadosEstagiario.MensagemCurriculoSalvoSucesso', 'num', 'hex');
+
+    var nomeEmpresaObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoNomeEmpresaObrigatorio', 'num', 'hex');
+    var cargoObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoCargoObrigatorio', 'num', 'hex');
+    var atividadesDesenvolvidasObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoAtividadesDesenvolvidasObrigatorio', 'num', 'hex');
+    var nomeCursoObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoNomeCursoObrigatorio', 'num', 'hex');
+    var duracaoObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoDuracaoObrigatorio', 'num', 'hex');
+
+    var labelIdadeAnos = encodeConversion('@_DadosEstagiario.LabelIdadeAnos', 'num', 'hex');
+    var optionEnsinoMedio = encodeConversion('@_DadosEstagiario.OptionEnsinoMedio', 'num', 'hex');
+    var optionEJA = encodeConversion('@_DadosEstagiario.OptionEJA', 'num', 'hex');
+
+    var arquivoObrigatorio = encodeConversion('@_DadosEstagiario.ValidacaoArquivoObrigatorio', 'num', 'hex');
+    var arquivoFormatoInvalido = encodeConversion('@_DadosEstagiario.ValidacaoArquivoFormatoInvalido', 'num', 'hex');
+
+    $(function () { iniciarTelaCadastroEstagio('@Model.IdEstado', '@Model.IdCidadeEndereco', '@Model.IdEstadoCarteiraTrabalho', eval('@Model.PossuiDeficiencia'.toLowerCase()), eval('@Model.PossuiExperienciaProfissional'.toLowerCase()), eval('@Model.EhMasculino'.toLowerCase()), '@Model.DadosEscolares.FlagTipo', '@Model.DadosEscolares.FlagPeriodo', '@Model.DadosEscolares.Ano_Semestre', eval('@Model.DadosEscolares.EhEAD'.toLowerCase()), '@Model.DadosEscolares.FlagTipoProfissionalizante', '@Model.FlgEstadoCivil', '@Model.FlgMotivoDesativacao'); });
+</script>
+
+<section>
+    <div class="modal fade modal-senha" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="row senha" style="padding: 10px; margin: 0px;">
+                    <div class="col-md-12 modal-senha-white">
+                        <form class="frmSenha" method="post">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label style="font-size: 12px;">@_DadosEstagiario.LabelDigiteSuaSenha</label>
+                                    <label style="font-size: 10px;">@_DadosEstagiario.LabelDigiteSuaSenhaAlerta</label>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 10px;">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" name="senha" id="txtSenha" placeholder="@_DadosEstagiario.PlaceHolderSenha" />
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input type="password" class="form-control" name="confirmacaoSenha" id="txtConfirmacaoSenha" placeholder="@_DadosEstagiario.PlaceHolderConfirmacaoSenha" />
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <input type="button" name="btnCancelar" id="btnCancelar" class="btn btn-personal1 btn-lg" value="@_DadosEstagiario.BotaoCancelar" onclick="$('.modal-senha').modal('hide');" />
+                                    <input type="submit" name="btnConfirmar" id="btnConfirmar" class="btn btn-success btn-lg" value="@_DadosEstagiario.BotaoConfirmar" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<h2 class="titulo">@_DadosEstagiario.TituloTela</h2>
+
+<input type="hidden" id="hdnId" value="@Model.Id" />
+<input type="hidden" id="hdnAt" value="@Model.Ativo.ToString().ToLower()" />
+<input type="hidden" id="hdnCP" value="@Model.ConsiderarBusca.ToString().ToLower()" />
+<input type="hidden" id="hdnEE" value="@Model.EstaEstagiando.ToString().ToLower()" />
+
+<div class="container marginBottom-30">
+    <div class="row centro">
+        <form id="estCadastroForm" class="estCadastroForm">
+            <fieldset>
+                <legend>@_DadosEstagiario.LegendaDadosPessoais</legend>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelNomeCompleto</label><em>*</em>
+                            <input type="text" class="form-control" name="nome" id="txtNomeCompleto" value="@Model.Nome" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelEmail</label><em>*</em>
+                            <input type="text" class="form-control" name="email" id="txtEmail" value="@Model.Email" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelCPF</label><em>*</em>
+                            <input type="text" class="form-control" name="cpf" id="txtCPF" value="@Model.CPFFormatado" />
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelRG</label><em>*</em>
+                            <input type="text" class="form-control" name="rg" id="txtRG" value="@Model.RG" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelDataExpedicao</label><em>*</em>
+                            <input type="text" class="form-control" name="dataRGExpedicao" id="txtDataRGExpedicao" value="@Model.DataExpedicaoRGString" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelCarteiraTrabalho</label><em>*</em>
+                            <input type="text" class="form-control" name="carteiraTrabalhoNumero" id="txtCarteiraTrabalhoNumero" maxlength="30" value="@Model.CarteiraTrabalhoNumero" />
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelCarteiraTrabalhoSerie</label><em>*</em>
+                            <input type="text" class="form-control" name="carteiraTrabalhoSerie" id="txtCarteiraTrabalhoSerie" maxlength="30" value="@Model.CarteiraTrabalhoSerie" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelCarteiraTrabalhoUF</label><em>*</em>
+                            <select id="ddlCarteiraTrabalhoUF" name="carteiraTrabalhoUF" class="form-control">
+                                <option value="0"></option>
+                                <option value="1">AC</option>
+                                <option value="2">AL</option>
+                                <option value="3">AM</option>
+                                <option value="4">AP</option>
+                                <option value="5">BA</option>
+                                <option value="6">CE</option>
+                                <option value="7">DF</option>
+                                <option value="8">ES</option>
+                                <option value="9">GO</option>
+                                <option value="10">MA</option>
+                                <option value="11">MG</option>
+                                <option value="12">MS</option>
+                                <option value="13">MT</option>
+                                <option value="14">PA</option>
+                                <option value="15">PB</option>
+                                <option value="16">PE</option>
+                                <option value="17">PI</option>
+                                <option value="18">PR</option>
+                                <option value="19">RJ</option>
+                                <option value="20">RN</option>
+                                <option value="21">RO</option>
+                                <option value="22">RR</option>
+                                <option value="23">RS</option>
+                                <option value="24">SC</option>
+                                <option value="25">SE</option>
+                                <option value="26">SP</option>
+                                <option value="27">TO</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelEstadoCivil</label><em>*</em>
+                            <select id="ddlEstadoCivil" name="estadocivil" class="form-control">
+                                <option value="C">@_DadosEstagiario.OptionCasado</option>
+                                <option value="D">@_DadosEstagiario.OptionDivorciado</option>
+                                <option value="S" selected>@_DadosEstagiario.OptionSolteiro</option>
+                                <option value="V">@_DadosEstagiario.OptionViuvo</option>
+                                <option value="O">@_DadosEstagiario.OptionOutros</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelSexo</label><em>*</em>
+                            <select id="ddlSexo" name="sexo" class="form-control">
+                                <option value=""></option>
+                                <option value="F">@_DadosEstagiario.OptionFeminino</option>
+                                <option value="M">@_DadosEstagiario.OptionMasculino</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelDataNascimento</label> <span id="idade"></span><em>*</em>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="dataNasc" id="txtDataNascimento" value="@Model.DataNascimentoString" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelTelefone</label><em>*</em>
+                            <input type="text" class="form-control" name="telefone" id="txtTelefone" value="@Model.Telefone" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelCelular</label>
+                            <input type="text" class="form-control" name="celular" id="txtCelular" value="@Model.Celular" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelEndereco</label><em>*</em>
+                            <input type="text" class="form-control" name="endereco" id="txtEndereco" value="@Model.Endereco" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelNumeroEndereco</label><em>*</em>
+                            <input type="text" class="form-control" name="nroEndereco" id="txtNroEndereco" value="@Model.NumeroEnderecoString" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelComplemento</label>
+                            <input type="text" class="form-control" name="complemento" id="txtComplemento" value="@Model.Complemento" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelBairro</label><em>*</em>
+                            <input type="text" class="form-control" name="bairro" id="txtBairro" value="@Model.Bairro" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelCEP</label><em>*</em>
+                            <input type="text" class="form-control" name="cep" id="txtCEP" value="@Model.CEP" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelEstado</label><em>*</em>
+                            <select id="ddlEstado" name="estado" class="form-control">
+                                <option value="0"></option>
+                                <option value="1">Acre</option>
+                                <option value="2">Alagoas</option>
+                                <option value="4">Amapá</option>
+                                <option value="3">Amazonas</option>
+                                <option value="5">Bahia</option>
+                                <option value="6">Ceará</option>
+                                <option value="7">Distrito Federal</option>
+                                <option value="8">Espírito Santo</option>
+                                <option value="9">Goiás</option>
+                                <option value="10">Maranhão</option>
+                                <option value="13">Mato Grosso</option>
+                                <option value="12">Mato Grosso do Sul</option>
+                                <option value="11">Minas Gerais</option>
+                                <option value="14">Pará</option>
+                                <option value="15">Paraíba</option>
+                                <option value="18">Paraná</option>
+                                <option value="16">Pernambuco</option>
+                                <option value="17">Piauí</option>
+                                <option value="19">Rio de Janeiro</option>
+                                <option value="20">Rio Grande do Norte</option>
+                                <option value="23">Rio Grande do Sul</option>
+                                <option value="21">Rondônia</option>
+                                <option value="22">Roraima</option>
+                                <option value="24">Santa Catarina</option>
+                                <option value="26">São Paulo</option>
+                                <option value="25">Sergipe</option>
+                                <option value="27">Tocantins</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelCidade</label><em>*</em>
+                            <select id="ddlCidade" name="cidade" class="form-control" disabled></select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelFilhos</label><em>*</em>
+                            <input type="text" class="form-control" name="qtdadeFilhos" id="txtQtdadeFilhos" value="@Model.NumeroFilhos" />
+                        </div>
+                    </div>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelPossuiDeficiencia</label><em>*</em><br />
+                            <input type="radio" id="rdDefSim" name="deficiencia" value="S" /><label class="label-radio" for="rdDefSim">@_DadosEstagiario.OptionSim</label>
+                            <input type="radio" id="rdDefNao" name="deficiencia" value="N" checked /><label class="label-radio" for="rdDefNao">@_DadosEstagiario.OptionNao</label>
+                        </div>
+                    </div>
+                    <div class="col-md-5 tem-deficiencia" style="display: none;">
+                        <div class="form-group deficienciaQual">
+                            <label>@_DadosEstagiario.LabelPossuiDeficienciaQual</label><em>*</em><br />
+                            <ul style="padding: 0;">
+                                <li>
+                                    <input type="radio" id="rdDefFisica" name="deficiencia_qual" value="F" />
+                                    <label class="label-radio" for="rdDefFisica">@_DadosEstagiario.OptionFisica</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="rdDefAuditiva" name="deficiencia_qual" value="A" />
+                                    <label class="label-radio" for="rdDefAuditiva">@_DadosEstagiario.OptionAuditiva</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="rdDefVisual" name="deficiencia_qual" value="V" />
+                                    <label class="label-radio" for="rdDefVisual">@_DadosEstagiario.OptionVisual</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="rdDefMental" name="deficiencia_qual" value="M" />
+                                    <label class="label-radio" for="rdDefMental">@_DadosEstagiario.OptionMental</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="rdDefMultipla" name="deficiencia_qual" value="O" />
+                                    <label class="label-radio" for="rdDefMultipla">@_DadosEstagiario.OptionMultipla</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row foto">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelFoto</label><em>*</em>
+                            <label style="font-size: 10px; font-weight: normal;">@_DadosEstagiario.LabelInfoFoto</label>
+                            <div class="upload-file">
+                                <input type="file" name="UploadFile" id="txtUploadFoto" class="form-control" accept="image/*" />
+                                <input type="hidden" id="hdnTemFoto" value="@Model.TemFoto.ToString().ToLower()" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <img id="fotoEstagio" height="90" width="81" src="" />
+                            <img class="remover-foto" src="@Url.Content("~/Content/imagens/delete.png")" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <fieldset>
+                <legend>@_DadosEstagiario.LegendaObjetivosEstagio</legend>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <textarea id="txtObjetivos" name="objetivos" style="max-width: none; height: 100px;" placeholder="@_DadosEstagiario.PlaceHolderObjetivosEstagio" class="form-control">@Model.Objetivos</textarea>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <fieldset>
+                <legend>@_DadosEstagiario.LegendaDadosEscolares</legend>
+                <input type="hidden" id="hdnIdDadosEstagio" value="@Model.IdUsuarioEstagioDadosEscolares" />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelTipoEnsino</label><em>*</em><br />
+                            <ul class="tipo_ensino">
+                                <li>
+                                    <input type="radio" id="rdEnsinoMedio" name="tipo_ensino" value="M" />
+                                    <label class="label-radio" for="rdEnsinoMedio">@_DadosEstagiario.OptionEnsinoMedio</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="rdTecnico" name="tipo_ensino" value="T" />
+                                    <label class="label-radio" for="rdTecnico">@_DadosEstagiario.OptionTecnico</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="rdEJA" name="tipo_ensino" value="E" />
+                                    <label class="label-radio" for="rdEJA">@_DadosEstagiario.OptionEJA</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="rdEnsinoSuperior" name="tipo_ensino" value="S" />
+                                    <label class="label-radio" for="rdEnsinoSuperior">@_DadosEstagiario.OptionEnsinoSuperior</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tipo-ensino" style="display:none;">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosEstagiario.LabelNomeEscola</label><em>*</em>
+                                <input type="text" class="form-control" name="nomeEscola" id="txtNomeEscola" value="@Model.DadosEscolares.NomeEscola" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label id="lblDE01"></label><em>*</em>
+                                <select id="ddlDE01" name="de01" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group terceira-coluna">
+                                <label id="lblDE02"></label><em>*</em>
+                                <select id="ddlDE02" name="de02" class="form-control"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label id="lblPeriodo">@_DadosEstagiario.LabelPeriodo</label><em>*</em>
+                                <select id="ddlPeriodo" name="periodo" class="form-control"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row segunda-linha">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@_DadosEstagiario.LabelNomeCurso</label><em>*</em>
+                                <input type="text" class="form-control nomeCursoAutoComplete" name="nomeCurso" id="txtNomeCurso" value="@Model.DadosEscolares.NomeCurso" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label id="lblInicioDE">@_DadosEstagiario.LabelMesAnoInicio</label><em>*</em>
+                                <input type="text" class="form-control" name="dataInicioDE" id="txtInicioDE" placeholder="__/____" value="@Model.DadosEscolares.DataInicioString" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label id="lblTerminoDE" style="white-space: nowrap;">@_DadosEstagiario.LabelMesAnoPrevisaoTermino<em>*</em></label>
+                                <input type="text" class="form-control" name="dataTerminoDE" id="txtTerminoDE" placeholder="__/____" value="@Model.DadosEscolares.DataTerminoString" />
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </fieldset>
+            <br />
+            <fieldset>
+                <legend>@_DadosEstagiario.LegendaExperienciaProfissional</legend>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>@_DadosEstagiario.LabelPossuiExperienciaProfissional</label><br />
+                            <ul class="tem_experiencia">
+                                <li>
+                                    <input type="radio" id="rdExpSim" name="experiencia_profissional" value="S" />
+                                    <label class="label-radio" for="rdExpSim">@_DadosEstagiario.OptionSim</label>
+                                </li>
+                                <li>
+                                    <input type="radio" id="rdExpNao" name="experiencia_profissional" value="N" checked />
+                                    <label class="label-radio" for="rdExpNao">@_DadosEstagiario.OptionNao</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tem-experiencia-profissional" style="display: none;">
+                    @Html.Partial("_ExperienciasProfissionais", Model.ExperienciasProfissionais)
+                </div>
+            </fieldset>
+            <br />
+            <fieldset>
+                <legend>@_DadosEstagiario.LegendaCursosCapacitacoes</legend>
+                <div class="cursos-capacitacoes" style="min-height: 114px;"></div>
+            </fieldset>
+            <br />
+            <fieldset>
+                <legend>@_DadosEstagiario.LegendaOutrosConhecimentos</legend>
+                <div class="outros-conhecimentos" style="min-height: 114px;"></div>
+            </fieldset>
+            <br />
+            @RenderBody()
+            <div class="row est-botoes text-center">
+                @{ string display = (Model.Id > 0) ? "quarto-botao" : ""; }
+                <div class="col-xs-6 col-md-3">
+                    <input type="button" name="btnVoltar" id="btnVoltar" class="btn btn-personal1 btn-lg" value="@_DadosEstagiario.BotaoVoltar" onclick="window.location.href = urlVoltar;" />
+                </div>
+                @if (Model.Id > 0)
+                {
+                <div class="col-xs-6 col-md-3">
+                    <a name="btnPreview" id="btnPreview" class="btn btn-md" style="background-color: rgb(221, 221, 221); color: rgb(97, 97, 97); padding-top: 1px; padding-bottom: 1px;" target=" _blank" href="@Url.Content(String.Format("~/Estagio/PreviewCurriculo/{0}", Model.Id))">
+                        <span style="font-family: Montserrat,sans-serif; font-size: 14px; line-height: 6px; ">@_DadosEstagiario.BotaoPreviewVisualizar</span><br />
+                        <span style="font-family: Montserrat,sans-serif; font-size: 14px; line-height: 12px;">@_DadosEstagiario.BotaoPreviewCurriculo</span>
+                    </a>
+                </div>
+                <div class="col-xs-6 col-md-3 terceiro-botao">
+                    <a name="btnPDF" id="btnPDF" class="btn btn-danger btn-md" target="_blank" style="padding-top: 1px; padding-bottom: 1px;" href="@Url.Content(String.Format("~/Estagio/GerarPDF/{0}", Model.Id))">
+                        <span style="font-family: Montserrat,sans-serif; font-size: 16px; line-height: 6px;">@_DadosEstagiario.BotaoPDFGerarPDF</span><br />
+                        <span style="font-family: Montserrat,sans-serif; font-size: 12px; line-height: 10px;">@_DadosEstagiario.BotaoPDFCurriculo</span>
+                    </a>
+                </div>
+                }
+                else
+                {
+                    <div class="hidden-xs col-md-3"></div>
+                    <div class="hidden-xs col-md-3"></div>
+                }
+                <div class="col-xs-6 col-md-3 @display">
+                    <input type="submit" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="@_DadosEstagiario.BotaoSalvar" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

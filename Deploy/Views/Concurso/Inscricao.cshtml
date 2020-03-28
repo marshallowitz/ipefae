@@ -1,0 +1,24 @@
+﻿@model TGV.IPEFAE.Web.App.Models.ConcursoModel.InscritoModel
+@using TGV.IPEFAE.Web.Resources.Concurso;
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+
+<link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/d004434a5ff76e7b97c8b07c01f34ca69e635d97/src/js/bootstrap-datetimepicker.js"></script>
+<script src="@Url.Content("~/Scripts/Views/Inscrito.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script>
+    var telaRetornoSalvar = homePage + 'Concurso/' + '@Model.IdConcurso' + '/Inscricao/Confirmacao';
+</script>
+<input type="hidden" id="hdnSalvarBanco" value="false" />
+<input type="hidden" id="hdnNomeConcurso" value="@Model.NomeConcurso" />
+<input type="hidden" id="hdnVoltar" value="@Url.Content(String.Format("~/Concurso/{0}", Model.IdConcurso))" />
+<h2 class="titulo">@String.Format(Inscricao.TituloTela, Model.NomeConcurso)</h2>
+
+@if (Model.IdTipoLayoutConcurso == 1)
+{
+    @Html.Partial("_DadosInscrito", Model);
+}
+else
+{
+    @Html.Partial("_DadosInscritoUniFae", Model);
+}

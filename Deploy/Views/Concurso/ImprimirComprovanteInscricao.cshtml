@@ -1,0 +1,24 @@
+﻿@model TGV.IPEFAE.Web.App.Models.ConcursoModel.InscritoModel
+@using TGV.IPEFAE.Web.Resources.Concurso;
+@{ Layout = null; }
+@*@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/jquery")
+<script src="@Url.Content("~/Scripts/Views/Inscrito.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>*@
+
+<script>
+    var mensagemGerandoComprovanteInscricao = encodeConversion('@_ModalBuscaInscrito.MensagemGerandoComprovanteInscricao', 'num', 'hex');
+</script>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ImprimirComprovanteInscricao</title>
+</head>
+<body>
+    <div>
+        @Html.Partial("_CartaoCandidato", Model)
+    </div>
+</body>
+</html>

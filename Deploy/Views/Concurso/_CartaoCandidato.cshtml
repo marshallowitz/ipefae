@@ -1,0 +1,71 @@
+﻿@using TGV.IPEFAE.Web.Resources.Concurso;
+@model TGV.IPEFAE.Web.App.Models.ConcursoModel.InscritoModel
+<style>
+    .principal { border: solid 1px black; margin: 0 auto; margin-bottom: 30px; padding: 10px; width: 70%; }
+    .red { color: red; font-weight:normal; margin-left:10px; text-transform: uppercase; }
+</style>
+
+<div class="principal">
+    <div class="row">
+        <div class="col-md-12" style="text-align: center">
+            @Model.NomeConcurso
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="font-size: 18px; text-align: center">
+            @_CartaoCandidato.TituloTela
+        </div>
+    </div>
+    <div class="row" style="margin-bottom: 40px; margin-left: 40px; margin-top: 40px;">
+        <fieldset>
+            <legend style="width: 90%;">@_CartaoCandidato.LegendDadosCandidato</legend>
+            <div class="col-md-12">
+                <label class="bold">@_CartaoCandidato.LabelNumeroInscricao</label><label class="red">@Model.Id.ToString().PadLeft(10, '0')</label><br />
+                <label class="bold">@_CartaoCandidato.LabelOpcaoInscricao</label><label class="red">@Model.NomeCargo</label><br />
+                <label class="bold">@_CartaoCandidato.LabelNomeCandidato</label><label class="red">@Model.Nome</label><br />
+                <label class="bold">@_CartaoCandidato.LabelIdentidade</label><label class="red">@Model.RGComEstado</label>
+            </div>
+        </fieldset>
+    </div>
+    @if (Model.Prova != null && !String.IsNullOrEmpty(Model.Prova.DataString))
+    {
+        <div class="row" style="margin-bottom: 40px; margin-left: 40px; margin-top: 40px;">
+            <fieldset>
+                <legend style="width: 90%;">@_CartaoCandidato.LegendDadosProva</legend>
+                <div class="col-md-6">
+                    <label class="bold">@_CartaoCandidato.LabelProvaData</label><label class="red">@Model.Prova.DataString</label><br />
+                    <label class="bold">@_CartaoCandidato.LabelProvaLocal</label><label class="red">@Model.Prova.Local</label><br />
+                    <label class="bold">@_CartaoCandidato.LabelProvaSala</label><label class="red">@Model.Prova.Sala</label>
+                </div>
+                <div class="col-md-6">
+                    <label class="bold">@_CartaoCandidato.LabelProvaHora</label><label class="red">@Model.Prova.HoraString</label><br />
+                    <br />
+                    <label class="bold">@_CartaoCandidato.LabelProvaAndar</label><label class="red">@Model.Prova.Andar</label>
+                </div>
+            </fieldset>
+        </div>
+        <div class="row" style="margin-bottom: 40px; margin-left: 40px; margin-top: 40px;">
+            <fieldset>
+                <legend style="width: 90%;">@_CartaoCandidato.LegendDadosProvaEndereco</legend>
+                <div class="col-md-12">
+                    <label class="bold">@_CartaoCandidato.LabelProvaLogradouro</label><label class="red">@Model.Prova.Logradouro</label><br />
+                    <label class="bold">@_CartaoCandidato.LabelProvaBairro</label><label class="red">@Model.Prova.Bairro</label><br />
+                    <label class="bold">@_CartaoCandidato.LabelProvaCidade</label><label class="red">@Model.Prova.Cidade</label><br />
+                    <label class="bold">@_CartaoCandidato.LabelProvaCEP</label><label class="red">@Model.Prova.CEP</label>
+                </div>
+            </fieldset>
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-12" style="font-size: 10px; text-align: center;">
+            <label>@_CartaoCandidato.LabelAtraso</label><br />
+            <label>@_CartaoCandidato.LabelAtencao</label>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12" style="font-size: 10px; text-align: center;">
+            <label>@_CartaoCandidato.LabelIPEFAE</label><br />
+        </div>
+    </div>
+</div>

@@ -254,6 +254,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\AzureBlobHelper.cs" />
+    <Compile Include="Helper\TextFileEncodingDetector.cs" />
     <Compile Include="Helper\ValidacaoPlanilhaContadorHelper.cs" />
     <Compile Include="Models\AnexoModel.cs" />
     <Compile Include="Models\BancoBrasil\PagamentoModel.cs" />
@@ -413,8 +414,10 @@
     <Content Include="Areas\Admin\Views\Concurso\_ListaFuncoes.cshtml" />
     <Content Include="Areas\Admin\Views\Concurso\_ListaLocaisProva.cshtml" />
     <Content Include="Areas\Admin\Views\EstagioTransparencia\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\ipefae - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\ipefae - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ipefae.org.br - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Scripts\date.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />

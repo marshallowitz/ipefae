@@ -1,0 +1,70 @@
+﻿@using TGV.IPEFAE.Web.Resources.Admin.Estagio
+@model TGV.IPEFAE.Web.App.Models.UsuarioEstagioModel
+@{ Layout = "~/Views/Shared/_DadosEstagiario.cshtml"; }
+
+<script>
+    $(function(){
+        urlVoltar = '@Url.Content("~/Admin/Estagio")';
+    });
+</script>
+
+<fieldset class="area_adm">
+    <legend>@Cadastro.LegendaAreaAdministrativa</legend>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Senha</label><br />
+            <input type="password" style="width: 50%;" readonly class="form-control" name="senhaAdmin" id="txtSenhaAdmin" value="@Model.SenhaDescriptografada" />
+            <input id="chkVer" type="checkbox" onclick="exibirSenha()" />Exibir Senha
+        </div>
+        <div class="col-md-3">
+            <label>@Cadastro.LabelDataCadastro</label><br />
+            <span>@Model.DataCadastroString</span>
+        </div>
+        <div class="col-md-3">
+            <label>@Cadastro.LabelDataUltimaAtualizacao</label><br />
+            <span>@Model.DataUltimaAtualizacaoString</span>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>@Cadastro.LabelConsiderarPesquisa</label><br />
+                <input type="radio" id="rdPesSim" name="considerarPesquisa" value="S" /><label class="label-radio" for="rdPesSim">@Cadastro.OptionSim</label>
+                <input type="radio" id="rdPesNao" name="considerarPesquisa" value="N" /><label class="label-radio" for="rdPesNao">@Cadastro.OptionNao</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>@Cadastro.LabelEstaEstagiando</label><br />
+                <input type="radio" id="rdEstSim" name="estagiando" value="S" /><label class="label-radio" for="rdEstSim">@Cadastro.OptionSim</label>
+                <input type="radio" id="rdEstNao" name="estagiando" value="N" /><label class="label-radio" for="rdEstNao">@Cadastro.OptionNao</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>@Cadastro.LabelAtivo</label><br />
+                <input type="radio" id="rdAtiSim" name="ativo" value="S" /><label class="label-radio" for="rdAtiSim">@Cadastro.OptionSim</label>
+                <input type="radio" id="rdAtiNao" name="ativo" value="N" /><label class="label-radio" for="rdAtiNao">@Cadastro.OptionNao</label>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <label>@Cadastro.LabelMotivoDesativacao</label>
+                <select id="ddlMotivoDesativacao" name="motivoDesativacao" class="form-control">
+                    <option value=""></option>
+                    <option value="A">@Cadastro.OptionFaltaAtualizacao</option>
+                    <option value="M">@Cadastro.OptionNaoMatriculado</option>
+                    <option value="O">@Cadastro.OptionOutros</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <label>@Cadastro.LabelObservacoes</label>
+            <textarea id="txtObsAdmin" class="form-control" style="max-width: none; min-height: 200px;">@Model.ObservacoesAdmin</textarea>
+        </div>
+    </div>
+</fieldset>
+<br />

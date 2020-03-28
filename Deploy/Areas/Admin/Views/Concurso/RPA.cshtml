@@ -1,0 +1,165 @@
+﻿@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+@model int
+<link href="@Url.Content("~/Content/rpa.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="@Url.Content("~/Content/Concurso.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)">
+<script src="@Url.Content("~/Scripts/Angular/pdfmake.min.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script src="@Url.Content("~/Scripts/Angular/vfs_fonts.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<style type="text/css">
+    canvas {
+        border: 0px none #fff;
+    }
+</style>
+<script src="@Url.Content("~/Scripts/Views/Concurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script>
+    var idConcurso = '@Model';
+</script>
+<div class="container marginBottom-30 rpa-container" ng-controller="pdfController">
+    <div ng-show="colaboradores.length > 0" class="lista-colaboradores">
+        <div class="col-md-12">
+            <div class="col-md-9">
+                <div class="col-md-2">
+                    <button class="btn btn-default" onclick="window.location.href='@Url.Content("~/Admin/Concurso")'">Voltar</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary" ng-click="gerar()">Montar RPA</button>
+                </div>
+                <div class="col-md-8" style="font-size: small; line-height: 30px;">
+                    <span class="col-md-1">Listar</span>
+                    <div class="col-md-2">
+                        <input type="number" class="form-control" ng-model="total_rpa" ng-blur="validarValores()" min="1" max="999" maxlength="3" />
+                    </div>
+                    <span class="col-md-7 row" style="padding-left: 5px;">colaboradores, começando a partir do</span>
+                    <div class="col-md-2 row" style="padding-left: 0px;">
+                        <input type="number" class="form-control" ng-model="inicio_rpa" ng-blur="validarValores()" min="1" max="999" maxlength="3" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 text-right">
+                <button class="btn btn-primary" ng-click="export()" ng-disabled="!colaboradores || colaboradores.length <= 0">Gerar PDF</button>
+            </div>
+        </div>
+        <div class="col-md-12" style="margin-bottom: 30px;">
+            <div id="exportthis" style="background-color: #fff;">
+                <div class="" ng-repeat="colaborador in colaboradores">
+                    <div class="rpa" ng-repeat="i in [1,2]">
+                        <h1>RPA – RECIBO DE PAGAMENTO A AUTÔNOMO</h1>
+                        <div class="row">
+                            <h2>DADOS DO EMITENTE</h2>
+                            <div class="row">
+                                <div class="col-md-10">Razão Social: <b>{{colaborador.emitente_razao_social}}</b></div>
+                                <div class="col-md-2 text-right">{{i}}ª Via</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">CNPJ: <b>{{colaborador.emitente_cnpj}}</b></div>
+                                <div class="col-md-4">Mês/Ano: <b>{{colaborador.mesAno}}</b></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">Endereço: <b>{{colaborador.emitente_endereco}}</b></div>
+                                <div class="col-md-3">Bairro: <b>{{colaborador.emitente_bairro}}</b></div>
+                                <div class="col-md-4">Cidade: <b>{{colaborador.emitente_cidade}}</b></div>
+                            </div>
+                        </div>
+                        <hr class="col-md-10 col-md-offset-1" />
+                        <div class="row">
+                            <h2>DADOS DO PRESTADOR DE SERVIÇOS</h2>
+                            <div class="row">
+                                <div class="col-md-12">Nome: <b>{{colaborador.nome}}</b></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">Nº do CPF: <b>{{colaborador.cpf_formatado}}</b></div>
+                                <div class="col-md-3">Nº do RG: <b>{{colaborador.rg}}</b></div>
+                                <div class="col-md-4">Nº do NIT/PIS: <b>{{colaborador.pis_pasep_net}}</b></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">Endereço: <b>{{colaborador.endereco_logradouro}} - {{colaborador.endereco_nro}}</b></div>
+                                <div class="col-md-3">Bairro: <b>{{colaborador.endereco_bairro}}</b></div>
+                                <div class="col-md-4">Cidade: <b>{{colaborador.endereco_cidade_uf_nome}}</b></div>
+                            </div>
+                        </div>
+                        <hr class="col-md-10 col-md-offset-1" />
+                        <div class="prestacao-servico row">
+                            <h2>PRESTAÇÃO DE SERVIÇO</h2>
+                            <div class="row">
+                                <div class="col-md-12">Descrição dos Serviços Prestados: <b>{{colaborador.funcao_nome}}</b></div>
+                                <div class="col-md-12">Valor dos Serviços Prestados: <b>{{colaborador.valor_bruto}}</b></div>
+                            </div>
+                            <hr class="col-md-10 col-md-offset-1" />
+                            <div class="row">
+                                <div class="col-md-4 imposto">
+                                    <h4>INSS</h4>
+                                    <div class="col-md-12">Base Cálculo: <b>{{colaborador.valor_bruto}}</b></div>
+                                    <div class="col-md-12">Alíquota: <b>{{colaborador.aliquota_inss}} %</b></div>
+                                    <div class="col-md-12">Valor a Recolher: <b>{{colaborador.valor_inss}}</b></div>
+                                </div>
+                                <div class="col-md-4 imposto">
+                                    <h4>IRPF</h4>
+                                    <div class="col-md-12">Base Cálculo: <b>{{colaborador.valor_bruto}}</b></div>
+                                    <div class="col-md-12">Alíquota: <b>{{colaborador.aliquota_irpf}} %</b></div>
+                                    <div class="col-md-12">Dedução: <b>{{colaborador.deducao_irpf}} %</b></div>
+                                    <div class="col-md-12">Valor a Recolher: <b>{{colaborador.valor_irpf}}</b></div>
+                                </div>
+                                <div class="col-md-4 imposto">
+                                    <h4>ISS</h4>
+                                    <div class="col-md-12">Base Cálculo: <b>{{colaborador.valor_bruto}}</b></div>
+                                    <div class="col-md-12">Alíquota: <b>{{colaborador.aliquota_iss}} %</b></div>
+                                    <div class="col-md-12">Valor a Recolher: <b>{{colaborador.valor_iss}}</b></div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="col-md-10 col-md-offset-1" />
+                        <div class="row">
+                            <h2>A RECEBER</h2>
+                            <div>
+                                <div class="col-md-12">Base de Cálculo: <b>{{colaborador.valor_bruto}}</b></div>
+                                <div class="col-md-12">INSS Retido: <b>{{colaborador.valor_inss}}</b></div>
+                                <div class="col-md-12">IRPF Retido: <b>{{colaborador.valor_irpf}}</b></div>
+                                <div class="col-md-12">ISS Retido: <b>{{colaborador.valor_iss}}</b></div>
+                                <div class="col-md-12">Valor Líquido a Receber: <b>{{colaborador.valor_liquido}}</b></div>
+                            </div>
+                        </div>
+                        <hr class="col-md-10 col-md-offset-1" />
+                        <div class="row">
+                            <h2>RECIBO</h2>
+                            <div>
+                                <div class="col-md-12 recibo">Recebi do ente acima identificado pela prestação dos serviços a importância de: {{colaborador.valor_liquido}} ({{colaborador.valor_liquido_por_extenso}})</div>
+                                <div>
+                                    <div class="col-md-6">Local: São João da Boa Vista</div>
+                                    <div class="col-md-6">Data: {{colaborador.data_hoje_formatado}}</div>
+                                </div>
+                                <div class="col-md-12 assinatura">Assinatura:</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="colaboradores.length <= 0" class="lista-colaboradores-vazio">
+        <div class="col-md-12">
+            <div class="col-md-9">
+                <div class="col-md-2">
+                    <button class="btn btn-default" onclick="window.location.href='@Url.Content("~/Admin/Concurso")'">Voltar</button>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary" ng-click="gerar()">Montar RPA</button>
+                </div>
+                <div class="col-md-8" style="font-size: small; line-height: 30px;">
+                    <span class="col-md-1">Listar</span>
+                    <div class="col-md-2">
+                        <input type="number" class="form-control" ng-model="total_rpa" ng-blur="validarValores()" min="1" max="999" maxlength="3" />
+                    </div>
+                    <span class="col-md-7 row" style="padding-left: 5px;">colaboradores, começando a partir do</span>
+                    <div class="col-md-2 row" style="padding-left: 0px;">
+                        <input type="number" class="form-control" ng-model="inicio_rpa" ng-blur="validarValores()" min="1" max="999" maxlength="3" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="vazio" ng-show="colaboradores.length <= 0">
+        Nenhum colaborador foi encontrado para este concurso
+    </div>
+</div>

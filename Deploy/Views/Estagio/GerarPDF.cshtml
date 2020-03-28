@@ -1,0 +1,117 @@
+﻿@{ Layout = "~/Views/Shared/_LayoutMaster.cshtml"; }
+@using TGV.IPEFAE.Web.Resources.Estagio;
+@model TGV.IPEFAE.Web.App.Models.UsuarioEstagioModel
+<link href="@Url.Content("~/Content/Estagio/cvModelo01_pdf.css?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)" rel="stylesheet" type="text/css">
+<script>
+    window.onload = function () { parent.iframeLoaded(); }
+</script>
+<div class="preview">
+    <div class="row cabecalho">
+        <div class="col-md-6" style="float: left; width: 50%;">
+            <div class="row">
+                <div class="col-md-12">
+                    <span class="nome">@Model.Nome</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>@String.Format("{0}, {1}", Model.EstadoCivil, Model.Idade)</label><br />
+                    <label>
+                        @String.Format("{0}, {1}{2}", Model.Endereco, Model.NroEndereco, String.IsNullOrEmpty(Model.Complemento) ? String.Empty : String.Format(" - {0}", Model.Complemento))
+                    </label><br />
+                    <label>@String.Format("{0} - {1} - {2}", Model.Bairro, Model.Cidade.Nome, Model.Cidade.Estado.Sigla)</label><br />
+                    <label>
+                        @Preview.LabelTelefone @String.Format("{0}{1}", TGV.IPEFAE.Web.App.Extensions.IPEFAEExtension.FormatarFone(Model.Telefone, true), String.IsNullOrEmpty(Model.Celular) ? String.Empty : String.Format(" - {0}", TGV.IPEFAE.Web.App.Extensions.IPEFAEExtension.FormatarFone(Model.Celular, true)))
+                    </label><br />
+                    <label>@Preview.LabelEmail @Model.Email</label><br />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2" style="float: right; width: 16.66666667%;">
+            @if (Model.TemFoto)
+            {
+                <img id="fotoEstagio" height="90" width="81" src="@Url.Content(String.Format("~/Anexos/Estagio/{0}.jpg", Model.Id))" />
+            }
+        </div>
+    </div>
+
+    @if (!String.IsNullOrEmpty(Model.Objetivos))
+    {
+    <div class="row areas">
+        <div class="col-md-12">
+            <span class="titulo">@Preview.LabelTituloObjetivo</span>
+            <hr />
+            <span>@Model.Objetivos</span>
+        </div>
+    </div>
+    }
+
+    <div class="row areas">
+        <div class="col-md-12">
+            <span class="titulo">@Preview.LabelTituloFormacao</span>
+            <hr />
+            <label style="font-size: 14px;">@Model.DadosEscolares.TipoEnsino</label><br />
+            <label>@String.Format("{0} - {1}", Model.DadosEscolares.NomeEscola, Model.DadosEscolares.Ano_Semestre_CursoString)</label><br />
+            <label>@String.Format("{0} {1}", Model.DadosEscolares.InicioString, Model.DadosEscolares.TerminoString)</label>
+        </div>
+    </div>
+
+    @if (Model.ExperienciasProfissionais.Count(ep => ep.Ativo) > 0)
+    {
+    <div class="row areas">
+        <div class="col-md-12">
+            <span class="titulo">@Preview.LabelTituloExperiencia</span>
+            <hr />
+            <ul>
+                @foreach (TGV.IPEFAE.Web.App.Models.UsuarioEstagioModel.ExperienciaProfissionalModel ep in Model.ExperienciasProfissionais.Where(ep => ep.Ativo).ToList())
+                {
+                    if (!String.IsNullOrEmpty(ep.NomeEmpresa))
+                    {
+                        <li style="margin-bottom: 5px;">
+                            <b>@String.Format("{0}{1} - {2}", ep.Inicio, ep.Termino, ep.NomeEmpresa)</b>
+                            <br />
+                            <label>@String.Format("{0} {1}", Preview.LabelCargo, ep.Cargo)</label>
+                            <br />
+                            <i>@Preview.LabelAtividadesDesenvolvidas</i>
+                            <br />
+                            <label>@ep.AtividadesDesenvolvidas</label>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    }
+
+    @if (Model.CursosCapacitacoes.Count(ep => ep.Ativo) > 0)
+    {
+    <div class="row areas">
+        <div class="col-md-12">
+            <span class="titulo">@Preview.LabelTituloCursos</span>
+            <hr />
+            <ul>
+                @foreach (TGV.IPEFAE.Web.App.Models.UsuarioEstagioModel.CursosCapacitacoesModel cc in Model.CursosCapacitacoes.Where(cc => cc.Ativo).ToList())
+                {
+                    <li>@String.Format("{0} - {1}", cc.NomeCurso, cc.Duracao)</li>
+                }
+            </ul>
+        </div>
+    </div>
+    }
+
+    @if (Model.OutrosConhecimentos.Count(ep => ep.Ativo) > 0)
+    {
+    <div class="row areas">
+        <div class="col-md-12">
+            <span class="titulo">@Preview.LabelTituloInfoAdicionais</span>
+            <hr />
+            <ul>
+                @foreach (TGV.IPEFAE.Web.App.Models.UsuarioEstagioModel.CursosCapacitacoesModel oc in Model.OutrosConhecimentos.Where(oc => oc.Ativo).ToList())
+                {
+                    <li>@oc.NomeCurso</li>
+                }
+            </ul>
+        </div>
+    </div>
+    }
+</div>

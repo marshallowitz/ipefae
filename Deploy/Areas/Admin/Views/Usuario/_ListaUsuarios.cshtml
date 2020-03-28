@@ -1,0 +1,48 @@
+﻿@using TGV.IPEFAE.Web.Resources.Admin.Usuario;
+@model List<TGV.IPEFAE.Web.App.Models.UsuarioModel>
+
+@if (Model.Count > 0)
+{
+    <table id="tblUsuarios" class="table table-striped table-bordered table-hover" summary="@Index.Summary">
+        <caption>@Index.TituloTela</caption>
+        <thead>
+            <tr>
+                <th scope="col" style="display: none">#</th>@* -- id -- *@
+                <th scope="col">@Index.ColunaNome</th>
+                <th scope="col">@Index.ColunaEmail</th>
+                <th scope="col">@Index.ColunaTelefone</th>
+                <th scope="col">@Index.ColunaPermissao</th>
+                <th scope="col">@Index.ColunaAtivo</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TGV.IPEFAE.Web.App.Models.UsuarioModel usuario in Model)
+            {
+                <tr>
+                    <td style="display: none"><span>@usuario.Id</span></td>
+                    <td>@usuario.Nome</td>
+                    <td>@usuario.Email</td>
+                    <td class="telefone">@usuario.Telefone</td>
+                    <td>@usuario.PermissaoString</td>
+                    <td class="acao">
+                        <div class="editarAtivacao icons @Html.Raw(usuario.Ativo ? "checked" : "unchecked")" title="@Html.Raw(usuario.Ativo ? Index.TitleDesativar : Index.TitleAtivar)"></div>
+                    </td>
+                    <td class="acao">
+                        <div class="icons editar" title="@Index.TitleEditar"></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <table class="table table-striped table-bordered table-hover" summary="@Index.NenhumUsuarioEncontrado">
+        <thead>
+            <tr>
+                <th scope="col">@Index.NenhumUsuarioEncontrado</th>
+            </tr>
+        </thead>
+    </table>
+}

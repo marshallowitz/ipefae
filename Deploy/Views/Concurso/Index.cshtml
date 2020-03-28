@@ -1,0 +1,42 @@
+﻿@using TGV.IPEFAE.Web.Resources.Concurso;
+@using TGV.IPEFAE.Web.App.Extensions;
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+
+<link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="@Url.Content("~/Content/Tabs.css")">
+<script src="@Url.Content("~/Scripts/Views/Tabs.js")"></script>
+<script src="@Url.Content("~/Scripts/Views/Concurso.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+
+<script>
+    var mensagemCarregando = encodeConversion('@Index.MensagemCarregando', 'num', 'hex');
+    var textoAbaAbertas = encodeConversion('@Index.AbaAbertas', 'num', 'hex');
+    var textoAbaAbertasMini = encodeConversion('@Index.AbaAbertasMini', 'num', 'hex');
+    var textoAbaAndamento = encodeConversion('@Index.AbaEmAndamento', 'num', 'hex');
+    var textoAbaEncerradas = encodeConversion('@Index.AbaEncerradas', 'num', 'hex');
+    tamanhoInicialAba = window.innerHeight;
+
+    $(function () { iniciarTelaListaConcursosUsuario(); });
+</script>
+<style>
+    .concurso:hover { cursor: pointer; text-decoration: underline; }
+</style>
+<header>
+    <h1>@Index.TituloTela</h1>
+</header>
+
+<div class="cd-tabs">
+    <nav>
+        <ul class="cd-tabs-navigation">
+            <li>
+                <a id="abaAbertas" data-content="abertas" class="selected" href="#0">@Index.AbaAbertas</a><span class="subTabTitle selected">@Index.AbaAbertasFuturas</span>
+            </li>
+            <li><a id="abaAndamento" data-content="andamento" href="#0">@Index.AbaEmAndamento</a></li>
+            <li><a id="abaEncerradas" data-content="encerradas" href="#0">@Index.AbaEncerradas</a></li>
+        </ul>
+    </nav>
+    <ul class="cd-tabs-content">
+        <li data-content="abertas" class="abertas selected"></li>
+        <li data-content="andamento" class="andamento"></li>
+        <li data-content="encerradas" class="encerradas"></li>
+    </ul>
+</div>

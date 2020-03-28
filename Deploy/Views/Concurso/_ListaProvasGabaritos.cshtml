@@ -1,0 +1,53 @@
+﻿@using TGV.IPEFAE.Web.Resources.Concurso;
+@model List<TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel>
+
+@if (Model.Count > 0)
+{
+    <div class="col-xs-6 ">
+        <table style="width: 100%;">
+            <thead style="font-weight: bold;">
+                <tr>
+                    <td style="display:none;"></td> <!-- ID -->
+                    <td style="display:none;"></td> <!-- ID Concurso -->
+                    <td style="display:none;"></td> <!-- ID Tipo -->
+                    <td style="height: 30px; text-transform: uppercase; width: 100%; ">@_ListaProvasGabaritos.TituloProvas</td> <!-- Dados Anexo -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel anexo in Model.Where(ane => ane.IdTipo == 2 && ane.DataPublicacao <= TGV.IPEFAE.Web.BL.Business.BaseBusiness.DataAgora).OrderBy(ane => ane.NomeArquivo).ToList())
+                {
+                    @Html.Partial("_InfoAnexo", anexo);
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-6 ">
+        <table style="width: 100%;">
+            <thead style="font-weight: bold;">
+                <tr>
+                    <td style="display:none;"></td> <!-- ID -->
+                    <td style="display:none;"></td> <!-- ID Concurso -->
+                    <td style="display:none;"></td> <!-- ID Tipo -->
+                    <td style="height: 30px; text-transform: uppercase; width: 100%; ">@_ListaProvasGabaritos.TituloGabaritos</td> <!-- Dados Anexo -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel anexo in Model.Where(ane => ane.IdTipo == 3 && ane.DataPublicacao <= TGV.IPEFAE.Web.BL.Business.BaseBusiness.DataAgora).OrderBy(ane => ane.NomeArquivo).ToList())
+                {
+                    @Html.Partial("_InfoAnexo", anexo);
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <table class="table table-striped table-hover" summary="@_ListaProvasGabaritos.NenhumAnexoEncontrado">
+        <thead>
+            <tr>
+                <th scope="col" style="border: 0; text-align: center;">@_ListaProvasGabaritos.NenhumAnexoEncontrado</th>
+            </tr>
+        </thead>
+    </table>
+}
+

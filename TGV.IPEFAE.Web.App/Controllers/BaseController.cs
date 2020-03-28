@@ -15,6 +15,7 @@ using System.Configuration;
 using System.Text;
 using RazorEngine;
 using RazorEngine.Templating;
+using TGV.IPEFAE.Web.App.Helper;
 
 namespace TGV.IPEFAE.Web.App.Controllers
 {
@@ -128,6 +129,15 @@ namespace TGV.IPEFAE.Web.App.Controllers
                 return Json(false, JsonRequestBehavior.AllowGet);
 
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public static Stream CopyStream(Stream stream)
+        {
+            var newMemoryStream = new MemoryStream();
+            stream.CopyTo(newMemoryStream);
+            newMemoryStream.Position = 0;
+
+            return newMemoryStream;
         }
 
         public ActionResult Download(string path)
@@ -264,6 +274,9 @@ namespace TGV.IPEFAE.Web.App.Controllers
 
         public static IEnumerable<string> ReadLines(Func<Stream> streamProvider, System.Text.Encoding encoding)
         {
+            if (encoding == null)
+                encoding = System.Text.Encoding.UTF8;
+
             using (var stream = streamProvider())
                 using (var reader = new StreamReader(stream, encoding))
                 {

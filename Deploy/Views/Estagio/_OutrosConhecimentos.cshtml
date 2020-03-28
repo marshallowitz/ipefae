@@ -1,0 +1,8 @@
+﻿@using TGV.IPEFAE.Web.Resources.Estagio
+@using TGV.IPEFAE.Web.App.Models
+@model List<UsuarioEstagioModel.CursosCapacitacoesModel>
+
+@foreach (UsuarioEstagioModel.CursosCapacitacoesModel cc in Model)
+{
+    @Html.Partial("_OutroConhecimento", cc)
+}

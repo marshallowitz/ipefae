@@ -1,0 +1,34 @@
+﻿@using TGV.IPEFAE.Web.Resources.Estagio
+@using TGV.IPEFAE.Web.App.Models
+@model UsuarioEstagioModel.CursosCapacitacoesModel
+
+<div class="container_curso_capacitacao_@Model.Posicao" style="@Html.Raw(Model.Visivel || Model.Posicao == 1 ? String.Empty : "display: none;") @Html.Raw(Model.Posicao > 1 ? "border-top: 0;" : "")">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-md-8">
+            <div class="form-group">
+                <input type="hidden" name="hdnId" value="@Model.Id" />
+                <label>@_CursoCapacitacao.LabelNome</label>
+                <input type="text" class="form-control" name="nomeCurso" value="@Model.NomeCurso" />
+                <br />
+                @if (Model.Posicao < 5)
+                {
+                    <a href="javascript:void(0)" onclick="alterarAdicionarRemover($(this), true, '.container_curso_capacitacao_@Model.Posicao', '.link_cca', 'nomeCurso');" class="link_cca adicionar-cca">@_CursoCapacitacao.LabelAdicionarOutroCurso</a>
+                    if (Model.Posicao >= 2 && Model.Posicao <= 4)
+                    {
+                        <label class="link_cca"> | </label>
+                    }
+                }
+                @if (Model.Posicao > 1)
+                {
+                    <a href="javascript:void(0)" onclick="alterarAdicionarRemover($(this), false, '.container_curso_capacitacao_@Model.Posicao', '.link_cca', 'nomeCurso');" class="link_cca remover-cca" style="@Html.Raw(Model.Posicao > 1 ? "" : "display: none;")">@_CursoCapacitacao.LabelRemoverCurso</a>
+                }
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>@_CursoCapacitacao.LabelDuracao</label>
+                <input type="text" class="form-control" name="duracao" value="@Model.Duracao" />
+            </div>
+        </div>
+    </div>
+</div>

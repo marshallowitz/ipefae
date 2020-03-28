@@ -1,0 +1,49 @@
+﻿@using TGV.IPEFAE.Web.Resources.Admin.Recurso;
+@model List<TGV.IPEFAE.Web.App.Models.RecursoModel>
+
+@if (Model.Count > 0)
+{
+    <table id="tblRecursos" class="table table-striped table-bordered table-hover" summary="@Index.Summary">
+        <caption>@Index.TituloTela</caption>
+        <thead>
+            <tr>
+                <th scope="col" style="display: none;">#</th>@* -- id -- *@
+                <th scope="col" class="text-center">@Index.ColunaProtocolo</th>@* -- id -- *@
+                <th scope="col">@Index.ColunaDataAbertura</th>
+                <th scope="col">@Index.ColunaNome</th>
+                <th scope="col">@Index.ColunaStatus</th>
+                <th scope="col">@Index.ColunaAtendente</th>
+                <th scope="col">@Index.ColunaDataAtendimento</th>
+                <th scope="col" style="width: 45px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TGV.IPEFAE.Web.App.Models.RecursoModel recurso in Model)
+            {
+                <tr>
+                    <td style="display: none;"><span>@recurso.Id</span></td>
+                    <td class="text-center"><span>@recurso.Protocolo</span></td>
+                    <td class="text-center">@recurso.DataAberturaString</td>
+                    <td>@recurso.Inscrito.Nome</td>
+                    <td class="text-center">@recurso.StatusString</td>
+                    <td>@recurso.Atendente.Nome</td>
+                    <td class="text-center">@recurso.DataAtendimentoString</td>
+                    <td class="acao text-center">
+                        @{ string editar = recurso.StatusString == Index.StatusNovo ? "editar" : "search"; }
+                        <div class="icons redirecionar @editar" style="display: block; width: 27px;" title="@String.Format(recurso.StatusString == Index.StatusNovo ? Index.TitleResponder : Index.TitleVisualizar)"></div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <table class="table table-striped table-bordered table-hover" summary="@Index.NenhumRecursoEncontrado">
+        <thead>
+            <tr>
+                <th scope="col">@Index.NenhumRecursoEncontrado</th>
+            </tr>
+        </thead>
+    </table>
+}

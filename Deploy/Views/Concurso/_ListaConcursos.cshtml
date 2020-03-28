@@ -1,0 +1,39 @@
+﻿@using TGV.IPEFAE.Web.Resources.Concurso;
+@model List<TGV.IPEFAE.Web.App.Models.ConcursoModel>
+
+@if (Model.Count > 0)
+{
+    <table style="width: 100%">
+        <thead style="font-weight: bold;">
+            <tr>
+                <td style="display:none;"></td> <!-- ID -->
+                <td style="width: 70%;">@_ListaConcursos.ColunaNome</td>
+                <td style="width: 25%;">@_ListaConcursos.ColunaCargos</td>
+                <td style="min-width: 70px;"></td> <!-- Entrar -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (TGV.IPEFAE.Web.App.Models.ConcursoModel concurso in Model.OrderBy(con => con.Nome).ToList())
+            {
+                <tr class="concurso">
+                    <td style="display:none;">@concurso.Id</td>
+                    <td style="text-transform: uppercase;">@concurso.Nome</td>
+                    <td>@String.Format("{0} {2}{1}", concurso.QuantidadeCargos, concurso.QuantidadeCargos > 1 ? "s" : "", concurso.IdTipoLayoutConcurso == 1 ? _ListaConcursos.OpcaoCargo : _ListaConcursos.OpcaoCurso)</td>
+                    @*<td class="acao text-center">
+                        <div class="icons search" style="float: left; width: 29px;" title="@_ListaConcursos.TitleEntrar"></div>
+                    </td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <table class="table table-striped table-hover" summary="@_ListaConcursos.NenhumConcursoEncontrado">
+        <thead>
+            <tr>
+                <th scope="col" style="border: 0; text-align: center;">@_ListaConcursos.NenhumConcursoEncontrado</th>
+            </tr>
+        </thead>
+    </table>
+}

@@ -1,0 +1,114 @@
+﻿@model List<TGV.IPEFAE.Web.BL.Data.ConcursoLocalModel>
+
+<div class="col-md-12" ng-repeat="local in concurso.locais" ng-show="concurso.locais.length > 0">
+    <table id="tblLocais" class="table table-striped table-bordered table-hover" summary="Lista de Locais">
+        <thead>
+            <tr>
+                <th scope="col">Local</th>
+                <th scope="col" style="width: 60px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="tooltip-error" style="height: 70px; padding: 20px;">
+                        <input type="text" ng-model="local.local" class="form-control ipt-local" placeholder="Digite o local da prova" ng-class="local.modoEdicao ? '' : 'input-as-span'" maxlength="100" ng-readonly="!local.modoEdicao" required />
+                        <span ng-class="local.local_enabled ? 'tooltiptext2' : 'tooltiptext2 hidden'">O nome do local de prova é obrigatório</span>
+                    </div>
+                </td>
+                <td class="text-center" style="cursor: pointer; vertical-align: middle;">
+                    <div class="fas fa-lg fa-edit local_editar_{{local.id}}" title="Editar" ng-show="!local.modoEdicao" ng-click="local_editar(local, true)"></div>
+                    <div class="fas fa-lg fa-trash-alt" title="Excluir" ng-show="!local.temAssociacao && !local.modoEdicao" ng-click="local_excluir(local.id)"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr />
+
+    <div class="col-md-10 col-md-offset-1">
+        <br />
+        <div ng-show="local.modoEdicao" class="lista-colaboradores_{{local.id}}">
+            <label>
+                Lista de Colaboradores
+                <a href="javascript:void(0)" ng-click="local_colaborador_adicionar(local)" style="font-size: 12px; font-weight: normal; margin-left: 10px;" ng-show="!local_colaborador_checkIfInEdicao(local) && local.id > 0 && (listas.colaboradores | notInLocais:concurso.locais:0).length > 0 && concurso.funcoes.length > 0">+ Adicionar</a><span style="color: red; font-size: 13px;" ng-show="concurso.funcoes.length <= 0">Não existem funções associadas ao concurso ou colaboradores cadastrados</span>
+            </label>
+            <br />
+            <table id="tblColaboradores" class="table table-striped table-bordered table-hover" summary="Lista de Colaboradores" ng-show="local.Colaboradores.length > 0">
+                <thead>
+                    <tr>
+                        <th scope="col" style="display: none;">#</th>
+                        <th scope="col">Colaborador</th>
+                        <th scope="col">Função</th>
+                        <th scope="col">Valor Líquido</th>
+                        <th scope="col">Descontar</th>
+                        <th scope="col" style="width: 60px;"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="colaborador in local.Colaboradores track by $index" id="linha_colaborador_{{local.id}}_{{colaborador.id}}">
+                        <td>
+                            <div class="form-group tooltip-error">
+                                @*<select id="ddlColaborador" name="colaboradorSelecionado" class="form-control ipt-local_colaborador" ng-options="col as col.nome for col in listas.colaboradores | notInLocais:concurso.locais:colaborador.colaborador_id | orderBy: 'nome' track by col.id" ng-model="colaborador.colaborador" ng-class="colaborador.modoEdicao ? '' : 'select-as-span'" ng-disabled="!colaborador.modoEdicao"></select>*@
+                                <span ng-class="colaborador.colaborador_enabled ? 'tooltiptext2' : 'tooltiptext2 hidden'" style="top: -40px; width: 100%;">O colaborador é obrigatório</span>
+                                <angucomplete-alt id="ddlColaborador_{{colaborador.id}}" pause="100" selected-object="colaborador.colaborador" initial-value="colaborador.colaborador" local-data="(listas.colaboradores)" local-colaborador-id="colaborador.colaborador_id" local-search="local_colaborador_filtrar" title-field="nome" minlength="1" maxlength="100" input-class="form-control ipt-local_colaborador" ng-class="colaborador.modoEdicao ? '' : 'input-as-span'" disable-input="!colaborador.modoEdicao" />
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <select name="funcaoSelecionada" class="form-control" ng-change="local_colaborador_mudar_funcao(colaborador)" ng-options="fun as (fun.funcao.nome + ' (' + fun.valor_liquido_formatado + ')') for fun in concurso.funcoes | orderBy: 'ordernar_por' track by fun.id" ng-model="colaborador.funcao" ng-class="colaborador.modoEdicao ? '' : 'select-as-span'" ng-disabled="!colaborador.modoEdicao"></select>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon" ng-class="colaborador.modoEdicao ? '' : 'input-as-span'">R$</span>
+                                <input type="text" ng-model="colaborador.valor" ui-number-mask ng-blur="colaborador_valor_liquido(colaborador)" class="form-control ipt-colaborador_valor_liquido" ng-class="colaborador.modoEdicao ? '' : 'input-as-span'" ng-readonly="!colaborador.modoEdicao" required />
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div class="form-group checkbox c-checkbox" style="margin-top: 0px; float: left; left: 10%;">
+                                INSS<br />
+                                <label><input type="checkbox" ng-model="colaborador.inss"  ng-disabled="!colaborador.modoEdicao" /><span class="fa fa-check"></span></label>
+                            </div>
+                            <div class="form-group checkbox c-checkbox" style="margin-top: 0px; float: left; left: 25%;">
+                                ISS<br />
+                                <label><input type="checkbox" ng-model="colaborador.iss" ng-disabled="!colaborador.modoEdicao" /><span class="fa fa-check"></span></label>
+                            </div>
+                        </td>
+                        <td class="text-center" style="cursor: pointer; vertical-align: middle;">
+                            <div class="fas fa-lg fa-save" title="Salvar" ng-show="colaborador.modoEdicao" ng-click="local_colaborador_salvar($index, local, colaborador)"></div>
+                            <div class="fas fa-lg fa-times" title="Cancelar" ng-show="colaborador.modoEdicao" ng-click="local_colaborador_editar($index, local, colaborador, false)"></div>
+                            <div class="fas fa-lg fa-edit" title="Editar" ng-show="!colaborador.modoEdicao" ng-click="local_colaborador_editar($index, local, colaborador, true)"></div>
+                            <div class="fas fa-lg fa-trash-alt" title="Excluir" ng-show="!colaborador.temAssociacao && !colaborador.modoEdicao" ng-click="local_colaborador_excluir(local, colaborador.id)"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="table table-striped table-bordered table-hover" summary="Nenhum colaborador foi encontrado" ng-show="!local.Colaboradores || local.Colaboradores.length <= 0">
+                <thead>
+                    <tr>
+                        <th id="colaboradorNaoEncontrado" scope="col" ng-show="local.id > 0">Nenhum colaborador foi encontrado</th>
+                        <th id="colaboradorNaoEncontradoSemLocal" scope="col" ng-show="local.id <= 0">Salve o local de prova para adicionar colaboradores</th>
+                    </tr>
+                </thead>
+            </table>
+            <a href="javascript:void(0)" ng-click="local_colaborador_adicionar(local)" style="font-size: 12px; font-weight: normal; margin-left: 10px;" ng-show="!local_colaborador_checkIfInEdicao(local) && local.id > 0 && (listas.colaboradores | notInLocais:concurso.locais:0).length > 0 && concurso.funcoes.length > 0">+ Adicionar</a><span style="color: red; font-size: 13px;" ng-show="concurso.funcoes.length <= 0">Não existem funções associadas ao concurso ou colaboradores cadastrados</span>
+
+            <br />
+            <div class="row col-botoes text-center" ng-hide="local_colaborador_checkIfInEdicao(local)" style=" margin-bottom: 15px;">
+                <input type="button" name="btnCancelarLocal" id="btnCancelarLocal" class="btn btn-personal1 btn-lg" value="Cancelar" ng-click="local_editar(local, false)" />
+                <input type="button" name="btnSalvarLocal" id="btnSalvarLocal" class="btn btn-success btn-lg" value="Salvar Local" ng-click="local_salvar(local)" />
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<table class="table table-striped table-bordered table-hover" summary="Nenhum local de prova foi encontrado" ng-show="concurso.locais.length <= 0">
+    <thead>
+        <tr>
+            <th id="localNaoEncontrado" scope="col" ng-show="concurso.id > 0">Nenhum local de prova foi encontrado</th>
+            <th id="localNaoEncontradoSemConcurso" scope="col" ng-show="concurso.id <= 0">Salve o concurso para adicionar locais de prova</th>
+        </tr>
+    </thead>
+</table>

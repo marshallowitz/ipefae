@@ -1,0 +1,134 @@
+﻿@model TGV.IPEFAE.Web.App.Models.ConcursoModel.InscritoModel
+@using TGV.IPEFAE.Web.Resources.Concurso;
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+<script src="@Url.Content("~/Scripts/Views/Inscrito.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script>
+    var mensagemSalvando = encodeConversion('@TGV.IPEFAE.Web.Resources.Shared._DadosInscrito.MensagemSalvando', 'num', 'hex');
+</script>
+
+<div class="confirmacao-inscricao">
+    <h2 class="titulo">@String.Format(InscricaoConfirmacao.TituloTelaConfirmacao, Model.NomeConcurso)</h2>
+    <h3 style="">@InscricaoConfirmacao.SubTituloTela</h3>
+    <h4 style="">@InscricaoConfirmacao.SubSubTituloTela</h4>
+
+    <div class="container-inscricao">
+        <div class="row">
+            <div class="col-md-3 bold">
+                @InscricaoConfirmacao.LabelCargo
+            </div>
+            <div class="col-md-9">
+                @Model.NomeCargo
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 bold">
+                @InscricaoConfirmacao.LabelNome
+            </div>
+            <div class="col-md-9">
+                @Model.Nome
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 bold">
+                @InscricaoConfirmacao.LabelEmail
+            </div>
+            <div class="col-md-9" style="text-transform: none;">
+                @Model.Email
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 bold">
+                @InscricaoConfirmacao.LabelCPF
+            </div>
+            <div class="col-md-9">
+                @Model.CPFFormatado
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 bold">
+                @InscricaoConfirmacao.LabelRG
+            </div>
+            <div class="col-md-9">
+                @Model.RGComEstado
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 bold">
+                @InscricaoConfirmacao.LabelEstadoCivil
+            </div>
+            <div class="col-md-9">
+                @Model.EstadoCivil
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 bold">
+                @InscricaoConfirmacao.LabelDataNascimento
+            </div>
+            <div class="col-md-9">
+                @Model.DataNascimentoString
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 bold">
+                @InscricaoConfirmacao.LabelTelefones
+            </div>
+            <div class="col-md-9">
+                @{
+                    string formatoTelefone = @Model.Telefone.Length == 10 ? "{0:(00) 0000-0000}" : "{0:(00) 00000-0000}";
+                    string formatoCelular = @Model.Celular.Length == 10 ? "{0:(00) 0000-0000}" : "{0:(00) 00000-0000}";
+                }
+                @String.Format("{0}{1}", String.Format(formatoTelefone, Convert.ToInt64(Model.Telefone)), String.IsNullOrEmpty(Model.Celular) ? String.Empty : String.Format(" - {0}", String.Format(formatoCelular, Convert.ToInt64(Model.Celular))))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 bold">
+                @InscricaoConfirmacao.LabelEndereco
+            </div>
+            <div class="col-md-9">
+                @String.Format("{0}, {1}{2}, {3}, {4}/{5} - {6}", Model.Endereco, Model.NumeroEndereco, String.IsNullOrEmpty(Model.Complemento) ? String.Empty : String.Format(" - {0}", Model.Complemento), Model.Bairro, Model.NomeCidade, Model.NomeEstado, String.Format("{0:00000-000}", Convert.ToInt64(Model.CEP)))
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 bold">
+                @InscricaoConfirmacao.LabelFilhosMenores
+            </div>
+            <div class="col-md-9">
+                @Model.QuantidadeFilhosMenores
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 bold">
+                @InscricaoConfirmacao.LabelPossuiDeficiencia
+            </div>
+            <div class="col-md-9">
+                @String.Format("{0}", Model.PossuiDeficiencia ? String.Format("{0} - {1}", InscricaoConfirmacao.OpcaoSim, Model.Deficiencia) : InscricaoConfirmacao.OpcaoNao)
+            </div>
+        </div>
+        @if (Model.PossuiDeficiencia)
+        {
+            <div class="row">
+                <div class="col-md-3 bold">
+                    @InscricaoConfirmacao.LabelNecessitaTratamento
+                </div>
+                <div class="col-md-9">
+                    @String.Format("{0}", Model.TratamentoEspecial ? String.Format("{0} - {1}", InscricaoConfirmacao.OpcaoSim, Model.TratamentoEspecialQual) : InscricaoConfirmacao.OpcaoNao)
+                </div>
+            </div>
+        }
+        <br /><br />
+        <h1 class="tituloTR">@InscricaoConfirmacao.H1LeiaAtentamente</h1>
+        <h1 class="tituloTR">@InscricaoConfirmacao.H1TermoResponsabilidade</h1>
+        <div style="text-align: center;">
+            <label class="tituloTR">@InscricaoConfirmacao.LabelTermoResponsabilidade</label>
+            <br />
+            <label class="tituloTR">@InscricaoConfirmacao.LabelTermoResponsabilidadeClique</label>
+        </div>
+        <br />
+        <div class="row" style="margin-bottom: 50px;">
+            <div class="col-md-12 text-center">
+                <input type="button" name="btnVoltar" id="btnVoltar" class="btn btn-personal1 btn-lg" value="@InscricaoConfirmacao.BotaoVoltar" onclick="window.location.href = '@Url.Content(String.Format("~/Concurso/{0}/Inscricao", Model.IdConcurso))';" />
+                <input type="submit" name="btnConfirmar" id="btnConfirmar" class="btn btn-success btn-lg" value="@InscricaoConfirmacao.BotaoConfirmar" onclick="confirmar('@Model.IdConcurso');" />
+            </div>
+        </div>
+    </div>
+</div>

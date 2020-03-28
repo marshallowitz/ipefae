@@ -1,0 +1,81 @@
+﻿@using TGV.IPEFAE.Web.Resources.Concurso;
+@model List<TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel>
+<script>
+    $(function () { iniciarTelaListaPublicacoes(); });
+    var mensagemGerandoComprovanteInscricao = encodeConversion('@_ModalBuscaInscrito.MensagemGerandoComprovanteInscricao', 'num', 'hex');
+</script>
+@if (Model.Count > 0)
+{
+    <div class="panelTabs publicacoes" style="width: 100%">
+        <table>
+            <thead style="font-weight: bold;">
+                <tr>
+                    <td style="display:none;"></td> <!-- ID -->
+                    <td style="display:none;"></td> <!-- ID Concurso -->
+                    <td style="display:none;"></td> <!-- ID Tipo -->
+                    <td colspan="2" style="width: 100%;"></td> <!-- Dados Anexo -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (TGV.IPEFAE.Web.App.Models.ConcursoModel.AnexoModel anexo in Model.Where(ane => ane.DataPublicacao <= TGV.IPEFAE.Web.BL.Business.BaseBusiness.DataAgora).OrderByDescending(ane => ane.DataPublicacao))
+                {
+                    @Html.Partial("_InfoAnexo", anexo);
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <table class="table table-striped table-hover" summary="@_ListaPublicacoes.NenhumAnexoEncontrado">
+        <thead>
+            <tr>
+                <th scope="col" style="border: 0; text-align: center;">@_ListaPublicacoes.NenhumAnexoEncontrado</th>
+            </tr>
+        </thead>
+    </table>
+}
+
+<div id="divInscricoes" class="row botoes-inscricoes-container">
+    <div class="col-xs-6" style="text-align: left;">
+        <input type="button" name="btnInscricao" id="btnInscricao" class="btn btn-lg botao-inscricoes inscricao" value="@_ListaPublicacoes.BotaoInscricao" /> &nbsp;
+    </div>
+    <div class="col-xs-6" style="padding-top: 6px; text-align: right;">
+        <div class="col-sm-6 botao-inscricoes-container">
+            <button type="button" name="btnIsencao" id="btnIsencao" class="btn btn-md botao-inscricoes">
+                <span style="font-size: 10px; line-height: 6px;">@_ListaPublicacoes.BotaoIsencao</span><br />
+                <span style="font-size: 12px; line-height: 12px;">@_ListaPublicacoes.BotaoIsencaoValorInscricao</span>
+            </button>
+        </div>
+        <div class="col-sm-6 botao-inscricoes-container">
+            <button type="button" name="btnBoleto" id="btnBoleto" class="btn btn-md botao-inscricoes">
+                <div class="col-md-8 col-sm-12">
+                    <span style="font-size: 10px; line-height: 6px;">@_ListaPublicacoes.BotaoSegundaVia</span><br />
+                    <span style="font-size: 12px; line-height: 12px;">@_ListaPublicacoes.BotaoSegundaViaBoleto</span>
+                </div>
+                <div class="col-md-4 hidden-sm logo-banco" style="height: 25px; margin-top: 1px;"></div>
+            </button>
+        </div>
+        <div class="col-sm-6 botao-inscricoes-container">
+            <button type="button" name="btnClassificacao" id="btnClassificacao" class="btn btn-md botao-inscricoes btnClassificacao">
+                <span style="font-size: 10px; line-height: 6px;">@_ListaPublicacoes.BotaoVisualizar</span><br />
+                <span style="font-size: 12px; line-height: 12px;">@_ListaPublicacoes.BotaoClassificacao</span>
+            </button>
+        </div>
+        <div class="col-sm-6 botao-inscricoes-container">
+            <button type="button" name="btnComprovante" id="btnComprovante" class="btn btn-md botao-inscricoes btnComprovante">
+                <span class="hidden-xs hidden-sm" style="font-size: 12px; line-height: 12px;">@_ListaPublicacoes.BotaoComprovante</span>
+                <span class="hidden-md hidden-lg" style="font-size: 12px; line-height: 12px;">@_ListaPublicacoes.BotaoComprovanteMini</span>
+            </button>
+        </div>
+        <div class="col-sm-6 botao-inscricoes-container">
+            <button type="button" name="btnPagamentoOk" id="btnPagamentoOk" class="btn btn-md botao-inscricoes">
+                <span style="font-size: 10px; line-height: 6px;">@_ListaPublicacoes.BotaoVisualizar</span><br />
+                <span style="font-size: 12px; line-height: 12px;">@_ListaPublicacoes.BotaoPagamentoOk</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<section id="modal-boleto"></section>
+

@@ -1,0 +1,13 @@
+﻿.rpa-container          { min-height: calc(100vh - 150px); position: relative; top: 50px; }
+.rpa-container .vazio   { border: solid 1px #ccc; border-radius: 4px; font-size: 16px; margin-top: 30px; padding: 20px; text-align: center; }
+
+.rpa-container .rpa     { border: solid 1px #ccc; font-size: 12px; margin: 20px; padding: 20px; }
+.rpa-container .rpa h1  { font-size: 20px; text-align: center; }
+.rpa-container .rpa h2  { font-size: 16px; text-align: center; }
+.rpa-container .rpa h4  { font-size: 14px; }
+.rpa-container .rpa hr  { margin-top: 10px; }
+.rpa-container .rpa .prestacao-servico  { height: 190px; }
+.rpa-container .rpa .recibo             { margin-bottom: 20px; }
+.rpa-container .rpa .assinatura         { margin-top: 20px; }
+
+hr.hrPrincipal          { display: none; }

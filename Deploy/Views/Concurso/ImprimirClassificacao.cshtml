@@ -1,0 +1,24 @@
+﻿@model TGV.IPEFAE.Web.App.Models.ConcursoModel.InscritoModel
+@using TGV.IPEFAE.Web.Resources.Concurso;
+@{ Layout = null; }
+@*@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/jquery")
+<script src="@Url.Content("~/Scripts/Views/Inscrito.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>*@
+
+<script>
+    var mensagemGerandoClassificacao = encodeConversion('@_ModalBuscaInscrito.MensagemGerandoClassificacao', 'num', 'hex');
+</script>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ImprimirClassificacao</title>
+</head>
+<body>
+    <div>
+        @Html.Partial("_ClassificacaoResultado", Model)
+    </div>
+</body>
+</html>

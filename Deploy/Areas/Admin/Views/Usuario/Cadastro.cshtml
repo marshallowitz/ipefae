@@ -1,0 +1,96 @@
+﻿@model TGV.IPEFAE.Web.App.Models.UsuarioModel
+@using TGV.IPEFAE.Web.Resources.Admin.Usuario;
+@using TGV.IPEFAE.Web.Resources.Admin.Usuario;
+@{ Layout = "~/Views/Shared/_LayoutLogado.cshtml"; }
+
+<h2 class="titulo">@Cadastro.TituloTela @Html.ActionLink(Cadastro.VoltarLista, "Index", null, new { @style = "float: right;" })</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.pwstrength.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script src="@Url.Content("~/Scripts/Views/Usuario.js?v=" + TGV.IPEFAE.Web.App.Controllers.BaseController.VersionNumber)"></script>
+<script type="text/javascript">
+    var nomeObrigatorio = encodeConversion('@Cadastro.NomeObrigatorio', 'num', 'hex');
+    var emailObrigatorio = encodeConversion('@Cadastro.EmailObrigatorio', 'num', 'hex');
+    var formatoInvalidoEmail = encodeConversion('@Cadastro.FormatoInvalidoEmail', 'num', 'hex');
+    var telefoneObrigatorio = encodeConversion('@Cadastro.TelefoneObrigatorio', 'num', 'hex');
+    var senhaObrigatorio = encodeConversion('@Cadastro.SenhaObrigatorio', 'num', 'hex');
+    var senhaConfirmacaoIguais = encodeConversion('@Cadastro.SenhaConfirmacaoIguais', 'num', 'hex');
+    var confirmacaoSenhaObrigatorio = encodeConversion('@Cadastro.ConfirmacaoSenhaObrigatorio', 'num', 'hex');
+    var mensagemSalvando = encodeConversion('@Cadastro.MensagemSalvando', 'num', 'hex');
+
+    var isAdmin = eval('@TGV.IPEFAE.Web.App.Controllers.BaseController.UsuarioLogado.IsAdministrador'.toLowerCase());
+    var isConcurso = eval('@TGV.IPEFAE.Web.App.Controllers.BaseController.UsuarioLogado.IsConcurso'.toLowerCase());
+    var isEstagio = eval('@TGV.IPEFAE.Web.App.Controllers.BaseController.UsuarioLogado.IsEstagio'.toLowerCase());
+    var isVestibular = eval('@TGV.IPEFAE.Web.App.Controllers.BaseController.UsuarioLogado.IsVestibular'.toLowerCase());
+
+    var isUAdmin = eval('@Model.IsAdministrador'.toLowerCase());
+    var isUConcurso = eval('@Model.IsConcurso'.toLowerCase());
+    var isUEstagio = eval('@Model.IsEstagio'.toLowerCase());
+    var isUVestibular = eval('@Model.IsVestibular'.toLowerCase());
+
+    $(function () { iniciarTelaCadastroUsuario(); });
+</script>
+
+@Html.HiddenFor(model => model.Id)
+@{ string displayEdicao = Model.Id <= 0 ? "style=display:none;" : String.Empty; }
+@{ string displayTrocaSenha = Model.Id > 0 ? "style=display:none;" : String.Empty; }
+
+<div class="cadastro-usuario col-sm-12">
+    <form id="userForm" class="userForm">
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>@Cadastro.LabelNome</label>
+                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", placeholder = Cadastro.PlaceHolderNome, autofocus = "autofocus", maxlength = "100" })
+            </div>
+
+            <div class="col-md-6 form-group">
+                <label>@Cadastro.LabelEmail</label>
+                <input type="email" id="Email" class="form-control" name="email" placeholder="Endereço de e-mail" maxlength="100" value="@Model.Email" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>@Cadastro.LabelTelefone</label>
+                @Html.TextBoxFor(model => model.Telefone, new { @class = "form-control", placeholder = Cadastro.PlaceHolderTelefone })
+            </div>
+
+            <div id="pwd-container" class="col-md-6" style="max-height: 70px; padding: 0;">
+                <a href="javascript:void(0)" id="aTrocarSenha" @displayEdicao class="trocarsenha"><label>@Cadastro.LabelTrocarSenha</label></a>
+                <div id="liSenha" class="senha" @displayTrocaSenha>
+                    <div class="col-md-6 form-group">
+                        <label>@Cadastro.LabelSenha</label>
+                        @Html.PasswordFor(m => m.Senha, new { @class = "form-control", maxlength = 15 })
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                        <label>@Cadastro.LabelConfirmacaoSenha</label>
+                        @Html.PasswordFor(m => m.ConfirmacaoSenha, new { @class = "form-control", maxlength = 15 })
+                    </div>
+                </div>
+                <div class="col-sm-6 col-sm-offset-2" style="padding-top: 30px;">
+                    <div class="pwstrength_viewport_progress"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row" style="margin-top: 7px;">
+            <div class="col-md-6 form-group permissao">
+                <label>@Cadastro.LabelPermissao</label><br />
+                <ul>
+                    <li><input id="chkAdmin_Geral" type="checkbox" valor="@Html.Raw((int)TGV.IPEFAE.Web.App.Models.PermissaoModel.Tipo.Administrador)" class="size-4" /><label class="label-checkbox">@Cadastro.LabelPermissaoAdminGeral</label></li>
+                    <li><input id="chkAdmin_Concurso" type="checkbox" valor="@Html.Raw((int)TGV.IPEFAE.Web.App.Models.PermissaoModel.Tipo.Concurso)" class="size-4" /><label class="label-checkbox">@Cadastro.LabelPermissaoAdminConcursos</label></li>
+                    <li><input id="chkAdmin_Estagio" type="checkbox" valor="@Html.Raw((int)TGV.IPEFAE.Web.App.Models.PermissaoModel.Tipo.Estagio)" class="size-4" /><label class="label-checkbox">@Cadastro.LabelPermissaoAdminEstagios</label></li>
+                    <li><input id="chkAdmin_Vestibular" type="checkbox" valor="@Html.Raw((int)TGV.IPEFAE.Web.App.Models.PermissaoModel.Tipo.Vestibular)" class="size-4" /><label class="label-checkbox">@Cadastro.LabelPermissaoAdminVestibulares</label></li>
+                </ul>
+            </div>
+            <div id="colunaAtivo" class="col-md-6 form-group">
+                <label>@Cadastro.LabelSituacao</label><br />
+                @Html.CheckBoxFor(m => m.Ativo, new { @id = "chkAtivo", @class = "size-4" }) <label class="label-checkbox"> @Cadastro.LabelAtivo </label>
+            </div>
+        </div>
+        <div class="row" style="margin: 0 auto;">
+            <input type="submit" name="btnSalvar" id="btnSalvar" value="@Cadastro.BotaoSalvar" class="btn btn-lg btn-success btn-block" style="margin: 0 auto; width: 120px;" />
+        </div>
+    </form>
+</div>

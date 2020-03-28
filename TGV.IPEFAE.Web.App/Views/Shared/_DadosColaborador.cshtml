@@ -265,7 +265,7 @@
                     <div class="col-md-3">
                         <div class="form-group" ng-class="{'has-error': errorList.banco.enable}">
                             <label>Banco</label><em>*</em>
-                            <select id="ddlBanco" name="banco" class="form-control" ng-options="banco as banco.nome for banco in listas.bancos track by banco.id" ng-model="colaborador.banco" required uib-tooltip="{{getErrorMessage('banco', ['O banco é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.banco.enable"></select>
+                            <select id="ddlBanco" name="banco" class="form-control" ng-options="banco as banco.nome group by banco.grupo disable when banco.nome==='------------' for banco in listas.bancos | orderBy:'ordem' track by banco.id" ng-model="colaborador.banco" required uib-tooltip="{{getErrorMessage('banco', ['O banco é obrigatório'])}}" tooltip-placement="top" tooltip-is-open="errorList.banco.enable"></select>
                         </div>
                     </div>
                     <div class="col-md-2">

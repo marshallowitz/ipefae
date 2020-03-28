@@ -1,0 +1,46 @@
+﻿@using TGV.IPEFAE.Web.Resources.Shared;
+@{ Layout = "~/Views/Shared/_LayoutMaster.cshtml"; }
+
+<section id="modal-login"></section>
+@RenderSection("Logomarca", required: false)
+
+<section id="Menu" class="menu-principal">
+    <nav class="navbar navbar-custom navbar-fixed-top" style="background-color: #fff;" role="navigation">
+        <div class="container">
+            <div class="navbar-header navbar-left">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div id="menu-principal" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @RenderSection("Menu", required: false)
+                </ul>
+            </div>
+            <div class="login-partial">
+                @Html.Partial("_LoginPartial")
+            </div>
+            <div class="div-subtitulo hidden-xs hidden-sm">
+                <span class="subtitulo">@_Layout.SubTitulo<span class="subtitulo" style=" display: inline; letter-spacing: -1px;">@_Layout.SubTituloIPEFAE</span></span>
+            </div>
+        </div>
+    </nav>
+</section>
+
+<div class="container body-content">
+    @RenderBody()
+    <hr class="hrPrincipal" />
+    <footer id="footer">
+        @RenderSection("Footer", required: false)
+        <div id="footer-outer">
+            <div class="row" id="copyright">
+                <div>
+                    <a class="facebook" target="_blank" href="https://www.facebook.com/profile.php?id=100009523916178&fref=ts"></a>
+                    <p class="footer">&copy; @TGV.IPEFAE.Web.BL.Business.BaseBusiness.DataAgora.Year - @_Layout.TituloFooter</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>

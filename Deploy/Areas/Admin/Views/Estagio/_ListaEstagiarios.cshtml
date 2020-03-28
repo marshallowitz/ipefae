@@ -1,0 +1,22 @@
+﻿@model List<TGV.IPEFAE.Web.App.Models.UsuarioEstagioModel>
+@using TGV.IPEFAE.Web.Resources.Admin.Estagio;
+
+@foreach (var ues in Model.Select((item, index) => new { Index = index, Value = item }))
+{
+    <li class="@Html.Raw(ues.Index % 2 == 0 ? "even" : "odd")">
+        <span>
+            @ues.Value.Nome
+            @{ string alerta = !String.IsNullOrEmpty(ues.Value.ObservacoesAdmin) ? "" : "display: none;"; }
+            <img id="imgExisteObservacao" src="@Url.Content("~/Content/imagens/alert.png")" style="@Html.Raw(String.Format("{0}float: left; position: relative; width: 16px; top: -5px;", alerta))" />
+        </span>
+        <span>@ues.Value.DadosEscolares.NomeCurso</span>
+        <span>@ues.Value.DadosEscolares.Ano_SemestreString</span>
+        <span>@Html.Raw(ues.Value.EstaEstagiando ? Index.OptionEstagiando : Index.OptionEstagiandoNao)</span>
+        <span>@TGV.IPEFAE.Web.App.Extensions.IPEFAEExtension.FormatarFone(ues.Value.Telefone, true)</span>
+        <span>@ues.Value.DataUltimaAtualizacaoString</span>
+        <span class="acao">
+            <div class="icons editar" style="float:left; margin-bottom: -10px;" title="@Index.TitleEditar" onclick="window.open(homePage + 'Admin/Estagio/Cadastro/' + @ues.Value.Id);"></div>
+            <div class="icons excluir" style="float:left; margin-bottom: -10px;" title="Excluir" onclick="excluir('@ues.Value.Id')"></div>
+        </span>
+    </li>
+}

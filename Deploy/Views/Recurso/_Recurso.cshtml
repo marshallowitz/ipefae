@@ -1,0 +1,82 @@
+﻿@model TGV.IPEFAE.Web.App.Models.ConcursoModel
+@using TGV.IPEFAE.Web.Resources.Recurso;
+@using TGV.IPEFAE.Web.Resources.Concurso;
+
+<link rel="stylesheet" href="@Url.Content("~/Content/Recurso.css")">
+
+<script>
+    var nomeObrigatorio = encodeConversion('@_Recurso.ValidacaoNomeObrigatorio', 'num', 'hex');
+    var cpfObrigatorio = encodeConversion('@_Recurso.ValidacaoCPFObrigatorio', 'num', 'hex');
+    var identSocialObrigatorio = encodeConversion('@_Recurso.ValidacaoIdentSocialObrigatorio', 'num', 'hex');
+    var sexoObrigatorio = encodeConversion('@_Recurso.ValidacaoSexoObrigatorio', 'num', 'hex');
+    var rgObrigatorio = encodeConversion('@_Recurso.ValidacaoRGObrigatorio', 'num', 'hex');
+    var orgaoExpedidorRGObrigatorio = encodeConversion('@_Recurso.ValidacaoOrgaoExpedidorObrigatorio', 'num', 'hex');
+    var nomeMaeObrigatorio = encodeConversion('@_Recurso.ValidacaoNomeMaeObrigatorio', 'num', 'hex');
+    var dataNascObrigatorio = encodeConversion('@_Recurso.ValidacaoDataNascObrigatorio', 'num', 'hex');
+    var dataExpedicaoRGObrigatorio = encodeConversion('@_Recurso.ValidacaoDataRGObrigatorio', 'num', 'hex');
+    var dataNascFormatoInvalido = encodeConversion('@_Recurso.ValidacaoDataNascFormatoInvalido', 'num', 'hex');
+    var dataExpedicaoRGFormatoInvalido = encodeConversion('@_Recurso.ValidacaoDataRGFormatoInvalido', 'num', 'hex');
+    var mensagemObrigatoria = encodeConversion('@_Recurso.ValidacaoMensagemObrigatoria', 'num', 'hex');
+    var arquivoFormatoInvalido = encodeConversion('@_Recurso.ValidacaoArquivoFormatoInvalido', 'num', 'hex');
+    var mensagemEnviandoRecurso = encodeConversion('@_Recurso.MensagemEnviandoRecurso', 'num', 'hex');
+    //var mensagemRecursoAbertoSucesso = encodeConversion('@_Recurso.RecursoAbertoSucesso', 'num', 'hex');
+    var mensagemRecursoAbertoSucesso = '@_Recurso.RecursoAbertoSucesso';
+    var labelAbrirRecurso = encodeConversion('@_Recurso.BotaoCadastrarRecurso', 'num', 'hex'); 
+    var mensagemSelecioneUmaMatricula = encodeConversion('@_Recurso.MensagemSelecioneUmaMatricula', 'num', 'hex');
+    $(function () { iniciarFormularioRecursoBootstrap(); });
+</script>
+
+<div class="aba-recurso">
+    <input type="hidden" id="hdnIdInscrito" />
+</div>
+<div class="row">
+    @if (Model.ExibirAlertaRecurso)
+    {
+        <div class="col-sm-12 recurso-cadastro-usuario">
+            <div class ="cpf-requerente">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>@_Recurso.LabelDigiteCPF</label>
+                            <input type="text" class="form-control" name="cpf" id="txtCPF" onchange="liberarOpcaoRecurso('@Model.Id');" />
+                        </div>
+                    </div>
+                    <div class="col-md-1">
+                        <input type="button" onclick="liberarOpcaoRecurso('@Model.Id', 0);" class="btn btn-info" style="margin-top: 5px;" title="@_Recurso.TitlePesquisar" value="@_Recurso.BotaoOK" />
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mensagem erro cpf-nao-encontrado" style="display: none;">@_Recurso.LabelCPFNaoEncontrado</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group cpf-requerente-cargos"></div>
+                    </div>
+                </div>
+            </div>
+            <form id="recursoForm" class="recursoForm" method="POST" style="display: none;">
+                @if (Model.DataInicioIsento <= TGV.IPEFAE.Web.BL.Business.BaseBusiness.DataAgora && Model.DataEncerramentoIsento >= TGV.IPEFAE.Web.BL.Business.BaseBusiness.DataAgora)
+                {
+                    @Html.Partial("~/Views/Recurso/_RecursoIsencao.cshtml")
+                }
+                else
+                {
+                    @Html.Partial("~/Views/Recurso/_RecursoMensagem.cshtml")
+                }
+                <div class="mensagem-protocolo col-md-12" style=" color: green; display: none; font-size: 16px; font-weight: bold; margin-bottom: 20px; text-align: center; text-decoration: underline; text-transform: uppercase;"></div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <input type="submit" name="btnSalvar" id="btnSalvar" class="btn btn-success btn-lg" value="@_Recurso.BotaoEnviar" />
+                        <input type="button" name="btnVoltarOK" id="btnVoltarOK" class="btn btn-personal1 btn-lg" value="@_Recurso.BotaoOK" style="display:none;" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    }
+    else
+    {
+        <div class="info-disabled col-sm-12 text-center text-uppercase">
+            <span>@Dados.AbaRecursosFechado</span>
+        </div>
+    }
+</div>

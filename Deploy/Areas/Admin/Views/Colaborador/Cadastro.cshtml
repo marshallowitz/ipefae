@@ -1,0 +1,27 @@
+﻿@model TGV.IPEFAE.Web.BL.Data.ColaboradorModel
+@{ Layout = "~/Views/Shared/_DadosColaborador.cshtml"; }
+
+<script>
+    $(function(){
+        urlVoltar = '@Url.Content("~/Admin/Colaborador")';
+    });
+</script>
+
+<input type="hidden" id="hdnIsAdmin" value="1" />
+
+<fieldset class="area_adm" ng-show="colaborador.id > 0">
+    <legend>Área Administrativa</legend>
+    <div class="row">
+        <div class="col-md-6">
+            <label>Senha</label><br />
+            <input type="password" style="width: 50%;" readonly class="form-control" name="senhaAdmin" id="txtSenhaAdmin" ng-model="colaborador.senhaDescriptografada" />
+            <input id="chkVer" type="checkbox" onclick="exibirSenha()" /><span id="spnVer">Alterar Senha</span>
+        </div>
+        <div class="col-md-6">
+            <label>Dados OK</label><br />
+            <input type="radio" id="rdOK" name="dados_ok" value="S" /><label class="label-radio" for="rdOK">Sim</label>
+            <input type="radio" id="rdNaoOK" name="dados_ok" value="N" /><label class="label-radio" for="rdNaoOK">Não</label>
+        </div>
+    </div>
+</fieldset>
+<br />
